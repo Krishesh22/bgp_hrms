@@ -335,6 +335,44 @@ catch(Exception $e)
  
      
 }
+////////////////////////////////////////////////////////////
+
+if ($MethodGet == 'FETCHCLIENT') {
+  try {
+      $Clientid = $_SESSION['Clientid'];
+      $GetChapter = "SELECT * FROM indsys1001clientmaster where Clientid ='$Clientid'  ORDER BY Clientid";
+      $result_Chapter = $conn->query($GetChapter);
+      if (mysqli_num_rows($result_Chapter) > 0) {
+          while ($row = mysqli_fetch_array($result_Chapter)) {
+              $Clientname = $row['Clientname'];
+              $Location = $row['Location'];
+              $Phoneno = $row['Phoneno'];
+              $Emailid = $row['Emailid'];
+              $GSTN = $row['GSTN'];
+              $Tin = $row['Tin'];
+              $Emailpassword = $row['Emailpassword'];
+              $Regnno = $row['Regnno'];
+              $Panno = $row['Panno'];
+              $AddressLine1 = $row['AddressLine1'];
+              $AddressLine2 = $row['AddressLine2'];
+              $AddressLine3 = $row['AddressLine3'];
+              $Country = $row['Country'];
+              $City = $row['City'];
+              $Zipcode = $row['Zipcode'];
+              $Website = $row['Website'];
+              $ClientnameTamil = $row['ClientnameTamil'];
+              $ClientnameHindi = $row['ClientnameHindi'];
+              $ClientLogo = $row['ClientLogo'];
+              $Place = $row['Place'];
+          }
+      }
+      $Display = array('Clientname' => $Clientname, 'Location' => $Location, 'Phoneno' => $Phoneno, 'Emailid' => $Emailid, 'GSTN' => $GSTN, 'Tin' => $Tin, 'Emailpassword' => $Emailpassword, 'Regnno' => $Regnno, 'Panno' => $Panno, 'AddressLine1' => $AddressLine1, 'AddressLine2' => $AddressLine2, 'AddressLine3' => $AddressLine3, 'Country' => $Country, 'City' => $City, 'Zipcode' => $Zipcode, 'Website' => $Website, 'ClientnameTamil' => $ClientnameTamil, 'ClientnameHindi' => $ClientnameHindi, 'ClientLogo' => $ClientLogo, 'Place' => $Place, 'Clientid' => $Clientid);
+      $str = json_encode($Display);
+      echo trim($str, '"');
+  }
+  catch(Exception $e) {
+  }
+}
 
 ////////////////////////////////////////////////////////////
 if($MethodGet == 'FetchCandidate')
@@ -427,6 +465,9 @@ if($MethodGet == 'FetchCandidate')
      $MDinterviewnotes = $row['MDinterviewnotes'];
      $DHinterviewdate = $row['DHinterviewdate'];
      $Candidateofferaccepteddatetime = $row['Candidateofferaccepteddatetime'];
+     $Industrialtype = $row['Industrialtype'];
+     $Currentreleivingreason = $row['Currentreleivingreason'];
+     $Candidatephoto=$row['Candidatephoto'] ;
     
      
       } 
@@ -509,7 +550,10 @@ if($MethodGet == 'FetchCandidate')
     'GMinterviewnotes' =>$GMinterviewnotes,
     'MDinterviewnotes' =>$MDinterviewnotes,
     'DHinterviewdate' =>$DHinterviewdate,
-    'Candidateofferaccepteddatetime' =>$Candidateofferaccepteddatetime
+    'Candidateofferaccepteddatetime' =>$Candidateofferaccepteddatetime,
+    'Industrialtype' =>$Industrialtype,
+    'Currentreleivingreason' =>$Currentreleivingreason,
+    'Candidatephoto' =>$Candidatephoto
    
   
   );
@@ -727,36 +771,43 @@ try
     $Address =$form_data['Address'];
   $ApplicationDate=$form_data['ApplicationDate'];
   $Availableoninterview=$form_data['Availableoninterview'];
+  $Reportingname =$form_data['Reportingname'];
+  $ReportingToid =$form_data['ReportingToid'];
+
+  $Business =$form_data['Business'];
+  $Designationproposed =$form_data['Designationproposed'];
+  $Location =$form_data['Location'];
+  $Department =$form_data['Department'];
    
 
   if(empty($Dob))
   {
-    $Dob ="0000:00:00";
+    $Dob ="0000-00-00";
   }
   if(empty($ApplicationDate))
   {
     $ApplicationDate ="0000:00:00";
   }
-  if(empty($Availableoninterview))
-  {
-    $Availableoninterview ="0000:00:00";
-  }
+  // if(empty($Availableoninterview))
+  // {
+  //   $Availableoninterview ="0000:00:00";
+  // }
 
     $Languagesknown = implode(",",$Languagesknown);
 
 
 
-    if(empty($Address))
-    {
+    // if(empty($Address))
+    // {
   
-      $Message = "Address";
+    //   $Message = "Address";
   
-      $Display=array('Message' =>$Message);
+    //   $Display=array('Message' =>$Message);
    
-      $str = json_encode($Display);
-     echo trim($str, '"');
-     return;
-    }
+    //   $str = json_encode($Display);
+    //  echo trim($str, '"');
+    //  return;
+    // }
 
 /////// DK ////////
 
@@ -773,17 +824,30 @@ CopyCandidateMasterData($conn,$Candidateid,$Clientid);
    Expereienced ='$Expereience',
    Fresher='$Fresher',
    Serving_Notice_Period ='$ServingNoticeperiod',
-   Notice_per=' $NoticePeriod',
+   Notice_per='$NoticePeriod',
    Addormodifydatetime ='$date',
    Userid ='$user_id',
    Languages ='$Languagesknown',
    Address ='$Address',
    Religion='$Religion',
    ApplicationDate ='$ApplicationDate',
-   Availableoninterview ='$Availableoninterview'
-     WHERE Candidateid = ' $Candidateid' AND Clientid ='$Clientid' ";
+   ReportingTo ='$Reportingname',
+   ReportingToid ='$ReportingToid',
+   Bussiness='$Business',
+   Designationproposed ='$Designationproposed',
+   Location='$Location',
+   Department ='$Department'
+     WHERE Candidateid = '$Candidateid' AND Clientid ='$Clientid' ";
   $resultExists01 = $conn->query($resultExists);
+  if($resultExists01===TRUE)
+  {
   $Message ="Update";
+  }
+  else
+  {
+    echo  $resultExists;
+    $Message ="Error";
+  }
 
   
 //  data_change_email($conn, $Candidateid,$Clientid);
@@ -864,6 +928,8 @@ try
     $ExpectedCTC =$form_data['ExpectedCTC'];
     $NegotiableCTC =$form_data['NegotiableCTC'];
     $Willingtorelocate =$form_data['Willingtorelocate'];
+    $Industrialtype = $form_data['Industrialtype'];
+    $Currentreleivingreason=$form_data['Currentreleivingreason'];
   
     CopyCandidateMasterData($conn, $Candidateid,$Clientid);
 
@@ -877,10 +943,19 @@ try
   NegotiableCTC ='$NegotiableCTC',
   Relocate='$Willingtorelocate',
   Addormodifydatetime ='$date',
+  Industrialtype='$Industrialtype',
+  Currentreleivingreason ='$Currentreleivingreason',
   Userid ='$user_id'
      WHERE Candidateid = '$Candidateid' AND Clientid ='$Clientid' ";
   $resultExists01 = $conn->query($resultExists);
+  if($resultExists01===TRUE)
+  {
   $Message ="Update";
+  }
+  else
+  {
+    $Message="Error";
+  }
  
 
  $Display=array('Message' =>$Message);
@@ -1521,20 +1596,10 @@ try
 {
     
     $Candidateid =$form_data['Candidateid'];
-  
-
-  
-
-
-
-
     $GetChapter = "SELECT * FROM indsys1013candidatemaster where Clientid ='$Clientid' and Candidateid = '$Candidateid'  ORDER BY Candidateid";
     $result_Chapter = $conn->query($GetChapter );
-    if(mysqli_num_rows($result_Chapter) > 0) { 
-
-      
-    while($row = mysqli_fetch_array($result_Chapter)) {  
-      
+    if(mysqli_num_rows($result_Chapter) > 0) {       
+    while($row = mysqli_fetch_array($result_Chapter)) {        
       $Title =$row['Title'];
       $Firstname =$row['Firstname'];
       $Lastname = $row['Lastname'];
@@ -1620,6 +1685,17 @@ try
 
     }
 
+    if($Date_Of_Joing=="0000-00-00")
+    {
+      $Date_Of_Joing=date("Y-m-d" );
+      $Message = "Date Of Joining";
+    
+      $Display=array('Message' =>$Message);
+    
+      $str = json_encode($Display);
+     echo trim($str, '"');
+     return;
+    }
     if(empty($Date_Of_Joing))
     {
       $Message = "Date Of Joining";
@@ -1702,10 +1778,10 @@ try
     {
       $image = "WomenAvatar.jpg";
     }
- 
-    $directory2 = "../$Clientid/";    
-    $directory3 = "../$Clientid/EMPimage/";
-    $directory = "../$Clientid/EMPimage/$Employeeid/";
+    $Folderid ="bgpdoc-$Clientid";
+    $directory2 = "../$Folderid/";    
+    $directory3 = "../$Folderid/EMPimage/";
+    $directory = "../$Folderid/EMPimage/$Employeeid/";
     if(!is_dir($directory2)){mkdir($directory2, 0777);}
     if(!is_dir($directory3)){mkdir($directory3, 0777);}
    
@@ -1746,7 +1822,7 @@ try
       mkdir($directory, 0777);
               }
 
-              $uniquesavename=time().uniqid(rand());            
+              $uniquesavename=time();            
               $Logofilepath = $directory .$uniquesavename.'.jpg';
               $imageget = file_get_contents($image);
          file_put_contents($Logofilepath,$imageget);
@@ -1761,9 +1837,13 @@ try
     $Autogerenreateid = $_SESSION['AutogenerateNo'];
     $CategoryAutogenerationno = $_SESSION['CategoryAutogenerationNo'];
     $LWF = 0;
-if($Clientid=="4")
+   if($Clientid==4)
   {
-$LWF =25;
+   $LWF =34;
+  }
+  else
+  {
+    $LWF =0;
   }
 
          $fullname = "$Firstname $Lastname";
@@ -1787,7 +1867,8 @@ $LWF =25;
         NULL,NULL,0,'30',0,0,'$Qualification','No','Normal','$AllowOt','Yes','Yes','$Autogerenreateid','$CategoryAutogenerationno','$LWF')";
     
         $resultsave = mysqli_query($conn,$sqlsave);
-       
+        if($resultsave===TRUE)
+       {
     
         $UpdateNextno = "Update indsys1008mastermodule set Nextno = '$CategoryAutogenerationno' where ModuleID ='$Category' AND Clientid ='$Clientid'";
         $resultUpdate = mysqli_query($conn,$UpdateNextno);
@@ -1795,23 +1876,27 @@ $LWF =25;
         $UpdateNextno2 = "Update indsys1008mastermodule set Nextno = '$Autogerenreateid' where ModuleID ='EMP' AND Clientid ='$Clientid' ";
         $resultUpdate = mysqli_query($conn,$UpdateNextno2);
         $Message ="Data Saved";
-
-try
-{
-       moveempsalaryupdate($conn,$Candidateid,$Employeeid,$user_id,$date,$Clientid);
+        try
+         {
+        moveempsalaryupdate($conn,$Candidateid,$Employeeid,$user_id,$date,$Clientid);
         movevaccinationrecord($conn,$Candidateid,$Employeeid,$user_id,$date,$Clientid);
         moveeducationrecord($conn,$Candidateid,$Employeeid,$user_id,$date,$Clientid);
-      
-}
-catch(Exception $x)
-{
-
-}
+        Clonecandidateimage($conn,$Clientid,$Candidateid,$Employeeid);
+        Cloneaddress($conn,$Candidateid,$Employeeid,$user_id,$date,$Clientid);
         $resultExists = "Update indsys1013candidatemaster set 
         Empid ='$Employeeid' 
      WHERE Candidateid = '$Candidateid' AND Clientid ='$Clientid' ";
   $resultExists01 = $conn->query($resultExists);
   $Message ="Moved";
+         }
+      catch(Exception $x)
+      {
+
+       }
+      }
+    
+      
+     
   $Display=array('Message' =>$Message);
 
   $str = json_encode($Display);
@@ -1938,6 +2023,52 @@ function TestEmp($conn,$Category,$Department,$Clientid)
 
 }
 //////////////////////////////////////////////////////////////////
+function Clonecandidateimage($conn,$Clientid,$Candidateid,$Employeeid)
+{
+  try
+  {
+    $Fetchimagepath ="SELECT * FROM indsys1013candidatemaster Where Clientid='$Clientid' AND Candidateid='$Candidateid'";
+    $fetchresult = $conn->query($Fetchimagepath);
+
+    if(mysqli_num_rows($fetchresult)>0)
+    {
+      while(($row=mysqli_fetch_array($fetchresult)))
+      {
+        $Candidatephoto = $row['Candidatephoto'];
+      }
+      $destinationfile ="";
+      if($Candidatephoto !=null)
+      {
+      $test = pathinfo($Candidatephoto); 
+      $last_image_path =$test['basename'];
+      $Folderid ="bgp-$Clientid";
+      $directory3 = "../$Folderid/";
+      $directory4 = "../$Folderid/EMPimage/";
+     
+      $directory = "../$Folderid/EMPimage/$Employeeid/";
+      if(!is_dir($directory3)){mkdir($directory3, 0777);}
+      if(!is_dir($directory4)){mkdir($directory4, 0777);}
+    
+    
+      if(!is_dir($directory)){mkdir($directory, 0777);}
+      $destinationfile ="$directory$last_image_path";
+     
+      copy($Candidatephoto, $destinationfile);
+
+      $Executequery = "UPDATE indsys1017employeemaster SET Empimage='$destinationfile' Where Clientid='$Clientid' AND Employeeid='$Employeeid'";
+      $Updateqryresult = $conn->query($Executequery);
+      }
+
+
+    }
+
+  }
+  catch(Exception $E)
+  {
+
+  }
+}
+
 
 function movevaccinationrecord($conn,$Candidateid,$Employeeid,$user_id,$date,$Clientid)
 {
@@ -1957,11 +2088,11 @@ function movevaccinationrecord($conn,$Candidateid,$Employeeid,$user_id,$date,$Cl
       {
       $test = pathinfo($Vaccinationcertificate); 
       $last_image_path =$test['basename'];
-
-      $directory3 = "../$Clientid/";
-      $directory4 = "../$Clientid/EMPVaccination/";
-      $directory2 = "../$Clientid/EMPVaccination/$Employeeid/";
-      $directory = "../$Clientid/EMPVaccination/$Employeeid/$i/";
+      $Folderid ="bgp-$Clientid";
+      $directory3 = "../$Folderid/";
+      $directory4 = "../$Folderid/EMPVaccination/";
+      $directory2 = "../$Folderid/EMPVaccination/$Employeeid/";
+      $directory = "../$Folderid/EMPVaccination/$Employeeid/$i/";
       if(!is_dir($directory3)){mkdir($directory3, 0777);}
       if(!is_dir($directory4)){mkdir($directory4, 0777);}
     
@@ -2023,16 +2154,19 @@ function moveeducationrecord($conn,$Candidateid,$Employeeid,$user_id,$date,$Clie
       $Grade =$row['Grade'];
       $Passoutyear = $row['Passoutyear'];
       $Educationdocument =$row['Candidatedocument'];
+      $EducationMode = $row['EducationMode'];
+      $Specialization=$row['Specialization'];
       
       $destinationfile ="";
       if($Educationdocument !=null)
       {
       $test = pathinfo($Educationdocument); 
       $last_image_path =$test['basename'];
-      $directory3 = "../$Clientid/";
-      $directory4 = "../$Clientid/EMPEDUCATIONDOCUMENTNEW/";
-      $directory2 = "../$Clientid/EMPEDUCATIONDOCUMENTNEW/$Employeeid/";
-      $directory = "../$Clientid/EMPEDUCATIONDOCUMENTNEW/$Employeeid/$i/";
+      $Folderid ="bgp-$Clientid";
+      $directory3 = "../$Folderid/";
+      $directory4 = "../$Folderid/EMPEDUCATIONDOCUMENTNEW/";
+      $directory2 = "../$Folderid/EMPEDUCATIONDOCUMENTNEW/$Employeeid/";
+      $directory = "../$Folderid/EMPEDUCATIONDOCUMENTNEW/$Employeeid/$i/";
 
       if(!is_dir($directory3)){mkdir($directory3, 0777);}
        if(!is_dir($directory4)){mkdir($directory4, 0777);}
@@ -2048,8 +2182,8 @@ function moveeducationrecord($conn,$Candidateid,$Employeeid,$user_id,$date,$Clie
       
       
       $sqlsave = "INSERT IGNORE INTO  indsys1020employeeeducationinformation (Clientid,Employeeid,
-      Studies,Universityorschool,Grade,Passoutyear,Userid,Addormodifydatetime,Sno,Educationdocument)
-      VALUES ('$Clientid','$Employeeid','$Studies','$Universityorschool','$Grade','$Passoutyear','$user_id','$date','$i','$destinationfile')";
+      Studies,Universityorschool,Grade,Passoutyear,Userid,Addormodifydatetime,Sno,Educationdocument,EducationMode,Specialization)
+      VALUES ('$Clientid','$Employeeid','$Studies','$Universityorschool','$Grade','$Passoutyear','$user_id','$date','$i','$destinationfile','$EducationMode','$Specialization')";
          $resultsave = mysqli_query($conn, $sqlsave);
 
        
@@ -2147,13 +2281,21 @@ function moveempsalaryupdate($conn,$Candidateid,$Employeeid,$user_id,$date,$Clie
   {
     $ESI=0;
   }
-      $LWF =0;
-  $LWF = $Total*(0.2/100);
+  if($Clientid==4)  
+  {
+    $LWF = $Total*(0.2/100);
+    if($LWF>31)
+   {
+    $LWF = 31;
+     }
+  }
+  else
+  {
+  $LWF =0;
+  }
+ 
 
-if($LWF>25)
-{
-  $LWF = 25;
-}
+
 
   $Gross_Salary = $Total;
   $Net_Salary = ($Total-$PF-$ESI);
@@ -2173,6 +2315,8 @@ if($LWF>25)
   PF_Yesandno='$PF_Yesandno',  
   ESI_Yesandno = '$ESI_Yesandno',
   LWF ='$LWF',
+  ESIOverlimit='No',
+  PF_Fixed='No',
 
   Addormodifydatetime ='$date',
   Userid ='$user_id'
@@ -2191,6 +2335,49 @@ if($LWF>25)
 }
 
 ////////////////////////////////////////////////////
+function Cloneaddress($conn,$Candidateid,$Employeeid,$user_id,$date,$Clientid)
+{
+  try
+  {
+   
+    $GetChapter = "SELECT * FROM indsys1061candidateaddressinfo where Clientid ='$Clientid' and Candidateid = '$Candidateid'  ORDER BY Candidateid";
+    $result_Chapter = $conn->query($GetChapter );
+    if(mysqli_num_rows($result_Chapter) > 0) { 
+
+
+    while($row = mysqli_fetch_array($result_Chapter)) 
+    {  
+      $CurrentAddress =$row['Currentaddress'];
+      $CurrentCountry =$row['Currentcountry'];
+      $CurrentState = $row['Currentstate'];
+      $CurrentCity =$row['Currentcity'];
+      $CurrentPincode = $row['Current_pincode'];
+      $PermanentAddress =$row['Permanantaddress'];
+      $PermanentCountry = $row['Permanantcountry'];
+      $PermanentState =$row['Peremenantstate'];
+      $PermanentCity = $row['Permanantcity'];
+      $Permanantpincode = $row['Permanantpincode'];
+     
+       
+      $sqlsave = "INSERT IGNORE INTO indsys1018employeeaddressinformation (Clientid,Employeeid,
+      Currentaddress,Currentcountry,Currentcity,Currentstate,Userid,Addormodifydatetime,Current_pincode,Permanantaddress,Permanantcountry,Peremenantstate,Permanantcity,Permanantpincode)
+       VALUES ('$Clientid','$Employeeid','$CurrentAddress','$CurrentCountry','$CurrentCity',
+       '$CurrentState','$user_id','$date','$CurrentPincode','$PermanentAddress','$PermanentCountry','$PermanentState','$PermanentCity','$Permanantpincode')";
+          $resultsave = mysqli_query($conn, $sqlsave);
+     
+      } 
+    }
+   
+
+       
+
+    
+  }
+  catch(Exception $e)
+  {
+
+  }
+}
 
 
 function roundup($float, $dec = 2){
@@ -2313,6 +2500,8 @@ if ($MethodGet == 'EDUCATIONCAN')
   $UniversityorSchool = $form_data['UniversityorSchool'];
   $GradeorPercentage = $form_data['GradeorPercentage'];
   $Passoutyear = $form_data['Passoutyear'];
+  $EducationMode = $form_data['EducationMode'];
+  $Specialization = $form_data['Specialization'];
 
 
   if (empty($Candidatestudied))
@@ -2343,13 +2532,22 @@ if ($MethodGet == 'EDUCATIONCAN')
       Grade='$GradeorPercentage',
       Passoutyear='$Passoutyear',
       Addormodifydatetime ='$date',
+      EducationMode ='$EducationMode',
+      Specialization='$Specialization',
       Userid ='$user_id'
      
   WHERE Candidateid = '$Candidateid' AND Sno ='$EduNextno'
 
   AND Clientid ='$Clientid'  ";
       $resultExists0New = $conn->query($resultExistsss);
+      if($resultExists01new===TRUE)
+      {
       $Message = "Update";
+      }
+      else
+      {
+        $Message="Error";
+      }
 
       
 
@@ -2357,13 +2555,19 @@ if ($MethodGet == 'EDUCATIONCAN')
 
   else
   {
-      $sqlsave = "INSERT IGNORE INTO indsys1017candidateeducationinformation (Clientid,Candidateid,
-  Studies,Universityorschool,Grade,Passoutyear,Userid,Addormodifydatetime,Sno)
-   VALUES ('" . $Clientid . "','" . $Candidateid . "','" . $Candidatestudied . "','" . $UniversityorSchool . "','" . $GradeorPercentage . "',
-   '" . $Passoutyear . "','" . $user_id . "','" . $date . "','" . $EduNextno . "')";
-      $resultsave = mysqli_query($conn, $sqlsave);
-
-      $Message = "Update";
+    $sqlsave = "INSERT IGNORE INTO indsys1017candidateeducationinformation (Clientid,Candidateid,
+    Studies,Universityorschool,Grade,Passoutyear,Userid,Addormodifydatetime,Sno,EducationMode,Specialization)
+     VALUES ('$Clientid','$Candidateid','$Candidatestudied','$UniversityorSchool','$GradeorPercentage',
+     '$Passoutyear','$user_id','$date','$EduNextno','$EducationMode','$Specialization')";
+        $resultsave = mysqli_query($conn, $sqlsave);
+        if($resultsave===TRUE)
+        {
+              $Message = "Update";
+        }
+        else
+        {
+          $Message="Error";
+        }
   }
 
 
@@ -2481,6 +2685,8 @@ if($MethodGet == 'FetchStudy')
       $GradeorPercentage = $row['Grade'];
       $Passoutyear =$row['Passoutyear'];
       $Candidatedocument =$row['Candidatedocument'];
+      $EducationMode = $row['EducationMode'];
+      $Specialization = $row['Specialization'];
      
      
      
@@ -2496,7 +2702,9 @@ if($MethodGet == 'FetchStudy')
       'UniversityorSchool'=> $UniversityorSchool,
       'GradeorPercentage'=>  $GradeorPercentage,
       'Passoutyear'=> $Passoutyear,
-      'Candidatedocument'=>$Candidatedocument
+      'Candidatedocument'=>$Candidatedocument,
+      'EducationMode' =>$EducationMode,
+      'Specialization' =>$Specialization
    
      
       
@@ -2532,6 +2740,22 @@ catch(Exception $e)
  
 }
 /////////////////////////////////////////////////////////
+if($MethodGet == 'InteviewEMPCAT')
+{
+   $GetState = "SELECT * FROM indsys1000useradmin  Where (Authorizedno=1 OR Authorizedno=2)  and Clientid='$Clientid'  ORDER BY Username";
+    $result_Region = $conn->query($GetState);
+    $data01=[];
+    if(mysqli_num_rows($result_Region) > 0) { 
+    while($row = mysqli_fetch_array($result_Region)) {  
+      $data01[] = $row;
+      } 
+    }
+        
+    header('Content-Type: application/json');
+    echo json_encode($data01);
+ 
+}
+////////////////////////////////////////
 if($MethodGet == 'Fetchinterviewer')
 {
 
@@ -2952,7 +3176,7 @@ border-color: #34495e !important;
 <div style='background-color:#f5f5f5;border:1px solid #888888;padding:5px'>
           <table class='change-table' style='width:100%; border-collapse: collapse;'>
           <tbody><tr align='left' style='font-weight: bold;color: #2D9A43'>
-<td style='width:33%;'>Change</td><td style='width:33%;'>Orignal Value</td><td>Modified Value</td></tr>
+<td style='width:33%;'>Change</td><td style='width:33%;'>Original Value</td><td>Modified Value</td></tr>
 $changeResultFinal 
 
 </tbody>
@@ -3277,5 +3501,275 @@ function CopyCandidateEducationData($conn, $Candidateid, $EducationSNo){
          
     }
     ////////////////////
+        if($MethodGet == 'cat3Candidate')
+ {
+    $GetState = "SELECT * FROM indsys1013candidatemaster where Type_Of_Posistion='Category 3' and  Clientid ='$Clientid' ORDER BY Candidateid DESC  ";
+
+    $result_Region = $conn->query($GetState);
+  
+    if(mysqli_num_rows($result_Region) > 0) { 
+    while($row = mysqli_fetch_assoc($result_Region)) {  
+    // $data01[] = array_map('utf8_encode', $row);
+    $data01[] =  $row;
+      } 
+    } 
+    //  echo '<pre>';  print_r($data01);
+    //    exit;
+    header('Content-Type: application/json');
+    echo json_encode($data01);
+
+ 
+  }
+  //////////////////////////////
+  if($MethodGet == 'BLOODGROUP')
+  {
+     $GetState = "SELECT * FROM indsys1055bloodgrpmaster where   Clientid ='$Clientid' ORDER BY BloodGroup   ";
+ 
+     $result_Region = $conn->query($GetState);
+   
+     if(mysqli_num_rows($result_Region) > 0) { 
+     while($row = mysqli_fetch_assoc($result_Region)) {  
+     // $data01[] = array_map('utf8_encode', $row);
+     $data01[] =  $row;
+       } 
+     } 
+     //  echo '<pre>';  print_r($data01);
+     //    exit;
+     header('Content-Type: application/json');
+     echo json_encode($data01);
+ 
+  
+   }
+
+   if($MethodGet == 'EDUCATIONMODE')
+   {
+      $GetState = "SELECT * FROM indsys1056educationmodemaster where Clientid ='$Clientid' ORDER BY EducationMode   ";
+  
+      $result_Region = $conn->query($GetState);
+    
+      if(mysqli_num_rows($result_Region) > 0) { 
+      while($row = mysqli_fetch_assoc($result_Region)) {  
+      // $data01[] = array_map('utf8_encode', $row);
+      $data01[] =  $row;
+        } 
+      } 
+     
+      header('Content-Type: application/json');
+      echo json_encode($data01);
+  
+   
+    }
+
+    if($MethodGet == 'SPECIALIZATION')
+    {
+       $GetState = "SELECT * FROM indsys1057specializationmaster where Clientid ='$Clientid' ORDER BY Specialization   ";
+   
+       $result_Region = $conn->query($GetState);
+     
+       if(mysqli_num_rows($result_Region) > 0) { 
+       while($row = mysqli_fetch_assoc($result_Region)) {  
+       // $data01[] = array_map('utf8_encode', $row);
+       $data01[] =  $row;
+         } 
+       } 
+     
+       header('Content-Type: application/json');
+       echo json_encode($data01);
+   
+    
+     }
+
+
+     if($MethodGet == 'FetchAddress')
+{
+
+    try
+    { 
+  
+
+      $Candidateid =$form_data['Candidateid'];
+    
+      $CurrentAddress ="";
+      $CurrentCountry ="";
+      $CurrentState ="";
+      $CurrentCity ="";
+      $CurrentPincode ="";
+      $PermanentAddress ="";
+      $PermanentCountry ="";
+      $PermanentState ="";
+      $PermanentCity ="";
+      $Permanantpincode ="";
+    $GetChapter = "SELECT * FROM indsys1061candidateaddressinfo where Clientid ='$Clientid' and Candidateid = '$Candidateid'  ORDER BY Candidateid";
+    $result_Chapter = $conn->query($GetChapter );
+    if(mysqli_num_rows($result_Chapter) > 0) { 
+
+
+    while($row = mysqli_fetch_array($result_Chapter)) 
+    {  
+      $CurrentAddress =$row['Currentaddress'];
+      $CurrentCountry =$row['Currentcountry'];
+      $CurrentState = $row['Currentstate'];
+      $CurrentCity =$row['Currentcity'];
+      $CurrentPincode = $row['Current_pincode'];
+      $PermanentAddress =$row['Permanantaddress'];
+      $PermanentCountry = $row['Permanantcountry'];
+      $PermanentState =$row['Peremenantstate'];
+      $PermanentCity = $row['Permanantcity'];
+      $Permanantpincode = $row['Permanantpincode'];
+     
+     
+     
+      } 
+    }
+
+
+ 
+    
+    $Display=array(
+      'CurrentAddress'=> $CurrentAddress,
+      'CurrentCountry'=> $CurrentCountry,
+      'CurrentState'=>  $CurrentState,
+      'CurrentCity'=> $CurrentCity,
+      'CurrentPincode'=> $CurrentPincode,
+      'PermanentAddress'=> $PermanentAddress,
+      'PermanentCountry'=>  $PermanentCountry,
+      'PermanentState'=> $PermanentState,
+      'PermanentCity'=>  $PermanentCity,
+      'Permanantpincode' =>$Permanantpincode,
+      
+     
+  
+  );
+   
+ $str = json_encode($Display);
+ echo trim($str, '"');
+ return;
+}
+catch(Exception $e)
+{
+
+}   
+ }
+
+ if ($MethodGet == 'ADDRESSEMP')
+ {
+ 
+   $Candidateid = $form_data['Candidateid'];
+ 
+   $CurrentAddress = $form_data['CurrentAddress'];
+   $CurrentCountry = $form_data['CurrentCountry'];
+ 
+   $CurrentState = $form_data['CurrentState'];
+   $CurrentCity = $form_data['CurrentCity'];
+   $CurrentPincode = $form_data['CurrentPincode'];
+   $PermanentAddress = $form_data['PermanentAddress'];
+ 
+   $PermanentCountry = $form_data['PermanentCountry'];
+   $PermanentState = $form_data['PermanentState'];
+   
+   $PermanentCity = $form_data['PermanentCity'];
+   $PermanentPincode = $form_data['PermanentPincode'];
+ 
+ 
+ 
+ 
+ 
+   $resultExists = "SELECT Candidateid FROM indsys1061candidateaddressinfo WHERE Candidateid = '$Candidateid' AND Clientid = '$Clientid' LIMIT 1";
+   $resultExists01 = $conn->query($resultExists);
+ 
+   if (mysqli_fetch_row($resultExists01))
+   {
+
+       $resultExistsss = "Update indsys1061candidateaddressinfo set 
+       Currentaddress ='$CurrentAddress',
+       Currentcountry ='$CurrentCountry',
+       Currentcity='$CurrentCity',
+       Currentstate='$CurrentState',
+       Current_pincode ='$CurrentPincode',
+       Permanantaddress ='$PermanentAddress',
+       Permanantcountry ='$PermanentCountry',
+       Peremenantstate ='$PermanentState',
+       Permanantcity='$PermanentCity',
+       Permanantpincode='$PermanentPincode',
+       Addormodifydatetime ='$date',
+       Userid ='$user_id'
+   WHERE Candidateid = '$Candidateid' AND Clientid ='$Clientid'  ";
+       $resultExists0New = $conn->query($resultExistsss);
+       if($resultExists0New===TRUE)
+       {
+         $Message = "Update";
+       }
+       else
+       {
+         $Message = "Error";
+       }
+   }
+ 
+   else
+   {
+ 
+       $sqlsave = "INSERT IGNORE INTO indsys1061candidateaddressinfo (Clientid,Candidateid,
+   Currentaddress,Currentcountry,Currentcity,Currentstate,Userid,Addormodifydatetime,Current_pincode,Permanantaddress,Permanantcountry,Peremenantstate,Permanantcity,Permanantpincode)
+    VALUES ('$Clientid','$Candidateid','$CurrentAddress','$CurrentCountry','$CurrentCity',
+    '$CurrentState','$user_id','$date','$CurrentPincode',
+    '$PermanentAddress','$PermanentCountry','$PermanentState','$PermanentCity','$PermanentPincode')";
+       $resultsave = mysqli_query($conn, $sqlsave);
+ 
+       if($resultsave===TRUE)
+       {
+         $Message = "Update";
+       }
+       else
+       {
+         $Message = "Error";
+       }
+   }
+ 
+ 
+ 
+   $Display = array(
+      
+       'Message' => $Message
+   );
+ 
+   $str = json_encode($Display);
+   echo trim($str, '"');
+ 
+ }
+
+ if($MethodGet == 'Country')
+ {
+    $GetState = "SELECT * FROM indsys1010countrymaster where  Clientid ='$Clientid'   ORDER BY Country";
+     $result_Region = $conn->query($GetState);
+   
+     if(mysqli_num_rows($result_Region) > 0) { 
+     while($row = mysqli_fetch_array($result_Region)) {  
+       $data01[] = $row;
+       } 
+     }
+     
+     
+     header('Content-Type: application/json');
+     echo json_encode($data01);
+     return;
+  
+ }
+ if($MethodGet == 'INDUSTRIAL')
+ {
+    $GetState = "SELECT * FROM indsys1062industrialtype where  Clientid ='$Clientid'   ORDER BY Industrialtype";
+     $result_Region = $conn->query($GetState);
+   
+     if(mysqli_num_rows($result_Region) > 0) { 
+     while($row = mysqli_fetch_array($result_Region)) {  
+       $data01[] = $row;
+       } 
+     }
+     
+     
+     header('Content-Type: application/json');
+     echo json_encode($data01);
+     return;
+  
+ }
 ?>
 

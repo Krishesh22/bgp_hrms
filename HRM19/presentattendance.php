@@ -184,7 +184,7 @@ include('../session.php');
                                             {{$index+1 + (currentPageEmpAttendance - 1) * pageSizeEmpAttendance}}
                                         </td>
                                         <td>{{e.Employeeid}}</td>
-                                        <td>{{e.Title}}{{e.Firstname}}</td>
+                                        <td>{{e.Title}}{{e.Firstname}}{{e.lastname}}</td>
                                         <td>{{e.AttenStatus}}</td>
                                         <td>{{e.Intime}}</td>
                                         <td>{{e.Outtime}}</td>

@@ -49,7 +49,7 @@ $Message = "Empty";
     $Message= "Failed to connect to MySQL: " . mysqli_connect_error(); exit;
  
   }
-  $resultExists = "SELECT EducationMode FROM indsys1056educationModemaster WHERE EducationMode = '$EducationMode' AND Clientid = '$Clientid' LIMIT 1";
+  $resultExists = "SELECT EducationMode FROM indsys1056educationmodemaster WHERE EducationMode = '$EducationMode' AND Clientid = '$Clientid' LIMIT 1";
   $resultExists01 = $conn->query($resultExists);
 
  
@@ -63,15 +63,23 @@ $Message = "Empty";
   else
   {
       
-    $sqlsave = "INSERT IGNORE INTO indsys1056educationModemaster (Clientid,EducationMode,Userid,Addormodifydatetime) VALUES ('".$Clientid."','".$EducationMode."','".$user_id."','".$date."')";
+    $sqlsave = "INSERT IGNORE INTO indsys1056educationmodemaster (Clientid,EducationMode,Userid,Addormodifydatetime) VALUES ('".$Clientid."','".$EducationMode."','".$user_id."','".$date."')";
     $resultsave = mysqli_query($conn,$sqlsave);
+    if($resultsave===TRUE)
+    {
     $Message ="Data Saved";
+    }
+    else
+    {
+      echo "$sqlsave<br/>";
+      $Message ="Error";
+    }
  
  }
 
 
 
- $GetRegion = "SELECT EducationMode FROM indsys1056educationModemaster WHERE Clientid = '$Clientid'  ORDER BY EducationMode";
+ $GetRegion = "SELECT EducationMode FROM indsys1056educationmodemaster WHERE Clientid = '$Clientid'  ORDER BY EducationMode";
  $result_Region = $conn->query($GetRegion);
  if(mysqli_num_rows($result_Region) > 0) { 
  while($row = mysqli_fetch_array($result_Region)) {  
@@ -91,7 +99,7 @@ echo trim($str, '"');
 
 if($MethodGet == 'Change')
 {
-   $GetRegion = "SELECT * FROM indsys1056educationModemaster WHERE EducationMode Like '%".$EducationMode."%' AND Clientid = '$Clientid'  ORDER BY EducationMode";
+   $GetRegion = "SELECT * FROM indsys1056educationmodemaster WHERE EducationMode Like '%".$EducationMode."%' AND Clientid = '$Clientid'  ORDER BY EducationMode";
     $result_Region = $conn->query($GetRegion);
     if(mysqli_num_rows($result_Region) > 0) { 
     while($row = mysqli_fetch_array($result_Region)) {  
@@ -106,7 +114,7 @@ if($MethodGet == 'Change')
 }
 if($MethodGet == 'ALL')
 {
-   $GetRegion = "SELECT EducationMode FROM indsys1056educationModemaster WHERE Clientid = '$Clientid'   ORDER BY EducationMode";
+   $GetRegion = "SELECT EducationMode FROM indsys1056educationmodemaster WHERE Clientid = '$Clientid'   ORDER BY EducationMode";
     $result_Region = $conn->query($GetRegion);
     if(mysqli_num_rows($result_Region) > 0) { 
     while($row = mysqli_fetch_array($result_Region)) {  
@@ -145,7 +153,7 @@ $Message = "Empty";
   if (mysqli_connect_errno()){
     $Message= "Failed to connect to MySQL: " . mysqli_connect_error(); exit;
   }
-  $resultExists = "DELETE FROM indsys1056educationModemaster WHERE EducationMode = '$EducationMode' AND Clientid = '$Clientid' ";
+  $resultExists = "DELETE FROM indsys1056educationmodemaster WHERE EducationMode = '$EducationMode' AND Clientid = '$Clientid' ";
   $resultExists01 = $conn->query($resultExists);
 
     
@@ -157,7 +165,7 @@ $Message = "Empty";
 
 
 
- $GetRegion = "SELECT EducationMode FROM indsys1056educationModemaster  WHERE Clientid = '$Clientid' ORDER BY EducationMode";
+ $GetRegion = "SELECT EducationMode FROM indsys1056educationmodemaster  WHERE Clientid = '$Clientid' ORDER BY EducationMode";
  $result_Region = $conn->query($GetRegion);
  if(mysqli_num_rows($result_Region) > 0) { 
  while($row = mysqli_fetch_array($result_Region)) {  

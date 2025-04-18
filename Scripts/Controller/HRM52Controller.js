@@ -2,7 +2,6 @@ var app = angular.module('MyApp', ['angularUtils.directives.dirPagination']);
 app.controller('HRM52Controller', function($scope, $http, $timeout) {
 
     $scope.Method = "";
-
     $scope.GetMembertypeList = [];
     $scope.currentPageEducationMode = 1;
     $scope.pageSizeEducationMode = 10;
@@ -73,7 +72,7 @@ app.controller('HRM52Controller', function($scope, $http, $timeout) {
 
 
             method: "POST",
-            url: "educationMode.php",
+            url: "educationmode.php",
             data: { 'EducationMode': $scope.EducationMode, 'Method': 'Save' },
             headers: { 'Content-Type': 'application/json' }
 
@@ -91,7 +90,7 @@ app.controller('HRM52Controller', function($scope, $http, $timeout) {
         $scope.CheckingSession();
         $http({
             method: "POST",
-            url: "educationMode.php",
+            url: "educationmode.php",
             data: { 'EducationMode': $scope.EducationMode, 'Method': 'Change' },
             headers: { 'Content-Type': 'application/json' }
 
@@ -106,7 +105,7 @@ app.controller('HRM52Controller', function($scope, $http, $timeout) {
 
         $http({
             method: "POST",
-            url: "educationMode.php",
+            url: "educationmode.php",
             data: { 'Method': 'ALL' },
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
@@ -124,7 +123,7 @@ app.controller('HRM52Controller', function($scope, $http, $timeout) {
 
 
             method: "POST",
-            url: "educationMode.php",
+            url: "educationmode.php",
             data: { 'EducationMode': $scope.EducationMode, 'Method': 'Delete' },
             headers: { 'Content-Type': 'application/json' }
 
@@ -142,7 +141,7 @@ app.controller('HRM52Controller', function($scope, $http, $timeout) {
 
     $http({
         method: "POST",
-        url: "educationMode.php",
+        url: "educationmode.php",
         data: { 'Method': 'ALL' },
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 

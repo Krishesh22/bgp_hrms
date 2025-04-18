@@ -48,7 +48,7 @@ if(isset($_POST['submit']))
 				$mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
 				$mail->Port = 587; // set the SMTP port for the GMAIL server
 				$mail->Username = "indsystesting@gmail.com"; // GMAIL username
-				$mail->Password = "cllazzawsljgntjj"; // GMAIL password
+				$mail->Password = "mdpswobfoltlloza"; // GMAIL password
 
 				$to = str_replace(";",",",$to);
 

@@ -1,4 +1,5 @@
-<div class="footer-copy"><p>Copyright © 2022. All rights reserved. Developed by <a target="_blank" href="https://www.indsystech.com/">INDSYS</a>.</div>
+<!-- <div class="footer-copy"><p>Copyright © 2022. All rights reserved. Developed by <a target="_blank" href="https://www.indsystech.com/">INDSYS</a>.</div> -->
+
 <style type="text/css">
 .footer-copy{
   position: fixed;
@@ -21,7 +22,8 @@
 <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
 <script src="../assets/vendor/multi-select/js/jquery.multi-select.js"></script>
 <script src="../assets/libs/js/main-js.js"></script>
-
+<script src="../keycloak/keycloak.js"></script>
+<script src="../keycloak/main.js"></script>
 
 
 <script src="../assets/vendor/datatables/js/data-table.js"></script>
@@ -39,6 +41,8 @@
 
 <script src="../Scripts/Textangular/textAngular.min.js"></script>
 <script src="../Scripts/jspdf.min.js"></script>
+
+
 <!-- <script src="../Scripts/html2canvas.js"></script> -->
 
 <!-- <script src ="../Scripts/html2canvas/html2canvas.js"></script> -->

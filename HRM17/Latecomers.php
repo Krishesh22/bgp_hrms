@@ -14,7 +14,6 @@ require 'vendor/autoload.php';
       $usermail=$_SESSION["Mailid"];
       $Clientid =$_SESSION["Clientid"];
       $Emaild =$_SESSION["Emaild"];
-      $Sessionid = $_SESSION["SESSIONID"];
 
 
       $_SESSION["Tittle"] ="Daily Attendance Detail";
@@ -168,7 +167,7 @@ echo $Employeeid;
         $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
         $mail->Port = 587; // set the SMTP port for the GMAIL server
         $mail->Username = "indsystesting@gmail.com"; // GMAIL username
-        $mail->Password = "cllazzawsljgntjj"; // GMAIL password
+        $mail->Password = "mdpswobfoltlloza"; // GMAIL password
         
         // $to = str_replace(";",",",$to);
         $Toaddress=$Emaild;
@@ -472,7 +471,7 @@ else
         $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
         $mail->Port = 587; // set the SMTP port for the GMAIL server
         $mail->Username = "indsystesting@gmail.com"; // GMAIL username
-        $mail->Password = "cllazzawsljgntjj"; // GMAIL password
+        $mail->Password = "mdpswobfoltlloza"; // GMAIL password
         
         // $to = str_replace(";",",",$to);
         $Toaddress=$Emaild;
@@ -703,21 +702,7 @@ catch(Exception $e)
   }
 
   ///////////////////
-  if($MethodGet == 'PageSession')
-  {
-  
-       $Message =$Sessionid;
-  
-    
-      $Display=array(
-          'Message'=>  $Message,
-        
-      );
-      $str = json_encode($Display);
-      echo trim($str, '"');
-      return;
-  }
-  
+
 
 
 

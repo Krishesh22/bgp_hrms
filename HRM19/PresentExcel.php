@@ -110,10 +110,13 @@ $Sno = 0;
    
    
     $Sno++;
+    $First = $row['Firstname'];
+    $last = $row['lastname'];
+    $name = "$First $last";
 
      $active->setCellValue('A'.$currentContenRow,$Sno);
     $active->setCellValue('B'.$currentContenRow,$row['Employeeid']);
-    $active->setCellValue('C'.$currentContenRow,$row['Firstname']);
+    $active->setCellValue('C'.$currentContenRow,   $name );
     $active->setCellValue('D'.$currentContenRow,$row['AttenStatus']);
     $active->setCellValue('E'.$currentContenRow,$row['Intime']);
     $active->setCellValue('F'.$currentContenRow,$row['Outtime']);

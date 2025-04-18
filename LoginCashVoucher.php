@@ -150,7 +150,7 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
             <h5 class="splash-description text-green">CASH VOUCHER LOGIN</h5>
              <form role='form' method='post' action="">
 <div class='form-group'>
-<input class='form-control form-control-lg' id='email' name='email' required="" placeholder='Enter The User Name'>
+<input class='form-control form-control-lg' id='email' name='email' required="" placeholder='Enter User Name'>
 </div>
 
 

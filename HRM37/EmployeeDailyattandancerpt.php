@@ -94,10 +94,10 @@
                                         <th scope="col">OT In</th>
                                         <th scope="col">OT Out</th>
                                         <th scope="col">Hrs</th>
-                                        <th scope="col" title="Actual Working Days">AW Days</th>
+                                        <!-- <th scope="col" title="Actual Working Days">AW Days</th> -->
                                         <th scope="col">OT</th>
                                         <th scope="col" title="Actual OT Hrs">AW OT</th>
-                                        <th scope="col">Days</th>
+                                        <!-- <th scope="col">Days</th> -->
 
 
                                     </tr>
@@ -120,7 +120,7 @@
                                         </td>
                                         <td>{{e.Attendencedate}}</td>
                                         <td>{{e.Employeeid}}</td>
-                                        <td style="width:170px">{{e.Title}}{{e.Firstname}} {{e.lastname}}</td>
+                                        <td style="width:170px">{{e.Title}}{{e.Fullname}}</td>
                                         <td>{{e.AttenStatus}}</td>
 
                                         <td>{{e.Intime}}</td>
@@ -135,11 +135,11 @@
                                         <td>{{e.OTOuttime}}</td>
 
                                         <td>{{e.Workinghours}}</td>
-                                        <td>{{e.Actualworkinghours}}</td>
+                                        <!-- <td>{{e.Actualworkinghours}}</td> -->
                                         <td>{{e.OT_HRS}}</td>
                                         <td>{{e.ActualOt_HRS}}</td>
 
-                                        <td>{{e.Workingdays}}</td>
+                                        <!-- <td>{{e.Workingdays}}</td> -->
 
 
                                     </tr>

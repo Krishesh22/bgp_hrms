@@ -20,155 +20,131 @@
 
         <?php include '../headerin.php'?>
         <?php include '../Sidebarin.php'?>
-      
-          <div class="dashboard-wrapper" ng-App="MyApp" ng-controller="HRM25Controller">
-              <div class="container-fluid dashboard-content">
+        <div class="dashboard-wrapper" ng-App="MyApp" ng-controller="HRM25Controller">
+            <div class="container-fluid dashboard-content">
 
-                  <div class="">
+                <div class="">
                     <div class="row">
                         <div class="col-md-12">
 
 
-                                <h5 class="text-green">Employee ADD</h5>
+
+
                             <div class="">
-<hr/>
+                                <h5 class="text-green">Employee Rights Add</h5><hr>
+                                <div class="">
 
-                                <div class="row">
-                                    
 
-                                          <div class="form-group col-md-3">
-                                               <label class="col-form-label">Authorised Type</label>
-                                                <select class="form-control" id="EmployeeType" ng-model="EmployeeType"
-                                                        ng-change="GetAuthNo(EmployeeType);">
-                                                       <option Value="ADMIN">ADMIN</option>
-                                                       <option value="General Manager">General Manager</option>
-                                                       <option value="Dept Head">Dept Head</option>
-                                                       <option value="HR Manager">HR Manager</option>
-                                                       <option value="HR Assistant">HR Assistant</option>
-                                                       <option value="Cash Voucher">Cash Voucher</option>
-                                                 </select>
-                                         </div>
+                                    <div class="row">
 
-                                         <div class="form-group col-md-3">
-                                                <label class="col-form-label">Department</label>
-                                                <input type="text" ng-model="Department" class="form-control ADMIN"  >
+
+                                    <div class="form-group col-md-3">
+                                            <label>Authorised Type</label>
+                                            <select class="form-control" id="EmployeeType" ng-model="EmployeeType">
+                                                <option Value="SuperUser">ADMIN</option>
+                                                <option value="HR-Manager">HR Manager</option>
+                                                <option value="Dept-Head">Dept Head</option>
+                                                <option value="HR-Assistant">HR Assistant</option>
+                                                <option value="General-Manager">General Manager</option>
+                                            </select>
+                                        </div>
+
+                                    <div class="form-group col-md-3">
+                                                <label>Department</label>
+                                                <input type="text" ng-model="Department" class="form-control SuperUser"  >
                                                 <select ng-model="Department"  class="form-control user" ng-change="Getempname();">
 
-                                                       <option ng-repeat="s in GetDepartmentList "
+                                                    <option ng-repeat="s in GetDepartmentList "
                                                         value="{{s.Department}}">
                                                         {{s.Department}}</option>
                                                 </select>
-                                          </div>
+                                            </div>
                                            
                                             
-                                          <div class="form-group col-md-3">
-                                                <label class="col-form-label"> User Name</label>
+                                    <div class="form-group col-md-3">
 
-                                                <input type="text" ng-model="username" class="form-control ADMIN" >
-                                                <select ng-model="Exitempid" class="form-control user"
+                                         <label > User Name</label>
+
+                                         <input type="text" ng-model="username" class="form-control SuperUser" >
+                                          <select ng-model="Exitempid" class="form-control user"
                                                         ng-change="GetExitempname();" > 
 
                                                         <option ng-repeat="s in GetEmployeeList "
                                                         value="{{s.Employeeid}}" >
-                                                             {{s.Fullname}}</option>
-                                                </select>
+                                                             {{s.Fullname}}-{{s.Employeeid}}</option>
+                                                    </select>
                                        
-                                           </div>
-
-                                            <div class="form-group col-md-3">
-                                                   
-                                                   <label class="col-form-label"> User ID</label>
+                                 </div>
+                                 <div class="form-group col-md-3">
+                                                    <label> User ID</label>
+                                              
                                                     <input class="form-control" ng-model="Employeeid" >
-                                            </div>
-                                
-                                            <div class="form-group col-md-3">
-                                                        <label class="col-form-label">Designation</label>
-                                                        <select ng-model="Designation" class="form-control">
-
-                                                            <option ng-repeat="s in GetDesignationList "
-                                                                value="{{s.Designation}}">
-                                                                {{s.Designation}}</option>
-                                                        </select>
-                                                    </div>
-                                       
-                                              <div class="form-group col-md-3">
-                                                    <label class="col-form-label"> Email ID</label>
-                                              
-                                                    <input type="email" class="form-control" ng-model="Emailid"
-                                                        autocomplete="email" ng-model-options='{ debounce: 1000 }'
-                                                       ng-change="emailchecking(Emailid)" >
-
                                                 </div>
-                                               
-
-                                             <div class="form-group col-md-3">
-                                                    <label class="col-form-label"> Contactno</label>
+                                
+                                        <div class="form-group col-md-3">
+                                                    <label> Designation</label>
                                               
-                                                    <input class="form-control" ng-model="Contactno" 
-                                                     ng-model-options='{ debounce: 1000 }'
-                                                       ng-change="GeContactunique(Contactno)" >
-                                               
+                                                    <input class="form-control" ng-model="ExitDesignation" >
+                                                </div>
+                                       
+                                                <div class="form-group col-md-3">
+                                                    <label> Email ID</label>
+                                              
+                                                    <input class="form-control" ng-model="Emaild" >
+                                                </div>
+                                      
+
+                                        <div class="form-group col-md-3">
+                                                    <label> Contactno</label>
+                                              
+                                                    <input class="form-control" ng-model="ExitContactno" autocomplete="off">
                                                 </div>
 
                                       
-                                              <div class="form-group col-md-3">
-                                                    <label class="col-form-label" for="Userpassword"> Password</label>
+                                        
+
+                                        <div class="form-group col-md-3">
+                                                    <label for="pwd"> Password</label>
                                               
-                                                    <input class="form-control" type="password" id="Userpassword" ng-model="Userpassword" name="Userpassword" autocomplete="off">
-                                              </div>
+                                                    <input class="form-control" type="password" id="pwd" ng-model="pwd" name="pwd" autocomplete="off">
+                                                </div>
                                        
 
-                                              </div>    
-                                              
-                                       
-                                            <div class="text-right mt-25">
-                                                 <button class="btn btn-sm btn-success" ng-click="SaveEmployee();"
-                                                  ><i class="fa fa-save"></i> Save</button>
-                                                    <button class="btn btn-sm btn-danger"
+                                             
+
+                                    </div>
+                                    <div class="text-right mt-25">
+                                            <button class="btn btn-sm btn-success" ng-click="SaveEmployee();"
+                                             ><i class="fa fa-save"></i> Save</button>
+                                             <button class="btn btn-sm btn-danger"
                                                                 ng-click="ResetDetails();"><i class="fa fa-times"></i>
                                                                 Clear</button>
                                            
-                                             </div>
-                                    
-                                   
+                                        </div>
 
-
-                                      <div class="alert alert-success" role="alert" ng-show="Message" id='msg1'>
+                                    <div class="alert alert-success" role="alert" ng-show="Message" id='msg1'>
                                         {{Message}}
-                                      </div>
+                                    </div>
                                    
                                    
                                     <script>  
                                        $(document).ready(function(){
-                                       $(".ADMIN").show();
+                                       $(".SuperUser").show();
                                        $(".user").hide();
                                        $('#EmployeeType').on('change', function() {
-                                         if ( this.value == 'ADMIN')
+                                         if ( this.value == 'SuperUser')
                                               {
-                                                $(".ADMIN").show();
+                                                $(".SuperUser").show();
                                                 $(".user").hide();
                                               }
                                             else
                                              {
-                                               $(".ADMIN").hide();
+                                               $(".SuperUser").hide();
                                                $(".user").show();
                                               }
                                            });
                                          });
                                     </script>
-                               
-                            
-                                </div>
-                                           
-                            </div>
-                                              
-                                       
-                        </div>
-                               
-                               
-                    </div>
-                  </div>
-              </div>
 
                                    
 
@@ -178,7 +154,7 @@
 
 
 
-    </div>
+        </div>
 
         <?php include '../footerjs.php'?>
         <script src="../Scripts/Controller/HRM25Controller.js"></script>

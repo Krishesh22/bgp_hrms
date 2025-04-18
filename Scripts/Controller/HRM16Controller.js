@@ -516,10 +516,10 @@ app.controller('HRM16Controller', function($scope, $http, $timeout, $filter) {
                 method: "POST",
                 url: "../Sessionhandling/SessionChecking.php",
                 data: {
-                   'PageSession' :$scope.PageSession,
+                   
                    
     
-                    'Method': 'CurrentSession'
+                    'Method': 'SessionCheck'
                 },
                 headers: { 'Content-Type': 'application/json' },
              
@@ -533,7 +533,6 @@ app.controller('HRM16Controller', function($scope, $http, $timeout, $filter) {
                 $scope.SessionSavedMessage();
             });
         }
-    
     
         $scope.SessionSavedMessage = function()
         {

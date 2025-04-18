@@ -684,17 +684,26 @@ app.controller('HRM14Controller', function($scope, $http, $timeout) {
         }).then(function successCallback(response) {
 
 
-          //  $scope.EmpRptList = response.data.data01;
-            window.open($scope.Payrollrpturl, '_blank');
-     // window.location.replace($scope.Payrollrpturl);
-            // $("#data_to_image_btn").trigger("click");
+           $scope.Clientid = response.data.Clientid;
+          $scope.payrollshow();
 
         });
 
     };
 
     ///////////////////////////////////////////////////
-
+   $scope.payrollshow=function()
+    {
+       
+        if($scope.Clientid=='4')
+        {   $scope.Payrollrpturl ="payrollreportbulkbgp.php";
+            window.open($scope.Payrollrpturl, '_blank');
+        }
+        else
+        { 
+            window.open($scope.Payrollrpturl, '_blank');
+        }
+    }
     $scope.CheckingSession = function() {
 
         $http({

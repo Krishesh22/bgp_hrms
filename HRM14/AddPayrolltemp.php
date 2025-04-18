@@ -133,22 +133,19 @@
                                         </div>
 
                                         <div class="float-right mt-2" style="margin-right: 15px;">
-                                            <button class="btn btn-sm btn-success " ng-click="Selectallemp();"
+                                            <button class="btn btn-sm btn-success " ng-click="Selectallemp();" ng-if="Status=='Open'"
                                                 ng-disabled="btnEmployee">
                                                 Get Payroll</button>
 
 
-                                            <!-- <button class="btn btn-sm btn-success "
-                                                                        ng-click="Getallemployee();"
-                                                                        data-toggle="modal"
-                                                                        data-target="#ModalEmployee" ng-disabled="btnEmployee" >Select
-                                                                        Employee</button> -->
+                                          
                                             <button class="btn btn-sm btn-brand" data-toggle="modal"
-                                                data-target="#ModalPayrollClose" ng-disabled="btnEmployee">Close
+                                                data-target="#ModalPayrollClose" ng-disabled="btnEmployee" ng-if="Status=='Open'">Close
                                                 Payroll</button>
-                                            <a class="btn btn-warning btn-sm" href="ExportExcel.php"
+                                            <a class="btn btn-warning btn-sm" href="Exportholidaypay.php"
                                                 ng-click="GETREPORT()"><i class="fa fa-download"></i>
                                                 Download</a>
+                                           
 
 
                                         </div>
@@ -158,13 +155,12 @@
                                         {{Message}}
                                     </div>
                                     <div class="" ng-show="btnOtheruser">
-                                        <div class="row">
+                                        <div class="">
 
                                             <div class="table-responsive custom-table custom-table-noborder ">
                                                 <table class="table table-bordered  table-sm table-striped">
                                                     <thead>
                                                         <tr class="tableheadrow" ng-show="Category!='Category 3'">
-
                                                             <td colspan="8" class="tabletotalrow">Employee Other Info
                                                             </td>
                                                             <td colspan="6" class="tabletotalrow">Employee
@@ -332,10 +328,14 @@
 
                                                         </tr>
 
-                                                        <tr dir-paginate="e in GetPayrollList |filter:searchPayroll|itemsPerPage:10 | orderBy: 'Employeeid' track by $index "
+                                                        <!-- <tr dir-paginate="e in GetPayrollList |filter:searchPayroll|itemsPerPage:10 | orderBy: 'Employeeid' track by $index "
                                                             pagination-id="PayrollGridAdmin"
                                                             current-page="currentPagePayroll01"
-                                                            ng-class="{'rowcolorClose':e.PackageHoldstatus=='Hold'}">
+                                                            ng-class="{'rowcolorClose':e.PackageHoldstatus=='Hold'}"> -->
+                                                            <tr dir-paginate="e in GetPayrollList |filter:searchPayroll|itemsPerPage:10 | orderBy: 'Employeeid' track by $index "
+                                                            pagination-id="PayrollGridAdmin"
+                                                            current-page="currentPagePayroll01"
+                                                           >
 
 
                                                             <td style="width: 50px;" class="sticky-col first-col">
@@ -439,8 +439,8 @@
                                                             <td>{{e.Dormitory}}</td>
                                                             <td>{{e.Transport}}</td>
 
-                                                            <td class="tabletotalrow">{{e.TotalDeduction}}</td>
-                                                            <td class="tabletotalrow">{{e.NetWages}}</td>
+                                                            <td class="tabletotalrow">{{e.TotalDeduction--e.Holiday_deduction}}</td>
+                                                            <td class="tabletotalrow">{{e.NetWages --e.Holiday_net}}</td>
                                                             <td class="tabletotalrow"
                                                                 ng-show="e.Category!='Category 3'">
                                                                 <input class="form-control"
@@ -457,7 +457,7 @@
                                                             </td>
 
                                                             <td class="tabletotalrow">
-                                                                {{e.NetWages--e.Performanceallowance}}
+                                                                {{e.NetWages--e.Performanceallowance--e.Holiday_net}}
 
                                                             </td>
                                                             <td style="width:40px;background-color:white">
@@ -777,8 +777,8 @@
                                                             <td>{{e.Dormitory}}</td>
                                                             <td>{{e.Transport}}</td>
 
-                                                            <td class="tabletotalrow">{{e.TotalDeduction}}</td>
-                                                            <td class="tabletotalrow">{{e.NetWages}}</td>
+                                                            <td class="tabletotalrow">{{e.TotalDeduction--e.Holiday_deduction}}</td>
+                                                            <td class="tabletotalrow">{{e.NetWages --e.Holiday_net}}</td>
                                                             <td class="tabletotalrow"
                                                                 ng-show="e.Category!='Category 3'">
                                                                 <input class="form-control"
@@ -795,7 +795,7 @@
                                                             </td>
 
                                                             <td class="tabletotalrow">
-                                                                {{e.NetWages--e.Performanceallowance}}
+                                                                {{e.NetWages--e.Performanceallowance--e.Holiday_net}}
 
                                                             </td>
                                                             <td style="width:40px;background-color:white">
@@ -1089,13 +1089,13 @@
                                                             <td>{{e.Dormitory}}</td>
                                                             <td>{{e.Transport}}</td>
                                                             <td class="tabletotalrow">
-                                                                {{e.TotalDeduction |currency:''}}</td>
-                                                            <td class="tabletotalrow">{{e.NetWages |currency:''}}
+                                                                {{e.TotalDeduction --e.Holiday_deduction}}</td>
+                                                            <td class="tabletotalrow">{{e.NetWages -- e.Holiday_net}}
                                                             </td>
                                                             <td class="tabletotalrow">
                                                                 {{e.Performanceallowance |currency:''}}</td>
 
-                                                            <td> {{e.NetWages--e.Performanceallowance}}</td>
+                                                            <td> {{e.NetWages--e.Performanceallowance--e.Holiday_net}}</td>
                                                         </tr>
                                                     </tbody>
                                                     <tr style='background-color:yellow'

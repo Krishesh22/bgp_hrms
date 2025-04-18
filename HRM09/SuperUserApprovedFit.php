@@ -1,17 +1,17 @@
-<?php include '../config.php'?>
+<?php include '../config.php' ?>
 <?php
 session_start();
 $_SESSION["Clientid"] = 1;
 //$_SESSION["ClientidNew"] = 4;
-if(isset($_GET['Candidateid'])){
-    $_SESSION["CandidateidNew"] =mysqli_real_escape_string($conn, $_GET['Candidateid']);
-    }
-    if(isset($_GET['Clientid'])){
-        $_SESSION["ClientidNew"] =mysqli_real_escape_string($conn, $_GET['Clientid']);
-        $_SESSION["Clientid"] =     $_SESSION["ClientidNew"];
-        }
+if (isset($_GET['Candidateid'])) {
+    $_SESSION["CandidateidNew"] = mysqli_real_escape_string($conn, $_GET['Candidateid']);
+}
+if (isset($_GET['Clientid'])) {
+    $_SESSION["ClientidNew"] = mysqli_real_escape_string($conn, $_GET['Clientid']);
+    $_SESSION["Clientid"] =     $_SESSION["ClientidNew"];
+}
 //$_SESSION["CandidateidNew"] =150;
-      ?>
+?>
 <!doctype html>
 <html lang="en">
 
@@ -23,69 +23,69 @@ if(isset($_GET['Candidateid'])){
     <link rel="stylesheet" href="<?php echo "$domain"; ?>/assets/vendor/bootstrap/css/bootstrap.min.css">
     <title>Super User Approval</title>
     <style type="text/css">
-    .cardapi {
-        font-size: 14px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
+        .cardapi {
+            font-size: 14px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
 
-    .cardapi input {
-        font-size: 14px;
-        padding: 3px;
-    }
+        .cardapi input {
+            font-size: 14px;
+            padding: 3px;
+        }
 
-    .cardapi .card-header {
-        color: #008000;
-        background-color: #ffffff;
-    }
+        .cardapi .card-header {
+            color: #008000;
+            background-color: #ffffff;
+        }
 
-    .dashboard-wrapper {
-        margin-top: 25px;
-    }
+        .dashboard-wrapper {
+            margin-top: 25px;
+        }
 
-    .cardlabel .col-form-label {
-        padding-bottom: 0px;
-    }
+        .cardlabel .col-form-label {
+            padding-bottom: 0px;
+        }
 
-    .mb-0 {
-        margin-bottom: 0px !important;
-    }
+        .mb-0 {
+            margin-bottom: 0px !important;
+        }
 
-    .mx-15 {
-        margin: 0 -15px;
-    }
+        .mx-15 {
+            margin: 0 -15px;
+        }
 
-    .thead-1 {
-        background-color: #349734;
-        color: #ffffff;
-    }
+        .thead-1 {
+            background-color: #349734;
+            color: #ffffff;
+        }
 
-    .thead-2 {
-        background-color: #1c511c;
-        color: #ffffff;
-    }
+        .thead-2 {
+            background-color: #1c511c;
+            color: #ffffff;
+        }
 
-    .thead-2 th {
-        font-weight: normal !important;
-    }
+        .thead-2 th {
+            font-weight: normal !important;
+        }
 
-    .can-table {
-        margin-top: 10px;
-    }
+        .can-table {
+            margin-top: 10px;
+        }
 
-    .fit-table-new {
-        max-width: 800px;
-        font-size: 13px;
-    }
+        .fit-table-new {
+            max-width: 800px;
+            font-size: 13px;
+        }
 
-    .fit-table-new input {
-        font-size: 14px;
-        padding: 3px;
-    }
+        .fit-table-new input {
+            font-size: 14px;
+            padding: 3px;
+        }
 
-    .table-head {
-        color: #008000;
-    }
+        .table-head {
+            color: #008000;
+        }
     </style>
 </head>
 
@@ -110,11 +110,9 @@ if(isset($_GET['Candidateid'])){
                                     Name</label>
                                 <div class="input-group "><span class="input-group-prepend">
 
-                                        <input type="text" style="width:30%" placeholder="Firstname"
-                                            class="form-control" ng-model="Title" readonly>&nbsp;
+                                        <input type="text" style="width:30%" placeholder="Firstname" class="form-control" ng-model="Title" readonly>&nbsp;
 
-                                        <input type="text" placeholder="Firstname" class="form-control"
-                                            ng-model="Firstname" readonly>
+                                        <input type="text" placeholder="Firstname" class="form-control" ng-model="Firstname" readonly>
                                 </div>
 
                             </div>
@@ -128,8 +126,7 @@ if(isset($_GET['Candidateid'])){
 
                             <div class="form-group col-md-4">
                                 <label class="col-form-label">Status</label>
-                                <input type="text" class="form-control" ng-model="Selectionstatus" autocomplete="off"
-                                    readonly>
+                                <input type="text" class="form-control" ng-model="Selectionstatus" autocomplete="off" readonly>
 
 
                             </div>
@@ -208,8 +205,7 @@ if(isset($_GET['Candidateid'])){
                                 <label class="col-form-label">Languages
                                     known</label>
 
-                                <input type="text" class="form-control" ng-model="Languages" autocomplete="off"
-                                    readonly>
+                                <input type="text" class="form-control" ng-model="Languages" autocomplete="off" readonly>
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="col-form-label">Date
@@ -232,8 +228,7 @@ if(isset($_GET['Candidateid'])){
                             <div class="form-group col-md-3">
                                 <label class="col-form-label">Blood
                                     Group</label>
-                                <input type="text" class="form-control" ng-model="Bloodgroup" autocomplete="off"
-                                    readonly>
+                                <input type="text" class="form-control" ng-model="Bloodgroup" autocomplete="off" readonly>
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="col-form-label">Fresher</label>
@@ -244,8 +239,7 @@ if(isset($_GET['Candidateid'])){
 
                             <div class="form-group col-md-3" ng-show="btnfresherno">
                                 <label class="col-form-label">Expereience</label>
-                                <input type="text" class="form-control" ng-model="Expereience" autocomplete="off"
-                                    readonly>
+                                <input type="text" class="form-control" ng-model="Expereience" autocomplete="off" readonly>
                             </div>
 
 
@@ -253,16 +247,14 @@ if(isset($_GET['Candidateid'])){
                             <div class="form-group col-md-3" ng-show="btnfresherno">
                                 <label class="col-form-label">Serving
                                     NP</label>
-                                <input type="text" class="form-control" ng-model="ServingNoticeperiod"
-                                    autocomplete="off" readonly>
+                                <input type="text" class="form-control" ng-model="ServingNoticeperiod" autocomplete="off" readonly>
 
                             </div>
 
                             <div class="form-group col-md-3" ng-show="btnfresherno">
                                 <label class="col-form-label">Notice
                                     Period</label>
-                                <input type="text" class="form-control" ng-model="NoticePeriod" autocomplete="off"
-                                    readonly>
+                                <input type="text" class="form-control" ng-model="NoticePeriod" autocomplete="off" readonly>
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="col-form-label">Available
@@ -299,8 +291,7 @@ if(isset($_GET['Candidateid'])){
                             <label class="col-form-label">
                                 HR Notes</label>
 
-                            <textarea type="text" class="form-control " ng-model="HRinterviewnotes" autocomplete="off"
-                                readonly></textarea>
+                            <textarea type="text" class="form-control " ng-model="HRinterviewnotes" autocomplete="off" readonly></textarea>
                         </div>
                     </div>
 
@@ -318,8 +309,7 @@ if(isset($_GET['Candidateid'])){
                             <label class="col-form-label">
                                 Department Head Interview Notes</label>
 
-                            <textarea type="text" class="form-control" ng-model="DHinterviewnotes" autocomplete="off"
-                                readonly></textarea>
+                            <textarea type="text" class="form-control" ng-model="DHinterviewnotes" autocomplete="off" readonly></textarea>
                         </div>
                     </div>
                 </div>
@@ -334,8 +324,7 @@ if(isset($_GET['Candidateid'])){
                             <label class="col-form-label">
                                 General Manager Notes</label>
 
-                            <textarea type="text" class="form-control" ng-model="GMinterviewnotes" autocomplete="off"
-                                readonly></textarea>
+                            <textarea type="text" class="form-control" ng-model="GMinterviewnotes" autocomplete="off" readonly></textarea>
                         </div>
                     </div>
                 </div>
@@ -351,8 +340,7 @@ if(isset($_GET['Candidateid'])){
                             <label class="col-form-label">
                                 Admin Notes</label>
 
-                            <textarea type="text" class="form-control" ng-model="MDinterviewnotes"
-                                autocomplete="off"></textarea>
+                            <textarea type="text" class="form-control" ng-model="MDinterviewnotes" autocomplete="off"></textarea>
                         </div>
                     </div>
                 </div>
@@ -438,8 +426,7 @@ if(isset($_GET['Candidateid'])){
 
                                 <tbody>
 
-                                    <tr dir-paginate="e in GetSalaryList |filter:searchSalary|itemsPerPage:5 "
-                                        pagination-id="Salarygrid" current-page="currentPageSalary">
+                                    <tr dir-paginate="e in GetSalaryList |filter:searchSalary|itemsPerPage:5 " pagination-id="Salarygrid" current-page="currentPageSalary">
 
 
 
@@ -448,8 +435,7 @@ if(isset($_GET['Candidateid'])){
                                             {{$index+1 + (currentPageSalary - 1) * pageSizeSalary}}
                                         </td>
                                         <td align="center">
-                                            <a href="javascript:void(0);"
-                                                ng-click="SendFitEdit(e.Candidateid,e.fitno,e.Fitmenttype);">
+                                            <a href="javascript:void(0);" ng-click="SendFitEdit(e.Candidateid,e.fitno,e.Fitmenttype);">
                                                 <img height="15" src="<?php echo "$domain"; ?>/assets/icons/edit.png">
                                             </a>
                                         </td>
@@ -552,8 +538,7 @@ if(isset($_GET['Candidateid'])){
                             </table>
                             <div class="float-right mt-2">
                                 <div class="pagination ">
-                                    <dir-pagination-controls pagination-id="Salarygrid" max-size="3"
-                                        direction-links="true" boundary-links="true" class="pagination">
+                                    <dir-pagination-controls pagination-id="Salarygrid" max-size="3" direction-links="true" boundary-links="true" class="pagination">
                                     </dir-pagination-controls>
                                 </div>
 
@@ -605,42 +590,30 @@ if(isset($_GET['Candidateid'])){
                             <td><input type="text" class="form-control" ng-model="CurincperHRA" readonly></td>
                         </tr>
                         <tr>
-                                    <td>Other Allowance</td>
-                                    <td><input type="text" class="form-control" ng-model="CurMotSpecialAllowance"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurAnnuaSpecialAllowance"
-                                            readonly>
-                                    </td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperSpecialAllowance"
-                                            readonly>
-                                    </td>
+                            <td>Other Allowance</td>
+                            <td><input type="text" class="form-control" ng-model="CurMotSpecialAllowance" readonly></td>
+                            <td><input type="text" class="form-control" ng-model="CurAnnuaSpecialAllowance" readonly>
+                            </td>
+                            <td><input type="text" class="form-control" ng-model="CurincperSpecialAllowance" readonly>
+                            </td>
 
 
-                                    <td>&emsp;Performance Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Performanceallowancemonthly" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Performanceallowanceyearly" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
-                                                    <td><input type="text" class="form-control"
-                                                           autocomplete="off" value="0"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
-                                  
-                                </tr>
-                                <tr>
-                                <td>&emsp;Total Allowance</td>
-                                    <td><input type="text" class="form-control" ng-model="CurMotTotalAllowance"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurAnnuaTotalAllowance"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperTotalAllowance"
-                                            readonly>
-                                    </td>
-                                </tr>
+                            <td>&emsp;Performance Allowance</td>
+                            <td><input type="text" class="form-control" ng-model="Performanceallowancemonthly" autocomplete="off" onkeypress="return Validate(event);" readonly>
+                            </td>
+                            <td><input type="text" class="form-control" ng-model="Performanceallowanceyearly" autocomplete="off" onkeypress="return Validate(event);" readonly>
+                            </td>
+                            <td><input type="text" class="form-control" autocomplete="off" value="0" onkeypress="return Validate(event);" readonly>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>&emsp;Total Allowance</td>
+                            <td><input type="text" class="form-control" ng-model="CurMotTotalAllowance" readonly></td>
+                            <td><input type="text" class="form-control" ng-model="CurAnnuaTotalAllowance" readonly></td>
+                            <td><input type="text" class="form-control" ng-model="CurincperTotalAllowance" readonly>
+                            </td>
+                        </tr>
                         <tr>
                             <td colspan="7" class="table-head"><br />Retirals Employer Contribution</td>
 
@@ -721,10 +694,8 @@ if(isset($_GET['Candidateid'])){
                             <td>&emsp;Take Home</td>
                             <td><input type="text" class="form-control" ng-model="CurMottakehomewithouttax" readonly>
                             </td>
-                            <td><input type="text" class="form-control" ng-model="CurAnnuatakehomewithouttax"
-                                    autocomplete="off" readonly></td>
-                            <td><input type="text" class="form-control" ng-model="Curincpertakehomewithouttax"
-                                    autocomplete="off" readonly></td>
+                            <td><input type="text" class="form-control" ng-model="CurAnnuatakehomewithouttax" autocomplete="off" readonly></td>
+                            <td><input type="text" class="form-control" ng-model="Curincpertakehomewithouttax" autocomplete="off" readonly></td>
                         </tr>
                         <tr>
                             <td>Deductions Total</td>
@@ -741,11 +712,8 @@ if(isset($_GET['Candidateid'])){
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td colspan="3" align="right"><button class="btn btn-sm btn-rounded btn-success mt-2"
-                                    ng-click="" data-toggle="modal"
-                                    data-target="#ModalCenterApprovedFitment">Approve</button>
-                                &nbsp;<button class="btn btn-sm btn-rounded btn-danger mt-2" ng-click=""
-                                    data-toggle="modal" data-target="#ModalCenterRejectedFitment">
+                            <td colspan="3" align="right"><button class="btn btn-sm btn-rounded btn-success mt-2" ng-click="" data-toggle="modal" data-target="#ModalCenterApprovedFitment">Approve</button>
+                                &nbsp;<button class="btn btn-sm btn-rounded btn-danger mt-2" ng-click="" data-toggle="modal" data-target="#ModalCenterRejectedFitment">
                                     Reject</button></td>
                         </tr>
 
@@ -775,8 +743,7 @@ if(isset($_GET['Candidateid'])){
 
 
 
-        <div class="modal fade" id="ModalCenterApprovedFitment" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="ModalCenterApprovedFitment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header alert alert-danger">
@@ -794,8 +761,7 @@ if(isset($_GET['Candidateid'])){
 
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-rounded btn-success" ng-click="UpdateFitmentMDApproved();"
-                            data-dismiss="modal">Approved</a>
+                        <a class="btn btn-rounded btn-success" ng-click="UpdateFitmentMDApproved();" data-dismiss="modal">Approved</a>
                         <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">No</button>
 
                     </div>
@@ -803,8 +769,7 @@ if(isset($_GET['Candidateid'])){
             </div>
         </div>
 
-        <div class="modal fade" id="ModalCenterRejectedFitment" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="ModalCenterRejectedFitment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header alert alert-danger">
@@ -822,8 +787,7 @@ if(isset($_GET['Candidateid'])){
 
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-rounded btn-danger" ng-click="UpdateFitmentMDRejected();"
-                            data-dismiss="modal">Reject</a>
+                        <a class="btn btn-rounded btn-danger" ng-click="UpdateFitmentMDRejected();" data-dismiss="modal">Reject</a>
                         <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">No</button>
 
                     </div>
@@ -864,74 +828,46 @@ if(isset($_GET['Candidateid'])){
                                                 </tr>
                                                 <tr>
                                                     <td style="width:150px">Basic+DA</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotBasicDA"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            >
+                                                    <td><input type="text" class="form-control" ng-model="CurMotBasicDA" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaBasicDA" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaBasicDA" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperBasicDA" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperBasicDA" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td style="width:150px">&emsp;HRA</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotHRA"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            >
+                                                    <td><input type="text" class="form-control" ng-model="CurMotHRA" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaHRA"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaHRA" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurincperHRA"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperHRA" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Special Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotSpecialAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" >
+                                                    <td><input type="text" class="form-control" ng-model="CurMotSpecialAllowance" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaSpecialAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaSpecialAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperSpecialAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperSpecialAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
 
                                                     <td>&emsp;Performance Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Performanceallowancemonthly" autocomplete="off"
-                                                            onkeypress="return Validate(event);" >
+                                                    <td><input type="text" class="form-control" ng-model="Performanceallowancemonthly" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Performanceallowanceyearly" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="Performanceallowanceyearly" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <!-- <td><input type="text" class="form-control"
                                                             ng-model="CurincperTotalAllowance" autocomplete="off"
                                                             onkeypress="return Validate(event);"></td> -->
-                                                   
+
                                                 </tr>
                                                 <tr>
-                                                   <td>&emsp;Total Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotTotalAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td>&emsp;Total Allowance</td>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotTotalAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaTotalAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaTotalAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperTotalAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperTotalAllowance" autocomplete="off" onkeypress="return Validate(event);"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -963,85 +899,50 @@ if(isset($_GET['Candidateid'])){
                                             <tbody>
                                                 <tr>
                                                     <td style="width:150px">PF (12 %) From Basic</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotPFemployeer" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotPFemployeer" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaPFemployeer" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaPFemployeer" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td> <input type="text" class="form-control"
-                                                            ng-model="CurincperPFemployeer" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td> <input type="text" class="form-control" ng-model="CurincperPFemployeer" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td style="width:150px">&emsp;Gradutity(5%)</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotGratuity" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotGratuity" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaGratuity" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaGratuity" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperGratuity" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperGratuity" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Retirals Total</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotRetairlsTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotRetairlsTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaRetairlsTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaRetairlsTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperRetairlsTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperRetairlsTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td>&emsp;GAC</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotGAC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotGAC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaGAC"
-                                                            autocomplete="off" onkeypress="return Validate(event);">
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaGAC" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurincperGAC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperGAC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Bonous @ 8.33%</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotEstimatedBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotEstimatedBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaEstimatedBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaEstimatedBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperEstimatedBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperEstimatedBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td>&emsp;Other Bonous</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotOtherBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotOtherBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaOtherBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaOtherBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperOtherBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperOtherBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1068,119 +969,66 @@ if(isset($_GET['Candidateid'])){
 
                                                 <tr>
                                                     <td style="width:150px">Est.CTC </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotCTC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotCTC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaCTC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaCTC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurincperCTC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperCTC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td style="width:150px">&emsp;PF Employee</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotPFemployee" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotPFemployee" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaPFemployee" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaPFemployee" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperPFemployee" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperPFemployee" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>ESIC</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotESIC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotESIC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaESIC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaESIC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurincperESIC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperESIC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td>&emsp;Stay Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotStayAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaStayAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotStayAllowance" autocomplete="off" onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaStayAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperStayAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperStayAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Canteen</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotCanteen"
-                                                            autocomplete="off" onkeypress="return Validate(event);">
+                                                    <td><input type="text" class="form-control" ng-model="CurMotCanteen" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaCanteen" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperCanteen" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaCanteen" autocomplete="off" onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperCanteen" autocomplete="off" onkeypress="return Validate(event);"></td>
                                                     <td>&emsp;Other Deductions</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotOtherDeductions" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaOtherDeductions" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperOtherDeductions" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotOtherDeductions" autocomplete="off" onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaOtherDeductions" autocomplete="off" onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperOtherDeductions" autocomplete="off" onkeypress="return Validate(event);"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Travel Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotTravelAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaTravelAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperTravelAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotTravelAllowance" autocomplete="off" onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaTravelAllowance" autocomplete="off" onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperTravelAllowance" autocomplete="off" onkeypress="return Validate(event);"></td>
                                                     <td>&emsp;Take Home</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMottakehomewithouttax" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMottakehomewithouttax" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuatakehomewithouttax" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuatakehomewithouttax" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Curincpertakehomewithouttax" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="Curincpertakehomewithouttax" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Deductions Total</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotDeductionTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotDeductionTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaDeductionTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaDeductionTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperDeductionTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperDeductionTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td></td>
                                                     <td></td>
@@ -1223,8 +1071,7 @@ if(isset($_GET['Candidateid'])){
                                             <label class="col-form-label">Status</label>
                                         </div>
                                         <div class="col-md-3 nopadding">
-                                            <select class="form-control" ng-model="FitStatus"
-                                                ng-change="GetStatusAlert(FitStatus);">
+                                            <select class="form-control" ng-model="FitStatus" ng-change="GetStatusAlert(FitStatus);">
                                                 <option Value="Open">Open</option>
                                                 <option value="Cancel">Cancel</option>
                                                 <!-- <option value="Final">Final</option> -->
@@ -1250,19 +1097,15 @@ if(isset($_GET['Candidateid'])){
                                 </div>
                                 <div class="col-md-6 nopadding">
                                     <div class="form-group text-right">
-                                        <button class="btn btn-sm btn-success" ng-click="UpdateFitement();"><i
-                                                class="fa fa-save"></i>
+                                        <button class="btn btn-sm btn-success" ng-click="UpdateFitement();"><i class="fa fa-save"></i>
                                             Update</button>
 
-                                        <button class="btn btn-sm btn-warning" ng-click="CalculateFitment();"><i
-                                                class="fa fa-calculator"></i>
+                                        <button class="btn btn-sm btn-warning" ng-click="CalculateFitment();"><i class="fa fa-calculator"></i>
                                             Calculate</button>
-                                        <button class="btn btn-sm btn-success" ng-click="CategorycalculationFit();"><i
-                                                class="fa fa-save"></i>
+                                        <button class="btn btn-sm btn-success" ng-click="CategorycalculationFit();"><i class="fa fa-save"></i>
                                             Basic Calculation</button>
 
-                                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i
-                                                class="fa fa-times"></i>
+                                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>
                                             Close</button>
                                     </div>
 
@@ -1319,48 +1162,32 @@ if(isset($_GET['Candidateid'])){
                                     <td><input type="text" class="form-control" ng-model="CurincperHRA" readonly></td>
                                 </tr>
                                 <tr>
-                                                    <td>Special Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotSpecialAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaSpecialAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperSpecialAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
+                                    <td>Special Allowance</td>
+                                    <td><input type="text" class="form-control" ng-model="CurMotSpecialAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                    </td>
+                                    <td><input type="text" class="form-control" ng-model="CurAnnuaSpecialAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                    </td>
+                                    <td><input type="text" class="form-control" ng-model="CurincperSpecialAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                    </td>
 
-                                                    <td>&emsp;Performance Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Performanceallowancemonthly" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Performanceallowanceyearly" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
-                                                    <!-- <td><input type="text" class="form-control"
+                                    <td>&emsp;Performance Allowance</td>
+                                    <td><input type="text" class="form-control" ng-model="Performanceallowancemonthly" autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                    </td>
+                                    <td><input type="text" class="form-control" ng-model="Performanceallowanceyearly" autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                    </td>
+                                    <!-- <td><input type="text" class="form-control"
                                                             ng-model="CurincperTotalAllowance" autocomplete="off"
                                                             onkeypress="return Validate(event);"></td> -->
-                                                   
-                                                </tr>
-                                                <tr>
-                                                   <td>&emsp;Total Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotTotalAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaTotalAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
-                                                    </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperTotalAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                </tr>
+
+                                </tr>
+                                <tr>
+                                    <td>&emsp;Total Allowance</td>
+                                    <td><input type="text" class="form-control" ng-model="CurMotTotalAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                    </td>
+                                    <td><input type="text" class="form-control" ng-model="CurAnnuaTotalAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                    </td>
+                                    <td><input type="text" class="form-control" ng-model="CurincperTotalAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                </tr>
                                 <tr>
                                     <td colspan="7" class="table-head"><br />Retirals Employer Contribution</td>
 
@@ -1371,8 +1198,7 @@ if(isset($_GET['Candidateid'])){
                                     </td>
                                     <td><input type="text" class="form-control" ng-model="CurAnnuaPFemployeer" readonly>
                                     </td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperPFemployeer"
-                                            readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurincperPFemployeer" readonly></td>
                                     <td>&emsp;Gradutity (5%)</td>
                                     <td><input type="text" class="form-control" ng-model="CurMotGratuity" readonly></td>
                                     <td><input type="text" class="form-control" ng-model="CurAnnuaGratuity" readonly>
@@ -1384,10 +1210,8 @@ if(isset($_GET['Candidateid'])){
                                     <td>Retirals Total</td>
                                     <td><input type="text" class="form-control" ng-model="CurMotRetairlsTotal" readonly>
                                     </td>
-                                    <td><input type="text" class="form-control" ng-model="CurAnnuaRetairlsTotal"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperRetairlsTotal"
-                                            readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurAnnuaRetairlsTotal" readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurincperRetairlsTotal" readonly></td>
                                     <td>&emsp;GAC</td>
                                     <td><input type="text" class="form-control" ng-model="CurMotGAC" readonly></td>
                                     <td><input type="text" class="form-control" ng-model="CurAnnuaGAC" readonly></td>
@@ -1395,21 +1219,17 @@ if(isset($_GET['Candidateid'])){
                                 </tr>
                                 <tr>
                                     <td>Bonous @ 8.33%</td>
-                                    <td><input type="text" class="form-control" ng-model="CurMotEstimatedBonous"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurAnnuaEstimatedBonous"
-                                            readonly>
+                                    <td><input type="text" class="form-control" ng-model="CurMotEstimatedBonous" readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurAnnuaEstimatedBonous" readonly>
                                     </td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperEstimatedBonous"
-                                            readonly>
+                                    <td><input type="text" class="form-control" ng-model="CurincperEstimatedBonous" readonly>
                                     </td>
                                     <td>&emsp;Other Bonous</td>
                                     <td><input type="text" class="form-control" ng-model="CurMotOtherBonous" readonly>
                                     </td>
                                     <td><input type="text" class="form-control" ng-model="CurAnnuaOtherBonous" readonly>
                                     </td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperOtherBonous"
-                                            readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurincperOtherBonous" readonly></td>
                                 </tr>
                                 <td colspan="4" class="table-head"><br />Other Components</td>
                                 <td colspan="4" class="table-head"><br />&emsp;Deductions</td>
@@ -1434,10 +1254,8 @@ if(isset($_GET['Candidateid'])){
                                     <td>&emsp;Stay Allowance</td>
                                     <td><input type="text" class="form-control" ng-model="CurMotStayAllowance" readonly>
                                     </td>
-                                    <td><input type="text" class="form-control" ng-model="CurAnnuaStayAllowance"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperStayAllowance"
-                                            readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurAnnuaStayAllowance" readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurincperStayAllowance" readonly></td>
                                 </tr>
                                 <tr>
                                     <td>Canteen</td>
@@ -1447,42 +1265,30 @@ if(isset($_GET['Candidateid'])){
                                     <td><input type="text" class="form-control" ng-model="CurincperCanteen" readonly>
                                     </td>
                                     <td>&emsp;Other Deductions</td>
-                                    <td><input type="text" class="form-control" ng-model="CurMotOtherDeductions"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurAnnuaOtherDeductions"
-                                            readonly>
+                                    <td><input type="text" class="form-control" ng-model="CurMotOtherDeductions" readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurAnnuaOtherDeductions" readonly>
                                     </td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperOtherDeductions"
-                                            readonly>
+                                    <td><input type="text" class="form-control" ng-model="CurincperOtherDeductions" readonly>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Travel Allowance</td>
-                                    <td><input type="text" class="form-control" ng-model="CurMotTravelAllowance"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurAnnuaTravelAllowance"
-                                            readonly>
+                                    <td><input type="text" class="form-control" ng-model="CurMotTravelAllowance" readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurAnnuaTravelAllowance" readonly>
                                     </td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperTravelAllowance"
-                                            readonly>
+                                    <td><input type="text" class="form-control" ng-model="CurincperTravelAllowance" readonly>
                                     </td>
                                     <td>&emsp;Take Home</td>
-                                    <td><input type="text" class="form-control" ng-model="CurMottakehomewithouttax"
-                                            readonly>
+                                    <td><input type="text" class="form-control" ng-model="CurMottakehomewithouttax" readonly>
                                     </td>
-                                    <td><input type="text" class="form-control" ng-model="CurAnnuatakehomewithouttax"
-                                            autocomplete="off" readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="Curincpertakehomewithouttax"
-                                            autocomplete="off" readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurAnnuatakehomewithouttax" autocomplete="off" readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="Curincpertakehomewithouttax" autocomplete="off" readonly></td>
                                 </tr>
                                 <tr>
                                     <td>Deductions Total</td>
-                                    <td><input type="text" class="form-control" ng-model="CurMotDeductionTotal"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurAnnuaDeductionTotal"
-                                            readonly></td>
-                                    <td><input type="text" class="form-control" ng-model="CurincperDeductionTotal"
-                                            readonly>
+                                    <td><input type="text" class="form-control" ng-model="CurMotDeductionTotal" readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurAnnuaDeductionTotal" readonly></td>
+                                    <td><input type="text" class="form-control" ng-model="CurincperDeductionTotal" readonly>
                                     </td>
 
                                 </tr>
@@ -1510,10 +1316,10 @@ if(isset($_GET['Candidateid'])){
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <style>
-                    .fitment-data-box,
-                    .fitment-data-box input {
-                        font-size: 12px;
-                    }
+                        .fitment-data-box,
+                        .fitment-data-box input {
+                            font-size: 12px;
+                        }
                     </style>
                     <div class="modal-body fitment-data-box">
 
@@ -1543,79 +1349,47 @@ if(isset($_GET['Candidateid'])){
                                                 </tr>
                                                 <tr>
                                                     <td style="width:150px">Basic+DA</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotBasicDA"
-                                                            autocomplete="off" onkeypress="return Validate(event);">
+                                                    <td><input type="text" class="form-control" ng-model="CurMotBasicDA" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaBasicDA" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperBasicDA" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaBasicDA" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperBasicDA" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
                                                     <td style="width:150px">&emsp;HRA</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotHRA"
-                                                            autocomplete="off" onkeypress="return Validate(event);">
+                                                    <td><input type="text" class="form-control" ng-model="CurMotHRA" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaHRA"
-                                                            autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaHRA" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurincperHRA"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperHRA" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Other Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotSpecialAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" >
+                                                    <td><input type="text" class="form-control" ng-model="CurMotSpecialAllowance" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaSpecialAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaSpecialAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperSpecialAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperSpecialAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
 
                                                     <td>&emsp;Performance Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Performanceallowancemonthly" autocomplete="off"
-                                                            onkeypress="return Validate(event);" >
+                                                    <td><input type="text" class="form-control" ng-model="Performanceallowancemonthly" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Performanceallowanceyearly" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="Performanceallowanceyearly" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <<td><input type="text" class="form-control"
-                                                            ng-model="performanceallowanceincper" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly value=0></td> 
-                                                   
+                                                    <<td><input type="text" class="form-control" ng-model="performanceallowanceincper" autocomplete="off" onkeypress="return Validate(event);" readonly value=0></td>
+
                                                 </tr>
-                                                <tr> <td>Conveyence Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotTravelAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" ></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaTravelAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly ></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperTravelAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                   <td>&emsp;Total Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotTotalAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                <tr>
+                                                    <td>Conveyence Allowance</td>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotTravelAllowance" autocomplete="off" onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaTravelAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperTravelAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td>&emsp;Total Allowance</td>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotTotalAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaTotalAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaTotalAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperTotalAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperTotalAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1645,84 +1419,50 @@ if(isset($_GET['Candidateid'])){
                                             <tbody>
                                                 <tr>
                                                     <td style="width:150px">PF (12 %) From Basic</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotPFemployeer" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotPFemployeer" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaPFemployeer" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaPFemployeer" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperPFemployeer" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperPFemployeer" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td style="width:150px">&emsp;Gradutity(5%)</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotGratuity" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotGratuity" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaGratuity" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaGratuity" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperGratuity" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperGratuity" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Retirals Total</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotRetairlsTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotRetairlsTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaRetairlsTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaRetairlsTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperRetairlsTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperRetairlsTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td>&emsp;GAC</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotGAC"
-                                                            autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotGAC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaGAC"
-                                                            autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaGAC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurincperGAC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperGAC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Bonous @ 8.33%</td>
-                                                    <td> <input type="text" class="form-control"
-                                                            ng-model="CurMotEstimatedBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td> <input type="text" class="form-control" ng-model="CurMotEstimatedBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td> <input type="text" class="form-control"
-                                                            ng-model="CurAnnuaEstimatedBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td> <input type="text" class="form-control" ng-model="CurAnnuaEstimatedBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperEstimatedBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperEstimatedBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td>&emsp;Other Bonous</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotOtherBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotOtherBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaOtherBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaOtherBonous" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperOtherBonous" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperOtherBonous" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1749,101 +1489,58 @@ if(isset($_GET['Candidateid'])){
 
                                                 <tr>
                                                     <td style="width:150px">Est.CTC </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotCTC"
-                                                            autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotCTC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaCTC"
-                                                            autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaCTC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurincperCTC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperCTC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td style="width:150px">&emsp;PF Employee</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotPFemployee" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaPFemployee" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperPFemployee" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotPFemployee" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaPFemployee" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperPFemployee" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>ESIC</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotESIC"
-                                                            autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotESIC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaESIC"
-                                                            autocomplete="off" onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaESIC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="CurincperESIC"
-                                                            autocomplete="off" onkeypress="return Validate(event);"
-                                                            readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperESIC" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td>&emsp;Stay Allowance</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotStayAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);"></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaStayAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperStayAllowance" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotStayAllowance" autocomplete="off" onkeypress="return Validate(event);"></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaStayAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperStayAllowance" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Canteen</td>
-                                                    <td><input type="text" class="form-control" ng-model="CurMotCanteen"
-                                                            autocomplete="off" onkeypress="return Validate(event);">
+                                                    <td><input type="text" class="form-control" ng-model="CurMotCanteen" autocomplete="off" onkeypress="return Validate(event);">
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaCanteen" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperCanteen" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaCanteen" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperCanteen" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
                                                     <td>&emsp;Other Deductions</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotOtherDeductions" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaOtherDeductions" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperOtherDeductions" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotOtherDeductions" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaOtherDeductions" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperOtherDeductions" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
                                                 </tr>
                                                 <tr>
-                                                   
+
                                                     <td>Take Home</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMottakehomewithouttax" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuatakehomewithouttax" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMottakehomewithouttax" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuatakehomewithouttax" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="Curincpertakehomewithouttax" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="Curincpertakehomewithouttax" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                     <td>Deductions Total</td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurMotDeductionTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurAnnuaDeductionTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly></td>
-                                                    <td><input type="text" class="form-control"
-                                                            ng-model="CurincperDeductionTotal" autocomplete="off"
-                                                            onkeypress="return Validate(event);" readonly>
+                                                    <td><input type="text" class="form-control" ng-model="CurMotDeductionTotal" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurAnnuaDeductionTotal" autocomplete="off" onkeypress="return Validate(event);" readonly></td>
+                                                    <td><input type="text" class="form-control" ng-model="CurincperDeductionTotal" autocomplete="off" onkeypress="return Validate(event);" readonly>
                                                     </td>
                                                 </tr>
-                                               
+
                                             </tbody>
                                         </table>
 
@@ -1871,25 +1568,24 @@ if(isset($_GET['Candidateid'])){
 
                                 <div class="col-md-7">
 
-                                <table>
-                                    <tr>
-                                        <td> <label class="col-form-label">Status</label></td>
-                                        <td> <select class="form-control" ng-model="FitStatus"
-                                                ng-change="GetStatusAlert(FitStatus);">
-                                                <option Value="Open">Open</option>
-                                                <option value="Cancel">Cancel</option>
-                                                <!-- <option value="Final">Final</option> -->
-                                            </select></td>
-                                        <td><label class="col-form-label">Type</label></td>
-                                        <td> <select class="form-control" ng-model="FitType">
-                                                <option Value="Request Fitment">Request Fitment</option>
-                                                <option value="Recommended Fitment">Recommended Fitment</option>
-                                                <option value="Final Fitment">Final Fitment</option>
-                                            </select></td>
-                                    </tr>
-                                </table>
+                                    <table>
+                                        <tr>
+                                            <td> <label class="col-form-label">Status</label></td>
+                                            <td> <select class="form-control" ng-model="FitStatus" ng-change="GetStatusAlert(FitStatus);">
+                                                    <option Value="Open">Open</option>
+                                                    <option value="Cancel">Cancel</option>
+                                                    <!-- <option value="Final">Final</option> -->
+                                                </select></td>
+                                            <td><label class="col-form-label">Type</label></td>
+                                            <td> <select class="form-control" ng-model="FitType">
+                                                    <option Value="Request Fitment">Request Fitment</option>
+                                                    <option value="Recommended Fitment">Recommended Fitment</option>
+                                                    <option value="Final Fitment">Final Fitment</option>
+                                                </select></td>
+                                        </tr>
+                                    </table>
 
-                 
+
 
 
 
@@ -1898,18 +1594,15 @@ if(isset($_GET['Candidateid'])){
                                 </div>
                                 <div class="col-md-5 nopadding">
                                     <div class="form-group text-right">
-                                        <button class="btn btn-sm btn-success" ng-click="UpdateFitement();"><i
-                                                class="fa fa-save"></i>
+                                        <button class="btn btn-sm btn-success" ng-click="UpdateFitement();"><i class="fa fa-save"></i>
                                             Update</button>
 
-                                            <button class="btn btn-sm btn-success" ng-click="CategorycalculationFit();"><i
-                                                class="fa fa-save"></i>
+                                        <button class="btn btn-sm btn-success" ng-click="CategorycalculationFit();"><i class="fa fa-save"></i>
                                             Calculation</button>
 
 
 
-                                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i
-                                                class="fa fa-times"></i>
+                                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>
                                             Close</button>
                                     </div>
 
@@ -1934,8 +1627,7 @@ if(isset($_GET['Candidateid'])){
             </div>
 
 
-            <div class="modal fade" id="ModalCenterApprovedFitment" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="ModalCenterApprovedFitment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header alert alert-danger">
@@ -1953,8 +1645,7 @@ if(isset($_GET['Candidateid'])){
 
                         </div>
                         <div class="modal-footer">
-                            <a class="btn btn-rounded btn-success" ng-click="UpdateFitmentApproved();"
-                                data-dismiss="modal">Approved</a>
+                            <a class="btn btn-rounded btn-success" ng-click="UpdateFitmentApproved();" data-dismiss="modal">Approved</a>
                             <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">No</button>
 
                         </div>
@@ -1962,8 +1653,7 @@ if(isset($_GET['Candidateid'])){
                 </div>
             </div>
 
-            <div class="modal fade" id="ModalCenterRejectedFitment" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="ModalCenterRejectedFitment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header alert alert-danger">
@@ -1982,8 +1672,7 @@ if(isset($_GET['Candidateid'])){
 
                         </div>
                         <div class="modal-footer">
-                            <a class="btn btn-rounded btn-danger" ng-click="UpdateFitmentRejected();"
-                                data-dismiss="modal">Rejected</a>
+                            <a class="btn btn-rounded btn-danger" ng-click="UpdateFitmentRejected();" data-dismiss="modal">Rejected</a>
                             <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">No</button>
 
                         </div>
@@ -1994,31 +1683,31 @@ if(isset($_GET['Candidateid'])){
     </div>
     </div>
 
-    <?php include '../footerjs.php'?>
+    <?php include '../footerjs.php' ?>
     <script src="../Scripts/jspdf.min.js"></script>
 
     <script src="../Scripts/html2canvas/html2canvas.min.js"></script>
     <script src="../Scripts/Controller/HRMApiController.js"></script>
     <script type="text/javascript">
-    function Validate(event) {
-        var regex = new RegExp("^[0-9-/()]");
-        var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
-        if (!regex.test(key)) {
-            event.preventDefault();
-            return false;
+        function Validate(event) {
+            var regex = new RegExp("^[0-9-/()]");
+            var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
         }
-    }
     </script>
 
     <script type="text/javascript">
-    function Validateamt(event) {
-        var regex = new RegExp("^[0-9-/.()]");
-        var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
-        if (!regex.test(key)) {
-            event.preventDefault();
-            return false;
+        function Validateamt(event) {
+            var regex = new RegExp("^[0-9-/.()]");
+            var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
         }
-    }
     </script>
 </body>
 

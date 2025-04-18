@@ -6,8 +6,7 @@ session_start();
       $username = $_SESSION["Username"];
       $usermail=$_SESSION["Mailid"];
       $Clientid =$_SESSION["Clientid"];
-      $Sessionid = $_SESSION["SESSIONID"];
-
+   
       $_SESSION["Tittle"] ="Employee";
 $Message ='';
 
@@ -1246,20 +1245,5 @@ $Chartofaccountarray = str_replace(",","','","$Chartofaccountarray");     // com
          echo trim($str, '"');
          return;
    }
-
    
-   if($MethodGet == 'PageSession')
-{
-
-    $Message =$Sessionid;
-
-  
-    $Display=array(
-        'Message'=>  $Message,
-      
-    );
-    $str = json_encode($Display);
-    echo trim($str, '"');
-    return;
-}
 ?>

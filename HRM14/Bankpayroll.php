@@ -135,21 +135,10 @@
                                     </td> -->
                                 </tr>
 
- <tbody class="table-tbody-main"
-                                    dir-paginate="(key, value) in GetBankListnew|orderBy:sortKeyCustomer:reverseCustomer|filter:searchCustomer  | groupBy: 'Bankname'|itemsPerPage:n"
-                                    pagination-id="PayrollGridAdmin">
+ <tbody >
 
 
-                                    <tr ng-if="key !== 'undefined'">
-                                        <td colspan="11"
-                                            style="padding:1px;margin:4px;padding-left:25px;padding-right:2px;background-color:Yellow;font-weight:bold;font-size:14px;color:black;">
-                                            {{(key !== 'null') ? key : 'No Bank Account'}} &nbsp;&nbsp; Total
-                                            {{getVolumeNetSum(value)--getVolumePerformanceSum(value)}} </td>
-
-                                    </tr>
-
-
-                                    <tr dir-paginate="e in value |orderBy:sortKeyCustomer:reverseCustomer|filter:searchPayroll|itemsPerPage:n"
+                                    <tr dir-paginate="e in GetBankListnew |orderBy:sortKeyCustomer:reverseCustomer|filter:searchPayroll|itemsPerPage:10"
                                         current-page="currentPagePayroll01" pagination-id="PayrollGridAdmin">
 
                                     <td>
@@ -171,7 +160,7 @@
                                     <td class="tabletotalrow">
                                         {{e.Performanceallowance}}</td> -->
                                     <td class="tabletotalrow">
-                                        {{e.NetWages--e.Performanceallowance}}</td>
+                                        {{e.NetWages--e.Performanceallowance--e.Holiday_net}}</td>
                                 </tr>
                                
                              </tbody>

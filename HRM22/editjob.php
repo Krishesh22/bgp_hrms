@@ -25,7 +25,7 @@
                 <div id="myCarousel" class="carousel slide" data-interval="false">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <div class="">
+                            
                                 <div class="row">
 
                                     <div class="col-md-12">
@@ -177,13 +177,13 @@
 
                                     </div>
                                 </div>
-                            </div>
+                         
                         </div>
 
 
 
                         <div class="carousel-item">
-                            <div class="">
+                 
 
                                 <div class="row">
 
@@ -209,36 +209,30 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="form-group col-md-3">
-                                                <label class="col-form-label">Application
-                                                    ID</label>
-                                                <input type="text" id="Applicationid" class="form-control"
-                                                    ng-model="Applicationid" autocomplete="off" readonly>
+                                                <label class="col-form-label">Application ID</label>
+                                                <input type="text" class="form-control" ng-model="Applicationid" id="Applicationid"  name="Applicationid"
+                                                    autocomplete="off" readonly>
                                             </div>
 
                                             <div class="form-group col-md-9 mb-0">
 
-
-
-
+                                                <style>
+                                                .surname-width {
+                                                    max-width: 75px !important;
+                                                }
+                                                </style>
                                                 <div class="row mb-0">
 
                                                     <div class="form-group col-md-4">
-                                                        <label class="col-form-label">First
-                                                            Name</label>
+                                                        <label class="col-form-label">First Name</label>
                                                         <div class="input-group "><span class="input-group-prepend">
                                                                 <select class="input-group-text surname-width"
                                                                     ng-model="Title">
-                                                                    <option Value="Mr.">Mr.
-                                                                    </option>
-                                                                    <option value="Mrs.">
-                                                                        Mrs.</option>
-                                                                    <option value="Miss.">
-                                                                        Miss.</option>
-                                                                    <option value="Ms.">Ms.
-                                                                    </option>
-                                                                    <option value="Shri.">
-                                                                        Shri.</option>
-                                                                </select></span>
+                                                                    <option Value="Mr.">Mr.</option>
+                                                                    <option value="Mrs.">Mrs.</option>
+                                                                    <option value="Ms.">Ms.</option>
+                                                                </select>
+                                                            </span>
                                                             <input type="text" placeholder="Firstname"
                                                                 class="form-control" ng-model="Firstname">
                                                         </div>
@@ -246,8 +240,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label class="col-form-label">Last
-                                                            Name</label>
+                                                        <label class="col-form-label">Last Name</label>
                                                         <input type="text" class="form-control" ng-model="Lastname"
                                                             autocomplete="off">
 
@@ -256,48 +249,46 @@
                                                     <div class="form-group col-md-4">
                                                         <label class="col-form-label">Status</label>
                                                         <select class="form-control" ng-model="Selectionstatus">
-                                                            <option Value="Open">Open
-                                                            </option>
-
-                                                            <option value="Cancel">Cancel
-                                                            </option>
+                                                            <option Value="Shortlisted">Shortlisted</option>                                                          
+                                                            <option value="Rejected">Rejected</option>
                                                             </option>
 
                                                         </select>
-
 
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-3">
-                                                <label class="col-form-label">Application
-                                                    Date</label>
+                                                <label class="col-form-label">Application Date</label>
                                                 <input type="text" class="form-control" ng-model="ApplicationDate"
-                                                    onfocus="(this.type='date')" onblur="(this.type='date')">
+                                                    onfocus="(this.type='date')" onblur="(this.type='date')"
+                                                    ng-change="GetApplicationDate();">
 
                                             </div>
                                             <div class="form-group col-md-3">
-                                                <label class="col-form-label">Interview
-                                                    schedule Date</label>
+                                                <label class="col-form-label">Interview schedule Date</label>
                                                 <input type="text" class="form-control" ng-model="InterviewDate"
-                                                    onfocus="(this.type='date')" onblur="(this.type='date')">
+                                                    onfocus="(this.type='date')" onblur="(this.type='date')"
+                                                    ng-change="GetInterviewDate();">
 
                                             </div>
+
                                             <div class="form-group col-md-3">
-                                                <label class="col-form-label">Interview
-                                                    Timing</label>
+                                                <label class="col-form-label">Interview Timing</label>
                                                 <input class="form-control" onfocus="(this.type='time')"
                                                     onblur="(this.type='time')" ng-model="Interviewtime"
                                                     placeholder="HH:mm:ss" />
+
                                             </div>
+
 
                                             <div class="form-group col-md-3">
                                                 <label class="col-form-label">Gender</label>
                                                 <select class="form-control" ng-model="Gender">
                                                     <option Value="Male">Male</option>
                                                     <option value="Female">Female</option>
-                                                    <option value="Other">Other</option>
+
                                                 </select>
 
                                             </div>
@@ -313,56 +304,52 @@
                                             </div>
 
                                             <div class="form-group col-md-3">
-                                                <label class="col-form-label">Married</label>
+                                                <label class="col-form-label">Marital Status</label>
                                                 <select class="form-control" ng-model="Married">
-                                                    <option Value="Yes">Yes</option>
-                                                    <option value="No">No</option>
+                                                    <option ng-repeat="s in GetMaritalstatusList "
+                                                        value="{{s.Maritalstatus}}">
+                                                        {{s.Maritalstatus}}</option>
 
                                                 </select>
                                             </div>
 
                                             <div class="form-group col-md-3">
-                                                <label class="col-form-label">Mother Tongue
-                                                </label>
+                                                <label class="col-form-label">Mother Tongue </label>
                                                 <select ng-model="Mothertongue" class="form-control">
 
                                                     <option ng-repeat="s in GetLanguageList " value="{{s.Languages}}">
                                                         {{s.Languages}}</option>
                                                 </select>
                                             </div>
-
                                             <div class="form-group col-md-3">
-                                                <label class="col-form-label">Contact
-                                                    No</label>
-                                                <input type="text" id="MobileNum" class="form-control"
-                                                    ng-model="Contactno" autocomplete="off"
-                                                    onkeypress="return Validate(event);" maxlength="10"  ng-change="GetContactnounique(Contactno)">
-
-                                            </div>
-
-                                            <div class="form-group col-md-3">
-                                                <label class="col-form-label">Category</label>
-                                                <select class="form-control" ng-model="Category">
-                                                    <option value="Category 1">Category 1
-                                                    </option>
-                                                    <option value="Category 2">Category 2
-                                                    </option>
-                                                    <option value="Category 3">Category 3
-                                                    </option>
-
-                                                </select>
-                                            </div>
-
-
-                                            <div class="form-group col-md-3">
-                                                <label class="col-form-label">Position of
-                                                    Applicant </label>
+                                                <label class="col-form-label">Position of Applicant </label>
                                                 <select ng-model="Vaccancy" class="form-control">
 
                                                     <option ng-repeat="s in GetVaccancyList " value="{{s.Designation}}">
                                                         {{s.Designation}}</option>
                                                 </select>
                                             </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label class="col-form-label">Contact No</label>
+                                                <input type="text" class="form-control" ng-model="Contactno" id="MobileNum"
+                                                    autocomplete="off" onkeypress="return Validate(event);"
+                                                    maxlength="10" ng-change="GetContactnounique(Contactno)">
+
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label class="col-form-label">Category</label>
+                                                <select class="form-control" ng-model="Category">
+                                                    <option value="Category 1">Category 1 </option>
+                                                    <option value="Category 2">Category 2</option>
+                                                    <option value="Category 3">Category 3</option>
+
+                                                </select>
+                                            </div>
+
+
+
                                             <div class="form-group col-md-3">
                                                 <label class="col-form-label">Fresher</label>
                                                 <select class="form-control" ng-model="Fresher"
@@ -376,34 +363,39 @@
                                                 </select>
                                             </div>
 
-
                                             <div class="form-group col-md-3">
-                                                <label class="col-form-label">Expected
-                                                    CTC</label>
-                                                <input type="text" class="form-control" ng-model="ExpectedCTC"
-                                                    autocomplete="off" onkeypress="return Validate(event);">
-
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label class="col-form-label">Current
-                                                    CTC</label>
+                                                <label class="col-form-label">Current Salary</label>
                                                 <input type="text" class="form-control" ng-model="PreviousCTC"
                                                     autocomplete="off" onkeypress="return Validate(event);"
                                                     ng-disabled="btnPrevious">
 
                                             </div>
+                                            <div class="form-group col-md-3">
+                                                <label class="col-form-label">Expected Salary</label>
+                                                <input type="text" class="form-control" ng-model="ExpectedCTC"
+                                                    autocomplete="off" onkeypress="return Validate(event);">
 
-                                            <div class="form-group col-md-9">
-                                                <label class="col-form-label">Email
-                                                    ID</label>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label class="col-form-label">Other Allowance</label>
+                                                <input type="text" class="form-control" ng-model="Otherallowance"
+                                                    autocomplete="off" onkeypress="return Validate(event);">
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label class="col-form-label">Experience</label>
+                                                <input type="text" class="form-control" ng-model="Experience"
+                                                    autocomplete="off" ng-disabled="btnPrevious">
+
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label class="col-form-label">Email ID</label>
                                                 <input type="email" class="form-control" ng-model="Emailid"
                                                     autocomplete="email" ng-model-options='{ debounce: 1000 }'
                                                     ng-change="emailchecking(Emailid)">
 
                                             </div>
-
-
-
                                         </div>
 
 
@@ -418,32 +410,32 @@
                                         </div>
 
                                         <div class="form-group text-right">
-                                            <button class="btn btn-sm btn-rounded btn-success"
+                                            <button class="btn btn-sm  btn-success"
                                                 ng-click="UpdateApplication();"><i class="fa fa-save"></i>
                                                 Update</button>
-
-                                            <button class="btn btn-sm btn-rounded btn-warning"
+                                            <button id="BtnSendOTPSMS" class="btn btn-sm  btn-primary"
+                                                ng-show="btnsms"><i class="fa fa-mobile"></i>
+                                                Mobile Verification</button>
+                                            <button class="btn btn-sm  btn-info"
+                                                ng-click="Emailverification01();" ng-show="btnemail"><i
+                                                    class="fa fa-envelope"></i>
+                                                Mail Verification</button>
+                                             <button class="btn btn-sm  btn-primary"
+                                               data-toggle="modal" data-target="#ModalCenterUpload" ><i
+                                                    class="fa fa-user"></i>
+                                                Add Image</button>
+                                            <button ng-show="btnMove" class="btn btn-sm  btn-info"
+                                                ng-click="MoveToCandidate();" ng-disabled="btnsaveadmin2"><i
+                                                    class="fa fa-save"></i>
+                                                Move To Candidate</button>
+                                            <button class="btn btn-sm  btn-warning"
                                                 ng-click="Sendemail();"><i class="fa fa-envelope"></i>
                                                 Interview Mail</button>
-
-                                            <button id="BtnSendOTPSMS" class="btn btn-sm btn-rounded btn-primary" ng-show="btnsms"><i
-                                                    class="fa fa-mobile"></i>
-                                                Mobile-Verification</button>
-
-
-
-                                            <button class="btn btn-sm btn-rounded btn-info"
-                                                ng-click="Emailverification01();" ng-show="btnemail" ><i class="fa fa-envelope"></i>
-                                                Email-Verification</button>
-                                            <button class="btn btn-sm btn-rounded btn-danger"
+                                            <button class="btn btn-sm  btn-info"
                                                 ng-click="FetchApplication(Applicationid);"><i
                                                     class="fa fa-circle-notch"></i>
                                                 Refresh</button>
-                                            <button ng-show="btnMove" class="btn btn-sm btn-rounded btn-info"
-                                                ng-click="MoveToCandidate();" ng-disabled="btnsaveadmin2"><i class="fa fa-save"></i>
-                                                Move To Candidate</button>
-
-                                            <button class="btn btn-sm btn-rounded btn-warning" data-target="#myCarousel"
+                                            <button class="btn btn-sm  btn-warning" data-target="#myCarousel"
                                                 data-slide-to="0"><i class="fa  fa-arrow-left"></i>
                                                 Back</button>
                                         </div>
@@ -460,9 +452,10 @@
                                 </div>
 
 
-
-                            </div>
+                               
+                     
                         </div>
+                        <?php include 'Addphoto.php'?>
                     </div>
 
 

@@ -1,4 +1,7 @@
 <?php
+
+use PhpOffice\PhpSpreadsheet\Worksheet\Row;
+
 session_start();
 include '../config.php';
 $Clientid =$_SESSION["Clientid"];
@@ -69,17 +72,13 @@ text-align: center;
 <?php
 
 if ($_POST) {
-    $month = $_POST['month'];
-    
+    $month = $_POST['month'];    
     $nmonth = date('m', strtotime($month));
     $nmonthnew = date('n', strtotime($month));
-   //echo "month-$nmonth";
     $year = $_POST['year'];
-
     $cat_name = $_POST['catname'];
     $fdaymonth = date("$year-$nmonth-01");
-    //echo "$fdaymonth";
-  //   $ldaymonth = date("$year-$nmonth-t");
+
   
 
    $ldaymonth = date("Y-m-d", strtotime("+1 month", strtotime($fdaymonth)));
@@ -96,6 +95,37 @@ if ($_POST) {
     $date = date('Y-m-d');
   // echo "date- $date";
 }
+
+
+/** Client Details **/
+  $ClientAdrQry = "SELECT * FROM indsys1001clientmaster where Clientid ='$Clientid'  ORDER BY Clientid";
+  $result_ClientAdrQry = $conn->query($ClientAdrQry);
+  if (mysqli_num_rows($result_ClientAdrQry) > 0) {
+      while ($row = mysqli_fetch_array($result_ClientAdrQry)) {
+          $Clientname = $row['Clientname'];
+          $Location = $row['Location'];
+          $Phoneno = $row['Phoneno'];
+          $Emailid = $row['Emailid'];
+          $GSTN = $row['GSTN'];
+          $Tin = $row['Tin'];
+          $Emailpassword = $row['Emailpassword'];
+          $Regnno = $row['Regnno'];
+          $Panno = $row['Panno'];
+          $AddressLine1 = $row['AddressLine1'];
+          $AddressLine2 = $row['AddressLine2'];
+          $AddressLine3 = $row['AddressLine3'];
+          $Country = $row['Country'];
+          $City = $row['City'];
+          $Zipcode = $row['Zipcode'];
+          $Website = $row['Website'];
+          $ClientnameTamil = $row['ClientnameTamil'];
+          $ClientnameHindi = $row['ClientnameHindi'];
+          $ClientLogo = $row['ClientLogo'];
+          $Place = $row['Place'];
+      }
+  }
+    
+
 
 
 // if($ldaymonth>=$date){
@@ -116,7 +146,7 @@ while ($i < $selectedOptionCount) {
     
     $i ++;
 }
-$query = $query . " WHERE Type_Of_Posistion in (" . $selectedOption . ")  AND  EmpActive='Active' AND Clientid='$Clientid'";
+$query = $query . " WHERE Type_Of_Posistion in (" . $selectedOption . ")  AND  EmpActive IN('Active','Deactive') AND (DATE(Leftdate) >'$fdaymonth'   OR Leftdate IS NULL) AND Clientid='$Clientid' AND DATE(Date_Of_Joing) < '$ldaymonth'";
 //echo $query;
 $retval = mysqli_query($conn, $query);
 
@@ -145,6 +175,7 @@ $month = $_POST['month'];
 $year = $_POST['year'];
 ?>
 <body>
+  <div class="container-fluid">
 <div class="row" >
              <div class="col-md-12">
                 <div class="mt-2 mb-5">
@@ -153,11 +184,11 @@ $year = $_POST['year'];
                 </div>
              </div>
      </div>
-  
+    </div>
  <div id="pdfExport">
 
 
-<div>
+<div class="container-fluid">
 <div class="row">
 <div class="col-md-12">
 
@@ -165,10 +196,9 @@ $year = $_POST['year'];
   <tbody>
     <tr class="text-center">
       <td colspan="50">
-        <h6>BRITANNIA GARMENT PACKAGING (India) Pvt Ltd</h6>
+        
 
-        <p style="font-size:0.7rem;margin-bottom:1px;">4LABEL ARCADE' 476/1B1A, Jothi Nagar,
-        K CHETTIPALAYAM,TIRUPPUR-641605, INDIA  </p>
+<?php echo "<h6>$Clientname</h6><p style='font-size:0.7rem;margin-bottom:1px;'>$AddressLine1, $AddressLine2<br/>$AddressLine3, $Place-$Zipcode, $Country.</p>";?>
 
 <p style="font-size:0.7rem;margin-bottom: 1px;"><b><?php echo"$month -$year";
 ?></b>  </p>
@@ -214,6 +244,7 @@ foreach ($emp_id as $row)
   $sno++;
 
    $emp_id = $row['Employeeid'];
+
    $Firstname = $row['Firstname'];
    $Department = $row['Department'];
    $Designation = $row['Designation'];
@@ -229,6 +260,7 @@ foreach ($emp_id as $row)
        $Firstname = $row['Fullname'];
        $Designation = $row['Designation'];
        $date_of_joining = $row['Date_Of_Joing'];
+       $Old_Empid=$row['Old_Empid'];
       
       
    }
@@ -236,7 +268,7 @@ foreach ($emp_id as $row)
    
 
    echo '<td>'.$sno.'</td>';
-   echo '<td>'.$emp_id.'</td>';
+   echo '<td>'.$emp_id.'-'.$Old_Empid.'</td>';
    echo '<td>'.$Firstname.'</td>';
   //  echo '<td>'.$Department.'</td>';
    echo '<td>'.$Designation.'</td>';
@@ -301,12 +333,14 @@ foreach ($emp_id as $row)
  $Attentypestatus = $row["Attentypestatus"];
 
 }
-
-$sqlHlD=  "SELECT * FROM `vwholidaymaster` WHERE Holidaydate='$atten' and Clientid ='$Clientid'";
+if($Clientid!=4)
+{
+$sqlHlD=  "SELECT * FROM `vwholidaymaster` WHERE Holidaydate='$atten' and Clientid ='$Clientid' and Dayname!='Sunday'";
 //echo "$sqlHlD<br>";
 $resulthld = $conn->query($sqlHlD);
 while($rowhld = mysqli_fetch_array($resulthld)){
   $AttenStatus="N&LH";
+}
 }
 $dt = $atten;
 
@@ -318,14 +352,14 @@ $dt = $atten;
 
     if ($dt3 == "sunday") {
 
-    if($Attentypestatus=='P')
+    // if($Attentypestatus=='P')
 
-    {
-      echo '<td style="background-color:#b4d698">'.$AttenStatus.'</td>';
-    }
+    // {
+      echo '<td style="background-color:#fab9be">'.$AttenStatus.'</td>';
+    //}
 
-    else
-    echo '<td style="background-color:#fab9be">WO</td>';
+    // else
+    // echo '<td style="background-color:#fab9be">WO</td>';
 
     }
 
@@ -355,7 +389,7 @@ $dt = $atten;
        while($row = mysqli_fetch_array($result)){
       
     $CountPresentDays= $row['Count(AttenStatus)'];
-    //echo $CountPresentDays;#fcfcc7
+
    
  
     
@@ -522,7 +556,7 @@ $TotalSLcount = $CountSL+$SLcount1+$SLcount2;
       {
         $HalfDaycount=$CountHalfDay/2;
       }
-      $Workeddays = $CountPresentDays+$HalfDaycount+$CountOD;
+      $Workeddays = $CountPresentDays+$HalfDaycount+$CountOD+$SLcount1+$SLcount2+$CLcount1+$CLcount2;
   
       if(empty($Workeddays))
       {
@@ -536,12 +570,19 @@ $TotalSLcount = $CountSL+$SLcount1+$SLcount2;
 
     
 
-      $sqlabs = "SELECT Count(AttenStatus) from vwattendenceclosestatus where Attendencedate>='$fdate' and Attendencedate <='$ldate' and Employeeid = '$emp_id' and AttenStatus='A' and Empattendencestatus='Close' AND Clientid ='$Clientid'";
-
+     $sqlabs = "SELECT Count(AttenStatus) as overall_absent_count from vwattendenceclosestatus where Attendencedate>='$fdate' and Attendencedate <='$ldate' and Employeeid = '$emp_id' and AttenStatus='A' and Empattendencestatus='Close' AND Clientid ='$Clientid'";
+// $sqlabs="SELECT COUNT(*) as overall_absent_count
+// FROM vwattendenceclosestatus AS a
+// WHERE Clientid='$Clientid' and Attendencedate>='$fdate' and Attendencedate <='$ldate' and Employeeid = '$emp_id'  and Empattendencestatus='Close' and AttenStatus='A'
+//   AND NOT EXISTS (
+//     SELECT 1
+//     FROM vwholidaymaster AS h
+//     WHERE h.Holidaydate = a.Attendencedate AND Clientid='$Clientid' and Dayname!='Sunday'
+//   )";
       $resultabs = $conn->query($sqlabs);
-       while($row = mysqli_fetch_array($resultabs)){
+       while($rowabs = mysqli_fetch_array($resultabs)){
       
-    $CountAbsentDays= $row['Count(AttenStatus)'];
+    $CountAbsentDays= $rowabs['overall_absent_count'];
   
       
       }
@@ -552,10 +593,23 @@ $TotalSLcount = $CountSL+$SLcount1+$SLcount2;
       
    
   $sundays=0; 
-  $total_days=cal_days_in_month (CAL_GREGORIAN, $nmonth, $year); 
-  for ($i=1;$i<=$total_days;$i++) 
-  if (date ('N',strtotime ($year.'-'.$nmonth.'-'.$i))==7) $sundays++;
-  $totsundays = $sundays;
+  ///////////Working Week Off Commanded/////////
+  // $total_days=cal_days_in_month (CAL_GREGORIAN, $nmonth, $year); 
+  // for ($i=1;$i<=$total_days;$i++) 
+  // if (date ('N',strtotime ($year.'-'.$nmonth.'-'.$i))==7) $sundays++;
+  // $totsundays = $sundays;
+  
+
+  ///////////////Updated On 27-Sep-2023//////////////
+  $sqlweek = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$fdate' and Attendencedate <='$ldate' and Employeeid = '$emp_id'  and Empattendencestatus='Close' and AttenStatus='WO'";
+            
+                $resultweek = $conn->query($sqlweek);
+                while ($rowweek = mysqli_fetch_array($resultweek)) {
+                  $totsundays = $rowweek['Count(AttenStatus)'];                 
+                    
+                }
+
+             
   
 
   $d=cal_days_in_month(CAL_GREGORIAN,$nmonth,$year);
@@ -634,6 +688,14 @@ $Leavedays = ($workingdays - $Totaldays);
  
 
   }
+
+  $sqlNH = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$fdate' and Attendencedate <='$ldate' and Employeeid = '$emp_id'  and Empattendencestatus='Close' and AttenStatus='H'";
+            
+  $resultNH = $conn->query($sqlNH);
+  while ($rowNH = mysqli_fetch_array($resultNH)) {
+      $Nationalholiday = $rowNH['Count(AttenStatus)'];          
+      
+  }
   if($Workeddays==0)
   {
   $Totaldays = 0;
@@ -650,6 +712,7 @@ $Leavedays = ($workingdays - $Totaldays);
     $Lop = $Leavedays;
     $TakenEL=0;
     $BalanceEL=0;
+    $Nationalholiday =0;
   }
   else
   {
@@ -689,7 +752,7 @@ $Leavedays = ($workingdays - $Totaldays);
   }
 
 
-$Totworked=$Workeddays+$totsundays+$Nationalholiday;
+$Totworked=$Workeddays+$totsundays+$Nationalholiday+$TotalCLcount+$TotalSLcount;
 $BalanceCL=$BalanceCausalLeave-$TotalCLcount;
 $BalanceSL=$BalanceSickLeave-$TotalSLcount;
 $TotalAbsent =  $HalfDaycount+$CountAbsentDays;

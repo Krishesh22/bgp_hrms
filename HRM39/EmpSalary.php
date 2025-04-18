@@ -53,7 +53,7 @@ if (isset($_FILES['files']) && !empty($_FILES['files'])) {
 
                 SaveExcelData($conn, $user_id, $Clientid, $data, $date);
                 //  $Message ="Exists";
-                echo 'File successfully uploaded : ' . $directory . $_FILES["files"]["name"][$i] . ' ';
+                // echo 'File successfully uploaded : ' . $directory . $_FILES["files"]["name"][$i] . ' ';
             }
         }
     }
@@ -66,30 +66,58 @@ function SaveExcelData($conn, $user_id, $Clientid, $data, $date) {
 
     // $resultExists = "DELETE FROM indsys1017employeemastertest";
     // $resultExists01 = $conn->query($resultExists);
+
     $countdata = count($data);
 
     $countdata = $countdata - 1;
     
-    for ($row = 1;$row <= $countdata;$row++) {
+    for ($row = 3;$row <= $countdata;$row++) {
+        $TA = 0;
+        $Day_allowance=0;
+        $PFFixedamt =0;
+ echo " $data<br>";
+       // Debugging output
+        echo "Data Array: " . print_r($data[$row], true) . "<br>";
 
         $val = "'" . implode("','", $data[$row]) . "'";
 
         $string_array = explode(",", $val);
         $Employeeid = str_replace("'", "", "$string_array[1]");
-       
+
+        // Debugging output
+        echo "Employee ID: $Employeeid<br>";
+
         if ($Employeeid == '') {
-            break;
+        // Add additional debugging output
+        echo "Employee ID is empty<br>";
+        break;
         }
 
-        $Basic = str_replace("'", "", "$string_array[6]");
-        $HR_Allowance = str_replace("'", "", "$string_array[7]");
-        $TA = str_replace("'", "", "$string_array[11]");
-        $Performance_allowance = str_replace("'", "", "$string_array[9]");
-        $Day_allowance = str_replace("'", "", "$string_array[10]");
+        $Basic = str_replace("'", "", "$string_array[7]");
+        $HR_Allowance = str_replace("'", "", "$string_array[8]");
+       
+        $Performance_allowance = str_replace("'", "", "$string_array[11]");
+       
 
-        $Other_Allowance = str_replace("'", "", "$string_array[8]");
-        $PF_Yesandno = str_replace("'", "", "$string_array[12]");
+        $Other_Allowance = str_replace("'", "", "$string_array[9]");
+        //$PF_Yesandno = str_replace("'", "", "$string_array[12]");
       //  $ESI_Yesandno = str_replace("'", "", "$string_array[14]");
+           $PFnew = 0;
+        $PF_Fixed = 'No';
+        $GetChapter = "SELECT * FROM indsys1017employeemaster where Clientid ='$Clientid' and Employeeid = '$Employeeid'  ORDER BY Employeeid";
+        $result_Chapter = $conn->query($GetChapter);       
+        if ($result_Chapter->num_rows > 0) {
+            $empres = $result_Chapter->fetch_object();
+            $PFnew = $empres->PF;
+            $PF_Fixed = $empres->PF_Fixed;
+            $ESI_Yesandno =$empres->ESI_Yesandno;
+            $Day_allowance =$empres->Day_allowance;
+            
+             $PF_Yesandno =$empres->PF_Yesandno;
+             $TA=$empres->TA;
+             $Day_allowance=$empres->Day_allowance;
+             $PFFixedamt=$empres->PF;
+        } 
 
         if (empty($Basic)) {
             $Basic = 0;
@@ -111,18 +139,7 @@ function SaveExcelData($conn, $user_id, $Clientid, $data, $date) {
             $Other_Allowance = 0;
         }
 
-        $PFnew = 0;
-        $PF_Fixed = 'No';
-        $GetChapter = "SELECT * FROM indsys1017employeemaster where Clientid ='$Clientid' and Employeeid = '$Employeeid'  ORDER BY Employeeid";
-        $result_Chapter = $conn->query($GetChapter);       
-        if ($result_Chapter->num_rows > 0) {
-            $empres = $result_Chapter->fetch_object();
-            $PFnew = $empres->PF;
-            $PF_Fixed = $empres->PF_Fixed;
-            $ESI_Yesandno =$empres->ESI_Yesandno;
-            $Day_allowance =$empres->Day_allowance;
-             $PF_Yesandno =$empres->PF_Yesandno;
-        } 
+
        if(empty($PF_Fixed))
        {
         $PF_Fixed ='No';
@@ -175,7 +192,8 @@ function SaveExcelData($conn, $user_id, $Clientid, $data, $date) {
 
         $resultExists = "Update indsys1017employeemaster set 
           Basic ='$Basic',HR_Allowance ='$HR_Allowance',TA='$TA',Performance_allowance ='$Performance_allowance',Day_allowance ='$Day_allowance',PF ='$PF',ESI='$ESI',TDS ='$TDS',Professional_tax ='$Professional_tax',Net_Salary ='$Net_Salary',Gross_Salary='$Gross_Salary',  Other_Allowance = '$Other_Allowance',PF_Yesandno='$PF_Yesandno',PF_Fixed='$PF_Fixed',  ESI_Yesandno = '$ESI_Yesandno' WHERE Employeeid = '$Employeeid' AND Clientid ='$Clientid'";
-        
+        //echo "$resultExists <br/>";
+     
         $resultExists01 = $conn->query($resultExists);
        
         if ($resultExists01 === true) {

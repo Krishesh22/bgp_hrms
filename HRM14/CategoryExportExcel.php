@@ -35,7 +35,7 @@ while($row = mysqli_fetch_array($logempbreakhrsexe)) {
    
 
 echo '<table border="1">';
-echo '<tr><td colspan="32"  ><h2 style="text-align:center">BRITANNIA GARMENT PACKAGING</h2></td>
+echo '<tr><td colspan="32"  ><h2 style="text-align:center">BRITANNIA LABELS INDIA PVT LTD</h2></td>
 <td colspan="3">RegNo: TPR-17460</td></tr>';
 
 echo '<tr><td colspan="35"  ><h5 style="text-align:right">Wages For Monthly Paid ('.$Category.')  For the Month Of '.$Payrollmonth.'-'.$Payrollyear.'</h5></td></tr>';

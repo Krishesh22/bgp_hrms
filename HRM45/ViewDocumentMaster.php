@@ -232,7 +232,7 @@
 
 
 
-                                                    <tr dir-paginate="e in VWGetDocMasterFileList |orderBy:sortKeyCustomer:reverseCustomer|filter:searchPayroll|itemsPerPage:10"
+                                                    <tr dir-paginate="e in VWGetDocMasterFileList |orderBy:sortKeyCustomer:reverseCustomer|itemsPerPage:10"
                                                         current-page="currentPageFile" pagination-id="Filelistgrid">
 
                                                         <td><button class="btn btn-sm btn-info" style="width:250px"

@@ -2,7 +2,8 @@ var app = angular.module('MyApp', ['angularUtils.directives.dirPagination', 'tex
 app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $window) {
 
     $scope.Method = "";
-
+    $scope.currentPageCandidate01 =1;
+    $scope.pageSizeCandidate01 = 10;
     $scope.GetMembertypeList = [];
     $scope.currentPageCandidate = 1;
     $scope.pageSizeCandidate = 10;
@@ -195,6 +196,8 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
     $scope.MDinterviewnotes = "";
     $scope.Performanceallowancemonthly = "0";
     $scope.Performanceallowanceyearly = "0";
+    $scope.Currentreleivingreason = "";
+    $scope.Industrialtype = "";
     ///////////Retailrs(PF Employeer 12%)
 
     ///////////////////////////////
@@ -307,6 +310,8 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
         $scope.DHinterviewnotes = "";
         $scope.GMinterviewnotes = "";
         $scope.MDinterviewnotes = "";
+        $scope.Currentreleivingreason = "";
+        $scope.Industrialtype = "";
 
         $scope.Getnextno();
         $scope.ResetEducation();
@@ -633,10 +638,14 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
             if ($scope.TempMessage == "Update") {
                 $scope.Message = true;
                 $scope.Message = "Data Updated Sucessfully";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-
-            }
+                $timeout(function() { $scope.Message = ""; }, 3000); }
+                if ($scope.TempMessage == "Error") {
+                    $scope.Message = true;
+                    $scope.Message = "Error in saving / updating ...";
+                    $timeout(function() { $scope.Message = ""; }, 3000);
+    
+    
+                }
         }
         //////////////////////////////////
     $scope.GetStatusAlert = function(FitStatus) {
@@ -664,7 +673,7 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
         $scope.btninterviewinfo = false;
         $scope.btnappointmentinfo = false;
         $('#myCarousel').carousel(1);
-
+        $scope.FetchAddress($scope.Candidateid);
         $scope.FetchCandidate($scope.Candidateid);
     }
 
@@ -859,6 +868,9 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
                // alert(response.data.MDinterviewnotes);
                 $scope.MDinterviewnotes = response.data.MDinterviewnotes;
                 $scope.DHinterviewdate = response.data.DHinterviewdate;
+                $scope.Industrialtype = response.data.Industrialtype;
+                $scope.Currentreleivingreason = response.data.Currentreleivingreason;
+                $scope.Candidatephoto = response.data.Candidatephoto;
                 $scope.Candidateofferaccepteddatetime = response.data.Candidateofferaccepteddatetime;
                 // alert($scope.selectedValue);
                 if ($scope.selectedValue == "") {
@@ -1079,7 +1091,41 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
 
     };
     /////////////////////////////////////////////////////////
+    $http({
+        method: "POST",
+        url: "Candidate.php",
+        data: {
 
+            'Method': "FETCHCLIENT"
+        },
+        headers: { 'Content_Type': 'application/json' }
+    }).then(function successCallback(response) {
+
+        // alert(response.data.ClientnameTamil);
+        $scope.Clientname = response.data.Clientname;
+        $scope.Location = response.data.Location;
+        $scope.ClientPhoneno = response.data.Phoneno;
+        $scope.ClientEmailid = response.data.Emailid;
+        $scope.ClientGSTN = response.data.GSTN;
+        $scope.ClientTin = response.data.Tin;
+        $scope.ClientEmailpassword = response.data.Emailpassword;
+        $scope.ClientRegnno = response.data.Regnno;
+        $scope.ClientPanno = response.data.Panno;
+        $scope.ClientAddressLine1 = response.data.AddressLine1;
+        $scope.ClientAddressLine2 = response.data.AddressLine2;
+
+        $scope.ClientAddressLine3 = response.data.AddressLine3;
+        $scope.ClientCountry = response.data.Country;
+        $scope.ClientCity = response.data.City;
+        $scope.ClientZipcode = response.data.Zipcode;
+        $scope.ClientWebsite = response.data.Website;
+        $scope.ClientnameTamil = response.data.ClientnameTamil;
+        $scope.ClientnameHindi = response.data.ClientnameHindi;
+        $scope.ClientLogo = response.data.ClientLogo;
+        $scope.Place = response.data.Place; 
+        $scope.Clientid = response.data.Clientid;
+
+    });
 
     ///////////////////////////////////////////////////////////////////
 
@@ -1145,7 +1191,8 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
     }).then(function successCallback(response) {
-        $scope.GetCityList = response.data;
+        $scope.GetCityListLocation = response.data;
+        $scope.GetCurrentcityList = response.data;
     });
 
 
@@ -1220,7 +1267,12 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
                 'Address': $scope.Address,
                 'ApplicationDate': $scope.ApplicationDate,
                 'Availableoninterview': $scope.Availableoninterview,
-
+                'Reportingname': $scope.Reportingname,
+                'ReportingToid': $scope.ReportingToid,
+                'Business': $scope.Business,
+                'Designationproposed': $scope.Designationproposed,
+                'Location': $scope.Location,
+                'Department': $scope.Department,
                 'Method': 'UpdatOtherInfo'
             },
             headers: { 'Content-Type': 'application/json' }
@@ -1295,6 +1347,8 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
                 'ExpectedCTC': $scope.ExpectedCTC,
                 'NegotiableCTC': $scope.NegotiableCTC,
                 'Willingtorelocate': $scope.Willingtorelocate,
+                'Industrialtype' :$scope.Industrialtype,
+                'Currentreleivingreason' :$scope.Currentreleivingreason,
 
                 'Method': 'UpdatPresentInfo'
             },
@@ -1560,6 +1614,8 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
             $scope.UniversityorSchool = "";
             $scope.GradeorPercentage = "";
             $scope.Passoutyear = "";
+            $scope.EducationMode = "";
+            $scope.Specialization = "";
             $scope.DisplayCandidateEducation();
             $scope.CandidateEduNextno();
         }
@@ -1620,6 +1676,8 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
             form_data.append("UniversityorSchool", $("#UniversityorSchool").val());
             form_data.append("GradeorPercentage", $("#GradeorPercentage").val());
             form_data.append("Passoutyear", $("#Passoutyear").val());
+            form_data.append("Specialization", $("#Specialization").val());
+            form_data.append("EducationMode", $("#EducationMode").val());
             form_data.append("EduNextno", $("#EduNextno").val());
 
             //  alert($("#Documenttype").val());
@@ -1677,6 +1735,8 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
                 'UniversityorSchool': $scope.UniversityorSchool,
                 'GradeorPercentage': $scope.GradeorPercentage,
                 'Passoutyear': $scope.Passoutyear,
+                'EducationMode' :$scope.EducationMode,
+                'Specialization' :$scope.Specialization,
 
 
                 'Method': 'EDUCATIONCAN'
@@ -1782,6 +1842,8 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
                 $scope.GradeorPercentage = response.data.GradeorPercentage;
                 $scope.Passoutyear = response.data.Passoutyear;
                 $scope.Candidatedocument = response.data.Candidatedocument;
+                $scope.EducationMode = response.data.EducationMode;
+                $scope.Specialization = response.data.Specialization;
 
             });
         }
@@ -2448,22 +2510,44 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
         }
         ///////////////////////////////////////
     $scope.GetReporterName = function() {
-
+            if($scope.Category=="Category 1")
+            {
             $http({
-                method: "POST",
-                url: "Fitment.php",
-                data: {
-                    'ReportingToid': $scope.ReportingToid,
+            method: "POST",
+            url: "Fitment.php",
+            data: {
+                'ReportingToid': $scope.ReportingToid,
 
-                    'Method': "FetchReport"
-                },
-                headers: { 'Content_Type': 'application/json' }
+                'Method': "FetchReportCat"
+            },
+            headers: { 'Content_Type': 'application/json' }
             }).then(function successCallback(response) {
 
-                $scope.Reportingname = response.data.Reportingname;
+            $scope.Reportingname = response.data.Reportingname;
 
 
-            });
+            }); 
+            }
+            else
+
+            {
+            $http({
+            method: "POST",
+            url: "Fitment.php",
+            data: {
+                'ReportingToid': $scope.ReportingToid,
+
+                'Method': "FetchReport"
+            },
+            headers: { 'Content_Type': 'application/json' }
+            }).then(function successCallback(response) {
+
+            $scope.Reportingname = response.data.Reportingname;
+
+
+            });  
+            }
+           
         }
         //////////////////////////////////
     $scope.Update_Reporting = function() {
@@ -2483,8 +2567,6 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
                 'Designationproposed': $scope.Designationproposed,
                 'Location': $scope.Location,
                 'Department': $scope.Department,
-
-
                 'Method': 'UpdatReporting'
             },
             headers: { 'Content-Type': 'application/json' }
@@ -4231,4 +4313,318 @@ app.controller('HRM09Controller', function($scope, $http, $timeout, $filter, $wi
       
     });
     /////////////////////////////
+    $http({
+        method: "POST",
+        url: "../HRM22/job.php",
+        data: { 'Method': 'Maritalstatus' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+        $scope.GetMaritalstatusList = response.data;
+    });
+    ////////////////////////
+    $http({
+        method: "POST",
+        url: "Candidate.php",
+        data: { 'Method': 'BLOODGROUP' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+
+     
+        $scope.GetBloodGroupList = response.data;
+      
+    });
+    /////////////////////////
+    $http({
+        method: "POST",
+        url: "Candidate.php",
+        data: { 'Method': 'EDUCATIONMODE' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+
+     
+        $scope.GetEducationModeList = response.data;
+      
+    });
+    $http({
+        method: "POST",
+        url: "Candidate.php",
+        data: { 'Method': 'SPECIALIZATION' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+
+     
+        $scope.GetSpecializationList = response.data;
+      
+    });
+    ////////////////////////////////////
+    $scope.GetCurrentState = function() {
+        // $scope.CheckingSession();
+         $http({
+ 
+ 
+ 
+             method: "POST",
+             url: "../HRM10/Employee.php",
+             data: { 'CurrentCountry': $scope.CurrentCountry, 'Method': 'CSTATE' },
+             headers: { 'Content-Type': 'application/json' }
+ 
+         }).then(function successCallback(response) {
+ 
+ 
+ 
+             $scope.GetStateList = response.data.data01;
+ 
+ 
+         });
+ 
+     };
+     //////////////////////////////
+     $scope.GetCurrentCity = function() {
+         //  $scope.CheckingSession();
+         $http({
+ 
+ 
+ 
+             method: "POST",
+             url: "../HRM10/Employee.php",
+             data: {
+                 'CurrentCountry': $scope.CurrentCountry,
+                 'CurrentState': $scope.CurrentState,
+                 'Method': 'CCITY'
+             },
+             headers: { 'Content-Type': 'application/json' }
+ 
+         }).then(function successCallback(response) {
+ 
+ 
+ 
+             $scope.GetCityList = response.data.data01;
+ 
+ 
+         });
+ 
+     };
+     //////////////////////////////////////////////////
+     $scope.GetPerstate = function() {
+         //$scope.CheckingSession();
+         $http({
+ 
+ 
+ 
+             method: "POST",
+             url: "../HRM10/Employee.php",
+             data: { 'PermanentCountry': $scope.PermanentCountry, 'Method': 'PERSTATE' },
+             headers: { 'Content-Type': 'application/json' }
+ 
+         }).then(function successCallback(response) {
+ 
+ 
+ 
+             $scope.GetPerStateList = response.data.data01;
+ 
+ 
+         });
+ 
+     };
+     //////////////////////////////////////////////////
+     $scope.GetPerCity = function() {
+         //   $scope.CheckingSession();
+         $http({
+ 
+ 
+ 
+             method: "POST",
+             url: "../HRM10/Employee.php",
+             data: {
+                 'PermanentCountry': $scope.PermanentCountry,
+                 'PermanentState': $scope.PermanentState,
+                 'Method': 'PERCITY'
+             },
+             headers: { 'Content-Type': 'application/json' }
+ 
+         }).then(function successCallback(response) {
+ 
+ 
+ 
+             $scope.GetPerCityList = response.data.data01;
+ 
+ 
+         });
+ 
+     };
+     ////////////////////////////////////////
+     $scope.UpdateAddress = function() {
+         $scope.CheckingSession();
+ 
+         $http({
+ 
+ 
+ 
+             method: "POST",
+             url: "Candidate.php",
+             data: {
+                 'Candidateid': $scope.Candidateid,
+                 'CurrentAddress': $scope.CurrentAddress,
+                 'CurrentCountry': $scope.CurrentCountry,
+                 'CurrentState': $scope.CurrentState,
+                 'CurrentCity': $scope.CurrentCity,
+                 'CurrentPincode': $scope.CurrentPincode,
+                 'PermanentAddress': $scope.PermanentAddress,
+                 'PermanentCountry': $scope.PermanentCountry,
+                 'PermanentState': $scope.PermanentState,
+                 'PermanentCity': $scope.PermanentCity,
+                 'PermanentPincode': $scope.PermanentPincode,
+ 
+ 
+                 'Method': 'ADDRESSEMP'
+             },
+             headers: { 'Content-Type': 'application/json' }
+ 
+         }).then(function successCallback(response) {
+ 
+ 
+             $scope.TempMessage = response.data.Message;
+ 
+             // $scope.DetailListTemp = response.data.mytbl;
+ 
+ 
+             $scope.TempSave();
+            
+         });
+ 
+     };
+     //////////////////////
+     $scope.FetchAddress = function(Candidateid) {
+       
+        $scope.Candidateid = Candidateid;
+        $http({
+            method: "POST",
+            url: "Candidate.php",
+            data: {
+                'Candidateid': $scope.Candidateid,
+                'Method': "FetchAddress"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
+
+            $scope.CurrentAddress = response.data.CurrentAddress;
+            $scope.CurrentCountry = response.data.CurrentCountry;
+            $scope.GetCurrentState();
+            $scope.CurrentState = response.data.CurrentState;
+            $scope.GetCurrentCity();
+            $scope.CurrentCity = response.data.CurrentCity;
+            $scope.CurrentPincode = response.data.CurrentPincode;
+            $scope.PermanentAddress = response.data.PermanentAddress;
+            $scope.PermanentCountry = response.data.PermanentCountry;
+            $scope.GetPerstate();
+            $scope.PermanentState = response.data.PermanentState;
+            $scope.GetPerCity();
+            $scope.PermanentCity = response.data.PermanentCity;
+            $scope.PermanentPincode = response.data.Permanantpincode;
+
+        });
+    }
+    ///////////////////////////
+    $http({
+        method: "POST",
+        url: "Candidate.php",
+        data: { 'Method': 'Country' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+        $scope.GetCountryList = response.data;
+        //  $scope.CheckingSession();
+    });
+    $scope.CopyTempAddress = function()
+    {
+   
+      
+  
+    
+        $scope.PermanentAddress = $scope.CurrentAddress;
+        $scope.PermanentCountry =   $scope.CurrentCountry;
+        $scope.GetPerstate();
+        $scope.PermanentState = $scope.CurrentState;
+        $scope.GetPerCity();
+        $scope.PermanentCity = $scope.CurrentCity;
+        $scope.PermanentPincode =$scope.CurrentPincode;
+
+    }
+
+
+    $http({
+        method: "POST",
+        url: "Candidate.php",
+        data: { 'Method': 'INDUSTRIAL' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+
+     
+        $scope.GetIndustrialtypeList = response.data;
+      
+    });
+    /////////////////////////
+    $('#fileButton01').on('click', function() {
+        var form_data = new FormData();
+        var ins = document.getElementById('fileInput01').files.length;
+        for (var x = 0; x < ins; x++) {
+            form_data.append("files[]", document.getElementById('fileInput01').files[x]);
+        }
+
+        // form_data.append("files", files[i]);
+        form_data.append("Candidateid", $("#Candidateid").val());
+       
+       
+        $.ajax({
+            url: 'Uploadimage.php', // point to server-side PHP script 
+            dataType: 'text', // what to expect back from the PHP script
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(response) {
+
+                alert(response);
+                $scope.FetchCandidate ($scope.Candidateid);
+                document.getElementById("fileInput01").value = '';
+
+                $('#msg1').html(response);
+                setTimeout(function() {
+                    $('#msg1')
+                        .empty().append("");
+
+                    $scope.Message = "";
+                }, 3000);
+
+               
+               
+            },
+            error: function(response) {
+                alert(response);
+                $('#msg1').html(response);
+                setTimeout(function() {
+                    $('#msg1')
+                        .empty().append("");
+
+                    $scope.Message = "";
+                }, 3000); // display error response from the PHP script
+            }
+        });
+    });
+    //////////////////////////
+       $http({
+        method: "POST",
+        url: "Candidate.php",
+        data: { 'Method': 'InteviewEMPCAT' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+        $scope.GetuserList = response.data;
+    });
 });

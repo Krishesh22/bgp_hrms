@@ -189,13 +189,7 @@
 
                                                     </div>
                                                 </td>
-                                                <!-- <td>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                            ng-model="searchHoliday.Actualworkinghours">
-
-                                                    </div>
-                                                </td> -->
+                                            
                                                 <td>
                                                     <div class="input-group">
                                                         <input type="text" class="form-control"
@@ -211,13 +205,7 @@
 
                                                     </div>
                                                 </td>
-                                                <!-- <td>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                            ng-model="searchHoliday.Workingdays">
-
-                                                    </div>
-                                                </td> -->
+                                           
 
 
 
@@ -229,45 +217,33 @@
                                                 <tr dir-paginate="e in GetEmpDailyAttendanceList |filter:searchHoliday | itemsPerPage:10 | orderBy: 'Employeeid' track by $index  "
                                                     pagination-id="EmpAttendancegrid"
                                                     current-page="currentPageEmpAttendance"
-                                                    ng-class="{'rowcolormissmatched':e.Mismatchedattendence=='Yes'}">
+                                                    ng-class="{ 'rowcolormissmatched': e.Mismatchedattendence === 'Yes','rowcoloreditmatched': e.OT_HRS >= 1.10,'rowcolorbreakmatched': e.Empbreakpunchfound === 'Yes'}">
 
-                                                    <!-- 
-                                            <td ng-show="btnOpen">
-
-                                                <img height="15" ng-click="SendEdit02(e.Employeeid,e.Attendencedate);"
-                                                    data-toggle="modal" data-target="#ModalbreaktimeValues"
-                                                    src="<?php echo "$domain"; ?>/assets/icons/edit.png">
-
-
-
-
-
-                                            </td> -->
 
                                                     <td style="width: 25px;"
-                                                        ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                          >
                                                         {{$index+1 + (currentPageEmpAttendance - 1) * pageSizeEmpAttendance}}
                                                     </td>
 
                                                     <td ng-show="e.Enableresthours=='Yes'  "
-                                                        ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                          >
                                                         {{e.Employeeid}}<img height="15"
                                                             ng-show=" e.Attentypestatus=='P'" data-toggle="modal"
                                                             data-target="#ModalbreaktimeValues"
                                                             ng-click="SendEdit02(e.Employeeid,e.Attendencedate);"
                                                             src="<?php echo "$domain"; ?>/assets/icons/clock.png"></td>
                                                     <td ng-show="e.Enableresthours!='Yes'"
-                                                        ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                          >
                                                         {{e.Employeeid}}</td>
                                                     <!-- <td>{{e.Employeeid}}</td> -->
                                                     <td style="width:170px"
-                                                        ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                          >
                                                         {{e.Title}}{{e.Firstname}} {{e.lastname}}
                                                     </td>
                                                     <td ng-show="btnClose">{{e.AttenStatus}}</td>
 
                                                     <td ng-show="btnOpen"
-                                                        ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                          >
 
 
                                                         <select ng-model="e.AttenStatus" class="form-control"
@@ -283,7 +259,7 @@
                                                     <td ng-show="btnClose">{{e.Intime}}</td>
 
                                                     <td ng-show="btnOpen"
-                                                        ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}"><input
+                                                          ><input
                                                             class="form-control" onfocus="(this.type='time')" step="2"
                                                             onblur="(this.type='text')" ng-model="e.Intime"
                                                             placeholder="HH:mm:ss" style="width:120px;"
@@ -295,7 +271,7 @@
                                                     </td>
                                                     <td ng-show="btnClose">{{e.Outtime}}</td>
                                                     <td ng-show="btnOpen"
-                                                        ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                          >
                                                         <input class="form-control" onfocus="(this.type='time')"
                                                             step="2" onblur="(this.type='text')" ng-model="e.Outtime"
                                                             placeholder="HH:mm:ss" style="width:120px;"
@@ -306,7 +282,7 @@
                                                     </td>
                                                     <td ng-show="btnClose">{{e.OTIntime}}</td>
                                                     <td ng-show="btnOpen"
-                                                        ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                          >
                                                         <input class="form-control" onfocus="(this.type='time')"
                                                             step="2" onblur="(this.type='text')" ng-model="e.OTIntime"
                                                             placeholder="HH:mm:ss" style="width:120px;"
@@ -315,7 +291,7 @@
                                                     </td>
                                                     <td ng-show="btnClose">{{e.OTOuttime}}</td>
                                                     <td ng-show="btnOpen"
-                                                        ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                          >
                                                         <input class="form-control" onfocus="(this.type='time')"
                                                             step="2" onblur="(this.type='text')" ng-model="e.OTOuttime"
                                                             placeholder="HH:mm:ss" style="width:120px;"
@@ -323,12 +299,12 @@
                                                             ng-change="CalculateOTTimeBGP(e.Employeeid,e.Attendencedate,e.AttenStatus,e.Intime,e.Outtime,e.OTIntime,e.OTOuttime,e.Allowotyesorno,e.Permissionyesorno,$index,'4')" />
                                                     </td>
 
-                                                    <td ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                    <td   >
                                                         {{e.Workinghours}}</td>
                                                     <!-- <td>{{e.Actualworkinghours}}</td> -->
-                                                    <td ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">{{e.OT_HRS}}
+                                                    <td   >{{e.OT_HRS}}
                                                     </td>
-                                                    <td ng-class="{'rowcoloreditmatched':e.OT_HRS>=1.10}">
+                                                    <td   >
                                                         {{e.ActualOt_HRS}}</td>
 
                                                     <!-- <td>{{e.Workingdays}}</td> -->

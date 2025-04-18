@@ -6,9 +6,6 @@ date_default_timezone_set('Asia/Kolkata');
 $date = date("d-m-Y H:i:s" );
 
 
-
-
-
 if(isset($_POST['MobileNum'])&&isset($_POST['Clientid']))
 {
 	
@@ -20,7 +17,8 @@ if($get_MobileNum =="hr@britanniapackaging.com")
 { echo json_encode(2);
 	return;
 }
-$website_live = 1; 	// {{ 0: Test Website ; 1: Live Website}} Also Update Login.php While Update Status
+
+$website_live = 1; 	// {{ 0: Test Website ; 1: Live Website}} 
 
 if($website_live==0){$otp = 123456; $SMSAPI="";}
 else{
@@ -76,14 +74,15 @@ CURLOPT_HTTPHEADER => array(
 $response = curl_exec($curl);
 $err = curl_error($curl);
 
+
 curl_close($curl);
 return;
 
 
 }
 
-
-	if (preg_match('/\bbritanniapackaging.com\b/', $get_MobileNum)) 
+if (preg_match('/\b(britanniapackaging\.com|sainmarks\.com)\b/', $get_MobileNum))
+	// if (preg_match('/\bbritanniapackaging.com\b/', $get_MobileNum)) 
 	
 	{
 		$CheckEmail = "SELECT * FROM indsys1000useradmin WHERE Emailid ='$get_MobileNum' AND Clientid = '$get_Clientid' LIMIT 1  ";
@@ -126,10 +125,8 @@ $mail->Password = "mdpswobfoltlloza"; // GMAIL password
 $mail->AddAddress($get_MobileNum);
 
 
-
-
 // $mail->AddAddress('ranjith@indsys.holdings');
-$mail->SetFrom('indsystesting@gmail.com', 'SAINMARKS');
+$mail->SetFrom('indsystesting@gmail.com', 'BRITANNIA');
 $mail->Subject = 'BGP OTP '.$date ;
 $mail->MsgHTML($htmlMsg);
 

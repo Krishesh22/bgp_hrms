@@ -1272,52 +1272,54 @@ catch(Exception $e)
 if($MethodGet == 'FetchReport')
 {
 
-    try
-    { 
-  
+try
+{ 
 
-      $ReportingToid =$form_data['ReportingToid'];
-  
-    $GetChapter = "SELECT * FROM indsys1017employeemaster where Clientid ='$Clientid' and Employeeid = '$ReportingToid' ";
-    $result_Chapter = $conn->query($GetChapter );
-    if(mysqli_num_rows($result_Chapter) > 0) { 
-
-
-    while($row = mysqli_fetch_array($result_Chapter)) {  
-      $Title =$row['Title'];
-      $Fullname = $row['Fullname'];
-      $Reportingname ="$Title $Fullname";
-     
-     
-     
-     
-      } 
-    }
-
-
- 
-    
-    $Display=array(
-      'Reportingname'=>  $Reportingname,
-    
-   
-     
-      
-     
-  
-  );
-   
- $str = json_encode($Display);
- echo trim($str, '"');
+$ReportingToid =$form_data['ReportingToid'];  
+$GetChapter = "SELECT * FROM indsys1017employeemaster where Clientid ='$Clientid' and Employeeid = '$ReportingToid' ";
+$result_Chapter = $conn->query($GetChapter );
+if(mysqli_num_rows($result_Chapter) > 0) { 
+while($row = mysqli_fetch_array($result_Chapter)) {  
+  $Title =$row['Title'];
+  $Fullname = $row['Fullname'];
+  $Reportingname ="$Title $Fullname";    
+  } 
+}
+$Display=array('Reportingname'=>  $Reportingname );   
+$str = json_encode($Display);
+echo trim($str, '"');
 }
 catch(Exception $e)
 {
 
 }
- 
+}
 
-   
- }
+if($MethodGet == 'FetchReportCat')
+{
+
+try
+{ 
+
+$ReportingToid =$form_data['ReportingToid'];  
+$GetChapter = "SELECT * FROM indsys1000useradmin where Clientid ='$Clientid' and Userid = '$ReportingToid' ";
+$result_Chapter = $conn->query($GetChapter );
+if(mysqli_num_rows($result_Chapter) > 0) { 
+while($row = mysqli_fetch_array($result_Chapter)) {  
+  $Title =$row['Title'];
+  $Fullname = $row['Usename'];
+  $Reportingname ="$Title $Fullname";    
+  } 
+}
+$Display=array('Reportingname'=>  $Reportingname );   
+$str = json_encode($Display);
+echo trim($str, '"');
+}
+catch(Exception $e)
+{
+
+}
+}
  /////////////////////////////////
 
 
@@ -1774,7 +1776,7 @@ $Mailcontent ="<!doctype html>
                     <tr>
                       <td>
                         <p>Dear Sir,</p>
-                        <p>Please find attached, Offer Letter of the candidate $Title$Firstname $Lastname for the position $Designationproposed starting $DOJ.
+                        <p>Please find attached, Offer Letter of the candidate $Title$Firstname $Lastname for the position $Designationproposed .
 
 Kindly check and provide your approval to release the offer letter to the respective candidate.</p>
 
@@ -3861,7 +3863,7 @@ $Mailcontent ="<!doctype html>
                     <tr>
                       <td>
                         <p>Dear Sir,</p>
-                        <p>Please find attached, Offer Letter of the candidate $Title$Firstname $Lastname for the position $Designationproposed starting $DOJ.
+                        <p>Please find attached, Offer Letter of the candidate $Title$Firstname $Lastname for the position $Designationproposed .
 
 Kindly check and provide your approval to release the offer letter to the respective candidate.</p>
 
@@ -7334,7 +7336,7 @@ function SendMailToCandidate($conn,$domain, $Candidateid,$Clientid)
   
                         <p>Dear <b>$Title$Firstname $Lastname</b></p>
                         <p>Greetings from Britannia Garment Packaging Private Limited.</p>
-                        <p>With respect to the interviews held with us previously, we’re glad to present to you an offer for the position of <b>$Designationproposed</b> starting <b>$DOJ</b></p>
+                        <p>With respect to the interviews held with us previously, we’re glad to present to you an offer for the position of <b>$Designationproposed</b> </p>
                         <p>Kindly find attached, Offer letter for your acceptance.</p>
                         <p>Kindly confirm your Date of Joining by replying to this email.</p>
                         <p>Once again, Welcome to Britannia Garment Packaging Private Limited. Hope to see you grow along with our company.</p>
@@ -7447,7 +7449,7 @@ try
   $Candidateid = $form_data['Candidateid'];
 
 
-SendMailToCandidate($conn,$domain,$Candidateid,$Clientid);
+//SendMailToCandidate($conn,$domain,$Candidateid,$Clientid);
 
 $Message = "Mail Sent";
 
@@ -7545,7 +7547,7 @@ $CurAnnuaTotalAllowance = $CurAnnuaSpecialAllowance + $Performanceallowanceyearl
 $CurMotGAC = $CurMotBasicDA+$CurMotHRA+$CurMotTotalAllowance;
 $CurAnnuaGAC = round($CurMotGAC*12);
 $CurMotTotalAllowance = round($CurAnnuaTotalAllowance/12) ;
-if($CurMotBasicDA<15000)
+if($CurMotBasicDA<=15000)
 {
 $CurAnnuaPFemployeer =round($CurAnnuaBasicDA*(12/100),0)+ round($CurAnnuaSpecialAllowance*(12/100),0);
 $CurMotPFemployeer = 0;

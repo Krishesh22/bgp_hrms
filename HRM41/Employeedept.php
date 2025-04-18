@@ -3,8 +3,17 @@ session_start();
 
 
     $Clientid =$_SESSION["Clientid"];
-    $query = "SELECT * FROM indsys1003departmentmaster WHERE Clientid ='$Clientid' "; 
-    $result = $conn->query($query);
+    $queryDept = "SELECT * FROM indsys1003departmentmaster WHERE Clientid ='$Clientid' ";  
+    $resultDept = $conn->query($queryDept);
+  
+    
+ 
+    // while($row = $result->fetch_assoc()){  
+    //     echo "<pre>";
+    //     print_r($row);  // This will print the full array of data for each row
+    //     echo "</pre>";
+    // }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,7 +36,7 @@ session_start();
         <?php include '../headerin.php' ?>
         <?php include '../Sidebarin.php' ?>
         <div class="dashboard-wrapper">
-            <div class="container-fluid dashboard-content">
+            <div class="container-fluid dashboard-content tabheight">
                 <div class="row">
                     <div class="col-xl-12">
                         <!-- ============================================================== -->
@@ -87,18 +96,21 @@ session_start();
                                                                 name="DEPTName[]"
                                                                 class="form-control multiple-checkboxes"
                                                                 style="width:250px">
-                                                          <?php 
-                                                            if($result->num_rows > 0){ 
-                                                                while($row = $result->fetch_assoc()){  
-                                                                    echo '<option value="'.$row['Department'].'">'.$row['Department'].'</option>'; 
-                                                                } 
-                                                            }
-                                                            ?>
+                                                              
+                                                                <?php  
+                                                                
+                                                                while ($rowdept = $resultDept->fetch_assoc()) {  
+                                                          
+                                                                  echo '<option value="'.$rowdept['Department'].'">'.$rowdept['Department'].'</option>'; 
+                                                            
+                                                                     }
+                                                                ?>
+                                                                </select>
 
 
 
 
-                                                            </select>
+                                                          
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2">
@@ -132,22 +144,7 @@ session_start();
 
 
 
-                <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-
-                <!-- Bootstrap Core JavaScript -->
-                <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-                <!-- Metis Menu Plugin JavaScript -->
-                <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-                <!-- DataTables JavaScript -->
-                <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-                <script
-                    src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js">
-                </script>
-
-                <!-- Custom Theme JavaScript -->
-                <script src=".../dist/js/sb-admin-2.js"></script>
+           
 
 
 

@@ -403,13 +403,13 @@
                                                             <td>{{e.Dormitory}}</td>
                                                             <td>{{e.Transport}}</td>
                                                             <td class="tabletotalrow">
-                                                                {{e.TotalDeduction |currency:''}}</td>
-                                                            <td class="tabletotalrow">{{e.NetWages |currency:''}}
+                                                                {{e.TotalDeduction --e.Holiday_deduction}}</td>
+                                                            <td class="tabletotalrow">{{e.NetWages --e.Holiday_net}}
                                                             </td>
                                                             <td class="tabletotalrow">
                                                                 {{e.Performanceallowance |currency:''}}</td>
 
-                                                            <td> {{e.NetWages--e.Performanceallowance}}</td>
+                                                            <td> {{e.NetWages--e.Performanceallowance --e.Holiday_net}}</td>
                                                         </tr>
                                                     </tbody>
                                                     <tr style='background-color:yellow'

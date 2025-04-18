@@ -24,7 +24,22 @@ $Payrollmonth=$_SESSION['Payrollmonth'];
 $gettime = time();
 $Downloadtime = time();
 $gettime = "BankReport_$Payrollmonth-$Payrollyear-$Downloadtime.xls";
-
+$Location="";
+$sqlclient = "SELECT * FROM indsys1001clientmaster where Clientid='$Clientid'";
+$resultClient = $conn->query($sqlclient);
+if ($resultClient->num_rows > 0) {
+  while ($rowClient = $resultClient->fetch_assoc()) {
+          $Location = $rowClient['Location'];
+  }
+}
+// if($Clientid==2)
+// {
+//   $Location="Corporate";
+// }
+// else
+// {
+//   $Location="Warehouse";
+// }
 
 header('Content-Type: application/vnd.ms-excel');
 header("Content-Disposition: attachment; filename=".$gettime."");
@@ -65,7 +80,7 @@ $excel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
 $excel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
 
 
-$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD -$Location ");
 $active->setCellValue('A2',"Wages For Monthly Paid  For the Month Of ".$Payrollmonth."-".$Payrollyear);
 $active->setCellValue('A3','S.No');
 $active->setCellValue('B3','Employeeid');
@@ -107,7 +122,8 @@ $result_Region = $conn->query($GetState);
     $sno++;
     $NetWages = $rows["NetWages"];
     $PA = $rows["Performanceallowance"];
-    $NetPa=$NetWages+$PA;
+    $Holiday_net=$rows["Holiday_net"];
+    $NetPa=$NetWages+$PA+$Holiday_net;
     $active->setCellValue('A'.$currentContenRow,$sno); 
     $active->setCellValue('B'.$currentContenRow,$rows['Employeeid']);   
     $active->setCellValue('C'.$currentContenRow,$rows['Empnameaspassbook']);
@@ -157,14 +173,19 @@ if(empty($Performanceallowance))
   $Performanceallowance = 0;
 }
 
+$sqlHoliday_net = "SELECT SUM(Holiday_net)FROM vwemppayrollbanklist where SalMonth='$Payrollmonth' and Salyear='$Payrollyear'  AND Clientid='$Clientid' AND NetWages!=0  ORDER BY Employeeid";
+$resultholiday_net = $conn->query($sqlHoliday_net);    
+while($row_holiday = mysqli_fetch_array($resultholiday_net)){
+  $Holiday_net= $row_holiday['SUM(Holiday_net)'];        
+}
+if(empty($Holiday_net))
+{
+  $Holiday_net = 0;
+}
 
-$GrandTotal = $NetWages+$Performanceallowance;
+$GrandTotal = $NetWages+$Performanceallowance+$Holiday_net;
 $active->setCellValue('G'.$currentContenRow,'Grand Total');
 $active->setCellValue('H'.$currentContenRow,$GrandTotal);
-
-
-
-
 $writer = IOFactory::createWriter($excel, 'Xls');
 $writer->save('php://output');
 exit;

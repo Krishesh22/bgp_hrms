@@ -82,7 +82,7 @@
                             <div class="input-group">
                                 <input type="file" class="form-control" ng-model="clearinput" id="fileInput05"
                                     name=files[]
-                                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                    accept=" application/vnd.ms-excel">
                                 <!-- <div class="input-group-append">
                                         <p id="fileButton05" class="input-group-text">
                                                                     <i class="fa fa-upload"></i>

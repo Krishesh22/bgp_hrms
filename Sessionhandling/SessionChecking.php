@@ -68,9 +68,16 @@ $Sessioncurrentvaraible =  $_SESSION["SESSIONID"];
         session_destroy();
         $Message ="SessionNo";
         $Url = "$domain/Sessionexpiredpage.php";
+          $Display=array(
+        'Message'=>  $Message,
+        'Url'=>  $Url
+    );
+    $str = json_encode($Display);
+    echo trim($str, '"');
+    return;
 
          
-        }
+    }
     if($SessionID==$Sessioncurrentvaraible)
     {
         $Message = "SessionYes";
@@ -78,22 +85,16 @@ $Sessioncurrentvaraible =  $_SESSION["SESSIONID"];
     }
 
    
-    if($SessionID!=$Sessioncurrentvaraible)
-    {
-        // session_destroy();
-        // $Message ="SessionNo";
-        // $Url = "$domain/Sessionexpiredpage.php";
-
-    }
-
-
-    // if (!isset($_SESSION['Userid'])) {
-    //     session_destroy();
+    // if($SessionID!=$Sessioncurrentvaraible)
+    // {
+    //    // session_destroy();
     //     $Message ="SessionNo";
-    //     $Url = "$domain/Sessionexpiredpage.php";
+    //     $Url = "$domain/Sessionexpiredclient.php";
 
-         
-    //     }
+    // }
+
+
+   
 
 
 

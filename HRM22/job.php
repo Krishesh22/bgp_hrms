@@ -12,8 +12,7 @@ require 'vendor/autoload.php';
       $username = $_SESSION["Username"];
       $usermail=$_SESSION["Mailid"];
       $Clientid =$_SESSION["Clientid"];
-      $Sessionid = $_SESSION["SESSIONID"];
-
+   
       $_SESSION["Tittle"] ="Application";
 $Message ='';
 
@@ -133,7 +132,7 @@ if($MethodGet == 'Qualifi')
 
   if($MethodGet == 'EDITMASTER')
   {
-     $GetState = "SELECT * FROM indsys1032jobappmaster where Selectionstatus='Open' AND Clientid ='$Clientid' ORDER BY Applicationid";
+     $GetState = "SELECT * FROM indsys1032jobappmaster where Selectionstatus='Shortlisted' AND Clientid ='$Clientid' ORDER BY Applicationid";
      $result_Region = $conn->query($GetState);
    //echo $GetState ;
      if(mysqli_num_rows($result_Region) > 0) { 
@@ -173,6 +172,8 @@ try
     $Fresher=$form_data["Fresher"];
     $ExpectedCTC=$form_data["ExpectedCTC"];
     $PreviousCTC=$form_data["PreviousCTC"];
+    $Otherallowance=$form_data["Otherallowance"];
+    $Experience = $form_data["Experience"];
 
     
     if(empty($Firstname))
@@ -242,6 +243,11 @@ try
      echo trim($str, '"');
      return;
     }
+    if(empty($Otherallowance))
+    {
+      $Otherallowance=0;
+    }
+  /*  
   /*   
   $testfn =  
               */
@@ -265,9 +271,9 @@ try
   
     else
     {
-      $sqlsave = "INSERT IGNORE INTO indsys1032jobappmaster (Clientid,Applicationid,Title,Firstname,Fullname,Lastname,Mother_tong,Gender,Contactno,Userid,Addormodifydatetime,Type_Of_Posistion,Emaild,HighestQualification,Marital_status,Selectionstatus,PoistionApplicant,Appdate,Intervdate,interviewtime,Smsverified,Emailverified,Candidateid,Movedtocandidate,Fresher,ExpectedCTC,PreviousCTC)
+      $sqlsave = "INSERT IGNORE INTO indsys1032jobappmaster (Clientid,Applicationid,Title,Firstname,Fullname,Lastname,Mother_tong,Gender,Contactno,Userid,Addormodifydatetime,Type_Of_Posistion,Emaild,HighestQualification,Marital_status,Selectionstatus,PoistionApplicant,Appdate,Intervdate,interviewtime,Smsverified,Emailverified,Candidateid,Movedtocandidate,Fresher,ExpectedCTC,PreviousCTC,Otherallowance,Experience)
 
-      values('$Clientid','$Applicationid','$Title','$Firstname','$fullname','$Lastname','$Mothertongue','$Gender','$Contactno','$user_id','$date','$Category','$Emailid','$Qualification','$Married','$Selectionstatus','$Vaccancy','$ApplicationDate','$InterviewDate','$Interviewtime','No','No',0,'No','$Fresher','$ExpectedCTC','$PreviousCTC')";
+      values('$Clientid','$Applicationid','$Title','$Firstname','$fullname','$Lastname','$Mothertongue','$Gender','$Contactno','$user_id','$date','$Category','$Emailid','$Qualification','$Married','$Selectionstatus','$Vaccancy','$ApplicationDate','$InterviewDate','$Interviewtime','No','No',0,'No','$Fresher','$ExpectedCTC','$PreviousCTC','$Otherallowance','$Experience')";
   
       $resultsave = mysqli_query($conn,$sqlsave);
      
@@ -331,6 +337,9 @@ try
             $Fresher=$row['Fresher'];
             $ExpectedCTC = $row['ExpectedCTC'];
             $PreviousCTC = $row['PreviousCTC'];
+            $Otherallowance = $row['Otherallowance'];
+            $Experience = $row['Experience'];
+            $Candidatephoto = $row['Candidatephoto'];
            
              
       } 
@@ -357,7 +366,10 @@ try
       'Emailverified' =>$Emailverified,
       'Fresher' =>$Fresher,
       'ExpectedCTC' =>$ExpectedCTC,
-      'PreviousCTC' =>$PreviousCTC
+      'PreviousCTC' =>$PreviousCTC,
+      'Otherallowance' =>$Otherallowance,
+      'Experience' =>$Experience,
+      'Candidatephoto' =>$Candidatephoto
        
   );
    
@@ -434,6 +446,8 @@ try
     $Fresher=$form_data["Fresher"];
     $ExpectedCTC=$form_data["ExpectedCTC"];
     $PreviousCTC=$form_data["PreviousCTC"];
+    $Otherallowance= $form_data["Otherallowance"];
+    $Experience=$form_data["Experience"];
     
 
 
@@ -534,9 +548,9 @@ $testfn =              */
   PoistionApplicant='$Vaccancy',
   Fresher ='$Fresher',
   ExpectedCTC ='$ExpectedCTC',
-  PreviousCTC='$PreviousCTC'
- 
-
+  PreviousCTC='$PreviousCTC',
+  Otherallowance='$Otherallowance',
+  Experience='$Experience' 
     
      WHERE Applicationid = '$Applicationid' AND Clientid ='$Clientid' ";
   $resultExists01 = $conn->query($resultExists);
@@ -592,7 +606,7 @@ $mail->SMTPSecure = "tls"; // sets the prefix to the servier
 $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
 $mail->Port = 587; // set the SMTP port for the GMAIL server
 $mail->Username = "indsystesting@gmail.com"; // GMAIL username
-$mail->Password = "cllazzawsljgntjj"; // GMAIL password
+$mail->Password = "mdpswobfoltlloza"; // GMAIL password
 
 // $to = str_replace(";",",",$to);
 $Toaddress=$Emailid;
@@ -830,6 +844,7 @@ if($MethodGet == 'MoveToCandidate')
             $Fresher=$row['Fresher'];
             $ExpectedCTC = $row['ExpectedCTC'];
             $PreviousCTC = $row['PreviousCTC'];
+            $Experience = $row['Experience'];
 $Candidateid = "0";
 
 $fullname = "$Firstname $Lastname"; 
@@ -847,29 +862,30 @@ $fullname = "$Firstname $Lastname";
                 }
             }
 
-
-            $sqlsave = "INSERT IGNORE INTO indsys1013candidatemaster (Clientid,Candidateid,Title,Firstname,Fullname,Lastname,Mother_tong,Gender,Contactno,Userid,Addormodifydatetime,Type_Of_Posistion,Emaild,HighestQualification,Marital_status,Selectionstatus,ApplicationDate,Interview_held_On,Previous_sainmarks_emp,Designationproposed,Availableoninterview,Fresher,ExpectedCTC,PreviousCTC,MD_Approve,HR_Approve,GM_Approve,DH_Approve,Accepted_By_Candidate,Candidateinterviewtime)
-            values('$Clientid','$Candidateid','$Title','$Firstname','$fullname','$Lastname','$Mothertongue','$Gender','$Contactno','$user_id','$date','$Category','$Emailid','$Qualification','$Married','Pending','$ApplicationDate','$InterviewDate','No','$Vaccancy','$InterviewDate','$Fresher','$ExpectedCTC','$PreviousCTC','Pending','Pending','Pending','Pending','Pending','$Interviewtime')";
+            $sqlsave = "INSERT IGNORE INTO indsys1013candidatemaster (Clientid,Candidateid,Title,Firstname,Fullname,Lastname,Mother_tong,Gender,Contactno,Userid,Addormodifydatetime,Type_Of_Posistion,Emaild,HighestQualification,Marital_status,Selectionstatus,ApplicationDate,Interview_held_On,Previous_sainmarks_emp,Designationproposed,Availableoninterview,Fresher,ExpectedCTC,PreviousCTC,MD_Approve,HR_Approve,GM_Approve,DH_Approve,Accepted_By_Candidate,Candidateinterviewtime,Expereienced)
+            values('$Clientid','$Candidateid','$Title','$Firstname','$fullname','$Lastname','$Mothertongue','$Gender','$Contactno','$user_id','$date','$Category','$Emailid','$Qualification','$Married','Pending','$ApplicationDate','$InterviewDate','No','$Vaccancy','$InterviewDate','$Fresher','$ExpectedCTC','$PreviousCTC','Pending','Pending','Pending','Pending','Pending','$Interviewtime','$Experience')";
         
             $resultsave = mysqli_query($conn,$sqlsave);
            
-        
+        if($resultsave===TRUE)
+        {
             $UpdateNextno = "Update indsys1008mastermodule set Nextno = '$Candidateid' where ModuleID ='CAN' AND Clientid ='$Clientid'";
             $resultUpdate = mysqli_query($conn,$UpdateNextno);
-
-
+            Clonecandidateimage($conn,$Clientid,$Applicationid,$Candidateid);
             $resultExists = "Update indsys1032jobappmaster set 
-
             Selectionstatus='Close',
             Movedtocandidate='Yes',
             Userid = '$user_id',
             Candidateid ='$Candidateid',
             Addormodifydatetime='$date'   
-     WHERE Applicationid = '$Applicationid' AND Clientid ='$Clientid'";
-  $resultExists01 = $conn->query($resultExists);
-  
- 
+            WHERE Applicationid = '$Applicationid' AND Clientid ='$Clientid'";
+            $resultExists01 = $conn->query($resultExists);
+            if($resultExists01===TRUE)
+            {
+            
+            }
             $Message ="MovedToCandidate";
+        }
            
              
       } 
@@ -895,6 +911,51 @@ $fullname = "$Firstname $Lastname";
   }
 
 //////////////////////////////////////
+function Clonecandidateimage($conn,$Clientid,$Applicationid,$Candidateid)
+{
+  try
+  {
+    $Fetchimagepath ="SELECT * FROM indsys1032jobappmaster Where Clientid='$Clientid' AND Applicationid='$Applicationid'";
+    $fetchresult = $conn->query($Fetchimagepath);
+
+    if(mysqli_num_rows($fetchresult)>0)
+    {
+      while(($row=mysqli_fetch_array($fetchresult)))
+      {
+        $Candidatephoto = $row['Candidatephoto'];
+      }
+      $destinationfile ="";
+      if($Candidatephoto !=null)
+      {
+      $test = pathinfo($Candidatephoto); 
+      $last_image_path =$test['basename'];
+      $Folderid ="bgp-$Clientid";
+      $directory3 = "../$Folderid/";
+      $directory4 = "../$Folderid/CANIMAGE/";
+     
+      $directory = "../$Folderid/CANIMAGE/$Candidateid/";
+      if(!is_dir($directory3)){mkdir($directory3, 0777);}
+      if(!is_dir($directory4)){mkdir($directory4, 0777);}
+    
+    
+      if(!is_dir($directory)){mkdir($directory, 0777);}
+      $destinationfile ="$directory$last_image_path";
+     
+      copy($Candidatephoto, $destinationfile);
+
+      $Executequery = "UPDATE indsys1013candidatemaster SET Candidatephoto='$destinationfile' Where Clientid='$Clientid' AND Candidateid='$Candidateid'";
+      $Updateqryresult = $conn->query($Executequery);
+      }
+
+
+    }
+
+  }
+  catch(Exception $E)
+  {
+
+  }
+}
 
 
 
@@ -925,7 +986,7 @@ $mail->SMTPSecure = "tls"; // sets the prefix to the servier
 $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
 $mail->Port = 587; // set the SMTP port for the GMAIL server
 $mail->Username = "indsystesting@gmail.com"; // GMAIL username
-$mail->Password = "cllazzawsljgntjj"; // GMAIL password
+$mail->Password = "mdpswobfoltlloza"; // GMAIL password
 
 // $to = str_replace(";",",",$to);
 $Toaddress=$EmailidVerify;
@@ -1161,7 +1222,13 @@ catch(phpmailerException $e)
       {
         
         $Message ="ContactYes";
-     
+       $resultExistsEMP = "SELECT * FROM indsys1017employeemaster WHERE Contactno = '$Contactno' And EmpActive='Deactive' AND Clientid='$Clientid' LIMIT 1";
+        $resultExistsEMP = $conn->query($resultExistsEMP);
+
+        if(mysqli_fetch_row($resultExistsEMP))
+      {
+        $Message = "No";
+      }
       }
     
       else
@@ -1214,6 +1281,14 @@ catch(phpmailerException $e)
       {
         
         $Message ="MailYes";
+        $resultExistsEMP = "SELECT * FROM indsys1017employeemaster WHERE Emaild = '$Emailid' And EmpActive='Deactive' LIMIT 1";
+        $resultExistsEMP = $conn->query($resultExistsEMP);
+
+        if(mysqli_fetch_row($resultExistsEMP))
+        {
+         $Message = "No";
+         }
+     
      
       }
     
@@ -1235,21 +1310,36 @@ catch(phpmailerException $e)
      
          
     }
-
-    
-if($MethodGet == 'PageSession')
-{
-
-    $Message =$Sessionid;
-
-  
-    $Display=array(
-        'Message'=>  $Message,
-      
-    );
-    $str = json_encode($Display);
-    echo trim($str, '"');
-    return;
-}
     /////////////////////////////////
+        if($MethodGet == 'cat3')
+    {
+       $GetState = "SELECT * FROM indsys1032jobappmaster  where Type_Of_Posistion='Category 3' and Clientid ='$Clientid'  ORDER BY Applicationid ";
+       $result_Region = $conn->query($GetState);
+     
+       if(mysqli_num_rows($result_Region) > 0) { 
+       while($row = mysqli_fetch_array($result_Region)) {  
+         $data01[] = $row;
+         } 
+       }        
+       header('Content-Type: application/json');
+       echo json_encode($data01);
+     }
+     ////////////////////////////
+     if($MethodGet == 'Maritalstatus')
+     {
+        $GetState = "SELECT * FROM indsys1060maritalstatus where  Clientid ='$Clientid'  ORDER BY Maritalstatus";
+         $result_Region = $conn->query($GetState);
+       
+         if(mysqli_num_rows($result_Region) > 0) { 
+         while($row = mysqli_fetch_array($result_Region)) {  
+           $data01[] = $row;
+           } 
+         }
+         
+         
+         header('Content-Type: application/json');
+         echo json_encode($data01);
+      
+     }
+     //////////////////////////
  ?>

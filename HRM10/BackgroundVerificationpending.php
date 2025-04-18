@@ -20,20 +20,20 @@
         <?php include '../headerin.php'?>
         <?php include '../Sidebarin.php'?>
         <div class="dashboard-wrapper" ng-App="MyApp" ng-controller="HRM10Controller">
-            <div class="container-fluid">
+            <div class="container-fluid dashboard-content">
 
 
                 <div id="myCarousel" class="carousel slide" data-interval="false">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
 
-                            <div class="container-fluid dashboard-content">
+                            <div class="mt-3">
                                 <div class="row">
                                     <div class="col-xl-12">
 
-                                        <div class="card">
-                                            <h5 class="card-header text-green">Employee Details</h5>
-                                            <div class="card-body">
+                                        <div class="">
+                                            <h5 class="text-green">Employee Details</h5><hr />
+                                            <div class="">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="table-responsive">
@@ -185,16 +185,17 @@
                         </div>
 
                         <div class="carousel-item">
-                            <div class="container-fluid dashboard-content">
+                            <div class="mt-3">
                                 <div class="row">
                                     <div class="col-md-12">
 
 
 
 
-                                        <div class="card">
-                                            <h5 class="card-header text-green">Background Verification Pending Details </h5>
-                                            <div class="card-body">
+                                        <div class="">
+                                            <h5 class="text-green">Background Verification Pending Details </h5>
+                                            <hr />
+                                            <div class="">
 
 
                                                 <div class="row">
@@ -305,7 +306,7 @@
                                                     </div>
 
 
-                                                    <div class="text-right mt-25">
+                                                    <div class="text-right" style="margin-top:19px">
 
                                                         <button class="btn btn-sm btn-warning" data-target="#myCarousel"
                                                             data-slide-to="0" ng-click="Getallvalues()"><i

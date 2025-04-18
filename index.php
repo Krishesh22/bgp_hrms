@@ -18,6 +18,8 @@ return;
 }
 
 ?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -113,7 +115,7 @@ a:hover{text-decoration: none;}
      <div class="row">
        <div class="col-md-12"><h4>Select Login Option</h4></div>
        <div class="col-md-6">
-        <a href="Login.php"><div class="login-box sainmarks"><img src="assets/icons/users.png"><h3>GENERAL</h3></div></a>
+        <a href="Login.php"><div class="login-box sainmarks"><img src="assets/icons/users.png"><h3>HR MIS</h3></div></a>
 
         </div>
       <div class="col-md-6">

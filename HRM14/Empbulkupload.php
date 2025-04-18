@@ -74,6 +74,16 @@ if (isset($_FILES['files']) && !empty($_FILES['files'])) {
 
         try{
 
+          
+          /////////////////Code updated for set to 0 is value empty ///////////////////
+          foreach ($data[$row] as &$value) {
+            // Check if the value is empty or null
+            if ($value === '' || $value === null) {
+                // If empty or null, set it to '0'
+                $value = '0';
+            }
+        }
+
           $val = "'" . implode("','", $data[$row]) . "'";
 
           $Employeeid = substr($val,0,strpos($val,","));; 

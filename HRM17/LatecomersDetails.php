@@ -12,26 +12,24 @@
 </head>
 
 <body>
-    <!-- ============================================================== -->
-    <!-- main wrapper -->
-    <!-- ============================================================== -->
+ 
     <div class="dashboard-main-wrapper">
 
         <?php include '../headerin.php'?>
         <?php include '../Sidebarin.php'?>
         <div class="dashboard-wrapper" ng-App="MyApp" ng-controller="HRM17Controller">
             <div class="container-fluid dashboard-content">
-                <div class="row">
+                <div class="">
                    
        
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="section-block" id="basicform">
-                                    <h3 class="section-title">Late Comers Detail For Selected Date </h3>
+                                <div class="" id="basicform">
+                                    <h5 class="text-green">Late Comers</h5><hr>
 
                                 </div>
-                                <div class="card">
-                                    <div class="card-header">
+                                <div class="">
+                                    <div class="">
                                     <div class="row">
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">From Date</label>
@@ -49,8 +47,8 @@
                                 <div class="form-group text-right mt-25">
                                  
                                   
-                                    <button class="btn btn-sm btn-success"
-                                        ng-click="DisplayEmpLateCome();">Get Details</button>
+                                    <button class="btn btn-sm btn-info"
+                                        ng-click="DisplayEmpLateCome();"><i class="fa fa-history"></i> Get Details</button>
                                   
                                 </div>
                                 
@@ -90,23 +88,23 @@
                                                         <tr>
                                                             
                                                            
-                                                            <td colspan="2"> <input type="text" class="form-control"
+                                                            <td colspan="2"> <input type="text" placeholder="Search" class="form-control"
                                                                     ng-model="searchPayroll.Employeeid"></td>
-                                                            <td> <input type="text" class="form-control"
+                                                            <td> <input type="text" placeholder="Search" class="form-control"
                                                                     ng-model="searchPayroll.Firstname"></td>
-                                                            <td> <input type="text" class="form-control"
+                                                            <td> <input type="text" placeholder="Search" class="form-control"
                                                                     ng-model="searchPayroll.Department"></td>
-                                                            <td> <input type="text" class="form-control"
+                                                            <td> <input type="text" placeholder="Search" class="form-control"
                                                                     ng-model="searchPayroll.Designation"></td>
                                                             <!-- <td> <input type="text" class="form-control"
                                                                     ng-model="searchPayroll.Category"></td> -->
-                                                            <td> <input type="text" class="form-control"
+                                                            <td> <input type="text" placeholder="Search" class="form-control"
                                                                     ng-model="searchPayroll.LateCount"></td>
-                                                            <td> <input type="text" class="form-control"
+                                                            <td> <input type="text" placeholder="Search" class="form-control"
                                                                     ng-model="searchPayroll.OT"></td>
-                                                            <td> <input type="text" class="form-control"
+                                                            <td> <input type="text" placeholder="Search" class="form-control"
                                                                     ng-model="searchPayroll.Workingdays"></td>
-                                                            <td > <input type="text" class="form-control"
+                                                            <td colspan="2"> <input type="text" placeholder="Search" class="form-control"
                                                                     ng-model="searchPayroll.Workinghours"></td>
                                                          
                                                            
@@ -141,7 +139,7 @@
                                                             <!-- <td> <input class="form-control" ng-model=e.Workeddays  onkeypress="return Validate(event);" ng-model-options='{ debounce: 1000 }' ng-change="Getcalvalue(e.Employeeid,e.SalMonth,e.Salyear,e.Workeddays,e.Leavedays,e.Salary_Advance,e.FoodDeduction,e.TDS,e.Category,e.Workingdays,e.Nationalholidays,e.CL,e.BasicDA,e.HRA,e.Otherallowance_Con_SA,e.DailyAllowanance,e.OT_HRS)" /></td> -->
                                                             <td>{{e.Workingdays}}</td>
                                                             <td>{{e.Workinghours}}</td>
-                                                           <td> <button class="btn btn-sm btn-rounded btn-success" ng-click="Sendemail(e.Employeeid);">
+                                                           <td> <button class="btn btn-sm btn-rounded btn-success" ng-click="Sendemail(e.Employeeid);"><i class="fa fa-envelope-o" aria-hidden="true"></i>
                                             Send Email</button></td>
                  
                                                           
@@ -153,7 +151,7 @@
                                  
                                   
                                 <button class="btn btn-sm btn-rounded btn-success" ng-click="Sendemailbulk();">
-                                            Send Bulk Email</button>
+                                            <i class="fa fa-envelope-o" aria-hidden="true"></i> Send Bulk Email</button>
                                   
                                 </div>
                                             </div>

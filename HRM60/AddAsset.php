@@ -28,38 +28,39 @@ include '../session.php';
 
 
 
-                <div class="row">
+                <div class="row mt-3">
 
-                    <div class="col-md-6">
+                <div class="col-md-12">
                         <h5 class="text-green">Asset Category</h5>
+                        <hr/>
                     </div>
 
-                    <div class="col-md-6">
-
+                
+                    <div class="col-md-12">
+<div class="pull-right">
                         <table class="CityTable">
                             <tr>
                                 <td>
                                     <div class="form-group">
-                                        <label class="col-form-label">Asset Category<span
-                                                class="required">*</span></label>
+                                      
                                         <input id="inputText3" type="text" class="form-control" ng-model="Assetcategory"
                                             placeholder="Enter Asset Category" ng-change="GetAssetcategory();"
                                             maxlength="150" autocomplete="off">
                                     </div>
+                                   
                                 </td>
+                                <td>&nbsp;</td>
                                 <td>
                                     <div class="form-group">
-                                        <label class="col-form-label">Short Code<span class="required">*</span></label>
+                                       
                                         <input id="inputText3" type="text" class="form-control" ng-model="Shortcode"
                                             placeholder="Enter Asset Code" maxlength="100" autocomplete="off" />
                                     </div>
                                 </td>
-
-
                                 <td>
-                                    <div class="form-btn-sm" style="margin-top: 6px">&nbsp;
+                                    <div class="form-btn-sm" style="margin-top: -12px;">&nbsp;
                                         <button class="btn btn-success" ng-click="SaveAsset();">Save <i
-                                                class="fa fa-plus"></i></button>
+                                                class="fa fa-plus"></i></button>&nbsp;
                                         <button class="btn btn-danger" ng-click="Reset();">Clear <i
                                                 class="fa fa-times"></i></button>
                                     </div>
@@ -67,14 +68,13 @@ include '../session.php';
                             </tr>
 
                         </table>
-
+                        </div>
                     </div>
 
 
                     <div class="col-md-12">
-                        <hr />
-                        <div class="alert alert-info " role="alert" ng-show="Message">
-                            {{Message}}
+                        <div class="alert alert-info" role="alert" ng-show="Message">
+                            <b>{{Message}}</b>
                         </div>
                     </div>
 
@@ -150,14 +150,14 @@ include '../session.php';
                                     pagination-id="AssetGrid" current-page="currentPageAssetcategory">
 
 
-                                    <td style="width: 50px;">
+                                    <td style="width: 50px;" class="text-center">
                                         {{$index+1 + (currentPageAssetcategory - 1) * pageSizeAssetcategory}}
                                     </td>
                                     <td>{{e.Assetcategory}}</td>
                                     <td>{{e.Shortcode}}</td>
-                                    <td>{{e.AssetListCount}}</td>
-                                    <td>{{e.EmployeeItemCount}}</td>
-                                    <td>{{e.Activestatus}}</td>
+                                    <td class="text-center">{{e.AssetListCount}}</td>
+                                    <td class="text-center">{{e.EmployeeItemCount}}</td>
+                                    <td class="text-center">{{e.Activestatus}}</td>
 
                                     <td style="width:150px;">
                                         <div class="action-btn" ng-show="e.EmployeeItemCount==0">
@@ -186,9 +186,6 @@ include '../session.php';
                                         </div>
                                         <div class="action-btn" ng-show="e.EmployeeItemCount!=0">
                                             <center>
-
-
-
                                                 <a class=' btn btn-info btn-spacing btn-smaller ' href='#'
                                                     title="Print asset lists barcode"
                                                     ng-click="GetAssetlistbarcode(e.Assetcategoryid,e.AssetListCount);"><i

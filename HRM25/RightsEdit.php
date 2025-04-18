@@ -20,19 +20,19 @@
         <?php include '../headerin.php'?>
         <?php include '../Sidebarin.php'?>
         <div class="dashboard-wrapper" ng-App="MyApp" ng-controller="HRM25Controller">
-            <div class="container-fluid">
+            <div class="container-fluid dashboard-content">
 
 
                 <div id="myCarousel" class="carousel slide" data-interval="false">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
 
-                            <div class="container-fluid dashboard-content">
+                            <div class="">
                                 <div class="row">
-                                    <div class="col-xl-12">
-                                      
-                                            <h5 class="card-header text-green">Employee Details</h5>
-                                            <div class="card-body">
+                                    <div class="col-md-12">
+                                      <div class="">
+                                            <h5 class="text-green">Employee Rights Details</h5><hr>
+                                            <div class="">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="table-responsive">
@@ -47,8 +47,11 @@
                                                                         <th scope="col" >Email Id</th>
                                                                         <th scope="col">Department</th>
                                                                         <th scope="col">Designation</th>
+
                                                                         <th scope="col">Contact</th>
-                                                                        <th scope="col"> Type</th>
+                                                                        <th scope="col">Authorized Type </th>
+                                                                        <th scope="col">Member Active</th>
+                                                                  
                                                                         <th scope="col">Action</th>
                                                                     </tr>
                                                                 </thead>
@@ -58,7 +61,7 @@
                                                                     <tr>
                                                                         <td colspan="2">
                                                                             <div class="input-group ">
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text" class="form-control" placeholder="Search" 
                                                                                     ng-model="searchEmployee.Userid">
                                                                               
                                                                             </div>
@@ -66,47 +69,58 @@
                                                                         </td>
                                                                         <td>
                                                                             <div class="input-group ">
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text" class="form-control" placeholder="Search" 
                                                                                     ng-model="searchEmployee.Username">
                                                                                
                                                                             </div>
                                                                         </td>
                                                                         <td>
                                                                             <div class="input-group ">
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text" class="form-control" placeholder="Search" 
                                                                                     ng-model="searchEmployee.Emailid">
                                                                                
                                                                             </div>
                                                                         </td>
                                                                         <td>
                                                                             <div class="input-group ">
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text" class="form-control" placeholder="Search" 
                                                                                     ng-model="searchEmployee.Department">
                                                                               
                                                                             </div>
                                                                         </td>
                                                                         <td>
                                                                             <div class="input-group ">
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text" class="form-control" placeholder="Search" 
                                                                                     ng-model="searchEmployee.Designation">
                                                                                 
                                                                             </div>
                                                                         </td>
                                                                         <td>
                                                                             <div class="input-group ">
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text" class="form-control" placeholder="Search" 
                                                                                     ng-model="searchEmployee.Contactno">
                                                                               
                                                                             </div>
                                                                         </td>
                                                                         <td>
                                                                             <div class="input-group ">
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text" class="form-control" placeholder="Search" 
                                                                                     ng-model="searchEmployee.Authorizedtype">
                                                                                
                                                                             </div>
                                                                         </td>
-                                                            
+                                                                        <td colspan="2"> 
+                                                                            <div class="input-group ">
+                                                                                <input type="text" class="form-control" placeholder="Search" 
+                                                                                 autocomplete="off"   ng-model="searchEmployee.Memberactive">
+                                                                               
+                                                                            </div>
+                                                                        </td>
+                                                                       
+
+                                                                       
+                                                                        
+
                                                                         </td>
 
 
@@ -126,9 +140,10 @@
                                                                         <td>{{e.Emailid}}</td>
                                                                         <td>{{e.Department}}</td>
                                                                         <td>{{e.Designation}}</td>
+
                                                                         <td>{{e.Contactno}}</td>
                                                                         <td>{{e.Authorizedtype}}</td>
-                                                                        
+                                                                        <td>{{e.Memberactive}}</td>
                                                                       
 
                                                                         <td>
@@ -137,6 +152,8 @@
                                                                                     ng-click="SendEdit(e.Userid);"
                                                                                    
                                                                                     src="<?php echo "$domain"; ?>/assets/icons/edit.png">
+
+
 
                                                                                     </div>
                                                                         </td>
@@ -149,7 +166,7 @@
                                                     </div>
                                                 </div>
 
-                               
+
                                                 <div class="float-right mt-2">
                                                     <div class="pagination ">
                                                         <dir-pagination-controls pagination-id="Employeegrid"
@@ -161,21 +178,25 @@
                                                 </div>
 
                                             </div>
-                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            
+
                         </div>
                         <div class="carousel-item">
-                            <div class="container-fluid dashboard-content">
+                            <div class="">
                                 <div class="row">
                                     <div class="col-md-12">
 
 
-                                            <h5 class="card-header text-green">Employee Modification</h5>
-                                            <div class="card-body">
+
+
+
+                                        <div class="">
+                                            <h5 class="text-green">Employee Rights Modification</h5><hr>
+                                            <div class="">
 
 
                                                 <div class="row">
@@ -223,26 +244,24 @@
                                                     </div>
 
                                                     <div class="form-group col-md-3">
-                                                        <label class="col-form-label"> Contactno</label>
-                                              
-                                                         <input class="form-control" ng-model="Contactno" 
-                                                         ng-model-options='{ debounce: 1000 }'
-                                                         ng-change="GeContactunique(Contactno)" >
-                                               
-                                                     </div>
+                                                        <label class="col-form-label">Contact No</label>
+                                                        <input type="text" class="form-control" ng-model="Contactno"
+                                                            
+                                                            maxlength="10">
+                                                    </div>
+
+                                                    
 
                                                     <div class="form-group col-md-3">
-                                                         <label class="col-form-label">Authorised Type</label>
-                                                           <select class="form-control" id="EmployeeType" ng-model="EmployeeType">
-                                                                <option Value="ADMIN">ADMIN</option>
-                                                                <option value="General Manager">General Manager</option>
-                                                                <option value="Dept Head">Dept Head</option>
-                                                                <option value="HR Manager">HR Manager</option>
-                                                                <option value="HR Assistant">HR Assistant</option>
-                                                                <option value="Cash Voucher">Cash Voucher</option>
+                                                        <label class="col-form-label">Authorized Type</label>
+                                                        <select class="form-control" ng-model="Authorizedtype">
+                                                <option Value="SuperUser">ADMIN</option>
+                                                <option value="HR-Manager">HR Manager</option>
+                                                <option value="Dept-Head">Dept Head</option>
+                                                <option value="HR-Assistant">HR Assistant</option>
 
-                                                            </select>
-                                                     </div>
+                                            </select>
+                                                    </div>
 
                                                     <div class="form-group col-md-3">
                                                         <label class="col-form-label">Member Active</label>
@@ -256,11 +275,11 @@
                                                         </select>
                                                     </div>
 
-                                                     <div class="form-group col-md-3">
-                                                          <label class="col-form-label"> Password</label>
+                                                    <div class="form-group col-md-3">
+                                                    <label> Password</label>
                                               
-                                                         <input class="form-control" type="password" id="Userpassword" ng-model="Userpassword" name="Userpassword">
-                                                     </div>
+                                                    <input class="form-control" type="password" id="Userpassword" ng-model="Userpassword" name="Userpassword">
+                                                </div>
 
                                                     
 
@@ -270,49 +289,25 @@
                                                             ng-click="UpdateEmp();"><i class="fa fa-save"></i>
                                                             Update</button>
                                                         <button class="btn btn-sm btn-warning" data-target="#myCarousel"
-                                                            data-slide-to="0" ng-click="Empdetails2()"><i
-                                                            class="fa fa-arrow-left"></i> Back</button>
+                                                            data-slide-to="0" ng-click="Getallvalues()"><i
+                                                                class="fa fa-arrow-left"></i> Back</button>
                                                     </div>
 
 
                                                 </div>
-                                           
-                                            </div>
-                                               
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                      </div>
 
-                                           
-
-                         <div class="alert alert-success" role="alert" ng-show="Message">
-                            {{Message}}
-                        </div>
-
-                    </div>
-            
-                 
-             </div>    
                         <?php include '../footer.php'?>
-       
-       
             </div>
-       
-          </div>
-        
-        
-        
-    </div>
 
-       
-     
-     
+
+
+
+        </div>
+
         <?php include '../footerjs.php'?>
         <script src="../Scripts/Controller/HRM25Controller.js"></script>
 
-
+        <style type="text/css">footer{display: none;}</style>
 </body>
 
 </html>

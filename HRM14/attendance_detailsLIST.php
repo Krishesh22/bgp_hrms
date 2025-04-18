@@ -72,16 +72,19 @@ if ($_POST) {
     //echo "$fdaymonth";
     // $ldaymonth = date("$year-$nmonth-t");
      
-     $ldaymonth = date("Y-m-d", strtotime("+1 month", strtotime($fdaymonth)));
-    // $d = date('Y-m-d',strtotime("$year-$nmonth-01"));
+    // $ldaymonth = date("Y-m-d", strtotime("+1 month", strtotime($fdaymonth)));
+    $d = date('Y-m-d',strtotime("$year-$nmonth-01"));
 
-    // $fdaymonth = date('Y-m-01',strtotime($d));
-    // $ldaymonth=date('Y-m-t',strtotime($d));
+    $fdaymonth = date('Y-m-01',strtotime($d));
+    $ldaymonth=date('Y-m-t',strtotime($d));
     // //echo "$ldaymonth <br>"; 
-    // $date = date('Y-m-d');
+     $date = date('Y-m-d');
    
 }
 
+if ($ldaymonth > $date) {
+  echo '<script>alert("NO DATA FOUND")</script>';
+} else {
 
 
 
@@ -97,7 +100,7 @@ while ($i < $selectedOptionCount) {
     
     $i ++;
 }
-$query = $query . " WHERE Type_Of_Posistion in (" . $selectedOption . ")  AND  EmpActive='Active' AND Clientid ='$Clientid'";
+$query = $query . " WHERE Type_Of_Posistion in (" . $selectedOption . ")  AND  EmpActive IN('Active','Deactive') AND (DATE(Leftdate) >'$fdaymonth'   OR Leftdate IS NULL)  AND Clientid ='$Clientid' AND DATE(Date_Of_Joing) < '$ldaymonth' AND EmpActive IN('Active','Deactive') AND (DATE(Leftdate) >'$fdaymonth' OR Leftdate IS NULL)";
 //echo $query;
 $retval = mysqli_query($conn, $query);
 
@@ -106,10 +109,10 @@ $retval = mysqli_query($conn, $query);
 <?php
 
 $begin = new DateTime($fdaymonth);
-$end = new DateTime($ldaymonth);
+$end = (new DateTime($ldaymonth))->modify("+1 second");
 
-$interval = DateInterval::createFromDateString('1day');
-$period = new DatePeriod($begin, $interval, $end);
+$interval = DateInterval::createFromDateString("1day");
+$period = new DatePeriod($begin,new DateInterval('P1D'), $end);
 
 ?>
  <?php
@@ -226,11 +229,15 @@ foreach ($emp_id as $row)
 <?php
  
  
-    $start_date = date_create($fdaymonth);
-    $end_date = date_create($ldaymonth);
-    
-    $interval = new DateInterval('P1D');
-    $date_range = new DatePeriod($start_date, $interval, $end_date);
+ $start_date = date_create($fdaymonth);
+ $end_date = date_create($ldaymonth)->modify("+1 second");;
+ $interval = new DateInterval("P1D");
+ $date_range = new DatePeriod(
+     $start_date,
+     $interval,
+ 
+     $end_date
+ ); 
     
    
     
@@ -519,6 +526,10 @@ $Leavedays = ($workingdays - $Totaldays);
   $TakenEL=$CL;
   $BalanceEL=0;
   }
+  if($Leavedays<0)
+  {
+    $Leavedays=0;
+  }
   if($Leavedays==0)
   {
   $TakenEL=0;
@@ -594,7 +605,7 @@ $Leavedays = ($workingdays - $Totaldays);
 
 
 <?php
-
+}
 ?>
 <!-- <p style="page-break-after: always;"></p> -->
 </div>

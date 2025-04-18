@@ -1,19 +1,4 @@
-<div class="footer-copy"><p>Copyright © 2022. All rights reserved. Developed by <a target="_blank" href="https://www.indsystech.com/">INDSYS</a>.</div>
-<style type="text/css">
-.footer-copy{
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  background-color:#f5f5f5;
-  padding: 2px 0px;
-  font-size: 11px;
-  
-}
-.footer-copy p{
-  text-align: center;
-}
-</style>
-
+ 
     <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>

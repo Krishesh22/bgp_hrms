@@ -212,14 +212,27 @@ if ($MethodGet == 'EMPPAYROLL') {
         $_SESSION['Payrollmonth'] = $Payrollmonth;
         $_SESSION['Payrollyear'] = $Payrollyear;
         $_SESSION['Category'] = $Category;
-        $GetState = "SELECT * FROM indsys1026employeepayrolltempmasterdetail where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Clientid ='$Clientid' And Category='$Category' AND NetWages!=0  ORDER BY Employeeid";
+        if($Clientid==4)
+        {
+        $GetState = "SELECT * FROM indsys1026employeepayrolltempmasterdetail where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Clientid ='$Clientid' And Category='$Category'   ORDER BY Employeeid";
         $result_Region = $conn->query($GetState);
         if (mysqli_num_rows($result_Region) > 0) {
             while ($row = mysqli_fetch_array($result_Region)) {
                 $data01[] = $row;
             }
         }
-        $sql = "SELECT SUM(NetWages)FROM indsys1026employeepayrolltempmasterdetail where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Category='$Category' AND Clientid='$Clientid'  ORDER BY Employeeid";
+        }
+        else
+        {
+        $GetState = "SELECT * FROM indsys1026employeepayrolltempmasterdetail where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Clientid ='$Clientid' And Category='$Category' AND NetWages!=0   ORDER BY Employeeid";
+        $result_Region = $conn->query($GetState);
+        if (mysqli_num_rows($result_Region) > 0) {
+        while ($row = mysqli_fetch_array($result_Region)) {
+        $data01[] = $row;
+        }
+        }
+        }
+        $sql = "SELECT SUM(NetWages)FROM indsys1026employeepayrolltempmasterdetail where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Category='$Category' AND Clientid='$Clientid' AND NetWages!=0 ORDER BY Employeeid";
         $result = $conn->query($sql);
         while ($row = mysqli_fetch_array($result)) {
             $NetWages = $row['SUM(NetWages)'];
@@ -227,7 +240,7 @@ if ($MethodGet == 'EMPPAYROLL') {
         if (empty($NetWages)) {
             $NetWages = 0;
         }
-        $sqlPerformanceallowance = "SELECT SUM(Performanceallowance)FROM indsys1026employeepayrolltempmasterdetail where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Category='$Category' AND Clientid='$Clientid'  ORDER BY Employeeid";
+        $sqlPerformanceallowance = "SELECT SUM(Performanceallowance)FROM indsys1026employeepayrolltempmasterdetail where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Category='$Category' AND Clientid='$Clientid' AND NetWages!=0  ORDER BY Employeeid";
         $resultPerformanceallowance = $conn->query($sqlPerformanceallowance);
         while ($row = mysqli_fetch_array($resultPerformanceallowance)) {
             $Performanceallowance = $row['SUM(Performanceallowance)'];
@@ -235,7 +248,19 @@ if ($MethodGet == 'EMPPAYROLL') {
         if (empty($Performanceallowance)) {
             $Performanceallowance = 0;
         }
-        $GrandTotal = $NetWages + $Performanceallowance;
+
+        $sqlHoliday_net = "SELECT SUM(Holiday_net)FROM vwemppayrollbanklist where SalMonth='$Payrollmonth' and Salyear='$Payrollyear'  AND Clientid='$Clientid' AND Category='$Category' AND NetWages!=0  ORDER BY Employeeid";
+        $resultholiday_net = $conn->query($sqlHoliday_net);    
+        while($row_holiday = mysqli_fetch_array($resultholiday_net)){
+          $Holiday_net= $row_holiday['SUM(Holiday_net)'];        
+        }
+        if(empty($Holiday_net))
+        {
+          $Holiday_net = 0;
+        }
+        
+        $GrandTotal = $NetWages+$Performanceallowance+$Holiday_net;
+      
         $mytbl["Test"] = $data01;
         $Display = array('data01' => $mytbl["Test"], 'NetWages' => $NetWages, 'Performanceallowance' => $Performanceallowance, 'GrandTotal' => $GrandTotal);
         $str = json_encode($Display);
@@ -329,9 +354,7 @@ if ($MethodGet == 'FetchBulk') {
         $Currentdate = date("Y-m", strtotime($date02));
         if ($Generatedate >= $Currentdate) {
                 $Message ="Payroll Not";
-            $Display=array(
-              'Message' =>$Message
-            );
+            $Display=array('Message' =>$Message);
             $str = json_encode($Display);
             echo trim($str, '"');
             return;
@@ -343,9 +366,7 @@ if ($MethodGet == 'FetchBulk') {
         $Status = $form_data['Status'];
         $CasualLeave = $form_data['CasualLeave'];
         $Workingdays = 0;
-        // $Emparray = $form_data['Emparray'];
-        // $test = implode(',', $Emparray);
-        // $array  = explode(",", $test );
+       
         $Message = "";
         $no = 1;
         $resultExists = "SELECT * FROM indsys1026employeepayrollmastertemp WHERE Salyear = '$Payrollyear' AND Clientid = '$Clientid' And SalMonth ='$Payrollmonth' And Category='$Category' LIMIT 1";
@@ -361,12 +382,8 @@ if ($MethodGet == 'FetchBulk') {
             Addormodifydatetime ='$date',
             Totaldays='$TotalDays',
             Weekoff='$Weekoff',
-            Userid ='$user_id'
-           
-           
-        WHERE SalMonth = '$Payrollmonth' AND Salyear ='$Payrollyear'
-      
-        AND Clientid ='$Clientid' and Category ='$Category' ";
+            Userid ='$user_id'            
+            WHERE SalMonth = '$Payrollmonth' AND Salyear ='$Payrollyear'   AND Clientid ='$Clientid' and Category ='$Category' ";
             $resultExists0New = $conn->query($resultExistsss);
             $Message = "Exists";
         } else {
@@ -378,7 +395,7 @@ if ($MethodGet == 'FetchBulk') {
         }
         $resultExists = "DELETE FROM indsys1026employeepayrolltempmasterdetail WHERE Clientid = '$Clientid'  and SalMonth = '$Payrollmonth' and Salyear = '$Payrollyear' AND Category='$Category'  ";
         $resultExists01 = $conn->query($resultExists);
-        $logemp = "SELECT * FROM indsys1017employeemaster WHERE Clientid='$Clientid' and EmpActive='Active' and Type_Of_Posistion='$Category'  ORDER BY Employeeid ASC";
+        $logemp = "SELECT * FROM indsys1017employeemaster WHERE Clientid='$Clientid' and EmpActive IN('Active','Deactive') AND (DATE(Leftdate) >'$monthof1stday'   OR Leftdate IS NULL) and Type_Of_Posistion='$Category'  ORDER BY Employeeid ASC";
         $logempall = mysqli_query($conn, $logemp);
         while ($row = mysqli_fetch_array($logempall)) {
             $Performanceallowance = 0;
@@ -416,6 +433,15 @@ if ($MethodGet == 'FetchBulk') {
                     $Superuserapproval = "Waiting";
                 }
             }
+            $NH_Sunday=0;
+            if($Category=="Category 3")
+            {
+            $sqlHDND_SUNDAY = "SELECT Count(*) as total from vwholidaymaster where Monthname ='$Payrollmonth' and Year = '$Payrollyear' and Dayname ='Sunday' AND Clientid ='$Clientid'  ";
+            $resultHDND_SUNDAY = $conn->query($sqlHDND_SUNDAY);
+            while ($rowHDND_Sunday = mysqli_fetch_array($resultHDND_SUNDAY)) {
+                $NH_Sunday = $rowHDND_Sunday['total'];               
+            }
+            }
             $date1 = new DateTime($date_of_joining);
             $date2 = new DateTime($monthoflastday);
             $dateofjoingdays = $date2->diff($date1)->format("%a");
@@ -438,14 +464,18 @@ if ($MethodGet == 'FetchBulk') {
                     $Nationalholidaydoj = $rowHDND['total'];
                     $Nationalholiday02 = $Nationalholidaydoj;
                 }
-                // $resultrg = "SELECT Count(*) as total from vwholidaymaster where Monthname ='$month_num' and Year = '$Payrollyear' and Dayname!='Sunday' AND Clientid ='$Clientid'  AND DATE(Holidaydate) <='$date_of_joining' ";
-                // $resultnational = mysqli_query($conn, "SELECT Count(*) as total from vwholidaymaster where Monthname ='$month_num' and Year = '$Payrollyear' and Dayname!='Sunday' AND Clientid ='$Clientid'  AND DATE(Holidaydate) <='$date_of_joining' ");
-                // $rownational = mysqli_fetch_array($resultnational);
-                // $Nationalholidaydoj = $rownational['total'];
-                // if($Employeeid =='CAT03WOV000147')
-                // {
-                // echo "$resultrg";
-                // }
+                if($Category=="Category 3")
+                {
+
+                $sqlHDND_SUNDAY = "SELECT Count(*) as total from vwholidaymaster  where Month ='$month_num' and Year = '$Payrollyear' and Dayname='Sunday' AND Clientid ='$Clientid'  AND DATE(Holidaydate) >='$date_of_joining'";
+                $resultHDND_SUNDAY = $conn->query($sqlHDND_SUNDAY);
+    
+                while ($rowHDND_Sunday = mysqli_fetch_array($resultHDND_SUNDAY)) {
+                    $NH_Sunday = $rowHDND_Sunday['total'];
+                   
+                }
+                }
+           
                 
             } else {
                 $CasualLeave = $form_data['CasualLeave'];
@@ -453,29 +483,40 @@ if ($MethodGet == 'FetchBulk') {
             $Fromdate01 = date("Y-m-d", strtotime($Fromdate));
             $Todate01 = date("Y-m-d", strtotime($Todate));
             $OT_HRS = 0;
+
+
+            if($Clientid=="4")
+            {
+                $sqlweek = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='WO'";
+                $resultweek = $conn->query($sqlweek);
+                while ($rowweek = mysqli_fetch_array($resultweek)) {
+                    $Weekoff = $rowweek['Count(AttenStatus)'];                 
+                    
+                }
+
+                $sqlNH = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='H'";
+                $resultNH = $conn->query($sqlNH);
+                while ($rowNH = mysqli_fetch_array($resultNH)) {
+                    $Nationalholiday02 = $rowNH['Count(AttenStatus)'];          
+                    
+                }
+            }
             $sql = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='P'";
-            
             $result = $conn->query($sql);
-            while ($row = mysqli_fetch_array($result)) {
-                $CountPresentDays = $row['Count(AttenStatus)'];
-                // $Workeddays=roundup($Workeddays);
-                // $Workeddays=round($Workeddays,0);
+            while ($rowpresent = mysqli_fetch_array($result)) {
+                $CountPresentDays = $rowpresent['Count(AttenStatus)'];                
                 
             }
             $sqlHD = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='HD'";
             $resultHD = $conn->query($sqlHD);
             while ($rowHD = mysqli_fetch_array($resultHD)) {
-                $CountHalfDay = $rowHD['Count(AttenStatus)'];
-                // $Workeddays=roundup($Workeddays);
-                // $Workeddays=round($Workeddays,0);
+                $CountHalfDay = $rowHD['Count(AttenStatus)'];                
                 
             }
             $sqlOD = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='OD'";
             $resultOD = $conn->query($sqlOD);
             while ($rowOD = mysqli_fetch_array($resultOD)) {
-                $CountOD = $rowOD['Count(AttenStatus)'];
-                // $Workeddays=roundup($Workeddays);
-                // $Workeddays=round($Workeddays,0);
+                $CountOD = $rowOD['Count(AttenStatus)'];                
                 
             }
             $CountAbsent = 0;
@@ -486,29 +527,24 @@ if ($MethodGet == 'FetchBulk') {
             $CountSL1stpart = 0;
             $CountCL2ndpart = 0;
             $CountCL1stpart = 0;
-            $sqlAbsent = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='A'";
+            $sqlAbsent = "SELECT  Count(AttenStatus) as overall_absent_count from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='A'";
             $resultAbsent = $conn->query($sqlAbsent);
             while ($rowAbsent = mysqli_fetch_array($resultAbsent)) {
-                $CountAbsent = $rowAbsent['Count(AttenStatus)'];
-                // $Workeddays=roundup($Workeddays);
-                // $Workeddays=round($Workeddays,0);
+                $CountAbsent = $rowAbsent['overall_absent_count'];
+                
                 
             }
             $sqlCL = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='CL'";
             $resultCL = $conn->query($sqlCL);
             while ($rowCL = mysqli_fetch_array($resultCL)) {
                 $CountCL = $rowCL['Count(AttenStatus)'];
-                // $Workeddays=roundup($Workeddays);
-                // $Workeddays=round($Workeddays,0);
-                
+                               
             }
             $sqlSL = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='SL'";
             $resultSL = $conn->query($sqlSL);
             while ($rowSL = mysqli_fetch_array($resultSL)) {
                 $CountSL = $rowSL['Count(AttenStatus)'];
-                // $Workeddays=roundup($Workeddays);
-                // $Workeddays=round($Workeddays,0);
-                
+                               
             }
             $sqlSLPart = "SELECT  Count(AttenStatus) from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close' and AttenStatus='SL1/P'";
             $resultSLPart = $conn->query($sqlSLPart);
@@ -549,7 +585,7 @@ if ($MethodGet == 'FetchBulk') {
             } else {
                 $HalfDaycount = $CountHalfDay / 2;
             }
-            $Workeddays = $CountPresentDays + $HalfDaycount + $CountOD;
+         
             if (empty($Workeddays)) {
                 $Workeddays = 0;
             }
@@ -563,9 +599,11 @@ if ($MethodGet == 'FetchBulk') {
             }
             $CountCL = $CountCL + $CLHalfday;
             $CountSL = $CountSL + $SLHalfday;
+            $CountAbsent=$CountAbsent+$HalfDaycount;
             $sqlOT = "SELECT  SUM(HOUR(REPLACE(OT_HRS, '.', ':'))*60+MINUTE(REPLACE(OT_HRS, '.', ':'))) as OTHRSHM  from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid' and Empattendencestatus='Close'";
             $resultOT = $conn->query($sqlOT);
             while ($row = mysqli_fetch_array($resultOT)) {
+                
                 $OT_HRS = $row['OTHRSHM'];
                 $OT_HRS = getHoursAndMins($OT_HRS);
                 $OT_HRS = substr(str_replace(':', '.', $OT_HRS), 0, 5);
@@ -573,16 +611,13 @@ if ($MethodGet == 'FetchBulk') {
             if (empty($OT_HRS)) {
                 $OT_HRS = 0;
             }
-            if ($OT_HRS > 25) {
-                $OT_HRS = 25;
-            }
+      
             $sqlLOP = "SELECT  SUM(HOUR(REPLACE(Lophrs, '.', ':'))*60+MINUTE(REPLACE(Lophrs, '.', ':'))) as LOPHRSNEW  from vwattendenceclosestatus where Clientid='$Clientid' and Attendencedate>='$Fromdate01' and Attendencedate <='$Todate01' and Employeeid = '$Employeeid'  and Empattendencestatus='Close'";
             $resultLOP = $conn->query($sqlLOP);
             while ($rownewtest = mysqli_fetch_array($resultLOP)) {
                 $Lophrs = $rownewtest['LOPHRSNEW'];
                 $Lophrs = getHoursAndMins($Lophrs);
-                $Lophrs = substr(str_replace(':', '.', $Lophrs), 0, 5);
-                //echo "$Employeeid- $Lophrs<br/>";
+                $Lophrs = substr(str_replace(':', '.', $Lophrs), 0, 5);               
                 
             }
             if (empty($Lophrs)) {
@@ -598,6 +633,7 @@ if ($MethodGet == 'FetchBulk') {
             if (empty($ActualOt_HRSNew)) {
                 $ActualOt_HRSNew = 0;
             }
+            $Workeddays = $CountPresentDays + $HalfDaycount + $CountOD+$CLHalfday+$SLHalfday;
             $Salary_Advance = 0;
             $TDS = 0;
             $FoodDeduction = 0;
@@ -605,6 +641,15 @@ if ($MethodGet == 'FetchBulk') {
             $DailyAllowanance = 0;
             $Dormitory =0;
             $Transport=0;
+            if(empty($NH_Sunday))
+            {
+                $NH_Sunday=0;
+            }
+            if($Workeddays==0)
+            {
+                $Nationalholiday02=0;
+                $NH_Sunday=0;
+            }
             $GetDeduction = "SELECT * FROM indsys1027employeepayrolldeduction where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Category ='$Category' and Employeeid='$Employeeid' AND Clientid='$Clientid' ORDER BY Employeeid ";
             $result_Deduction = $conn->query($GetDeduction);
             if (mysqli_num_rows($result_Deduction) > 0) {
@@ -625,7 +670,8 @@ if ($MethodGet == 'FetchBulk') {
             {
                 $Transport=0;
             }
-            //$result = get_attendance($conn,$Employeeid,$Fromdate,$emp_shift, $Category,$date_of_joining,$week_off);
+            
+           
             $resultExists = "SELECT * FROM indsys1026employeepayrolltempmasterdetail WHERE Employeeid = '$Employeeid'  and SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Clientid ='$Clientid' LIMIT 1";
             $resultExists01 = $conn->query($resultExists);
             if (mysqli_fetch_row($resultExists01)) {
@@ -635,8 +681,8 @@ if ($MethodGet == 'FetchBulk') {
                     $updatefunction = CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Payrollmonth, $Payrollyear, $Workeddays, $Leavedays, $Salary_Advance, $FoodDeduction, $TDS, $Category, $Working_Days, $Nationalholiday02, $CasualLeave, $Basic, $HR_Allowance, $Other_Allowance, $OT_HRS, $DailyAllowanance, $Performanceallowance,$Dormitory,$Transport);
                 }
             } else {
-                $sqlsave = "INSERT IGNORE INTO indsys1026employeepayrolltempmasterdetail (Clientid,Employeeid,SalMonth,Salyear,Firstname,Lastname,Title,Fullname,Designation,Department,Workingdays,Workeddays,Category,Nationalholidays,Leavedays,CL,LOP,Totaldays,BasicDA,HRA,Otherallowance_Con_SA,TotalSal,EarnedBasic,EarnedHRA,EarnedOtherallowance_Con_SA,EarnedWages,PF,ESI,Salary_Advance,FoodDeduction,TotalDeduction,NetWages,DailyAllowanance,TDS,OT_HRS,OT_Wages,Userid,Addormodifydatetime,Performanceallowance,Backgroundverificationstatus,PackageHoldstatus,Superuserapproval,TakenEL,BalanceEL,Lophrs,Lopwages,ActualOTHRS,ActualOTWages,Actualnet,TotalPresentdays,TotalAbsentdays,Totalweekoff,Totalsickleave,TotalEL,TotalCL,Conveyence,EarnedConveyence,Dormitory)
-            values('$Clientid','$Employeeid','$Payrollmonth','$Payrollyear','$Firstname','$Lastname','$Title','$Fullname','$Designation','$Department','$Working_Days',0,'$Category','$Nationalholiday02',0,$CasualLeave,0,0,$Basic,$HR_Allowance,$Other_Allowance,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'$user_id','$date','$Performanceallowance','$Backgroundverification','$Packageholdstatus','$Superuserapproval',0,0,'$Lophrs',0,'$ActualOt_HRSNew',0,0,'$Workeddays','$CountAbsent','$Weekoff','$CountSL',0,'$CountCL','$TA',0,'$Dormitory')";
+                $sqlsave = "INSERT IGNORE INTO indsys1026employeepayrolltempmasterdetail (Clientid,Employeeid,SalMonth,Salyear,Firstname,Lastname,Title,Fullname,Designation,Department,Workingdays,Workeddays,Category,Nationalholidays,Leavedays,CL,LOP,Totaldays,BasicDA,HRA,Otherallowance_Con_SA,TotalSal,EarnedBasic,EarnedHRA,EarnedOtherallowance_Con_SA,EarnedWages,PF,ESI,Salary_Advance,FoodDeduction,TotalDeduction,NetWages,DailyAllowanance,TDS,OT_HRS,OT_Wages,Userid,Addormodifydatetime,Performanceallowance,Backgroundverificationstatus,PackageHoldstatus,Superuserapproval,TakenEL,BalanceEL,Lophrs,Lopwages,ActualOTHRS,ActualOTWages,Actualnet,TotalPresentdays,TotalAbsentdays,Totalweekoff,Totalsickleave,TotalEL,TotalCL,Conveyence,EarnedConveyence,Dormitory,Holiday_count,Holiday_pay,Holiday_pf,Holiday_deduction,Holiday_net,Holiday_esi)
+            values('$Clientid','$Employeeid','$Payrollmonth','$Payrollyear','$Firstname','$Lastname','$Title','$Fullname','$Designation','$Department','$Working_Days',0,'$Category','$Nationalholiday02',0,$CasualLeave,0,0,$Basic,$HR_Allowance,$Other_Allowance,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'$user_id','$date','$Performanceallowance','$Backgroundverification','$Packageholdstatus','$Superuserapproval',0,0,'$Lophrs',0,'$ActualOt_HRSNew',0,0,'$Workeddays','$CountAbsent','$Weekoff','$CountSL',0,'$CountCL','$TA',0,'$Dormitory','$NH_Sunday',0,0,0,0,0)";
                 $resultsave = mysqli_query($conn, $sqlsave);
                 if ($resultsave === TRUE) {
                 } else {
@@ -644,9 +690,7 @@ if ($MethodGet == 'FetchBulk') {
                     echo "Error" . $conn->error;
                 }
             }
-            // if($OT_HRS<0){
-            // 	$OT_HRS = 0;
-            // }
+        
             if ($Clientid == 4) {
                 $updatefunction = CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employeeid, $Payrollmonth, $Payrollyear, $Workeddays, $Leavedays, $Salary_Advance, $FoodDeduction, $TDS, $Category, $TotalDays, $Nationalholiday02, $CasualLeave, $Basic, $HR_Allowance, $Other_Allowance, $OT_HRS, $DailyAllowanance, $Performanceallowance, $CountAbsent, $Weekoff, $CountSL, $CountCL, $TotalDays, $TA,$Dormitory,$Transport);
             } else {
@@ -676,7 +720,6 @@ if ($MethodGet == 'PayrollSuperUserFunction') {
         $resultExists = "Update indsys1026employeepayrolltempmasterdetail set 
 PackageHoldstatus ='$PackageHoldstatus',
 Superuserapproval='$Superuserapproval',
-
 Addormodifydatetime ='$date',
 Userid ='$user_id'
    WHERE Employeeid = '$Employeeid' and SalMonth = '$SalMonth' and  Salyear = '$Salyear' AND Clientid ='$Clientid' ";
@@ -717,10 +760,10 @@ if ($MethodGet == 'EMPREPORT') {
         $Employeeid = $form_data['Employeeid'];
         $Category = $form_data['Category'];
         
-    $_SESSION['Payrollmonth']=$Payrollmonth;
-    $_SESSION['Payrollyear']=$Payrollyear;
-    $_SESSION['Employeeid']=$Employeeid;
-    $_SESSION['Category']=$Category;
+        $_SESSION['Payrollmonth']=$Payrollmonth;
+        $_SESSION['Payrollyear']=$Payrollyear;
+        $_SESSION['Employeeid']=$Employeeid;
+        $_SESSION['Category']=$Category;
         $GetState = "SELECT * FROM vwpayrollmasteremplist where SalMonth='$Payrollmonth' and Salyear='$Payrollyear'  And Employeeid ='$Employeeid' AND Type_Of_Posistion='$Category' AND Clientid ='$Clientid' ";
         $result_Region = $conn->query($GetState);
         if (mysqli_num_rows($result_Region) > 0) {
@@ -729,7 +772,7 @@ if ($MethodGet == 'EMPREPORT') {
             }
         }
         $mytbl["Test"] = $data01;
-        $Display = array('data01' => $mytbl["Test"]);
+        $Display = array('data01' => $mytbl["Test"],'Clientid' =>$Clientid);
         $str = json_encode($Display);
         echo trim($str, '"');
     }
@@ -769,13 +812,6 @@ if ($MethodGet == 'FetchMaster') {
             $date = date("Y-m-d H:i:s");
             $interval = DateInterval::createFromDateString('1 day');
             $period = new DatePeriod($Startdate, $interval, $Enddate);
-            // foreach ($period as $dt)
-            // {
-            //     if ($dt->format('N') == 7)
-            //     {
-            //         $no++;
-            //     }
-            // }
             $sundays = 0;
             $total_days = cal_days_in_month(CAL_GREGORIAN, $month_num, $Payrollyear);
             //echo "Test$total_days";

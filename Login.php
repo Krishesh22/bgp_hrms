@@ -1,10 +1,36 @@
 <?php
 session_start();
-
 error_reporting(E_ALL);
-
 $error ="";
 include 'config.php';
+$user_id = $_SESSION["Userid"];
+$Authorizedno = $_SESSION["Authorizedno"];
+if (!isset($_SESSION['Userid']))
+ {
+
+
+   
+  }
+else
+{
+	if($Authorizedno==12)
+	{
+		header( "refresh:0;url=cat3dashboard.php" );
+		return;
+	}
+	else
+	{
+     header( "refresh:0;url=dashboard.php" );
+      return;
+	}
+}
+
+?>
+
+
+
+<?php
+
 
 $LocationList="";
 $LocationQry = "SELECT * FROM indsys1001clientmaster";
@@ -62,6 +88,29 @@ $numLength = strlen($get_MobileNum); $otpLength = strlen($get_MobileOtp);
 			$Authorizedno=$row['Authorizedno'];
 		}
 
+
+
+			$LoginQryAdminEmail = "SELECT * FROM indsys1000useradmin WHERE Clientid='$get_Clientid' AND  Emailid='$get_MobileNum' LIMIT 1";
+		$resultLoginQryAdminEmail = $conn->query($LoginQryAdminEmail);
+		if (mysqli_num_rows($resultLoginQryAdminEmail) > 0)
+		{
+		while($rowEmail = $resultLoginQryAdminEmail->fetch_assoc()) 
+			{
+				$Userid = $rowEmail['Userid'];
+				$Clientid = $rowEmail['Clientid'];
+				$Username = $rowEmail['Username'];
+				$Emailid = $rowEmail['Emailid'];
+				$Authorizedtype = $rowEmail['Authorizedtype'];
+				$userinfo=$rowEmail['Userinfo'];
+				$Chapterid = "";
+				$MobileOtp = $rowEmail['MobileOtp'];
+				$MobileNum = $rowEmail['Emailid'];
+				$Authorizedno=$rowEmail['Authorizedno'];
+				//echo $Authorizedno;exit;
+
+			}
+		}
+
 }
 
 
@@ -101,17 +150,14 @@ $numLength = strlen($get_MobileNum); $otpLength = strlen($get_MobileOtp);
 		$_SESSION["Authorizedno"] =$Authorizedno;
 		$_SESSION['LAST_ACTIVITY'] = time();
 		$_SESSION['hrm_session_start'] = time();
-			$date2   = new DateTime(); //this returns the current date time
+		date_default_timezone_set('Asia/Kolkata');
+	$date2   = new DateTime(); //this returns the current date time
 $result = $date2->format('Y-m-d-H-i-s');
 
 $krr    = explode('-', $result);
 $result = implode("", $krr);
-$_SESSION["SESSIONID"]=$result;
-
-
-
-//setcookie('VerifyUser', $Clientid.$Authorizedno.$result);
-
+$randomnum = rand(100,250);
+$_SESSION["SESSIONID"]="$result$randomnum";
 		$_SESSION["Clientname"] = $Clientname;
 		$_SESSION["ClientLocation"] = $ClientLocation;
 		$_SESSION["ClientPhoneno"] = $ClientPhoneno;
@@ -124,10 +170,12 @@ $_SESSION["SESSIONID"]=$result;
 		$_SESSION["ClientZipcode"] = $ClientZipcode;
 		$_SESSION["ClientWebsite"] = $ClientWebsite;
 
+		
+
 
 		// $_SESSION['hrm_session_expire'] = $_SESSION['hrm_session_start'] + (10); //In minutes : (30 * 60) |  In days : (n * 24 * 60 * 60 ) n = no of days 
 
-		date_default_timezone_set('Asia/Kolkata');
+		
 		$date = date("Y-m-d H:i:s" );
 		$sqlsave = "INSERT IGNORE INTO indsys1001userloginactivity (Clientid,Userinfo,Userid,Lastlogin,Username) 
 		values('$Clientid','$userinfo','$Userid','$date','$Username')";
@@ -135,8 +183,16 @@ $_SESSION["SESSIONID"]=$result;
 
 		$error = "<p class='mt-2 alert alert-Success'>Success!</p>";
 
-		header( "refresh:0;url=dashboard.php" );
-		return;
+		if($Authorizedno==12)
+		{
+			header( "refresh:0;url=cat3dashboard.php" );
+			return;
+		}
+		else
+		{
+	header( "refresh:0;url=dashboard.php" );
+	return;
+		}
 
 	}
 
@@ -219,7 +275,7 @@ $_SESSION["SESSIONID"]=$result;
             <h5 class="splash-description text-green">LOGIN</h5>
              <form role='form' method='post' action="">
 <div class='form-group'>
-<input class='form-control form-control-lg' id='MobileNum' name='MobileNum' maxlength='10' placeholder='Enter Mobile Number'>
+<input class='form-control form-control-lg' id='MobileNum' name='MobileNum'  placeholder='Enter Mobile Number or Emailid'>
 </div>
 
 <div class='form-group'>
@@ -231,7 +287,7 @@ $_SESSION["SESSIONID"]=$result;
 <div class='form-group'>
 <input class='form-control form-control-lg' id='MobileOtp' name='MobileOtp'  value="<?php echo "$userOTP"; ?>" placeholder='Enter Mobile OTP'>
 </div>
-<!-- <button type='button' id="BtnSendOTPSMS" class='btn btn-blue sign-in-btn btn-lg btn-block'>Login with OTP</button> -->
+<button type='button' id="BtnSendOTPSMS" class='btn btn-blue sign-in-btn btn-lg btn-block'>Login with OTP</button>
 <button type='submit' id="submit" name='submit'  class='btn btn-info btn-lg btn-block'>Login</button>
 <?php echo "$error"; ?>
 <div id="response"></div>
@@ -259,12 +315,12 @@ $_SESSION["SESSIONID"]=$result;
     <!-- end login page  -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+   <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
 
  <!-- Send SMS OTP -->
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 
 
 
@@ -330,6 +386,20 @@ $_SESSION["SESSIONID"]=$result;
 							$('#response').fadeIn('slow');
 							$('#response').delay(1500).fadeOut('slow');
                      	}
+						 else if(html==2){
+							$('#response').empty();
+                     		$("#response").append("<p class='mt-2 text-success'></p>");
+							$("#MobileNum").attr("readonly", true);
+							$("#MobileOtp").show();
+							
+
+							$("#BtnSendOTPSMS").hide();
+							$("#submit").show();
+							$('#response').fadeIn('slow');
+							$('#response').delay(1500).fadeOut('slow');
+                     	}
+
+                     	
                      	else{
 
                      		$('#response').empty();
@@ -351,7 +421,7 @@ $_SESSION["SESSIONID"]=$result;
   });
 
            
-            </script> -->
+            </script>
 
 </body>
  

@@ -38,14 +38,16 @@ echo ' <tr >
 <th scope="col">OT In</th>
 <th scope="col">OT Out</th>
 <th scope="col">Hrs</th>
-<th scope="col" title="Actual Working Days">AW Days</th>
+
 <th scope="col">OT</th>
 <th scope="col" title="Actual OT Hrs">AW OT</th>
-<th scope="col">Days</th>
+
 </tr>';
 
 
-$GetState = "SELECT * FROM indsys1030empdailyattendancedetail where Attendencedate>='$FromDate' AND Attendencedate<='$ToDate' AND Employeeid='$Employeeid'  AND Clientid='$Clientid'   ORDER BY Employeeid";
+$GetState = "SELECT * ,e.Fullname FROM indsys1030empdailyattendancedetail as d 
+JOIN indsys1017employeemaster AS e ON d.Employeeid = e.Employeeid AND d.Clientid = e.Clientid 
+where d.Attendencedate>='$FromDate' AND d.Attendencedate<='$ToDate' AND d.Employeeid='$Employeeid'  AND d.Clientid='$Clientid'   ORDER BY d.Employeeid";
 
   $result_Region = $conn->query($GetState);
 
@@ -59,17 +61,17 @@ $GetState = "SELECT * FROM indsys1030empdailyattendancedetail where Attendenceda
     <td>'.$i.'</td>  
     <td>'.date('d-M-Y', strtotime($Attendencedate)).'</td>  
     <td>'.$row["Employeeid"].'</td>  
-    <td>'.$row["Title"].$row["Firstname"].$row["lastname"].'</td>  
+    <td>'.$row["Title"].$row["Fullname"].'</td>  
     <td>'.$row["AttenStatus"].'</td>  
     <td>'.$row["Intime"].'</td>  
     <td>'.$row["Outtime"].'</td>  
     <td>'.$row["OTIntime"].'</td>  
     <td>'.$row["OTOuttime"].'</td>  
     <td>'.$row["Workinghours"].'</td>  
-    <td>'.$row["Actualworkinghours"].'</td>  
+ 
     <td>'.$row["OT_HRS"].'</td>  
     <td>'.$row["ActualOt_HRS"].'</td>  
-    <td>'.$row["Workingdays"].'</td>  
+ 
    
 </tr>  
     ';  

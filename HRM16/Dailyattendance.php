@@ -103,10 +103,19 @@ if ($MethodGet == "Save") {
             $ActualOuttime = $Outtime;
             $AttenStatus = "A";
             $Old_Empid =$row['Old_Empid'];
-$Userpunchid =  $Employeeid;
+            $Userpunchid =  $Employeeid;
 
             if($Clientid==4)
             {
+                $holi = "SELECT * FROM vwholidaymaster where Clientid='$Clientid' AND Holidaydate='$AttendanceDate' AND Dayname!='Sunday'";
+                $holiresult = $conn->query($holi);
+                if(mysqli_num_rows($holiresult)>0)
+                {
+                    while($holidayrow=mysqli_fetch_array($holiresult))
+                    {
+                        $AttenStatus="H";
+                    }
+                }
                 $Userpunchid = $Old_Empid;
             }
             // $Checkweekoff = isThisDayAWeekend($AttendanceDate);
@@ -151,7 +160,7 @@ $Userpunchid =  $Employeeid;
                         $resultExists = "DELETE FROM  indsys1030empdailyattendancedetail WHERE Attendencedate = '$AttendanceDate' and Employeeid = '$Employeeid' AND Clientid ='$Clientid' LIMIT 1";
                         $resultExists01 = $conn->query($resultExists);
                         $resultattendancesave = "INSERT IGNORE INTO indsys1030empdailyattendancedetail (Clientid,Employeeid,Attendencedate,Title,Firstname,lastname,Userid,Addormodifydatetime,Workingdays,OT_HRS,Intime,Outtime,Workinghours,AttenStatus,Permissionfromtime,Permissionyesorno,Intimewithdate,Outtimewithdate,Department,Designation,Permissionouttime,Permissionhours,Actualworkinghours,ActualOt_HRS,Manualattendence,Regsisterattendence,Allowotyesorno,OTIntime,OTOuttime,ActualIntime,ActualOuttime,Breakhours,Attentypestatus,Editotin,Editotout,Editintime,Editouttime,Lophrs,Editedattenstatus,ActualOTIntime,ActualOTOuttime)
-    values('$Clientid','$Employeeid','$AttendanceDate','$Title','$Firstname','$Lastname','$user_id','$date','$Workingdays','00:00:00','$Intime','$Outtime','08:00','$AttenStatus','00:00:00','N','$Indate','$Outdate','$Department','$Designation','00:00:00','00:00:00',0,0,0,0,'$Allowotyesorno','$OTIntime','$OTOuttime','$ActualIntime','$ActualOuttime',0,'$AttenStatus','No','No','No','No',0,'No','00:00:00','00:00:00')";
+                        values('$Clientid','$Employeeid','$AttendanceDate','$Title','$Firstname','$Lastname','$user_id','$date','$Workingdays','00:00:00','$Intime','$Outtime','08:00','$AttenStatus','00:00:00','N','$Indate','$Outdate','$Department','$Designation','00:00:00','00:00:00',0,0,0,0,'$Allowotyesorno','$OTIntime','$OTOuttime','$ActualIntime','$ActualOuttime',0,'$AttenStatus','No','No','No','No',0,'No','00:00:00','00:00:00')";
                         $resultsave = mysqli_query($conn, $resultattendancesave);
                         OutimeandOTfetchfromserver($conn, $msconn, $Clientid, $AttendanceDate, $Employeeid, $user_id);
                     } else {
@@ -160,7 +169,7 @@ $Userpunchid =  $Employeeid;
                 }
             } else {
                 $resultattendancesave = "INSERT IGNORE INTO indsys1030empdailyattendancedetail (Clientid,Employeeid,Attendencedate,Title,Firstname,lastname,Userid,Addormodifydatetime,Workingdays,OT_HRS,Intime,Outtime,Workinghours,AttenStatus,Permissionfromtime,Permissionyesorno,Intimewithdate,Outtimewithdate,Department,Designation,Permissionouttime,Permissionhours,Actualworkinghours,ActualOt_HRS,Manualattendence,Regsisterattendence,Allowotyesorno,OTIntime,OTOuttime,ActualIntime,ActualOuttime,Breakhours,Attentypestatus,Editotin,Editotout,Editintime,Editouttime,Lophrs,Editedattenstatus,ActualOTIntime,ActualOTOuttime)
-    values('$Clientid','$Employeeid','$AttendanceDate','$Title','$Firstname','$Lastname','$user_id','$date','$Workingdays','00:00:00','$Intime','$Outtime','08:00','$AttenStatus','00:00:00','N','$Indate','$Outdate','$Department','$Designation','00:00:00','00:00:00',0,0,0,0,'$Allowotyesorno','$OTIntime','$OTOuttime','$ActualIntime','$ActualOuttime',0,'$AttenStatus','No','No','No','No',0,'No','00:00:00','00:00:00')";
+                values('$Clientid','$Employeeid','$AttendanceDate','$Title','$Firstname','$Lastname','$user_id','$date','$Workingdays','00:00:00','$Intime','$Outtime','08:00','$AttenStatus','00:00:00','N','$Indate','$Outdate','$Department','$Designation','00:00:00','00:00:00',0,0,0,0,'$Allowotyesorno','$OTIntime','$OTOuttime','$ActualIntime','$ActualOuttime',0,'$AttenStatus','No','No','No','No',0,'No','00:00:00','00:00:00')";
                 $resultsave = mysqli_query($conn, $resultattendancesave);
                 OutimeandOTfetchfromserver($conn, $msconn, $Clientid, $AttendanceDate, $Employeeid, $user_id);
             }
@@ -213,6 +222,8 @@ function OutimeandOTfetchfromserver($conn, $msconn, $Clientid, $Attendencedate, 
 
             if($Clientid==4)
             {
+               
+                
                 $Userpunchid = $Old_Empid;
             }
             if ($Editintime != "Yes") {
@@ -442,6 +453,15 @@ function EmpNotInList($conn, $Clientid, $AttendanceDate, $msconn, $user_id, $dat
 
         if($Clientid==4)
         {
+            $holi = "SELECT * FROM vwholidaymaster where Clientid='$Clientid' AND Holidaydate='$AttendanceDate' AND Dayname!='Sunday'";
+            $holiresult = $conn->query($holi);
+            if(mysqli_num_rows($holiresult)>0)
+            {
+                while($holidayrow=mysqli_fetch_array($holiresult))
+                {
+                    $AttenStatus="H";
+                }
+            }
             $Userpunchid = $Old_Empid;
         }
         $table_name = "DeviceLogs_" . $Attendancemonth . "_" . $Attendanceyear . "";
@@ -499,7 +519,13 @@ function EmpNotInList($conn, $Clientid, $AttendanceDate, $msconn, $user_id, $dat
 if ($MethodGet == "DISPATT") {
     $AttendanceDate = $form_data["AttendanceDate"];
     $data01 = [];
-    $GetState = "SELECT * FROM vwdailyattancewithresthrs where Attendencedate='$AttendanceDate' AND Clientid='$Clientid'   ORDER BY Employeeid";
+   // $GetState = "SELECT * FROM vwdailyattancewithresthrs where Attendencedate='$AttendanceDate' AND Clientid='$Clientid'   ORDER BY Employeeid";
+   $GetState = "SELECT * ,b.Enableresthours
+  FROM indsys1030empdailyattendancedetail AS d
+
+  JOIN indsys1017employeemaster AS e ON d.Employeeid = e.Employeeid AND d.Clientid = e.Clientid 
+  JOIN indsys1004designationmaster AS b ON d.Clientid = b.Clientid AND e.Designation = b.Designation
+  where d.Attendencedate='$AttendanceDate' AND d.Clientid='$Clientid'   ORDER BY d.Employeeid";
     $result_Region = $conn->query($GetState);
     if (mysqli_num_rows($result_Region) > 0) {
         while ($row = mysqli_fetch_array($result_Region)) {
@@ -514,8 +540,14 @@ if ($MethodGet == "DISPATT01") {
     $AttendanceDate = $form_data["AttendanceDate"];
     $Employeeid = $form_data["Employeeid"];
     $data01 = [];
-    $GetState = "SELECT * FROM vwdailyattancewithresthrs where Attendencedate='$AttendanceDate' AND Clientid='$Clientid' AND Employeeid='$Employeeid'  ORDER BY Employeeid";
-    $result_Region = $conn->query($GetState);
+   // $GetState = "SELECT * FROM vwdailyattancewithresthrs where Attendencedate='$AttendanceDate' AND Clientid='$Clientid' AND Employeeid='$Employeeid'  ORDER BY Employeeid";
+   $GetState = "SELECT * ,b.Enableresthours
+   FROM indsys1030empdailyattendancedetail AS d
+ 
+   JOIN indsys1017employeemaster AS e ON d.Employeeid = e.Employeeid AND d.Clientid = e.Clientid 
+   JOIN indsys1004designationmaster AS b ON d.Clientid = b.Clientid AND e.Designation = b.Designation
+   where d.Attendencedate='$AttendanceDate' AND d.Clientid='$Clientid'   ORDER BY d.Employeeid";
+   $result_Region = $conn->query($GetState);
     if (mysqli_num_rows($result_Region) > 0) {
         while ($row = mysqli_fetch_array($result_Region)) {
             $data01[] = $row;
@@ -1364,17 +1396,17 @@ function Leaveexistsornot($conn, $Clientid, $user_id, $Employeeid, $Attendenceda
                 $Attenstatusvalid = $rowneww["Attenstatusvalid"];
             }
         }
-        if($targetDate<=$Attendencedate)
-        {
+        // if($targetDate<=$Attendencedate)
+        // {
 
-        }
-        else{
+        // }
+        // else{
            
-            if ($Attenstatusvalid == "SL" || $Attenstatusvalid == "CL") {
-                return "NEWJOINEE";
-            }
+        //     if ($Attenstatusvalid == "SL" || $Attenstatusvalid == "CL") {
+        //         return "NEWJOINEE";
+        //     }
 
-        }
+        // }
 
         if ($ESI_Yesandno == "Yes") {
             if ($Attenstatusvalid == "SL") {
@@ -1391,8 +1423,8 @@ function Leaveexistsornot($conn, $Clientid, $user_id, $Employeeid, $Attendenceda
             //echo "test";
             return "STATUSOPEN";
         }
-        //////////////////////////////////////
-        $GetCurrentYearLeaveclosestatus = "SELECT * FROM indsys1030empmonthleavetakenmastersummary where Clientid ='$Clientid' and Employeeid='$Employeeid' and AttendenceYear=='$Attendanceyear' And AttendenceMonth=='$Attendancemonth'  and Leavestatus='Close' LIMIT 1";
+        ////////////////////////////////////////////////
+        $GetCurrentYearLeaveclosestatus = "SELECT * FROM indsys1030empmonthleavetakenmastersummary where Clientid ='$Clientid'  and AttendenceYear='$Attendanceyear' And AttendenceMonth='$Attendancemonth'  and Leavestatus='Close' LIMIT 1";
         //printf($GetCurrentYearLeave);
         $result_Leaveclosestatus = $conn->query($GetCurrentYearLeaveclosestatus);
         if (mysqli_num_rows($result_Leaveclosestatus) > 0) {
@@ -1401,7 +1433,7 @@ function Leaveexistsornot($conn, $Clientid, $user_id, $Employeeid, $Attendenceda
             }
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////
-        ///////////Checking Data Current month and Year Balance Leave Exists
+ 
         $GetCurrentYearLeave = "SELECT * FROM indsys1030empmonthleavetakensummary where Clientid ='$Clientid' and Employeeid='$Employeeid' and AttendenceYear='$Attendanceyear' And AttendenceMonth='$Attendancemonth'  ";
         //printf($GetCurrentYearLeave);
         $result_Nextno = $conn->query($GetCurrentYearLeave);
@@ -1440,12 +1472,7 @@ function Leavesummary($conn, $Clientid, $user_id, $Employeeid, $Attendencedate) 
         $Firstname = "";
         $lastname = "";
         $logemp = "SELECT * FROM indsys1017employeemaster WHERE Clientid='$Clientid' and EmpActive='Active'  AND DATE(Date_Of_Joing) <='$Attendencedate' AND Employeeid NOT IN ( SELECT Employeeid FROM indsys1030empyearleavetakensummary WHERE Clientid='$Clientid' AND  AttendenceYear='$Attendanceyear' AND Employeeid IS NOT NULL)";
-
-        if($Employeeid=='BCAT03PRO001022')
-        {
-       
-        printf($logemp);
-        }
+      
         $logempall = mysqli_query($conn, $logemp);
         while ($row = mysqli_fetch_array($logempall)) {
             $SickleaveEligibilityYesorNo ='Yes';
@@ -1484,19 +1511,21 @@ function Leavesummary($conn, $Clientid, $user_id, $Employeeid, $Attendencedate) 
             if ($Attendancemonth == 1) {
                 $TotalCausalLeave = 7;
                 $TakenCausalLeave = 0;
-                $BalanceCausalLeave = $TotalCausalLeave - $TakenCausalLeave;
+                $BalanceCausalLeave = 7;
                 $TotalSickLeave = 7;
                 $TakenSickLeave = 0;
                 if ($ESI_Yesandno == "No") {
-                    $BalanceSickLeave = $TotalSickLeave - $TakenSickLeave;
+                    $BalanceSickLeave =7;
                 } else {
                     $TotalSickLeave = 0;
                     $TakenSickLeave = 0;
                     $BalanceSickLeave = 0;
                 }
             }
+
+
             $sqlsave = "INSERT IGNORE INTO indsys1030empyearleavetakensummary (Clientid,Employeeid,AttendenceYear,Fullname,Userid,Addormodifydatetime,CausalleaveEligibility,UsedCasualleave,BalanceCausalLeave,SickleaveEligibility,UsedSickLeave,BalanceSickLeave,SickleaveEligibilityYesorNo)
-values('$Clientid','$Employeeid','$Attendanceyear','$Fullname','$user_id','$date','$TotalCausalLeave','$TakenCausalLeave','$BalanceCausalLeave','$TotalSickLeave','$TakenSickLeave','$BalanceSickLeave','$SickleaveEligibilityYesorNo')";
+        values('$Clientid','$Employeeid','$Attendanceyear','$Fullname','$user_id','$date','$TotalCausalLeave','$TakenCausalLeave','$BalanceCausalLeave','$TotalSickLeave','$TakenSickLeave','$BalanceSickLeave','$SickleaveEligibilityYesorNo')";
 
 
             //printf($sqlsave);
@@ -1649,13 +1678,37 @@ if (mysqli_num_rows($fetchempid) > 0) {
     while ($rownew = mysqli_fetch_array($fetchempid)) {
 
         $Employeeid = $rownew['Employeeid'];
-        $TakenCausalLeave = $rownew['TakenCausalLeave'];
-        $TakenSickLeave = $rownew['TakenSickLeave'];
-        Updateleaveyearwise($conn, $Clientid, $Attendancemonth,$Attendanceyear, $Employeeid, $TakenCausalLeave, $TakenSickLeave );
+        $TakenCausalLeave = 0;
+        $TakenSickLeave=0;
+        $sqlfullcasualleave = "SELECT  SUM(TakenCausalLeave) from indsys1030empmonthleavetakensummary where Clientid= '$Clientid' AND CAST(AttendenceMonth AS SIGNED) BETWEEN 1 AND '$Attendancemonth' AND AttendenceYear='$Attendanceyear' AND Employeeid='$Employeeid' ";
+       
+        $resultcausalleave = $conn->query($sqlfullcasualleave);
+        while ($rowcausual = mysqli_fetch_array($resultcausalleave)) {
+            $TakenCausalLeave = $rowcausual['SUM(TakenCausalLeave)'];        
+        }
+        $sqlfullsickleave = "SELECT  SUM(TakenSickLeave) from indsys1030empmonthleavetakensummary where Clientid= '$Clientid' AND CAST(AttendenceMonth AS SIGNED) BETWEEN 1 AND '$Attendancemonth'  AND AttendenceYear='$Attendanceyear' AND Employeeid='$Employeeid' ";
+    
+        $resultsickleave = $conn->query($sqlfullsickleave);
+        while ($rowsick = mysqli_fetch_array($resultsickleave)) {
+            $TakenSickLeave = $rowsick['SUM(TakenSickLeave)'];        
+        }
+
+if($TakenSickLeave=="" || $TakenSickLeave=='')
+{
+    $TakenSickLeave=0;
+}
+if($TakenCausalLeave=="" || $TakenCausalLeave=='')
+{
+    $TakenCausalLeave=0;
+}
+
+     
+      
+        Updateleaveyearwise($conn, $Clientid, $Attendanceyear, $Employeeid, $TakenCausalLeave, $TakenSickLeave );
     }
 }
 }
-function Updateleaveyearwise($conn, $Clientid, $Attendancemonth,$Attendanceyear, $Employeeid, $TakenCausalLeave, $TakenSickLeave )
+function Updateleaveyearwise($conn, $Clientid, $Attendanceyear, $Employeeid, $TakenCausalLeave, $TakenSickLeave )
 {
 $fetchMontemp = "SELECT * FROM indsys1030empyearleavetakensummary Where Clientid= '$Clientid'  AND AttendenceYear='$Attendanceyear' AND Employeeid='$Employeeid'";
 
@@ -1665,9 +1718,9 @@ if (mysqli_num_rows($fetchempid) > 0) {
 
         $Employeeid = $rownew['Employeeid'];
         $CausalleaveEligibility = $rownew['CausalleaveEligibility'];
-        $UsedCasualleave = $rownew['UsedCasualleave'];
+      
         $SickleaveEligibility = $rownew['SickleaveEligibility'];
-        $UsedSickLeave = $rownew['UsedSickLeave'];
+       
     }
 }
 
@@ -1679,14 +1732,7 @@ if(empty($TakenSickLeave))
 {
     $TakenSickLeave = 0;
 }
-if(empty($UsedCasualleave))
-{
-    $UsedCasualleave = 0;
-}
-if(empty($UsedSickLeave))
-{
-    $UsedSickLeave = 0;
-}
+
 if(empty($CausalleaveEligibility))
 {
     $CausalleaveEligibility = 0;
@@ -1697,13 +1743,12 @@ if(empty($SickleaveEligibility))
 }
 
 
-$TotalusedCausalLeave = $TakenCausalLeave+$UsedCasualleave;
-$TotalusedSickLeave = $TakenSickLeave+$UsedSickLeave;
 
-$BalanceCL = $CausalleaveEligibility-$TotalusedCausalLeave;
-$BalanceSL = $SickleaveEligibility-$TotalusedSickLeave;
 
-$UPDATEQRY = "UPDATE indsys1030empyearleavetakensummary SET UsedCasualleave='$TotalusedCausalLeave',BalanceCausalLeave='$BalanceCL',UsedSickLeave='$TotalusedSickLeave',BalanceSickLeave='$BalanceSL' where Clientid='$Clientid' AND Employeeid='$Employeeid' AND AttendenceYear='$Attendanceyear'";
+$BalanceCL = $CausalleaveEligibility-$TakenCausalLeave;
+$BalanceSL = $SickleaveEligibility-$TakenSickLeave;
+
+$UPDATEQRY = "UPDATE indsys1030empyearleavetakensummary SET UsedCasualleave='$TakenCausalLeave',BalanceCausalLeave='$BalanceCL',UsedSickLeave='$TakenSickLeave',BalanceSickLeave='$BalanceSL' where Clientid='$Clientid' AND Employeeid='$Employeeid' AND AttendenceYear='$Attendanceyear'";
 
 $UPDATEQRYEXE = $conn ->query($UPDATEQRY);
 

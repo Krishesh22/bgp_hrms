@@ -2,9 +2,7 @@
 include '../config.php';
 
  include 'Payrollsalary.php';
- 
- require_once ('class.phpmailer.php');
-include ("class.smtp.php");
+
 
 session_start();
   $user_id = $_SESSION["Userid"];
@@ -156,19 +154,12 @@ $Category = str_replace(",","','","$Category");     // comma replaced to ','
    if($MethodGet == 'GETBANKDETAILS')
  {
     $Payrollmonth =$form_data['Payrollmonth'];
-    $Payrollyear =$form_data['Payrollyear']; 
-  
-
+    $Payrollyear =$form_data['Payrollyear'];  
     $_SESSION["Payrollmonth"] =  $Payrollmonth;
     $_SESSION["Payrollyear"] =  $Payrollyear;
-   
-   
- // added single quote to start and end position
-    // comma replaced to ','
     $GetState = "SELECT * FROM vwemppayrollbanklist where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Clientid='$Clientid' AND NetWages!=0 ORDER BY Employeeid ";
     $result_Region = $conn->query($GetState);
-
-  
+ 
     if(mysqli_num_rows($result_Region) > 0) { 
     while($row = mysqli_fetch_array($result_Region)) {  
       $data01[] = $row;
@@ -177,7 +168,7 @@ $Category = str_replace(",","','","$Category");     // comma replaced to ','
       
 
     
-    $sql = "SELECT SUM(NetWages)FROM vwemppayrollbanklist where SalMonth='$Payrollmonth' and Salyear='$Payrollyear'  AND Clientid='$Clientid'  ORDER BY Employeeid";
+    $sql = "SELECT SUM(NetWages)FROM vwemppayrollbanklist where SalMonth='$Payrollmonth' and Salyear='$Payrollyear'  AND Clientid='$Clientid'  AND NetWages!=0 ORDER BY Employeeid";
     $result = $conn->query($sql);
     
     while($row = mysqli_fetch_array($result)){
@@ -188,7 +179,8 @@ $Category = str_replace(",","','","$Category");     // comma replaced to ','
     {
       $NetWages = 0;
     }
-    $sqlPerformanceallowance = "SELECT SUM(Performanceallowance)FROM vwemppayrollbanklist where SalMonth='$Payrollmonth' and Salyear='$Payrollyear'  AND Clientid='$Clientid'  ORDER BY Employeeid";
+
+    $sqlPerformanceallowance = "SELECT SUM(Performanceallowance)FROM vwemppayrollbanklist where SalMonth='$Payrollmonth' and Salyear='$Payrollyear'  AND Clientid='$Clientid' AND NetWages!=0 ORDER BY Employeeid";
     $resultPerformanceallowance = $conn->query($sqlPerformanceallowance);
     
     while($row = mysqli_fetch_array($resultPerformanceallowance)){
@@ -199,20 +191,22 @@ $Category = str_replace(",","','","$Category");     // comma replaced to ','
     {
       $Performanceallowance = 0;
     }
-    
-    $GrandTotal = $NetWages+$Performanceallowance;
 
- 
- 
-         $Display=array(
-           'data01' =>$data01, 
-           'GrandTotal' =>$GrandTotal,  
-         
-                 );
+    $sqlHoliday_net = "SELECT SUM(Holiday_net)FROM vwemppayrollbanklist where SalMonth='$Payrollmonth' and Salyear='$Payrollyear'  AND Clientid='$Clientid' AND NetWages!=0  ORDER BY Employeeid";
+    $resultholiday_net = $conn->query($sqlHoliday_net);    
+    while($row_holiday = mysqli_fetch_array($resultholiday_net)){
+      $Holiday_net= $row_holiday['SUM(Holiday_net)'];        
+    }
+    if(empty($Holiday_net))
+    {
+      $Holiday_net = 0;
+    }
     
-         $str = json_encode($Display);
-        echo trim($str, '"');
-        return;
+$GrandTotal = $NetWages+$Performanceallowance+$Holiday_net;
+$Display=array('data01' =>$data01, 'GrandTotal' =>$GrandTotal );
+$str = json_encode($Display);
+echo trim($str, '"');
+return;
   }
   if($MethodGet == 'GETDEDUCTIONDETAILS')
  {

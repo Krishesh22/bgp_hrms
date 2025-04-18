@@ -20,20 +20,20 @@
         <?php include '../headerin.php'?>
         <?php include '../Sidebarin.php'?>
         <div class="dashboard-wrapper" ng-App="MyApp" ng-controller="HRM10Controller">
-            <div class="container-fluid">
+            <div class="container-fluid  dashboard-content">
 
 
                 <div id="myCarousel" class="carousel slide" data-interval="false">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
 
-                            <div class="container-fluid dashboard-content">
+                            <div class="">
                                 <div class="row">
                                     <div class="col-xl-12">
 
-                                        <div class="card">
-                                            <h5 class="card-header text-green">Employee Details</h5>
-                                            <div class="card-body">
+                                        <div class="mt-3">
+                                            <h5 class="text-green">Employee Details</h5><hr/>
+                                            <div class="">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="table-responsive">

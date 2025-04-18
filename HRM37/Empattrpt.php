@@ -6,8 +6,7 @@ session_start();
      $username = $_SESSION["Username"];
      $usermail=$_SESSION["Mailid"];
      $Clientid =$_SESSION["Clientid"];
-     $Sessionid = $_SESSION["SESSIONID"];
-
+  
      $_SESSION["Tittle"] ="Daily Attendance Detail";
 $Message ='';
 
@@ -64,7 +63,9 @@ catch(Exception $e)
     $_SESSION['ToDate'] =$ToDate;
     $_SESSION['Employeeid'] =$Employeeid;
     $data01 =[];
-   $GetState = "SELECT * FROM indsys1030empdailyattendancedetail where Attendencedate>='$FromDate' AND Attendencedate<='$ToDate' AND Employeeid='$Employeeid'  AND Clientid='$Clientid'   ORDER BY Employeeid";
+   $GetState = "SELECT * ,e.Fullname FROM indsys1030empdailyattendancedetail as d 
+   JOIN indsys1017employeemaster AS e ON d.Employeeid = e.Employeeid AND d.Clientid = e.Clientid 
+   where d.Attendencedate>='$FromDate' AND d.Attendencedate<='$ToDate' AND d.Employeeid='$Employeeid'  AND d.Clientid='$Clientid'   ORDER BY d.Employeeid";
     $result_Region = $conn->query($GetState);
   
     if(mysqli_num_rows($result_Region) > 0) { 
@@ -139,20 +140,4 @@ catch(Exception $e)
      
     }
   
-
-    if($MethodGet == 'PageSession')
-{
-
-    $Message =$Sessionid;
-
-  
-    $Display=array(
-        'Message'=>  $Message,
-      
-    );
-    $str = json_encode($Display);
-    echo trim($str, '"');
-    return;
-}
-
 ?>

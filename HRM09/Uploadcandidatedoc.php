@@ -15,15 +15,24 @@ $Candidatestudied = $_POST['Candidatestudied'];
 $UniversityorSchool = $_POST['UniversityorSchool'];
 $GradeorPercentage = $_POST['GradeorPercentage'];
 $Passoutyear = $_POST['Passoutyear'];
-
+$Specialization = $_POST['Specialization'];
+$EducationMode = $_POST['EducationMode'];
+if(empty($EducationMode))
+{
+    $EducationMode="";
+}
+if(empty($Specialization))
+{
+    $Specialization="";
+}
 
 if (isset($_FILES['files']) && !empty($_FILES['files'])) {
 
-
-    $directory2 = "../$Clientid/";
-    $directory3 = "../$Clientid/CANDIDATENEWDOC/";
+    $Folderid ="bgp-$Clientid";
+    $directory2 = "../$Folderid/";
+    $directory3 = "../$Folderid/CANDIDATENEWDOC/";
  
-$directory = "../$Clientid/CANDIDATENEWDOC/$Candidateid/";
+$directory = "../$Folderid/CANDIDATENEWDOC/$Candidateid/";
 if(!is_dir($directory2)){mkdir($directory2, 0777);}
 
 if(!is_dir($directory3)){mkdir($directory3, 0777);}
@@ -60,8 +69,8 @@ if(!is_dir($directory)){mkdir($directory, 0777);}
 
                 $img = $_FILES["files"]["name"][$i];
 
-                    $gettime = time();
-                $uniquesavename="$gettime$img" ;
+                    
+                $uniquesavename=time().$img; ;
                // $uniquesavename=time().uniqid(rand());
                 move_uploaded_file($_FILES["files"]["tmp_name"][$i], $directory .  $uniquesavename);
                
@@ -75,10 +84,12 @@ if(!is_dir($directory)){mkdir($directory, 0777);}
       $resultExistsss = "Update indsys1017candidateeducationinformation set 
       Studies ='$Candidatestudied',   
       Universityorschool='$UniversityorSchool',
-      Grade=' $GradeorPercentage',
+      Grade='$GradeorPercentage',
       Passoutyear='$Passoutyear',  
-      Candidatedocument =   '$Logofilepath',   
+      Candidatedocument = '$Logofilepath',   
       Addormodifydatetime ='$date',
+      Specialization='$Specialization',
+      EducationMode='$EducationMode',
       Userid ='$user_id'
    
      
@@ -92,8 +103,8 @@ if(!is_dir($directory)){mkdir($directory, 0777);}
 
   else
   {
-      $sqlsave = "INSERT IGNORE INTO indsys1017candidateeducationinformation (Clientid,Candidateid, Sno,Studies,Universityorschool,Grade,Userid,Addormodifydatetime,Passoutyear,Candidatedocument)
-   VALUES ('$Clientid','$Candidateid','$Sno','$Candidatestudied','$UniversityorSchool','$GradeorPercentage','$user_id','$date','$Passoutyear','$Logofilepath')";
+    $sqlsave = "INSERT IGNORE INTO indsys1017candidateeducationinformation (Clientid,Candidateid, Sno,Studies,Universityorschool,Grade,Userid,Addormodifydatetime,Passoutyear,Candidatedocument,Specialization,EducationMode)
+    VALUES ('$Clientid','$Candidateid','$Sno','$Candidatestudied','$UniversityorSchool','$GradeorPercentage','$user_id','$date','$Passoutyear','$Logofilepath','$Specialization','$EducationMode')";
       $resultsave = mysqli_query($conn, $sqlsave);
 
       $Message = "Exists";

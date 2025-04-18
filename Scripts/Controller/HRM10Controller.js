@@ -1,5 +1,5 @@
 var app = angular.module('MyApp', ['angularUtils.directives.dirPagination', 'textAngular', 'ngSanitize']);
-app.controller('HRM10Controller', function($scope, $http, $timeout, $filter, $location, $window) {
+app.controller('HRM10Controller', function ($scope, $http, $timeout, $filter, $location, $window) {
 
     $scope.Method = "";
     $scope.currentPageEmp = 1;
@@ -136,6 +136,7 @@ app.controller('HRM10Controller', function($scope, $http, $timeout, $filter, $lo
     $scope.EmpDesignation = "";
     $scope.btnsipltamil = false;
     $scope.btnsiplhindi = false;
+    $scope.btnpffixed = false;
     $scope.FatherGuardianSpouseName = "";
     $scope.Category = "Category 3";
     $scope.Married = "Yes";
@@ -161,10 +162,11 @@ app.controller('HRM10Controller', function($scope, $http, $timeout, $filter, $lo
     $scope.Other_Allowance = 0;
     $scope.currentPageProperty = 1;
     $scope.pageSizeProperty = 10;
-    $scope.Empnameaspassbook ="";
+    $scope.Empnameaspassbook = "";
+    $scope.OfficemailID = "";
 
 
-///////////////////////
+    ///////////////////////
 
     $http({
 
@@ -173,37 +175,37 @@ app.controller('HRM10Controller', function($scope, $http, $timeout, $filter, $lo
         method: "POST",
         url: "Employee.php",
         data: {
-          
-           
+
+
 
             'Method': 'PageSession'
         },
         headers: { 'Content-Type': 'application/json' },
-     
+
 
     }).then(function successCallback(response) {
 
-      
+
         $scope.PageSession = response.data.Message;
         $scope.CheckingSession();
         //alert($scope.PageSession);
         $scope.PageLoadDept();
-$scope.PageLoadRegion ();
-$scope.PageLoadQualifi();
-$scope.PageLoadDest();
-  $scope.PageLoadLang();
-$scope.PageLoadCountry();
-$scope.PageLoadALL();
-$scope.PageLoadModuleNext();
-$scope.PageLoadRelationship();
-$scope.PageLoadBACKPENDING();
-       
-      
+        $scope.PageLoadRegion();
+        $scope.PageLoadQualifi();
+        $scope.PageLoadDest();
+        $scope.PageLoadLang();
+        $scope.PageLoadCountry();
+        $scope.PageLoadALL();
+        $scope.PageLoadModuleNext();
+        $scope.PageLoadRelationship();
+        $scope.PageLoadBACKPENDING();
+
+
     });
 
 
     ///////////////////////////////
-    $scope.Reset = function() {
+    $scope.Reset = function () {
         $scope.CheckingSession();
         $scope.btnNominee = false;
         $scope.btnotherinformation = false;
@@ -305,6 +307,7 @@ $scope.PageLoadBACKPENDING();
         $scope.btnsave = true;
         $scope.btnsipltamil = false;
         $scope.btnsiplhindi = false;
+        $scope.btnpffixed = false;
         $scope.selectedValue = "";
         $scope.selected = {};
         $scope.btnupdate = false;
@@ -347,249 +350,277 @@ $scope.PageLoadBACKPENDING();
         $scope.Gross_Salary = 0;
         $scope.Other_Allowance = 0;
         $scope.OfficemailID = "";
-        $scope.Empnameaspassbook ="";
+        $scope.Empnameaspassbook = "";
     }
 
-    $scope.TempSave = function() {
+    $scope.TempSave = function () {
 
-            if ($scope.TempMessage == "MailYes") {
-                $scope.Message = true;
-                $scope.Message = "This Mail ID Already Exists...";
-
-                $timeout(function() { $scope.Message = ""; }, 3000);
-                $scope.Emailid = "";
-
-
-            }
-
-            if ($scope.TempMessage == "ContactYes") {
-                $scope.Message = true;
-                $scope.Message = "This Mobile No Already Exists...";
-
-                $timeout(function() { $scope.Message = ""; }, 3000);
-                $scope.Contactno = "";
-
-
-            }
-            if ($scope.TempMessage == "Empty") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Detail";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-            }
-            if ($scope.TempMessage == "ADMINRIGHTS") {
-                $scope.Message = true;
-                $scope.Message = "Admin only can Update Salary Details";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-            }
-
-
-
-            if ($scope.TempMessage == "PercentageHigh") {
-                $scope.Message = true;
-                $scope.Message = "Percentage is High than available Percentage ";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-                $scope.PercentageofShare = 0;
-            }
-            if ($scope.TempMessage == "FNAME") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter First Name";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-            }
-            if ($scope.TempMessage == "Contact") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Contact No";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-            }
-            if ($scope.TempMessage == "Quali") {
-                $scope.Message = true;
-                $scope.Message = "Please Select Qualification";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-            }
-            if ($scope.TempMessage == "Empty") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Detail";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-            }
-            if ($scope.TempMessage == "Exists") {
-                $scope.Message = true;
-                $scope.Message = "Data Updated Sucessfully...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Update") {
-                $scope.Message = true;
-                $scope.Message = "Data Updated Successfully...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "DH_Decline") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Rejected Reason...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Studied") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Studied Details...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Accountno") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Account no...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Bankname") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Bank Name...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Familyname") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter  Name...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Basic") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter  Basic...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-
-            if ($scope.TempMessage == "Emailid") {
-                //$scope.CheckingSession();
-
-                $scope.Message = true;
-                $scope.Message = "Please Enter  EmailID...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Category") {
-                $scope.Message = true;
-                $scope.Message = "Please Select Employee Working Category...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-
-
-            if ($scope.TempMessage == "Department") {
-                $scope.Message = true;
-                $scope.Message = "Please Select Employee Department...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-
-            if ($scope.TempMessage == "Familyrelationship") {
-                $scope.Message = true;
-                $scope.Message = "Please Selecte Relationship Detail...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Status") {
-                $scope.Message = true;
-                $scope.Message = "Please Select Status...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Department") {
-                $scope.Message = true;
-                $scope.Message = "Please Select Department...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Designation") {
-                $scope.Message = true;
-                $scope.Message = "Please Select Designation...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Relievingreason") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Relieving Reason...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "RelievingDate") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Relieving Date...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-            }
-            if ($scope.TempMessage == "Data Saved") {
-                $scope.Message = true;
-                $scope.Message = "Data Saved Successfully...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-                $scope.Employeeid = $scope.Tempnextno;
-                $scope.btnsave = false;
-                $scope.btnupdate = true;
-                $scope.Emailverification01();
-
-                // $scope.FetchEmployee($scope.Employeeid);
-            }
-            if ($scope.TempMessage == "Delete") {
-                $scope.Message = true;
-                $scope.Message = "Data Deleted Successfully";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-
-            }
-            if ($scope.TempMessage == "Deactive") {
-                $scope.Message = true;
-                $scope.Message = "Employee  Deactived Successfully";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-
-            }
-
-            if ($scope.TempMessage == "PercentageofShare") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Amonut to be Share";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-
-            }
-            if ($scope.TempMessage == "NomineeAddress") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Nominee Address";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-
-            }
-            if ($scope.TempMessage == "NomineeRelationship") {
-                $scope.Message = true;
-                $scope.Message = "Please Select Relationship Details";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-
-            }
-
-            
-
-            if ($scope.TempMessage == "Error") {
-                $scope.Message = true;
-                $scope.Message = "Error in Saving/Updating ...";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-
-            }
-            if ($scope.TempMessage == "NomineeName") {
-                $scope.Message = true;
-                $scope.Message = "Please Enter Nominee Name";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-
-
-            }
+        if ($scope.TempMessage == "MailYes") {
+            $scope.Message = true;
+            $scope.Message = "This Mail ID Already Exists...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+            $scope.Emailid = "";
 
 
         }
-        //////////////////////////////////
 
-    $scope.SendEdit02 = function(Employeeid) {
+        if ($scope.TempMessage == "NOTUNIQUE") {
+            $scope.Message = true;
+            $scope.Message = "This Id Already Exists...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+            $scope.Old_Empid = "";
 
-         $scope.CheckingSession();
+        }
+        if ($scope.TempMessage == "ContactYes") {
+            $scope.Message = true;
+            $scope.Message = "This Mobile No Already Exists...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+            $scope.Contactno = "";
+
+
+        }
+        if ($scope.TempMessage == "Empty") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Detail";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+        }
+        if ($scope.TempMessage == "ADMINRIGHTS") {
+            $scope.Message = true;
+            $scope.Message = "Admin only can Update Salary Details";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+        }
+
+
+
+        if ($scope.TempMessage == "PercentageHigh") {
+            $scope.Message = true;
+            $scope.Message = "Percentage is High than available Percentage ";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+            $scope.PercentageofShare = 0;
+        }
+        if ($scope.TempMessage == "FNAME") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter First Name";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+        }
+        if ($scope.TempMessage == "Contact") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Contact No";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+        }
+        if ($scope.TempMessage == "Quali") {
+            $scope.Message = true;
+            $scope.Message = "Please Select Qualification";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+        }
+        if ($scope.TempMessage == "Empty") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Detail";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+        }
+        if ($scope.TempMessage == "Exists") {
+            $scope.Message = true;
+            $scope.Message = "Data Updated Sucessfully...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Update") {
+            $scope.Message = true;
+            $scope.Message = "Data Updated Successfully...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "DH_Decline") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Rejected Reason...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Studied") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Studied Details...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Accountno") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Account no...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Bankname") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Bank Name...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Familyname") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter  Name...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Basic") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter  Basic...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+
+        if ($scope.TempMessage == "Emailid") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter  EmailID...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Category") {
+            $scope.Message = true;
+            $scope.Message = "Please Select Employee Working Category...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+
+
+        if ($scope.TempMessage == "Department") {
+            $scope.Message = true;
+            $scope.Message = "Please Select Employee Department...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+
+        if ($scope.TempMessage == "Familyrelationship") {
+            $scope.Message = true;
+            $scope.Message = "Please Selecte Relationship Detail...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Status") {
+            $scope.Message = true;
+            $scope.Message = "Please Select Status...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Department") {
+            $scope.Message = true;
+            $scope.Message = "Please Select Department...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Designation") {
+            $scope.Message = true;
+            $scope.Message = "Please Select Designation...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Relievingreason") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Relieving Reason...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "RelievingDate") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Relieving Date...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "Data Saved") {
+            $scope.Message = true;
+            $scope.Message = "Data Saved Successfully...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+            $scope.Employeeid = $scope.Tempnextno;
+            $scope.btnsave = false;
+            $scope.btnupdate = true;
+            $scope.Emailverification01();
+
+            // $scope.FetchEmployee($scope.Employeeid);
+        }
+        if ($scope.TempMessage == "Delete") {
+            $scope.Message = true;
+            $scope.Message = "Data Deleted Successfully";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+
+        }
+        if ($scope.TempMessage == "Deactive") {
+            $scope.Message = true;
+            $scope.Message = "Employee  Deactived Successfully";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+
+        }
+
+        if ($scope.TempMessage == "PercentageofShare") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Amonut to be Share";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+
+        }
+        if ($scope.TempMessage == "NomineeAddress") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Nominee Address";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+
+        }
+        if ($scope.TempMessage == "NomineeRelationship") {
+            $scope.Message = true;
+            $scope.Message = "Please Select Relationship Details";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+
+        }
+
+
+
+        if ($scope.TempMessage == "Error") {
+            $scope.Message = true;
+            $scope.Message = "Error in Saving/Updating ...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+
+        }
+        if ($scope.TempMessage == "NomineeName") {
+            $scope.Message = true;
+            $scope.Message = "Please Enter Nominee Name";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+        }
+        if ($scope.TempMessage == "AssetDetails") {
+            $scope.Message = true;
+            $scope.Message = "Please Select Asset Details...";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+
+        }
+        if ($scope.TempMessage == "NVerified") {
+            $scope.bkMessage = true;
+            $scope.BankMessage = "Not Verified";
+
+
+        }
+        if ($scope.TempMessage == "IFSCVerified") {
+            $scope.bkMessage = true;
+            $scope.BankMessage = "IFSC Code Verified";
+
+
+        }
+
+        if ($scope.TempMessage == "NotValid") {
+            $scope.bkMessage = true;
+            $scope.BankMessage = "IFSC Code Not Valid";
+
+
+        }
+
+
+
+
+    }
+    //////////////////////////////////
+
+    $scope.SendEdit02 = function (Employeeid) {
+
+        $scope.CheckingSession();
         $scope.Employeeid = Employeeid;
         $scope.Authorizationcheck();
 
@@ -608,9 +639,10 @@ $scope.PageLoadBACKPENDING();
         $scope.btnsiplhindi = false;
         $scope.btnNominee = false;
         $scope.btnidcard = false;
+        $scope.GetAuthorization();
         $scope.FetchTamilhindidocument();
         $scope.FetchEmployee($scope.Employeeid);
-         $('#myCarousel').carousel(1);
+        $('#myCarousel').carousel(1);
         // if ($scope.Authorizedno == "1") {
         //     $('#myCarousel').carousel(1);
         // } else {
@@ -625,11 +657,10 @@ $scope.PageLoadBACKPENDING();
 
 
     }
-    $scope.SendEdit = function(Employeeid) {
-
+    $scope.SendEdit = function (Employeeid) {
         $scope.CheckingSession();
         $scope.Employeeid = Employeeid;
-$scope.FetchTamilhindidocument();
+        $scope.FetchTamilhindidocument();
         $scope.btnotherinformation = false;
         $scope.btnaddress = false;
         $scope.btnEducation = false;
@@ -645,6 +676,8 @@ $scope.FetchTamilhindidocument();
         $scope.btnsiplhindi = false;
         $scope.btnNominee = false;
         $scope.btnidcard = false;
+        $scope.GetReturnDetails();
+        $scope.folder = {};
         $scope.FetchEmployee($scope.Employeeid);
 
         // $('#ModalEditingReason').modal('show');
@@ -659,220 +692,220 @@ $scope.FetchTamilhindidocument();
     ////////////////////////////////
 
     /////////////////////////////////////////////////////////
-    $scope.fnotherinfo = function() {
-             $scope.CheckingSession();
-            $scope.btnotherinformation = true;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false;
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
+    $scope.fnotherinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = true;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
 
 
-        }
-        //////////////////////////////////////////////
-    $scope.fneducationinfo = function() {
-            $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = true;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.ResetEducation();
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false;
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
+    }
+    //////////////////////////////////////////////
+    $scope.fneducationinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = true;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.ResetEducation();
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
 
-        }
-        ///////////////////////////////////////////////
-    $scope.fnbankinfo = function() {
-            $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = true;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false;
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
-
-
-        }
-        ////////////////////////////////////////////////////////
-    $scope.fnfamilyinfo = function() {
-            $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = true;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.ResetFamily();
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false;
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
+    }
+    ///////////////////////////////////////////////
+    $scope.fnbankinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = true;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
 
 
-        }
-        ///////////////////////////////////////////////////////
-    $scope.fnrefinfo = function() {
-            $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = true;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false;
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
+    }
+    ////////////////////////////////////////////////////////
+    $scope.fnfamilyinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = true;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.ResetFamily();
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
 
 
-        }
-        //////////////////////////////////////////////////////
-    $scope.fnsalaryinfo = function() {
-            $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = true;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false;
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
-            $scope.btnidcard = false;
+    }
+    ///////////////////////////////////////////////////////
+    $scope.fnrefinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = true;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
 
 
-        }
-        ///////////////////////////////////////////////////
-    $scope.fndocinfo = function() {
-             $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = true;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.Resetdoc();
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false;
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
-            $scope.btnidcard = false;
+    }
+    //////////////////////////////////////////////////////
+    $scope.fnsalaryinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = true;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
+        $scope.btnidcard = false;
 
 
-        }
-        ////////////////////////////////////////////
-    $scope.fnimageinfo = function() {
-            $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = true;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
-            $scope.btnidcard = false;
-
-        }
-        /////////////////////////////////////
-    $scope.fnappraisalinfo = function() {
-             $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = true;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false;
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
-            $scope.btnidcard = false;
+    }
+    ///////////////////////////////////////////////////
+    $scope.fndocinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = true;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.Resetdoc();
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
+        $scope.btnidcard = false;
 
 
-        }
-        /////////////////////////////////////////////////////
-    $scope.fnpromotioninfo = function() {
-         $scope.CheckingSession();
+    }
+    ////////////////////////////////////////////
+    $scope.fnimageinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = true;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
+        $scope.btnidcard = false;
+
+    }
+    /////////////////////////////////////
+    $scope.fnappraisalinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = true;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
+        $scope.btnidcard = false;
+
+
+    }
+    /////////////////////////////////////////////////////
+    $scope.fnpromotioninfo = function () {
+        $scope.CheckingSession();
         $scope.btnotherinformation = false;
         $scope.btnaddress = false;
         $scope.btnEducation = false;
@@ -897,7 +930,7 @@ $scope.FetchTamilhindidocument();
     }
 
     /////////////////////////
-    $scope.fnaddressinfo = function() {
+    $scope.fnaddressinfo = function () {
         $scope.CheckingSession();
         $scope.btnotherinformation = false;
         $scope.btnaddress = true;
@@ -923,105 +956,106 @@ $scope.FetchTamilhindidocument();
 
 
     ///////////////////////////////////////////
-    $scope.fnvaccinationinfo = function() {
-            $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = true;
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnNominee = false;
-            $scope.ResetVaccination();
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
-            $scope.btnidcard = false;
-        }
-        //////////////////////////////
-        ///////////////////////////////////////////
-    $scope.fnsiplTamil = function() {
-               $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = true;
-            $scope.btnsiplhindi = false;
-            $scope.FetchEmployee($scope.Employeeid);
-            $scope.FetchEmpNominee2($scope.Employeeid);
-            $scope.btnNominee = false;
-            $scope.btnidcard = false;
-            $scope.btnPropertyChecklist = false;
-            $scope.btnidcard = false;
-             $scope.DisplayEmpFamily();
-            $scope.DisplayEmpNominee();
-        }
-        ////////////////////////////////////
+    $scope.fnvaccinationinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = true;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.ResetVaccination();
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
+        $scope.btnidcard = false;
+    }
+    //////////////////////////////
+    ///////////////////////////////////////////
+    $scope.fnsiplTamil = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = true;
+        $scope.btnsiplhindi = false;
+        $scope.FetchEmployee($scope.Employeeid);
+        $scope.FetchEmpNominee2($scope.Employeeid);
+        $scope.DisplayEmpFamily();
+        $scope.DisplayEmpNominee();
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
+        $scope.btnidcard = false;
 
-    $scope.fnidcardinfo = function() {
-             $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.GetEmergencyContact();
-            $scope.FetchEmployee($scope.Employeeid);
-            $scope.btnNominee = false;
-            $scope.btnidcard = true;
-            $scope.btnPropertyChecklist = false;
+    }
+    ////////////////////////////////////
 
-        }
-        ////////////////////////////////////
-    $scope.fnNomineeinfo = function() {
-             $scope.CheckingSession();
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = false;
-            $scope.btnNominee = true;
-            $scope.ResetNomineeFamily();
-            $scope.btnPropertyChecklist = false;
-            $scope.btnidcard = false;
-            //$scope.btnsiplhindi = false;
-            //$scope.FetchEmployee($scope.Employeeid);
-        }
-        /////////////////////////////////
-    $scope.fnsiplhindi = function() {
+    $scope.fnidcardinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.GetEmergencyContact();
+        $scope.FetchEmployee($scope.Employeeid);
+        $scope.btnNominee = false;
+        $scope.btnidcard = true;
+        $scope.btnPropertyChecklist = false;
+
+    }
+    ////////////////////////////////////
+    $scope.fnNomineeinfo = function () {
+        $scope.CheckingSession();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnNominee = true;
+        $scope.ResetNomineeFamily();
+        $scope.btnPropertyChecklist = false;
+        $scope.btnidcard = false;
+        //$scope.btnsiplhindi = false;
+        //$scope.FetchEmployee($scope.Employeeid);
+    }
+    /////////////////////////////////
+    $scope.fnsiplhindi = function () {
         // $scope.CheckingSession();
 
         $scope.btnotherinformation = false;
@@ -1044,193 +1078,203 @@ $scope.FetchTamilhindidocument();
     }
 
 
-    $scope.fnpropertychecklistinfo = function() {
-             $scope.CheckingSession();
+    $scope.fnpropertychecklistinfo = function () {
+        $scope.CheckingSession();
 
-            $scope.btnotherinformation = false;
-            $scope.btnaddress = false;
-            $scope.btnEducation = false;
-            $scope.btnFamily = false;
-            $scope.btnReference = false;
-            $scope.btnappraisal = false;
-            $scope.btnsalary = false;
-            $scope.btndoc = false;
-            $scope.btnimage = false;
-            $scope.btnpromotion = false;
-            $scope.btnbank = false;
-            $scope.btnvaccination = false;
-            $scope.btnsipltamil = false;
-            $scope.btnsiplhindi = false;
-            $scope.btnPropertyChecklist = true;
-            $scope.btnidcard = false;
-            $scope.Resetpropertychecklist();
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnPropertyChecklist = true;
+        $scope.btnidcard = false;
+        $scope.Resetpropertychecklist();
+        $scope.GetReturnDetails();
 
-        }
-        /////////////////////////////////////
-    $scope.GetAdminCategory = function(Category) {
+    }
+    /////////////////////////////////////
+    $scope.GetAdminCategory = function (Category) {
         $scope.btnMarketing = true;
         $scope.Category = Category;
-        if ($scope.Category == "Category 3") {
-            $scope.AllowOT = "Yes";
-        } else {
-            $scope.AllowOT = "No";
-        }
-        if ($scope.Category == "Category 2") {
+
+        if ($scope.Clientid == 4) {
             $scope.btnMarketing = false;
         }
+
+        if ($scope.Clientid != "4") {
+            if ($scope.Category == "Category 3") {
+                $scope.AllowOT = "Yes";
+            } else {
+                $scope.AllowOT = "No";
+            }
+            if ($scope.Category == "Category 2") {
+                $scope.btnMarketing = false;
+            }
+            // $http({
+            //     method: "post",
+            //     url: "Employee.php",
+            //     data: {
+            //         'Employeeid': $scope.Employeeid,
+            //         'Category': $scope.Category,
+            //         'AllowOT': $scope.AllowOT,
+
+
+            //         'Method': 'UpdateCATEGORYOT'
+
+            //     },
+            //     headers: { 'Content-Type': 'application-json' }
+            // }).then(function successCallback(response) {
+
+
+            // });
+        }
+
+    }
+
+    $scope.GetNextnoByCategory = function (Category, EmpDepartment) {
+        //   $scope.CheckingSession();
+        $scope.Category = Category;
+        $scope.EmpDepartment = EmpDepartment;
+        $scope.GetAdminCategory($scope.Category);
+        $scope.Getnextno();
+
+    }
+
+
+    $scope.GetPFFixed = function (PF_Yesandno) {
+        $scope.PF_Yesandno = PF_Yesandno;
+        if ($scope.PF_Yesandno == "Yes") {
+            $scope.btnpffixed = true;
+        } else {
+            $scope.btnpffixed = false;
+        }
+    }
+
+
+    $scope.GetAllowPF = function (PF_Yesandno) {
+        $scope.PF_Yesandno = PF_Yesandno;
+        if ($scope.PF_Yesandno == "Yes") {
+            $scope.btnpfno = true;
+        } else {
+            $scope.btnpfno = false;
+        }
+    }
+    $scope.GetAllowESI = function (ESI_Yesandno) {
+        $scope.ESI_Yesandno = ESI_Yesandno;
+        if ($scope.ESI_Yesandno == "Yes") {
+            $scope.btnesino = true;
+        } else {
+            $scope.btnesino = false;
+        }
+    }
+    ////////////////////////////
+    $scope.FetchEmployee = function (Employeeid) {
+        // $scope.CheckingSession();
+        $scope.selectedValue = [];
+        $scope.Employeeid = Employeeid;
         $http({
-            method: "post",
+            method: "POST",
             url: "Employee.php",
             data: {
                 'Employeeid': $scope.Employeeid,
-                'Category': $scope.Category,
-                'AllowOT': $scope.AllowOT,
-
-
-                'Method': 'UpdateCATEGORYOT'
-
+                'Method': "FetchEmployee"
             },
-            headers: { 'Content-Type': 'application-json' }
+            headers: { 'Content_Type': 'application/json' }
         }).then(function successCallback(response) {
+            $scope.Title = response.data.Title;
+            $scope.Firstname = response.data.Firstname;
+            $scope.Lastname = response.data.Lastname;
+            $scope.Gender = response.data.Gender;
+            $scope.Fresher = response.data.Fresher;
+            $scope.Expereience = response.data.Expereience;
+            $scope.Married = response.data.Married;
+            $scope.Mothertongue = response.data.Mothertongue;
+            $scope.Contactno = response.data.Contactno;
+            $scope.Category = response.data.Category;
+            $scope.Emailid = response.data.Emailid;
+            $scope.Dob = response.data.Dob;
+            $scope.Dob2 = response.data.Dob2;
+            $scope.Age = response.data.Age;
+            $scope.Bloodgroup = response.data.Bloodgroup;
+            $scope.Shift = response.data.Shift;
+            $scope.AllowOT = response.data.AllowOT;
+            $scope.AllowLOP = response.data.AllowLOP;
+            $scope.Salary_Mode = response.data.Salary_Mode;
+            $scope.Weekoff = response.data.Weekoff;
+            $scope.Employee_CL = response.data.Employee_CL;
+            $scope.Nationality = response.data.Nationality;
+            $scope.Religion = response.data.Religion;
+            $scope.Imagepath = response.data.Imagepath;
+            $scope.Languages = response.data.Languages;
+            $scope.Languagestest = response.data.Languages;
+            $scope.selectedValue = response.data.Languages;
+            $scope.UANno = response.data.UANno;
+            $scope.ESIno = response.data.ESIno;
+            $scope.Aadharno = response.data.Aadharno;
+            $scope.Panno = response.data.Panno;
+            $scope.PFJoiningdate = response.data.PFJoiningdate;
+            $scope.ESIJoiningdate = response.data.ESIJoiningdate;
+            $scope.Date_Of_Joing = response.data.Date_Of_Joing;
+            $scope.Date_Of_Joing2 = response.data.Date_Of_Joing2;
 
-            // $scope.TempMessage = response.data.Message;
-            // $scope.TempSave();
-            // $scope.UserLoginDestroy();
-        });
-    }
-
-    $scope.GetNextnoByCategory = function(Category, EmpDepartment) {
-         //   $scope.CheckingSession();
-            $scope.Category = Category;
-            $scope.EmpDepartment = EmpDepartment;
+            $scope.EmpDepartment = response.data.EmpDepartment;
+            $scope.Highestqualification = response.data.Highestqualification;
+            $scope.EmpDesignation = response.data.EmpDesignation;
+            $scope.FatherGuardianSpouseName = response.data.FatherGuardianSpouseName;
+            $scope.LastAppresialDate = response.data.LastAppresialDate;
+            $scope.LastAppresialDate2 = response.data.LastAppresialDate2;
+            $scope.BackgroundVerificationpath = response.data.BackgroundVerificationpath;
+            $scope.BackgroundVerification = response.data.BackgroundVerification;
+            $scope.PF_Yesandno = response.data.PF_Yesandno;
+            $scope.PF_Fixed = response.data.PF_Fixed;
+            $scope.OfficemailID = response.data.OfficemailID;
+            $scope.Smsverified = response.data.Smsverified;
+            $scope.Emailverified = response.data.Emailverified;
+            $scope.Old_Empid = response.data.Old_Empid;
+            $scope.GetEmergencyContact();
             $scope.GetAdminCategory($scope.Category);
-            $scope.Getnextno();
 
-        }
+            $scope.Splitlanguages($scope.selectedValue);
 
-
-        $scope.GetPFFixed = function(PF_Yesandno) {
-            $scope.PF_Yesandno = PF_Yesandno;
-            if ($scope.PF_Yesandno == "Yes") {
-                $scope.btnpffixed = true;
-            } else {
-                $scope.btnpffixed = false;
-            }
-        }
-
-        
-        $scope.GetAllowPF = function(PF_Yesandno) {
-            $scope.PF_Yesandno = PF_Yesandno;
-            if ($scope.PF_Yesandno == "Yes") {
-                $scope.btnpfno = true;
-            } else {
-                $scope.btnpfno = false;
-            }
-        }
-        $scope.GetAllowESI = function(ESI_Yesandno) {
-            $scope.ESI_Yesandno = ESI_Yesandno;
-            if ($scope.ESI_Yesandno == "Yes") {
-                $scope.btnesino = true;
-            } else {
-                $scope.btnesino = false;
-            }
-        }
-        ////////////////////////////
-    $scope.FetchEmployee = function(Employeeid) {
-           // $scope.CheckingSession();
-            $scope.selectedValue = [];
-            $scope.Employeeid = Employeeid;
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Method': "FetchEmployee"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
-                $scope.Title = response.data.Title;
-                $scope.Firstname = response.data.Firstname;
-                $scope.Lastname = response.data.Lastname;
-                $scope.Gender = response.data.Gender;
-                $scope.Fresher = response.data.Fresher;
-                $scope.Expereience = response.data.Expereience;
-                $scope.Married = response.data.Married;
-                $scope.Mothertongue = response.data.Mothertongue;
-                $scope.Contactno = response.data.Contactno;
-                $scope.Category = response.data.Category;
-                $scope.Emailid = response.data.Emailid;
-                $scope.Dob = response.data.Dob;
-                $scope.Dob2 = response.data.Dob2;
-                $scope.Age = response.data.Age;
-                $scope.Bloodgroup = response.data.Bloodgroup;
-                $scope.Shift = response.data.Shift;
-                $scope.AllowOT = response.data.AllowOT;
-                $scope.AllowLOP = response.data.AllowLOP;
-                $scope.Salary_Mode = response.data.Salary_Mode;
-                $scope.Weekoff = response.data.Weekoff;
-                $scope.Employee_CL = response.data.Employee_CL;
-                $scope.Nationality = response.data.Nationality;
-                $scope.Religion = response.data.Religion;
-                $scope.Imagepath = response.data.Imagepath;
-                $scope.Languages = response.data.Languages;
-                $scope.Languagestest = response.data.Languages;
-                $scope.selectedValue = response.data.Languages;
-                $scope.UANno = response.data.UANno;
-                $scope.ESIno = response.data.ESIno;
-                $scope.Aadharno = response.data.Aadharno;
-                $scope.Panno = response.data.Panno;
-                $scope.PFJoiningdate = response.data.PFJoiningdate;
-                $scope.ESIJoiningdate = response.data.ESIJoiningdate;
-                $scope.Date_Of_Joing = response.data.Date_Of_Joing;
-                $scope.Date_Of_Joing2 = response.data.Date_Of_Joing2;
-
-                $scope.EmpDepartment = response.data.EmpDepartment;
-                $scope.Highestqualification = response.data.Highestqualification;
-                $scope.EmpDesignation = response.data.EmpDesignation;
-                $scope.FatherGuardianSpouseName = response.data.FatherGuardianSpouseName;
-                $scope.LastAppresialDate = response.data.LastAppresialDate;
-                $scope.LastAppresialDate2 = response.data.LastAppresialDate2;
-                $scope.BackgroundVerificationpath = response.data.BackgroundVerificationpath;
-                $scope.BackgroundVerification = response.data.BackgroundVerification;
-                $scope.PF_Yesandno = response.data.PF_Yesandno;
-                $scope.PF_Fixed = response.data.PF_Fixed;
-                $scope.OfficemailID = response.data.OfficemailID;
-
-                $scope.GetAdminCategory($scope.Category);
-
-                $scope.Splitlanguages($scope.selectedValue);
-
-                $scope.GetPFFixed($scope.PF_Yesandno);
+            $scope.GetPFFixed($scope.PF_Yesandno);
 
 
 
 
 
-            });
+        });
 
-            $scope.ResetVaccination();
-            $scope.FetchSalary($scope.Employeeid);
-            //  $scope.CheckingBackgroundverification($scope.Gross_Salary);
-            $scope.FetchAddress($scope.Employeeid);
-            $scope.FetchBank($scope.Employeeid);
-            $scope.FetchReference($scope.Employeeid);
-            $scope.DisplayEmpAppraisal();
-            $scope.DisplayEmpDocument();
-            $scope.DisplayEmpEducation();
-            $scope.DisplayEmpFamily();
-            $scope.DisplayEmpPromotion();
-            $scope.ResetEducation();
-            $scope.ResetFamily();
-            $scope.ResetPromotion();
-            $scope.Resetdoc();
+        $scope.ResetVaccination();
+        $scope.FetchSalary($scope.Employeeid);
+        //  $scope.CheckingBackgroundverification($scope.Gross_Salary);
+        $scope.FetchAddress($scope.Employeeid);
+        $scope.FetchBank($scope.Employeeid);
+        $scope.FetchReference($scope.Employeeid);
+        $scope.DisplayEmpAppraisal();
+        $scope.DisplayEmpDocument();
+        $scope.DisplayEmpEducation();
+        $scope.DisplayEmpFamily();
+        $scope.DisplayEmpPromotion();
+        $scope.ResetEducation();
+        $scope.ResetFamily();
+        $scope.ResetPromotion();
+        $scope.Resetdoc();
 
-            // $scope.FetchCovidvaccination();
+        // $scope.FetchCovidvaccination();
 
 
-        }
-        //////////////////////////////////////
-    $scope.Splitlanguages = function(selectedValue) {
+    }
+    //////////////////////////////////////
+    $scope.Splitlanguages = function (selectedValue) {
         $scope.selectedValue = selectedValue;
         if ($scope.selectedValue == "") {
             $scope.selectedValue = [];
@@ -1238,7 +1282,7 @@ $scope.FetchTamilhindidocument();
             $scope.selectedValue = $scope.selectedValue.split(',');
         }
         $scope.selected = {};
-        angular.forEach($scope.selectedValue, function(val, key) {
+        angular.forEach($scope.selectedValue, function (val, key) {
             var r = $filter('filter')($scope.GetLanguageList, { Languages: val })[0].Languages;
             if (r != undefined) {
                 $scope.selected[r] = true;
@@ -1260,7 +1304,7 @@ $scope.FetchTamilhindidocument();
 
 
     //////////////////////
-    $scope.CheckingBackgroundverification = function(Gross_Salary) {
+    $scope.CheckingBackgroundverification = function (Gross_Salary) {
 
         $scope.Gross_Salary = Gross_Salary;
 
@@ -1274,39 +1318,39 @@ $scope.FetchTamilhindidocument();
     }
 
     ///////////////////////////////////////////
-    $scope.FetchAddress = function(Employeeid) {
-            //  $scope.CheckingSession();
-            $scope.Employeeid = Employeeid;
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Method': "FetchAddress"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
+    $scope.FetchAddress = function (Employeeid) {
+        //  $scope.CheckingSession();
+        $scope.Employeeid = Employeeid;
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Method': "FetchAddress"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.CurrentAddress = response.data.CurrentAddress;
-                $scope.CurrentCountry = response.data.CurrentCountry;
-                $scope.GetCurrentState();
+            $scope.CurrentAddress = response.data.CurrentAddress;
+            $scope.CurrentCountry = response.data.CurrentCountry;
+            $scope.GetCurrentState();
 
-                $scope.CurrentState = response.data.CurrentState;
-                $scope.GetCurrentCity();
-                $scope.CurrentCity = response.data.CurrentCity;
-                $scope.CurrentPincode = response.data.CurrentPincode;
-                $scope.PermanentAddress = response.data.PermanentAddress;
-                $scope.PermanentCountry = response.data.PermanentCountry;
-                $scope.GetPerstate();
-                $scope.PermanentState = response.data.PermanentState;
-                $scope.GetPerCity();
-                $scope.PermanentCity = response.data.PermanentCity;
-                $scope.PermanentPincode = response.data.Permanantpincode;
+            $scope.CurrentState = response.data.CurrentState;
+            $scope.GetCurrentCity();
+            $scope.CurrentCity = response.data.CurrentCity;
+            $scope.CurrentPincode = response.data.CurrentPincode;
+            $scope.PermanentAddress = response.data.PermanentAddress;
+            $scope.PermanentCountry = response.data.PermanentCountry;
+            $scope.GetPerstate();
+            $scope.PermanentState = response.data.PermanentState;
+            $scope.GetPerCity();
+            $scope.PermanentCity = response.data.PermanentCity;
+            $scope.PermanentPincode = response.data.Permanantpincode;
 
-            });
-        }
-        ///////////////////////////////////////
-    $scope.FetchReference = function(Employeeid) {
+        });
+    }
+    ///////////////////////////////////////
+    $scope.FetchReference = function (Employeeid) {
         //  $scope.CheckingSession();
         $scope.Employeeid = Employeeid;
         $http({
@@ -1324,12 +1368,14 @@ $scope.FetchTamilhindidocument();
             $scope.Reference2name = response.data.Reference2name;
             $scope.Reference2contactno = response.data.Reference2contactno;
             $scope.Reference2address = response.data.Reference2address;
+            $scope.Ref2relationship = response.data.Ref2relationship;
+            $scope.Ref1relationship = response.data.Ref1relationship;
 
         });
     }
 
     ///////////////////////////////////////////
-    $scope.FetchSalary = function(Employeeid) {
+    $scope.FetchSalary = function (Employeeid) {
         //  $scope.CheckingSession();
         $scope.Employeeid = Employeeid;
         $http({
@@ -1359,6 +1405,7 @@ $scope.FetchTamilhindidocument();
             $scope.LWF = response.data.LWF;
             $scope.ESIOverlimit = response.data.ESIOverlimit;
             $scope.Authorizedno = response.data.Authorizedno;
+            $scope.DayallowanceincludedESI = response.data.DayallowanceincludedESI;
             $scope.CheckingBackgroundverification($scope.Gross_Salary);
             $scope.GetPFFixed($scope.PF_Yesandno);
             $scope.CheckEsiOverLimit($scope.ESI_Yesandno);
@@ -1366,110 +1413,108 @@ $scope.FetchTamilhindidocument();
     }
 
     ///////////////////////////////////////////
-    $scope.CheckEsiOverLimit = function(ESI_Yesandno)
-    {
+    $scope.CheckEsiOverLimit = function (ESI_Yesandno) {
         $scope.ESI_Yesandno = ESI_Yesandno;
-       
-        if($scope.ESI_Yesandno == "Yes")
-        {
-            
+
+        if ($scope.ESI_Yesandno == "Yes") {
+
             $scope.btnESIOVERLIMIT = false;
         }
-        else
-        {
+        else {
             $scope.btnESIOVERLIMIT = true;
         }
 
     }
     ////////////////////////////////////
-    $scope.FetchBank = function(Employeeid) {
-            //  $scope.CheckingSession();
-            $scope.Employeeid = Employeeid;
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Method': "FetchBank"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
+    $scope.FetchBank = function (Employeeid) {
+        //  $scope.CheckingSession();
+        $scope.Employeeid = Employeeid;
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Method': "FetchBank"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
 
 
-                $scope.Bankname = response.data.Bankname;
-                $scope.Accountno = response.data.Accountno;
-                $scope.IFSCcode = response.data.IFSCcode;
-                $scope.Branch = response.data.Branch;
-                $scope.Emppassbook = response.data.Emppassbook;
-                $scope.Empnameaspassbook = response.data.Empnameaspassbook;
-            });
-        }
-        ///////////////////////////////////////////////
+            $scope.Bankname = response.data.Bankname;
+            $scope.Accountno = response.data.Accountno;
+            $scope.IFSCcode = response.data.IFSCcode;
+            $scope.Branch = response.data.Branch;
+            $scope.Emppassbook = response.data.Emppassbook;
+            $scope.Empnameaspassbook = response.data.Empnameaspassbook;
+            $scope.GetIFSCexists();
+        });
+    }
+    ///////////////////////////////////////////////
 
     ///////////////////////////////////////////
-    $scope.FetchStudy = function(Employeeid, Sno) {
-              $scope.CheckingSession();
-            $scope.Employeeid = Employeeid;
-            $scope.EduNextno = Sno;
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Sno': $scope.EduNextno,
-                    'Method': "FetchStudy"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
+    $scope.FetchStudy = function (Employeeid, Sno) {
+        $scope.CheckingSession();
+        $scope.Employeeid = Employeeid;
+        $scope.EduNextno = Sno;
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Sno': $scope.EduNextno,
+                'Method': "FetchStudy"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.Employeestudied = response.data.Employeestudied;
-                $scope.UniversityorSchool = response.data.UniversityorSchool;
-                $scope.GradeorPercentage = response.data.GradeorPercentage;
-                $scope.Passoutyear = response.data.Passoutyear;
-                $scope.EmpDocumentView = response.data.EmpDocumentView;
+            $scope.Employeestudied = response.data.Employeestudied;
+            $scope.UniversityorSchool = response.data.UniversityorSchool;
+            $scope.GradeorPercentage = response.data.GradeorPercentage;
+            $scope.Passoutyear = response.data.Passoutyear;
+            $scope.EmpDocumentView = response.data.EmpDocumentView;
 
-            });
-        }
-        /////////////////////////////////////////
-        ///////////////////////////////////////////
-    $scope.FetchFamily = function(Employeeid, Sno) {
-               $scope.CheckingSession();
+        });
+    }
+    /////////////////////////////////////////
+    ///////////////////////////////////////////
+    $scope.FetchFamily = function (Employeeid, Sno) {
+        $scope.CheckingSession();
 
-            $scope.Employeeid = Employeeid;
-            $scope.FamilyNextno = Sno;
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Sno': $scope.FamilyNextno,
-                    'Method': "FetchFamily"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
+        $scope.Employeeid = Employeeid;
+        $scope.FamilyNextno = Sno;
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Sno': $scope.FamilyNextno,
+                'Method': "FetchFamily"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.FamilyName = response.data.FamilyName;
-                $scope.Familyrelationship = response.data.Familyrelationship
-                $scope.FamilyAge = response.data.FamilyAge;
-                $scope.FamilyContactno = response.data.FamilyContactno;
-                $scope.FamilyOccupation = response.data.FamilyOccupation;
+            $scope.FamilyName = response.data.FamilyName;
+            $scope.Familyrelationship = response.data.Familyrelationship
+            $scope.FamilyAge = response.data.FamilyAge;
+            $scope.FamilyContactno = response.data.FamilyContactno;
+            $scope.FamilyOccupation = response.data.FamilyOccupation;
 
-            });
-        }
-        ///////////////////////////////////////////
-        ///////////////////////////////////////////
-        // $scope.FetchDoc = function(Employeeid) {
-        //    // $scope.CheckingSession();
-        //         $scope.Employeeid = Employeeid;
-        //         $http({
-        //             method: "POST",
-        //             url: "Employee.php",
-        //             data: {
-        //                 'Employeeid': $scope.Employeeid,
-        //                 'Method': "FetchDoc"
-        //             },
-        //             headers: { 'Content_Type': 'application/json' }
-        //         }).then(function successCallback(response) {
+        });
+    }
+    ///////////////////////////////////////////
+    ///////////////////////////////////////////
+    // $scope.FetchDoc = function(Employeeid) {
+    //    // $scope.CheckingSession();
+    //         $scope.Employeeid = Employeeid;
+    //         $http({
+    //             method: "POST",
+    //             url: "Employee.php",
+    //             data: {
+    //                 'Employeeid': $scope.Employeeid,
+    //                 'Method': "FetchDoc"
+    //             },
+    //             headers: { 'Content_Type': 'application/json' }
+    //         }).then(function successCallback(response) {
 
     //             $scope.Documenttype = response.data.Documenttype;
     //             $scope.Documentno = response.data.Documentno;
@@ -1478,13 +1523,13 @@ $scope.FetchTamilhindidocument();
     //         });
     //     }
     //////////////////////////////////////////////
-    $scope.Getuncheck = function() {
+    $scope.Getuncheck = function () {
         $scope.t1 = false;
     }
 
     ////////////////////////////
 
-    $scope.SaveEmployee = function() {
+    $scope.SaveEmployee = function () {
         $scope.CheckingSession();
 
         $scope.btnsaveadmin = true;
@@ -1531,8 +1576,29 @@ $scope.FetchTamilhindidocument();
 
     ////////////////////////////////////////////
 
-    $scope.Getallvalues = function() {
-     $scope.CheckingSession();
+    $scope.Getallvalues = function () {
+
+        // dk edit starts 
+        $scope.btnotherinformation = false;
+        $scope.btnaddress = false;
+        $scope.btnEducation = false;
+        $scope.btnFamily = false;
+        $scope.btnReference = false;
+        $scope.btnappraisal = false;
+        $scope.btnsalary = false;
+        $scope.btndoc = false;
+        $scope.btnimage = false;
+        $scope.btnpromotion = false;
+        $scope.btnbank = false;
+        $scope.btnvaccination = false;
+        $scope.btnsipltamil = false;
+        $scope.btnsiplhindi = false;
+        $scope.btnNominee = false;
+        $scope.btnidcard = false;
+        $scope.btnPropertyChecklist = false;
+        // dk edit ends
+
+        $scope.CheckingSession();
 
         $http({
             method: "POST",
@@ -1547,7 +1613,7 @@ $scope.FetchTamilhindidocument();
         });
     };
     /////////////////////////////////////////////////////////
-    $scope.Deletenew = function() {
+    $scope.Deletenew = function () {
         //$scope.CheckingSession();
         $http({
 
@@ -1573,148 +1639,140 @@ $scope.FetchTamilhindidocument();
 
     ///////////////////////////////////////////////////////////////////
 
-$scope.PageLoadDept = function()
-{
+    $scope.PageLoadDept = function () {
 
-    $http({
-        method: "POST",
-        url: "Employee.php",
-        data: { 'Method': 'Dept' },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-    }).then(function successCallback(response) {
-
-        $scope.GetDepartmentList = response.data;
-        $scope.GetAdminCategory($scope.Category);
-      
-    });
-
-}
-$scope.PageLoadRegion = function()
-{
-       $http({
-        method: "POST",
-        url: "Employee.php",
-        data: { 'Method': 'Religion' },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-    }).then(function successCallback(response) {
-        $scope.GetReligionList = response.data;
-       
-    });
-}
-
-$scope.PageLoadQualifi = function()
-{
         $http({
-        method: "POST",
-        url: "Employee.php",
-        data: { 'Method': 'Qualifi' },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Method': 'Dept' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-    }).then(function successCallback(response) {
-        $scope.GetQualififcationList = response.data;
-      
-    });
-}
+        }).then(function successCallback(response) {
 
-$scope.PageLoadDest = function()
-{
-      $http({
-        method: "POST",
-        url: "Employee.php",
-        data: { 'Method': 'Dest' },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            $scope.GetDepartmentList = response.data;
+            $scope.GetAdminCategory($scope.Category);
 
-    }).then(function successCallback(response) {
-        $scope.GetDesignationList = response.data;
-       
-    });
-}
- 
+        });
+
+    }
+    $scope.PageLoadRegion = function () {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Method': 'Religion' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+        }).then(function successCallback(response) {
+            $scope.GetReligionList = response.data;
+
+        });
+    }
+
+    $scope.PageLoadQualifi = function () {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Method': 'Qualifi' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+        }).then(function successCallback(response) {
+            $scope.GetQualififcationList = response.data;
+
+        });
+    }
+
+    $scope.PageLoadDest = function () {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Method': 'Dest' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+        }).then(function successCallback(response) {
+            $scope.GetDesignationList = response.data;
+
+        });
+    }
+
     //////////////////////////////////////////////
-  
 
-  $scope.PageLoadLang = function()
-{
-       $http({
-        method: "POST",
-        url: "Employee.php",
-        data: { 'Method': 'Lang' },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-    }).then(function successCallback(response) {
-        $scope.GetLanguageList = response.data;
-        
-    });
-}
+    $scope.PageLoadLang = function () {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Method': 'Lang' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+        }).then(function successCallback(response) {
+            $scope.GetLanguageList = response.data;
+
+        });
+    }
 
     /////////////////////////////////////////////
- 
+
     /////////////////////////////////////////////
-      $scope.PageLoadCountry = function()
-{
- 
-    $http({
-        method: "POST",
-        url: "Employee.php",
-        data: { 'Method': 'Country' },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    $scope.PageLoadCountry = function () {
 
-    }).then(function successCallback(response) {
-        $scope.GetCountryList = response.data;
-        
-    });
-}
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Method': 'Country' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-      $scope.PageLoadALL = function()
-{
-      $http({
-        method: "POST",
-        url: "Employee.php",
-        data: { 'Method': 'ALL' },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(function successCallback(response) {
+            $scope.GetCountryList = response.data;
 
-    }).then(function successCallback(response) {
+        });
+    }
+
+    $scope.PageLoadALL = function () {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Method': 'ALL' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+        }).then(function successCallback(response) {
 
 
-        $scope.GetEmployeeList = response.data;
-       
-    });
-}
+            $scope.GetEmployeeList = response.data;
+
+        });
+    }
 
 
 
     ///////////////////////////////////////////////////
-  
+
     /////////////////////////////////////
-          $scope.PageLoadModuleNext = function()
-{
- 
-    $http(
+    $scope.PageLoadModuleNext = function () {
 
-        {
+        $http(
 
-            method: "POST",
-            url: "Employee.php",
-            data: {
-                'Category': $scope.Category,
-                'EmpDepartment': $scope.EmpDepartment,
-                'Method': 'ModuleNext'
-            },
-            headers: { 'Content-Type': 'application/json' }
+            {
 
-        }).then(function successCallback(response) {
+                method: "POST",
+                url: "Employee.php",
+                data: {
+                    'Category': $scope.Category,
+                    'EmpDepartment': $scope.EmpDepartment,
+                    'Method': 'ModuleNext'
+                },
+                headers: { 'Content-Type': 'application/json' }
 
-        //////// alert(response.data);
-        $scope.Employeeid = response.data.Employeeidvarchar;
-        $scope.EmpAutoGenerate = response.data.EmpAutoGenerate;
-      
+            }).then(function successCallback(response) {
 
-    });
+                //////// alert(response.data);
+                $scope.Employeeid = response.data.Employeeidvarchar;
+                $scope.EmpAutoGenerate = response.data.EmpAutoGenerate;
+
+
+            });
     }
 
-    $scope.Getnextno = function() {
+    $scope.Getnextno = function () {
         //$scope.CheckingSession();
         $http(
 
@@ -1731,21 +1789,21 @@ $scope.PageLoadDest = function()
 
             }).then(function successCallback(response) {
 
-            //////// alert(response.data);
-            $scope.Employeeid = response.data.Employeeidvarchar;
-            $scope.EmpAutoGenerate = response.data.EmpAutoGenerate;
-            $scope.CategoryAutoGeneratno = response.data.CategoryAutoGeneratno;
+                //////// alert(response.data);
+                $scope.Employeeid = response.data.Employeeidvarchar;
+                $scope.EmpAutoGenerate = response.data.EmpAutoGenerate;
+                $scope.CategoryAutoGeneratno = response.data.CategoryAutoGeneratno;
 
-        });
+            });
     }
     $scope.Languageselection = [];
     $scope.albumNameArray = [];
     ////////////////////////////////////////////////
-    $scope.getcheckvaluefun = function() {
+    $scope.getcheckvaluefun = function () {
         $scope.Languageselection = [];
         $scope.albumNameArray = [];
 
-        angular.forEach($scope.selected, function(key, value) {
+        angular.forEach($scope.selected, function (key, value) {
             if (key)
                 $scope.albumNameArray.push(value)
 
@@ -1754,7 +1812,7 @@ $scope.PageLoadDest = function()
     };
 
     ////////////////////////////////////////
-    $scope.Update_Other_info = function() {
+    $scope.Update_Other_info = function () {
 
         $scope.getcheckvaluefun();
         $scope.CheckingSession();
@@ -1788,6 +1846,7 @@ $scope.PageLoadDest = function()
                 'BackgroundVerification': $scope.BackgroundVerification,
                 'Languages': $scope.albumNameArray,
                 'OfficemailID': $scope.OfficemailID,
+                'Old_Empid': $scope.Old_Empid,
 
                 'Method': 'UpdatOtherInfo'
             },
@@ -1803,13 +1862,13 @@ $scope.PageLoadDest = function()
 
             $scope.TempSave();
             $scope.UserLoginDestroy();
-            $scope.SuperUserMail();
+           // $scope.SuperUserMail();
         });
 
     };
     /////////////////////////////////////
-    $scope.Update_Previous_info = function() {
-       // $scope.CheckingSession();
+    $scope.Update_Previous_info = function () {
+        // $scope.CheckingSession();
         $http({
 
 
@@ -1842,7 +1901,7 @@ $scope.PageLoadDest = function()
 
     };
     ////////////////////////////////////////////
-    $scope.Update_Present_info = function() {
+    $scope.Update_Present_info = function () {
         //$scope.CheckingSession();
         $http({
 
@@ -1879,7 +1938,7 @@ $scope.PageLoadDest = function()
 
     };
     ///////////////////////////////////////////////////////
-    $scope.UpdateBank = function() {
+    $scope.UpdateBank = function () {
         $scope.CheckingSession();
         $http({
 
@@ -1893,7 +1952,7 @@ $scope.PageLoadDest = function()
                 'Accountno': $scope.Accountno,
                 'IFSCcode': $scope.IFSCcode,
                 'Branch': $scope.Branch,
-                'Empnameaspassbook':$scope.Empnameaspassbook,
+                'Empnameaspassbook': $scope.Empnameaspassbook,
 
                 'Method': 'BankEMP'
             },
@@ -1915,8 +1974,8 @@ $scope.PageLoadDest = function()
     };
     ///////////////////////////////////////////////////
 
-    $scope.Update_Approval = function() {
-      //  $scope.CheckingSession();
+    $scope.Update_Approval = function () {
+        //  $scope.CheckingSession();
         $http({
 
 
@@ -1952,7 +2011,7 @@ $scope.PageLoadDest = function()
 
     };
     //////////////////////////////////////////////////////
-    $scope.Update_DOJ_info = function() {
+    $scope.Update_DOJ_info = function () {
         //$scope.CheckingSession();
         $http({
 
@@ -1987,8 +2046,8 @@ $scope.PageLoadDest = function()
     };
     /////////////////////////////////////////////
 
-    $scope.UpdateCandidate = function() {
-       // $scope.CheckingSession();
+    $scope.UpdateCandidate = function () {
+        // $scope.CheckingSession();
         $http({
 
 
@@ -2025,7 +2084,7 @@ $scope.PageLoadDest = function()
 
     };
     /////////////////////////////////////////////
-    $scope.Getage = function() {
+    $scope.Getage = function () {
         //  $scope.CheckingSession();
         $http({
 
@@ -2056,15 +2115,9 @@ $scope.PageLoadDest = function()
     };
     //////////////////////////////////////////////////////
 
-    $scope.DisplayEmpEducation = function() {
+    $scope.DisplayEmpEducation = function () {
         //   $scope.CheckingSession();
-
-
-
         $http({
-
-
-
             method: "POST",
             url: "Employee.php",
             data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPEDUCATION' },
@@ -2073,13 +2126,10 @@ $scope.PageLoadDest = function()
         }).then(function successCallback(response) {
 
             $scope.GetEducationList = response.data;
-
-
         });
-
     };
     ///////////////////////////////////////////////
-    $scope.DisplayEmpFamily = function() {
+    $scope.DisplayEmpFamily = function () {
         // $scope.CheckingSession();
         $http({
 
@@ -2099,12 +2149,9 @@ $scope.PageLoadDest = function()
 
     };
     ///////////////////////////////////
-    $scope.DisplayEmpAppraisal = function() {
+    $scope.DisplayEmpAppraisal = function () {
         // $scope.CheckingSession();
         $http({
-
-
-
             method: "POST",
             url: "Employee.php",
             data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPAPPRAISAL' },
@@ -2119,7 +2166,7 @@ $scope.PageLoadDest = function()
 
     };
     ///////////////////////////////////////////////
-    $scope.DisplayEmpPromotion = function() {
+    $scope.DisplayEmpPromotion = function () {
         //   $scope.CheckingSession();
         $http({
 
@@ -2140,7 +2187,7 @@ $scope.PageLoadDest = function()
     };
     ////////////////////////////////
 
-    $scope.DisplayEmpDocument = function() {
+    $scope.DisplayEmpDocument = function () {
         //  $scope.CheckingSession();
         $http({
 
@@ -2160,134 +2207,134 @@ $scope.PageLoadDest = function()
 
     };
     //////////////////////////////////
-    $scope.Resetdoc = function() {
-             $scope.CheckingSession();
-            $scope.EmpDocNextno();
-            $scope.DisplayEmpDocument();
-            $scope.Documenttype = "";
-            $scope.Documentno = "";
-            $scope.clearinput = "";
-            $scope.GetDOCUMENTList = ""
+    $scope.Resetdoc = function () {
+        $scope.CheckingSession();
+        $scope.EmpDocNextno();
+        $scope.DisplayEmpDocument();
+        $scope.Documenttype = "";
+        $scope.Documentno = "";
+        $scope.clearinput = "";
+        $scope.GetDOCUMENTList = ""
 
-        }
-        /////////////////////////
-    $scope.EmpDocNextno = function() {
-            //    $scope.CheckingSession();
-            $http({
-
-
-
-                method: "POST",
-                url: "Employee.php",
-                data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPDOCNEXT' },
-                headers: { 'Content-Type': 'application/json' }
-
-            }).then(function successCallback(response) {
-
-
-                $scope.DocNextno = response.data.Sno;
-                //   alert($Scope.DocNextno);
-
-            });
-        }
-        /////////////////////////////////////////////////
-    $scope.EmpFamilyNextno = function() {
-            //   $scope.CheckingSession();
-            $http({
+    }
+    /////////////////////////
+    $scope.EmpDocNextno = function () {
+        //    $scope.CheckingSession();
+        $http({
 
 
 
-                method: "POST",
-                url: "Employee.php",
-                data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPFAMILYNEXT' },
-                headers: { 'Content-Type': 'application/json' }
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPDOCNEXT' },
+            headers: { 'Content-Type': 'application/json' }
 
-            }).then(function successCallback(response) {
-
-
-                $scope.FamilyNextno = response.data.Sno;
-
-            });
-        }
-        /////////////////////////////////
-    $scope.EmpPromotionNextno = function() {
-            // $scope.CheckingSession();
-            $http({
+        }).then(function successCallback(response) {
 
 
+            $scope.DocNextno = response.data.Sno;
+            //   alert($Scope.DocNextno);
 
-                method: "POST",
-                url: "Employee.php",
-                data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPPROMOTIONNEXT' },
-                headers: { 'Content-Type': 'application/json' }
-
-            }).then(function successCallback(response) {
-
-
-                $scope.PromotionNextno = response.data.Sno;
-
-            });
-        }
-        ////////////////////////////////////////////////////////////
-    $scope.EmpEduNextno = function() {
-            // $scope.CheckingSession();
-            $http({
+        });
+    }
+    /////////////////////////////////////////////////
+    $scope.EmpFamilyNextno = function () {
+        //   $scope.CheckingSession();
+        $http({
 
 
 
-                method: "POST",
-                url: "Employee.php",
-                data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPEDUNEXT' },
-                headers: { 'Content-Type': 'application/json' }
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPFAMILYNEXT' },
+            headers: { 'Content-Type': 'application/json' }
 
-            }).then(function successCallback(response) {
+        }).then(function successCallback(response) {
 
 
-                $scope.EduNextno = response.data.Sno;
+            $scope.FamilyNextno = response.data.Sno;
 
-            });
-        }
-        //////////////////////////////////////////////////////////////////////
-    $scope.ResetEducation = function() {
+        });
+    }
+    /////////////////////////////////
+    $scope.EmpPromotionNextno = function () {
+        // $scope.CheckingSession();
+        $http({
+
+
+
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPPROMOTIONNEXT' },
+            headers: { 'Content-Type': 'application/json' }
+
+        }).then(function successCallback(response) {
+
+
+            $scope.PromotionNextno = response.data.Sno;
+
+        });
+    }
+    ////////////////////////////////////////////////////////////
+    $scope.EmpEduNextno = function () {
+        // $scope.CheckingSession();
+        $http({
+
+
+
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPEDUNEXT' },
+            headers: { 'Content-Type': 'application/json' }
+
+        }).then(function successCallback(response) {
+
+
+            $scope.EduNextno = response.data.Sno;
+
+        });
+    }
+    //////////////////////////////////////////////////////////////////////
+    $scope.ResetEducation = function () {
         $scope.CheckingSession();
 
-            $scope.Employeestudied = "";
-            $scope.UniversityorSchool = "";
-            $scope.GradeorPercentage = "";
-            $scope.Passoutyear = "";
-            $scope.DisplayEmpEducation();
-            $scope.EmpEduNextno();
-        }
-        ////////////////////////////////
-    $scope.ResetFamily = function() {
+        $scope.Employeestudied = "";
+        $scope.UniversityorSchool = "";
+        $scope.GradeorPercentage = "";
+        $scope.Passoutyear = "";
+        $scope.DisplayEmpEducation();
+        $scope.EmpEduNextno();
+    }
+    ////////////////////////////////
+    $scope.ResetFamily = function () {
         $scope.CheckingSession();
 
-            $scope.FamilyName = "";
-            $scope.Familyrelationship = "";
-            $scope.FamilyAge = "";
-            $scope.FamilyContactno = "";
-            $scope.FamilyOccupation = "";
-            $scope.DisplayEmpFamily();
-            $scope.EmpFamilyNextno();
-        }
-        /////////////////////////////////////
-    $scope.ResetPromotion = function() {
+        $scope.FamilyName = "";
+        $scope.Familyrelationship = "";
+        $scope.FamilyAge = "";
+        $scope.FamilyContactno = "";
+        $scope.FamilyOccupation = "";
+        $scope.DisplayEmpFamily();
+        $scope.EmpFamilyNextno();
+    }
+    /////////////////////////////////////
+    $scope.ResetPromotion = function () {
         $scope.CheckingSession();
-            $scope.Department = "";
-            $scope.Designation = "";
-            $scope.Period = "";
-            $scope.Postingdays = "";
-            $scope.Postingyear = "";
-            $scope.Postingmonth = "";
-            $scope.Postingyear = "";
-            $scope.Fromperiod = "";
-            $scope.Toperiod = "";
-            $scope.DisplayEmpPromotion();
-            $scope.EmpPromotionNextno();
-        }
-        ///////////////////////////////////
-    $scope.GetCurrentState = function() {
-       // $scope.CheckingSession();
+        $scope.Department = "";
+        $scope.Designation = "";
+        $scope.Period = "";
+        $scope.Postingdays = "";
+        $scope.Postingyear = "";
+        $scope.Postingmonth = "";
+        $scope.Postingyear = "";
+        $scope.Fromperiod = "";
+        $scope.Toperiod = "";
+        $scope.DisplayEmpPromotion();
+        $scope.EmpPromotionNextno();
+    }
+    ///////////////////////////////////
+    $scope.GetCurrentState = function () {
+        // $scope.CheckingSession();
         $http({
 
 
@@ -2308,7 +2355,7 @@ $scope.PageLoadDest = function()
 
     };
     //////////////////////////////
-    $scope.GetCurrentCity = function() {
+    $scope.GetCurrentCity = function () {
         //  $scope.CheckingSession();
         $http({
 
@@ -2334,7 +2381,7 @@ $scope.PageLoadDest = function()
 
     };
     //////////////////////////////////////////////////
-    $scope.GetPerstate = function() {
+    $scope.GetPerstate = function () {
         //$scope.CheckingSession();
         $http({
 
@@ -2356,7 +2403,7 @@ $scope.PageLoadDest = function()
 
     };
     //////////////////////////////////////////////////
-    $scope.GetPerCity = function() {
+    $scope.GetPerCity = function () {
         //   $scope.CheckingSession();
         $http({
 
@@ -2382,7 +2429,7 @@ $scope.PageLoadDest = function()
 
     };
     ////////////////////////////////////////
-    $scope.UpdateAddress = function() {
+    $scope.UpdateAddress = function () {
         $scope.CheckingSession();
 
         $http({
@@ -2424,7 +2471,7 @@ $scope.PageLoadDest = function()
 
     };
     ////////////////////////////////////////////////////
-    $scope.Update_Education = function() {
+    $scope.Update_Education = function () {
         $scope.CheckingSession();
         $http({
 
@@ -2438,6 +2485,8 @@ $scope.PageLoadDest = function()
                 'Employeestudied': $scope.Employeestudied,
                 'UniversityorSchool': $scope.UniversityorSchool,
                 'GradeorPercentage': $scope.GradeorPercentage,
+                'EducationMode': $scope.EducationMode,
+                'Specialization': $scope.Specialization,
                 'Passoutyear': $scope.Passoutyear,
 
 
@@ -2460,7 +2509,7 @@ $scope.PageLoadDest = function()
         $scope.DisplayEmpEducation();
     };
     ///////////////////////////////////////////
-    $scope.Update_Family = function() {
+    $scope.Update_Family = function () {
         $scope.CheckingSession();
         $http({
 
@@ -2497,7 +2546,7 @@ $scope.PageLoadDest = function()
         $scope.DisplayEmpFamily();
     };
     /////////////////////////////////////////////
-    $scope.Update_refrence = function() {
+    $scope.Update_refrence = function () {
         $scope.CheckingSession();
         $http({
 
@@ -2513,6 +2562,8 @@ $scope.PageLoadDest = function()
                 'Reference2name': $scope.Reference2name,
                 'Reference2contactno': $scope.Reference2contactno,
                 'Reference2address': $scope.Reference2address,
+                'Ref1relationship': $scope.Ref1relationship,
+                'Ref2relationship': $scope.Ref2relationship,
                 // 'PermanentCountry': $scope.PermanentCountry,
                 // 'PermanentState': $scope.PermanentState,
                 // 'PermanentCity': $scope.PermanentCity,
@@ -2538,7 +2589,7 @@ $scope.PageLoadDest = function()
 
     };
     ////////////////////////////////////////
-    $scope.Update_Salary = function() {
+    $scope.Update_Salary = function () {
         $scope.CheckingSession();
         $http({
 
@@ -2565,7 +2616,8 @@ $scope.PageLoadDest = function()
                 'ESI_Yesandno': $scope.ESI_Yesandno,
                 'SalaryType': $scope.SalaryType,
                 'LWF': $scope.LWF,
-                'ESIOverlimit' :$scope.ESIOverlimit,
+                'ESIOverlimit': $scope.ESIOverlimit,
+                'DayallowanceincludedESI': $scope.DayallowanceincludedESI,
 
                 'Method': 'UpdateSalary'
             },
@@ -2591,10 +2643,10 @@ $scope.PageLoadDest = function()
     };
     ////////////////////////////////////////
 
-    $(document).ready(function(e) {
-      
-        $('#fileButton01').on('click', function() {
-             // $scope.CheckingSession();
+    $(document).ready(function (e) {
+
+        $('#fileButton01').on('click', function () {
+            // $scope.CheckingSession();
             var form_data = new FormData();
             var ins = document.getElementById('fileInput01').files.length;
             for (var x = 0; x < ins; x++) {
@@ -2609,13 +2661,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     //alert(response);
                     document.getElementById("fileInput01").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -2624,10 +2676,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchEmployee($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -2639,8 +2691,8 @@ $scope.PageLoadDest = function()
     });
 
     /////////////////////////////////////
-    $scope.DeleteEducation = function() {
-       // $scope.CheckingSession();
+    $scope.DeleteEducation = function () {
+        // $scope.CheckingSession();
         $http({
 
 
@@ -2670,22 +2722,21 @@ $scope.PageLoadDest = function()
 
     };
     ///////////////////////////////////////////
-    $scope.PageLoadRelationship = function()
-    {
-    $http({
-        method: "POST",
-        url: "Employee.php",
-        data: { 'Method': 'Relationship' },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    $scope.PageLoadRelationship = function () {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Method': 'Relationship' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-    }).then(function successCallback(response) {
-        $scope.GetRelationshipList = response.data;
-        // $scope.CheckingSession();
-    });
-}
+        }).then(function successCallback(response) {
+            $scope.GetRelationshipList = response.data;
+            // $scope.CheckingSession();
+        });
+    }
     //////////////////////////////////
-    $scope.DeleteFamily = function() {
-       // $scope.CheckingSession();
+    $scope.DeleteFamily = function () {
+        // $scope.CheckingSession();
         $http({
 
 
@@ -2715,10 +2766,10 @@ $scope.PageLoadDest = function()
 
     };
     /////////////////////////////////////////////
-    $(document).ready(function(e) {
-    
-        $('#fileButton').on('click', function() {
-              //  $scope.CheckingSession();
+    $(document).ready(function (e) {
+
+        $('#fileButton').on('click', function () {
+            //  $scope.CheckingSession();
             var form_data = new FormData();
             var ins = document.getElementById('fileInput').files.length;
             for (var x = 0; x < ins; x++) {
@@ -2738,13 +2789,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInput").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -2754,10 +2805,10 @@ $scope.PageLoadDest = function()
                     $scope.DisplayEmpDocument();
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -2777,7 +2828,7 @@ $scope.PageLoadDest = function()
     }).then(function successCallback(response) {
 
         $scope.GetDoctypeList = response.data;
-       
+
     });
     //////////////////////////////////////
     $http({
@@ -2793,7 +2844,7 @@ $scope.PageLoadDest = function()
     });
 
     ///////////////////////////////////////
-    $scope.Update_document = function() {
+    $scope.Update_document = function () {
         $scope.CheckingSession();
         $http({
 
@@ -2826,32 +2877,32 @@ $scope.PageLoadDest = function()
         $scope.DisplayEmpDocument();
     };
     ///////////////////////////////////////
-    $scope.FetchDOC = function(Employeeid, Sno) {
-            //  $scope.CheckingSession();
+    $scope.FetchDOC = function (Employeeid, Sno) {
+        //  $scope.CheckingSession();
 
-            $scope.Employeeid = Employeeid;
-            $scope.DocNextno = Sno;
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Sno': $scope.DocNextno,
-                    'Method': "FetchDOC"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
+        $scope.Employeeid = Employeeid;
+        $scope.DocNextno = Sno;
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Sno': $scope.DocNextno,
+                'Method': "FetchDOC"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.Documenttype = response.data.Documenttype;
-                $scope.Documentno = response.data.Documentno;
-                $scope.Documentpath = response.data.Documentpath;
-                $scope.DocumentView = response.data.Documentpath;
+            $scope.Documenttype = response.data.Documenttype;
+            $scope.Documentno = response.data.Documentno;
+            $scope.Documentpath = response.data.Documentpath;
+            $scope.DocumentView = response.data.Documentpath;
 
-            });
-        }
-        //////////////////////////////////////////////
-    $scope.DeleteDoc = function() {
-       // $scope.CheckingSession();
+        });
+    }
+    //////////////////////////////////////////////
+    $scope.DeleteDoc = function () {
+        // $scope.CheckingSession();
         $http({
 
 
@@ -2880,8 +2931,8 @@ $scope.PageLoadDest = function()
 
     };
     /////////////////////////////////////////////////
-    $scope.Update_DEPT = function() {
-       $scope.CheckingSession();
+    $scope.Update_DEPT = function () {
+        $scope.CheckingSession();
         $http({
 
 
@@ -2922,38 +2973,38 @@ $scope.PageLoadDest = function()
 
     };
     ////////////////////////////
-    $scope.FetchPromotion = function(Employeeid, Sno) {
-               $scope.CheckingSession();
+    $scope.FetchPromotion = function (Employeeid, Sno) {
+        $scope.CheckingSession();
 
-            $scope.Employeeid = Employeeid;
-            $scope.PromotionNextno = Sno;
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Sno': $scope.PromotionNextno,
-                    'Method': "FetchPromotion"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
+        $scope.Employeeid = Employeeid;
+        $scope.PromotionNextno = Sno;
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Sno': $scope.PromotionNextno,
+                'Method': "FetchPromotion"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.Department = response.data.Department;
-                $scope.Designation = response.data.Designation
-                $scope.Period = response.data.Period;
-                $scope.Postingdays = response.data.Postingdays;
-                $scope.Postingyear = response.data.Postingyear;
-                $scope.Postingmonth = response.data.Postingmonth;
-                $scope.Period = response.data.Period;
-                $scope.Fromperiod = response.data.Fromperiod;
-                $scope.Toperiod = response.data.Toperiod;
+            $scope.Department = response.data.Department;
+            $scope.Designation = response.data.Designation
+            $scope.Period = response.data.Period;
+            $scope.Postingdays = response.data.Postingdays;
+            $scope.Postingyear = response.data.Postingyear;
+            $scope.Postingmonth = response.data.Postingmonth;
+            $scope.Period = response.data.Period;
+            $scope.Fromperiod = response.data.Fromperiod;
+            $scope.Toperiod = response.data.Toperiod;
 
 
-            });
-        }
-        ////////////////////////////////
+        });
+    }
+    ////////////////////////////////
 
-    $scope.Update_Major = function() {
+    $scope.Update_Major = function () {
         $scope.CheckingSession();
         $http({
 
@@ -2995,86 +3046,86 @@ $scope.PageLoadDest = function()
             $scope.TempSave();
 
             $scope.UserLoginDestroy();
-            $scope.SuperUserMail();
+           // $scope.SuperUserMail();
         });
 
     };
     /////////////////////////////////////////////
-    $scope.Getcalvalue = function() {
+    $scope.Getcalvalue = function () {
 
-            //  $scope.CheckingSession();
+        //  $scope.CheckingSession();
 
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Basic': $scope.Basic,
-                    'HR_Allowance': $scope.HR_Allowance,
-                    'TA': $scope.TA,
-                    'Performance_allowance': $scope.Performance_allowance,
-                    'Day_allowance': $scope.Day_allowance,
-                    'Other_Allowance': $scope.Other_Allowance,
-                    'PF_Yesandno': $scope.PF_Yesandno,
-                    'PF_Fixed': $scope.PF_Fixed,
-                    'ESI_Yesandno': $scope.ESI_Yesandno,
-                    'PF': $scope.PF,
-                    'Method': "CALCULAT"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Basic': $scope.Basic,
+                'HR_Allowance': $scope.HR_Allowance,
+                'TA': $scope.TA,
+                'Performance_allowance': $scope.Performance_allowance,
+                'Day_allowance': $scope.Day_allowance,
+                'Other_Allowance': $scope.Other_Allowance,
+                'PF_Yesandno': $scope.PF_Yesandno,
+                'PF_Fixed': $scope.PF_Fixed,
+                'ESI_Yesandno': $scope.ESI_Yesandno,
+                'PF': $scope.PF,
+                'Method': "CALCULAT"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.ESI = response.data.ESI;
-                $scope.PF = response.data.PF
-                $scope.Net_Salary = response.data.Net_Salary;
-                $scope.Gross_Salary = response.data.Gross_Salary;
-                $scope.PF_Yesandno = response.data.PF_Yesandno;
-                $scope.ESI_Yesandno = response.data.ESI_Yesandno;
-                $scope.LWF = response.data.LWF;
-                //$scope.FamilyOccupation = response.data.FamilyOccupation;
+            $scope.ESI = response.data.ESI;
+            $scope.PF = response.data.PF
+            $scope.Net_Salary = response.data.Net_Salary;
+            $scope.Gross_Salary = response.data.Gross_Salary;
+            $scope.PF_Yesandno = response.data.PF_Yesandno;
+            $scope.ESI_Yesandno = response.data.ESI_Yesandno;
+            $scope.LWF = response.data.LWF;
+            //$scope.FamilyOccupation = response.data.FamilyOccupation;
 
-            });
-        }
+        });
+    }
 
 
-        $scope.Getcalvalue2 = function() {
+    $scope.Getcalvalue2 = function () {
 
-              $scope.CheckingSession();
-      
-                  $http({
-                      method: "POST",
-                      url: "Employee.php",
-                      data: {
-                          'Employeeid': $scope.Employeeid,
-                          'Basic': $scope.Basic,
-                          'HR_Allowance': $scope.HR_Allowance,
-                          'TA': $scope.TA,
-                          'Performance_allowance': $scope.Performance_allowance,
-                          'Day_allowance': $scope.Day_allowance,
-                          'Other_Allowance': $scope.Other_Allowance,
-                          'PF_Yesandno': $scope.PF_Yesandno,
-                          'PF_Fixed': $scope.PF_Fixed,
-                          'ESI_Yesandno': $scope.ESI_Yesandno,
-      
-                          'Method': "CALCULAT"
-                      },
-                      headers: { 'Content_Type': 'application/json' }
-                  }).then(function successCallback(response) {
-      
-                      $scope.ESI = response.data.ESI;
-                      $scope.PF = response.data.PF
-                      $scope.Net_Salary = response.data.Net_Salary;
-                      $scope.Gross_Salary = response.data.Gross_Salary;
-                      $scope.PF_Yesandno = response.data.PF_Yesandno;
-                      $scope.ESI_Yesandno = response.data.ESI_Yesandno;
-      
-                  });
-              }
-        /////////////////////////////////////
-    $(document).ready(function(e) {
-      
-        $('#fileButton03').on('click', function() {
-             // $scope.CheckingSession();
+        $scope.CheckingSession();
+
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Basic': $scope.Basic,
+                'HR_Allowance': $scope.HR_Allowance,
+                'TA': $scope.TA,
+                'Performance_allowance': $scope.Performance_allowance,
+                'Day_allowance': $scope.Day_allowance,
+                'Other_Allowance': $scope.Other_Allowance,
+                'PF_Yesandno': $scope.PF_Yesandno,
+                'PF_Fixed': $scope.PF_Fixed,
+                'ESI_Yesandno': $scope.ESI_Yesandno,
+
+                'Method': "CALCULAT"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
+
+            $scope.ESI = response.data.ESI;
+            $scope.PF = response.data.PF
+            $scope.Net_Salary = response.data.Net_Salary;
+            $scope.Gross_Salary = response.data.Gross_Salary;
+            $scope.PF_Yesandno = response.data.PF_Yesandno;
+            $scope.ESI_Yesandno = response.data.ESI_Yesandno;
+
+        });
+    }
+    /////////////////////////////////////
+    $(document).ready(function (e) {
+
+        $('#fileButton03').on('click', function () {
+            // $scope.CheckingSession();
             var form_data = new FormData();
             var ins = document.getElementById('fileInput03').files.length;
             for (var x = 0; x < ins; x++) {
@@ -3087,7 +3138,7 @@ $scope.PageLoadDest = function()
             form_data.append("IFSCcode", $("#IFSCcode").val());
             form_data.append("Branch", $("#Branch").val());
             form_data.append("Empnameaspassbook", $("#Empnameaspassbook").val());
- form_data.append("Employeeid", $("#Employeeid").val());
+            form_data.append("Employeeid", $("#Employeeid").val());
 
             //  alert($("#Documenttype").val());
             $.ajax({
@@ -3098,13 +3149,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInput03").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3114,10 +3165,10 @@ $scope.PageLoadDest = function()
                     //    $scope.DisplayCandidateEducation();
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3131,10 +3182,10 @@ $scope.PageLoadDest = function()
 
 
     /////////////////////////////////////
-    $(document).ready(function(e) {
-  
-        $('#fileButton04').on('click', function() {
-                //  $scope.CheckingSession();
+    $(document).ready(function (e) {
+
+        $('#fileButton04').on('click', function () {
+            //  $scope.CheckingSession();
             var form_data = new FormData();
             var ins = document.getElementById('fileInput04').files.length;
             for (var x = 0; x < ins; x++) {
@@ -3147,6 +3198,8 @@ $scope.PageLoadDest = function()
             form_data.append("GradeorPercentage", $("#GradeorPercentage").val());
             form_data.append("Passoutyear", $("#Passoutyear").val());
             form_data.append("EduNextno", $("#EduNextno").val());
+            form_data.append("EducationMode", $("#EducationMode").val());
+            form_data.append("Specialization", $("#Specialization").val());
 
             //  alert($("#Documenttype").val());
             $.ajax({
@@ -3157,13 +3210,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInput04").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3173,10 +3226,10 @@ $scope.PageLoadDest = function()
                     //    $scope.DisplayCandidateEducation();
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3187,8 +3240,8 @@ $scope.PageLoadDest = function()
         });
     });
     ///////////////////////////////////////////////////////////////////
-    $scope.GetDeptDays = function() {
-       // $scope.CheckingSession();
+    $scope.GetDeptDays = function () {
+        // $scope.CheckingSession();
         $http({
 
 
@@ -3221,99 +3274,99 @@ $scope.PageLoadDest = function()
 
     };
     /////////////////////////////////////////////
-    $scope.GetExitempname = function() {
-          // $scope.CheckingSession();
-            $http({
+    $scope.GetExitempname = function () {
+        // $scope.CheckingSession();
+        $http({
 
-                method: "post",
-                url: "Employee.php",
-                data: {
-                    'Exitempid': $scope.Exitempid,
-                    'Method': 'ExitEmp'
-                },
-                headers: { 'Content-Type': 'application/json' }
-            }).then(function successCallback(response) {
+            method: "post",
+            url: "Employee.php",
+            data: {
+                'Exitempid': $scope.Exitempid,
+                'Method': 'ExitEmp'
+            },
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.ExitGender = response.data.ExitGender;
-                $scope.ExitCategory = response.data.ExitCategory;
-                $scope.ExitDesignation = response.data.ExitDesignation;
-                $scope.ExitEmployeetype = response.data.ExitEmployeetype;
-                $scope.ExitContactno = response.data.ExitContactno;
-                $scope.ExitDepartment = response.data.ExitDepartment;
-                $scope.Relievingrequestdate = response.data.Relievingrequestdate;
-                $scope.RelievingDate = response.data.RelievingDate;
-                $scope.Handoverto = response.data.Handoverto;
-                $scope.Relievingreason = response.data.Relievingreason;
-            });
-        }
-        /////////////////////////////////
-    $scope.Resetexitemp = function() {
-            // $scope.CheckingSession();
-            $scope.Exitempid = "";
-            $scope.ExitGender = "";
-            $scope.ExitCategory = "";
-            $scope.ExitDesignation = "";
-            $scope.ExitEmployeetype = "";
-            $scope.ExitContactno = "";
-            $scope.ExitDepartment = "";
-            $scope.Relievingrequestdate = "";
-            $scope.RelievingDate = "";
-            $scope.Handoverto = "";
-            $scope.Relievingreason = "";
-        }
-        /////////////////////////////////
-    $scope.Update_Relieving = function() {
-         //  $scope.CheckingSession();
-            $http({
-                method: "post",
-                url: "Employee.php",
-                data: {
-                    'Exitempid': $scope.Exitempid,
-                    'ExitGender': $scope.ExitGender,
-                    'ExitCategory': $scope.ExitCategory,
-                    'ExitDesignation': $scope.ExitDesignation,
-                    'ExitEmployeetype': $scope.ExitEmployeetype,
-                    'ExitContactno': $scope.ExitContactno,
-                    'ExitDepartment': $scope.ExitDepartment,
-                    'Relievingrequestdate': $scope.Relievingrequestdate,
-                    'RelievingDate': $scope.RelievingDate,
-                    'Handoverto': $scope.Handoverto,
-                    'Relievingreason': $scope.Relievingreason,
-                    'Method': 'ExitUpdate'
+            $scope.ExitGender = response.data.ExitGender;
+            $scope.ExitCategory = response.data.ExitCategory;
+            $scope.ExitDesignation = response.data.ExitDesignation;
+            $scope.ExitEmployeetype = response.data.ExitEmployeetype;
+            $scope.ExitContactno = response.data.ExitContactno;
+            $scope.ExitDepartment = response.data.ExitDepartment;
+            $scope.Relievingrequestdate = response.data.Relievingrequestdate;
+            $scope.RelievingDate = response.data.RelievingDate;
+            $scope.Handoverto = response.data.Handoverto;
+            $scope.Relievingreason = response.data.Relievingreason;
+        });
+    }
+    /////////////////////////////////
+    $scope.Resetexitemp = function () {
+        // $scope.CheckingSession();
+        $scope.Exitempid = "";
+        $scope.ExitGender = "";
+        $scope.ExitCategory = "";
+        $scope.ExitDesignation = "";
+        $scope.ExitEmployeetype = "";
+        $scope.ExitContactno = "";
+        $scope.ExitDepartment = "";
+        $scope.Relievingrequestdate = "";
+        $scope.RelievingDate = "";
+        $scope.Handoverto = "";
+        $scope.Relievingreason = "";
+    }
+    /////////////////////////////////
+    $scope.Update_Relieving = function () {
+        //  $scope.CheckingSession();
+        $http({
+            method: "post",
+            url: "Employee.php",
+            data: {
+                'Exitempid': $scope.Exitempid,
+                'ExitGender': $scope.ExitGender,
+                'ExitCategory': $scope.ExitCategory,
+                'ExitDesignation': $scope.ExitDesignation,
+                'ExitEmployeetype': $scope.ExitEmployeetype,
+                'ExitContactno': $scope.ExitContactno,
+                'ExitDepartment': $scope.ExitDepartment,
+                'Relievingrequestdate': $scope.Relievingrequestdate,
+                'RelievingDate': $scope.RelievingDate,
+                'Handoverto': $scope.Handoverto,
+                'Relievingreason': $scope.Relievingreason,
+                'Method': 'ExitUpdate'
 
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
-                $scope.TempMessage = response.data.Message;
-                $scope.TempSave();
-                $scope.UserLoginDestroy();
-            });
-        }
-        //////////////////////////////////////////////
-    $scope.Deactive = function() {
-            $http({
-                method: "post",
-                url: "Employee.php",
-                data: {
-                    'Exitempid': $scope.Exitempid,
-                    'Relievingrequestdate': $scope.Relievingrequestdate,
-                    'RelievingDate': $scope.RelievingDate,
-                    'Handoverto': $scope.Handoverto,
-                    'Relievingreason': $scope.Relievingreason,
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
+            $scope.TempMessage = response.data.Message;
+            $scope.TempSave();
+            $scope.UserLoginDestroy();
+        });
+    }
+    //////////////////////////////////////////////
+    $scope.Deactive = function () {
+        $http({
+            method: "post",
+            url: "Employee.php",
+            data: {
+                'Exitempid': $scope.Exitempid,
+                'Relievingrequestdate': $scope.Relievingrequestdate,
+                'RelievingDate': $scope.RelievingDate,
+                'Handoverto': $scope.Handoverto,
+                'Relievingreason': $scope.Relievingreason,
 
-                    'Method': 'ExitDeactive'
+                'Method': 'ExitDeactive'
 
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
 
-                $scope.TempMessage = response.data.Message;
-                $scope.TempSave();
-            });
-        }
-        ///////////////////////////////////////////////////
-    $scope.GetExitallvalues = function() {
-       
+            $scope.TempMessage = response.data.Message;
+            $scope.TempSave();
+        });
+    }
+    ///////////////////////////////////////////////////
+    $scope.GetExitallvalues = function () {
+
         $http({
             method: "POST",
             url: "Employee.php",
@@ -3341,10 +3394,10 @@ $scope.PageLoadDest = function()
     });
     //////////////////////////////
     /////////////////////////////////////
-    $(document).ready(function(e) {
-   
-        $('#fileButton05').on('click', function() {
-                 //$scope.CheckingSession();
+    $(document).ready(function (e) {
+
+        $('#fileButton05').on('click', function () {
+            //$scope.CheckingSession();
             var form_data = new FormData();
             var ins = document.getElementById('fileInput05').files.length;
             for (var x = 0; x < ins; x++) {
@@ -3364,13 +3417,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInput05").value = '';
                     $scope.DisplayCandidateVaccination();
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3378,10 +3431,10 @@ $scope.PageLoadDest = function()
                     }, 3000);
 
                 },
-                error: function(response) {
+                error: function (response) {
                     alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3392,52 +3445,52 @@ $scope.PageLoadDest = function()
         });
     });
     //////////////////////////////////////////////
-    $scope.FetchCovidvaccination = function() {
-            //  $scope.CheckingSession();
-            $http({
+    $scope.FetchCovidvaccination = function () {
+        //  $scope.CheckingSession();
+        $http({
 
-                method: "post",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Method': 'Fetchvaccinationnew'
-                },
-                headers: { 'Content-Type': 'application/json' }
-            }).then(function successCallback(response) {
+            method: "post",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Method': 'Fetchvaccinationnew'
+            },
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.VaccinationView = response.data.VaccinationView;
-                $scope.Vaccinateddate = response.data.Vaccinateddate;
-                $scope.Covidvaccinated = response.data.Covidvaccinated;
+            $scope.VaccinationView = response.data.VaccinationView;
+            $scope.Vaccinateddate = response.data.Vaccinateddate;
+            $scope.Covidvaccinated = response.data.Covidvaccinated;
 
-            });
-        }
-        ///////////////////
-    $scope.UpdateVaccination = function() {
-            $scope.CheckingSession();
-            $http({
-                method: "post",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Vaccinateddate': $scope.Vaccinateddate,
-                    'Covidvaccinated': $scope.Covidvaccinated,
+        });
+    }
+    ///////////////////
+    $scope.UpdateVaccination = function () {
+        $scope.CheckingSession();
+        $http({
+            method: "post",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Vaccinateddate': $scope.Vaccinateddate,
+                'Covidvaccinated': $scope.Covidvaccinated,
 
 
-                    'Method': 'Vaccinationupdate'
+                'Method': 'Vaccinationupdate'
 
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
 
-                $scope.TempMessage = response.data.Message;
-                $scope.TempSave();
-                $scope.UserLoginDestroy();
-            });
-        }
-        /////////////////////////////////////
-        ////////////////////////////////////////////
-    $scope.ResetVaccination = function() {
-           $scope.CheckingSession();
+            $scope.TempMessage = response.data.Message;
+            $scope.TempSave();
+            $scope.UserLoginDestroy();
+        });
+    }
+    /////////////////////////////////////
+    ////////////////////////////////////////////
+    $scope.ResetVaccination = function () {
+        $scope.CheckingSession();
         $scope.Covidvaccinated = "";
         $scope.Vaccinateddate = "";
         $scope.clearinput = "";
@@ -3445,7 +3498,7 @@ $scope.PageLoadDest = function()
         $scope.DisplayCandidateVaccination();
     }
 
-    $scope.DisplayCandidateVaccination = function() {
+    $scope.DisplayCandidateVaccination = function () {
         //  $scope.CheckingSession();
 
 
@@ -3471,200 +3524,200 @@ $scope.PageLoadDest = function()
     //////////////////////////////
 
     //////////////////////////////////////////////
-    $scope.FetchCovidvaccination = function(Employeeid, Sno) {
-            //   $scope.CheckingSession();
-            $scope.Employeeid = Employeeid;
-            $scope.Vaccinatedsno = Sno;
-            $http({
+    $scope.FetchCovidvaccination = function (Employeeid, Sno) {
+        //   $scope.CheckingSession();
+        $scope.Employeeid = Employeeid;
+        $scope.Vaccinatedsno = Sno;
+        $http({
 
-                method: "post",
-                url: "VaccinationSave.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Vaccinatedsno': $scope.Vaccinatedsno,
-                    'Method': 'Fetchvaccination'
-                },
-                headers: { 'Content-Type': 'application/json' }
-            }).then(function successCallback(response) {
-                //$scope.VaccinationView = null;
+            method: "post",
+            url: "VaccinationSave.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Vaccinatedsno': $scope.Vaccinatedsno,
+                'Method': 'Fetchvaccination'
+            },
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function successCallback(response) {
+            //$scope.VaccinationView = null;
 
-                $scope.VaccinationView = response.data.VaccinationView;
-                $scope.Vaccinateddate = response.data.Vaccinateddate;
-                $scope.Covidvaccinated = response.data.Covidvaccinated;
+            $scope.VaccinationView = response.data.VaccinationView;
+            $scope.Vaccinateddate = response.data.Vaccinateddate;
+            $scope.Covidvaccinated = response.data.Covidvaccinated;
 
-            });
-        }
-        ///////////////////
-    $scope.UpdateVaccination = function() {
-            $scope.CheckingSession();
-            $http({
-                method: "post",
-                url: "VaccinationSave.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Vaccinateddate': $scope.Vaccinateddate,
-                    'Vaccinatedsno': $scope.Vaccinatedsno,
-                    'Covidvaccinated': $scope.Covidvaccinated,
-
-
-                    'Method': 'Vaccinationupdate'
-
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
-                $scope.DisplayCandidateVaccination();
-
-                $scope.TempMessage = response.data.Message;
-                $scope.TempSave();
-                $scope.UserLoginDestroy();
-            });
-        }
-        //////////////////////////////////////////
-    $scope.DeleteVaccination = function() {
-          //  $scope.CheckingSession();
-            $http({
-                method: "post",
-                url: "VaccinationSave.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-
-                    'Vaccinatedsno': $scope.Vaccinatedsno,
+        });
+    }
+    ///////////////////
+    $scope.UpdateVaccination = function () {
+        $scope.CheckingSession();
+        $http({
+            method: "post",
+            url: "VaccinationSave.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Vaccinateddate': $scope.Vaccinateddate,
+                'Vaccinatedsno': $scope.Vaccinatedsno,
+                'Covidvaccinated': $scope.Covidvaccinated,
 
 
+                'Method': 'Vaccinationupdate'
 
-                    'Method': 'VaccinationDelete'
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
+            $scope.DisplayCandidateVaccination();
 
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
+            $scope.TempMessage = response.data.Message;
+            $scope.TempSave();
+            $scope.UserLoginDestroy();
+        });
+    }
+    //////////////////////////////////////////
+    $scope.DeleteVaccination = function () {
+        //  $scope.CheckingSession();
+        $http({
+            method: "post",
+            url: "VaccinationSave.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+
+                'Vaccinatedsno': $scope.Vaccinatedsno,
 
 
 
-                $scope.TempMessage = response.data.Message;
-                $scope.TempSave();
-                $scope.ResetVaccination();
-                $scope.UserLoginDestroy();
-            });
-        }
-        //////////////////
-    $scope.VaccinationNextno = function() {
-            //  $scope.CheckingSession();
-            //alert($scope.Employeeid);
-            $http({
+                'Method': 'VaccinationDelete'
+
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
 
 
 
-                method: "POST",
-                url: "VaccinationSave.php",
-                data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPVACCINATIONNEXT' },
-                headers: { 'Content-Type': 'application/json' }
+            $scope.TempMessage = response.data.Message;
+            $scope.TempSave();
+            $scope.ResetVaccination();
+            $scope.UserLoginDestroy();
+        });
+    }
+    //////////////////
+    $scope.VaccinationNextno = function () {
+        //  $scope.CheckingSession();
+        //alert($scope.Employeeid);
+        $http({
 
-            }).then(function successCallback(response) {
-                //alert(response.data);
 
-                $scope.Vaccinatedsno = response.data.Sno;
 
-            });
-        }
-        /////////////////////////////////////
-    $scope.emailchecking = function(email) {
-            $scope.Testemail = email;
-            var val = $scope.Testemail;
-            if (!val.match(/\S+@\S+\.\S+/)) { // Jaymon's / Squirtle's solution
-                // Do something
-                $scope.Message = true;
-                $scope.Message = "Please Enter Validate Email ID ..........";
-                // $timeout(function() { $scope.Message = ""; }, 3000);
-                return false;
-            }
-            if (val.indexOf(' ') != -1 || val.indexOf('..') != -1) {
-                // Do something
-                $scope.Message = true;
-                $scope.Message = "Please Enter Validate Email ID ..........";
-                // $timeout(function() { $scope.Message = ""; }, 3000);
-                return false;
-            }
-            $scope.Message = false;
-            // $scope.Message = "Please Enter Validate Email ID ..........";
+            method: "POST",
+            url: "VaccinationSave.php",
+            data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPVACCINATIONNEXT' },
+            headers: { 'Content-Type': 'application/json' }
+
+        }).then(function successCallback(response) {
+            //alert(response.data);
+
+            $scope.Vaccinatedsno = response.data.Sno;
+
+        });
+    }
+    /////////////////////////////////////
+    $scope.emailchecking = function (email) {
+        $scope.Testemail = email;
+        var val = $scope.Testemail;
+        if (!val.match(/\S+@\S+\.\S+/)) { // Jaymon's / Squirtle's solution
+            // Do something
+            $scope.Message = true;
+            $scope.Message = "Please Enter Validate Email ID ..........";
             // $timeout(function() { $scope.Message = ""; }, 3000);
-            return true;
+            return false;
         }
-        ///////////////////////////////////////////
-
-
-
-
-    $scope.emailchecking02 = function(email) {
-            $scope.Testemail = email;
-            var val = $scope.Testemail;
-            if (!val.match(/\S+@\S+\.\S+/)) { // Jaymon's / Squirtle's solution
-                // Do something
-                $scope.Message = true;
-                $scope.Message = "Please Enter Validate Email ID ..........";
-                // $timeout(function() { $scope.Message = ""; }, 3000);
-                return false;
-            }
-            if (val.indexOf(' ') != -1 || val.indexOf('..') != -1) {
-                // Do something
-                $scope.Message = true;
-                $scope.Message = "Please Enter Validate Email ID ..........";
-                // $timeout(function() { $scope.Message = ""; }, 3000);
-                return false;
-            }
-            $scope.Message = false;
-            $scope.GetMailunique(val);
-            // $scope.Message = "Please Enter Validate Email ID ..........";
+        if (val.indexOf(' ') != -1 || val.indexOf('..') != -1) {
+            // Do something
+            $scope.Message = true;
+            $scope.Message = "Please Enter Validate Email ID ..........";
             // $timeout(function() { $scope.Message = ""; }, 3000);
-            return true;
+            return false;
         }
-        //////////////////////////////////////////////
-
-    $scope.FetchSIPLDocument = function(Employeeid) {
-           // $scope.CheckingSession();
-            $scope.Employeeid = Employeeid;
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'Method': "FetchSIPLDOC"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
-
-                $scope.EmployeeDetailpathtamil = response.data.EmployeeDetailpathtamil;
-                $scope.Form34pathtamil = response.data.Form34pathtamil;
-                $scope.Attentionoftheemployeepathtamil = response.data.Attentionoftheemployeepathtamil;
-                $scope.Employeedeclarationpathtamil = response.data.Employeedeclarationpathtamil;
-                $scope.Employeecontractpathtamil = response.data.Employeecontractpathtamil;
-                $scope.Employeestatingpathtamil = response.data.Employeestatingpathtamil;
-                $scope.Employeeagreemantpathtamil = response.data.Employeeagreemantpathtamil;
-                $scope.Serviceimprovementpathrecordtamil = response.data.Serviceimprovementpathrecordtamil;
-                $scope.Employeetrainingpathtamil = response.data.Employeetrainingpathtamil;
-                $scope.Form2revisedpathtamil = response.data.Form2revisedpathtamil;
+        $scope.Message = false;
+        // $scope.Message = "Please Enter Validate Email ID ..........";
+        // $timeout(function() { $scope.Message = ""; }, 3000);
+        return true;
+    }
+    ///////////////////////////////////////////
 
 
-                $scope.EmployeeDetailpathhindi = response.data.EmployeeDetailpathhindi;
-                $scope.Form34pathtamilhindi = response.data.Form34pathtamilhindi;
-                $scope.Attentionoftheemployeepathhindi = response.data.Attentionoftheemployeepathhindi;
-                $scope.Employeedeclarationpathhindi = response.data.Employeedeclarationpathhindi;
-                $scope.Employeecontractpathhindi = response.data.Employeecontractpathhindi;
-                $scope.Employeestatingpathhindi = response.data.Employeestatingpathhindi;
-                $scope.Employeeagreemantpathhindi = response.data.Employeeagreemantpathhindi;
-                $scope.Serviceimprovementpathrecordlhindi = response.data.Serviceimprovementpathrecordlhindi;
-                $scope.Employeetrainingpathhindi = response.data.Employeetrainingpathhindi;
-                $scope.Form2revisedpathhindi = response.data.Form2revisedpathhindi;
-                $scope.Employee_NDA_Path = response.data.Employee_NDA_Path;
-                $scope.GratutityPath = response.data.GratutityPath;
 
-            });
+
+    $scope.emailchecking02 = function (email) {
+        $scope.Testemail = email;
+        var val = $scope.Testemail;
+        if (!val.match(/\S+@\S+\.\S+/)) { // Jaymon's / Squirtle's solution
+            // Do something
+            $scope.Message = true;
+            $scope.Message = "Please Enter Validate Email ID ..........";
+            // $timeout(function() { $scope.Message = ""; }, 3000);
+            return false;
         }
-        //////////////////////////////////////////
-        /////////EMPDETAILTAMIL////////////////////
-        ///////////////////////
-    $(document).ready(function(e) {
-      
-        $('#fileButtonEmpDetailtamil').on('click', function() {
+        if (val.indexOf(' ') != -1 || val.indexOf('..') != -1) {
+            // Do something
+            $scope.Message = true;
+            $scope.Message = "Please Enter Validate Email ID ..........";
+            // $timeout(function() { $scope.Message = ""; }, 3000);
+            return false;
+        }
+        $scope.Message = false;
+        $scope.GetMailunique(val);
+        // $scope.Message = "Please Enter Validate Email ID ..........";
+        // $timeout(function() { $scope.Message = ""; }, 3000);
+        return true;
+    }
+    //////////////////////////////////////////////
+
+    $scope.FetchSIPLDocument = function (Employeeid) {
+        // $scope.CheckingSession();
+        $scope.Employeeid = Employeeid;
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Method': "FetchSIPLDOC"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
+
+            $scope.EmployeeDetailpathtamil = response.data.EmployeeDetailpathtamil;
+            $scope.Form34pathtamil = response.data.Form34pathtamil;
+            $scope.Attentionoftheemployeepathtamil = response.data.Attentionoftheemployeepathtamil;
+            $scope.Employeedeclarationpathtamil = response.data.Employeedeclarationpathtamil;
+            $scope.Employeecontractpathtamil = response.data.Employeecontractpathtamil;
+            $scope.Employeestatingpathtamil = response.data.Employeestatingpathtamil;
+            $scope.Employeeagreemantpathtamil = response.data.Employeeagreemantpathtamil;
+            $scope.Serviceimprovementpathrecordtamil = response.data.Serviceimprovementpathrecordtamil;
+            $scope.Employeetrainingpathtamil = response.data.Employeetrainingpathtamil;
+            $scope.Form2revisedpathtamil = response.data.Form2revisedpathtamil;
+
+
+            $scope.EmployeeDetailpathhindi = response.data.EmployeeDetailpathhindi;
+            $scope.Form34pathtamilhindi = response.data.Form34pathtamilhindi;
+            $scope.Attentionoftheemployeepathhindi = response.data.Attentionoftheemployeepathhindi;
+            $scope.Employeedeclarationpathhindi = response.data.Employeedeclarationpathhindi;
+            $scope.Employeecontractpathhindi = response.data.Employeecontractpathhindi;
+            $scope.Employeestatingpathhindi = response.data.Employeestatingpathhindi;
+            $scope.Employeeagreemantpathhindi = response.data.Employeeagreemantpathhindi;
+            $scope.Serviceimprovementpathrecordlhindi = response.data.Serviceimprovementpathrecordlhindi;
+            $scope.Employeetrainingpathhindi = response.data.Employeetrainingpathhindi;
+            $scope.Form2revisedpathhindi = response.data.Form2revisedpathhindi;
+            $scope.Employee_NDA_Path = response.data.Employee_NDA_Path;
+            $scope.GratutityPath = response.data.GratutityPath;
+
+        });
+    }
+    //////////////////////////////////////////
+    /////////EMPDETAILTAMIL////////////////////
+    ///////////////////////
+    $(document).ready(function (e) {
+
+        $('#fileButtonEmpDetailtamil').on('click', function () {
             //  $scope.CheckingSession();
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpDetailtamil').files.length;
@@ -3680,13 +3733,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpDetailtamil").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3695,10 +3748,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3709,20 +3762,20 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-       $(function() {
+    $(function () {
         $scope.CheckingSession();
-        $("#btnempdetailtamil").click(function() {
+        $("#btnempdetailtamil").click(function () {
 
-          
-            var data = $("#pdfExportempdetailtamil").html();        
-    
+
+            var data = $("#pdfExportempdetailtamil").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Employee Details</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
         });
@@ -3730,10 +3783,10 @@ $scope.PageLoadDest = function()
 
     ////////////////////////////////////////////////////////////
     //////////EMPDETAILSHINDI////////////////////
-    $(document).ready(function(e) {
-  
-        $('#fileButtonEmpDetailhindi').on('click', function() {
-                //  $scope.CheckingSession();
+    $(document).ready(function (e) {
+
+        $('#fileButtonEmpDetailhindi').on('click', function () {
+            //  $scope.CheckingSession();
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpDetailhindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -3748,13 +3801,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpDetailhindi").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3763,10 +3816,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3777,20 +3830,20 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-      $(function() {
+    $(function () {
         $scope.CheckingSession();
-        $("#btnempdetailHindi").click(function() {
+        $("#btnempdetailHindi").click(function () {
 
 
-            var data = $("#pdfExportempdetailhindi").html();        
-    
+            var data = $("#pdfExportempdetailhindi").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Employee Declaration</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
@@ -3798,10 +3851,10 @@ $scope.PageLoadDest = function()
     });
     ////////////////////////////////////////
     ///////FORM34TAMIL//////////////
-    $(document).ready(function(e) {
-  
-        $('#fileButtonform34tamil').on('click', function() {
-                //  $scope.CheckingSession();
+    $(document).ready(function (e) {
+
+        $('#fileButtonform34tamil').on('click', function () {
+            //  $scope.CheckingSession();
             var form_data = new FormData();
             var ins = document.getElementById('fileInputform34tamil').files.length;
             for (var x = 0; x < ins; x++) {
@@ -3816,13 +3869,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputform34tamil").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3831,10 +3884,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3845,10 +3898,10 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-   
-        $("#btnform34tamil").click(function() {
-                 //$scope.CheckingSession();
+    $(function () {
+
+        $("#btnform34tamil").click(function () {
+            //$scope.CheckingSession();
 
             var HTML_Width = $("#pdfExporform34ltamil").width();
             var HTML_Height = $("#pdfExporform34ltamil").height();
@@ -3897,10 +3950,10 @@ $scope.PageLoadDest = function()
     });
     /////////////////////////////////////////////////////////////////
     //////FORM34HINDI////////////////////////
-    $(document).ready(function(e) {
+    $(document).ready(function (e) {
 
-        $('#fileButtonform34hindi').on('click', function() {
-                   // $scope.CheckingSession();
+        $('#fileButtonform34hindi').on('click', function () {
+            // $scope.CheckingSession();
             var form_data = new FormData();
             var ins = document.getElementById('fileInputform34hindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -3915,13 +3968,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputform34hindi").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3930,10 +3983,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -3944,10 +3997,10 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
+    $(function () {
 
-        $("#btnform34hindi").click(function() {
-                    //$scope.CheckingSession();
+        $("#btnform34hindi").click(function () {
+            //$scope.CheckingSession();
 
             var HTML_Width = $("#pdfExporform34hindi").width();
             var HTML_Height = $("#pdfExporform34hindi").height();
@@ -3996,8 +4049,8 @@ $scope.PageLoadDest = function()
     });
     /////////////////////////////////////////
     ////////////EMPATTENTIONTAMIL
-    $(document).ready(function(e) {
-        $('#fileButtonEmpAttentiontamil').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpAttentiontamil').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpAttentiontamil').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4012,13 +4065,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpAttentiontamil").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4027,10 +4080,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4041,8 +4094,8 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpAttentiontamil").click(function() {
+    $(function () {
+        $("#btnEmpAttentiontamil").click(function () {
 
             var HTML_Width = $("#pdfExporEmpAttentiontamil").width();
             var HTML_Height = $("#pdfExporEmpAttentiontamil").height();
@@ -4091,8 +4144,8 @@ $scope.PageLoadDest = function()
     });
     ///////////////////////////////////////////////////////////////
     ////////////EMPATTENTIONHINDI
-    $(document).ready(function(e) {
-        $('#fileButtonEmpAttentionhindi').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpAttentionhindi').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpAttentionhindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4107,13 +4160,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpAttentionhindi").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4122,10 +4175,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4136,8 +4189,8 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpAttentionhindi").click(function() {
+    $(function () {
+        $("#btnEmpAttentionhindi").click(function () {
 
             var HTML_Width = $("#pdfExporEmpAttentionhindi").width();
             var HTML_Height = $("#pdfExporEmpAttentionhindi").height();
@@ -4186,8 +4239,8 @@ $scope.PageLoadDest = function()
     });
 
     /////////////////EMPLOYEE DECLARATION TAMIL////////////////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpDeclarationtamil').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpDeclarationtamil').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpDeclarationtamil').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4202,13 +4255,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpDeclarationtamil").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4217,10 +4270,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4231,8 +4284,8 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpDeclarationTamil").click(function() {
+    $(function () {
+        $("#btnEmpDeclarationTamil").click(function () {
 
             var HTML_Width = $("#pdfExporEmpDeclarationtamil").width();
             var HTML_Height = $("#pdfExporEmpDeclarationtamil").height();
@@ -4281,8 +4334,8 @@ $scope.PageLoadDest = function()
     });
     //////////////////////////////////////////
     //////////////EMPLOYEE DECLARATION HINDI ////////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpDeclarationHindi').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpDeclarationHindi').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpDeclarationHindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4297,13 +4350,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpDeclarationHindi").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4312,10 +4365,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4326,8 +4379,8 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpDeclarationHindi").click(function() {
+    $(function () {
+        $("#btnEmpDeclarationHindi").click(function () {
 
             var HTML_Width = $("#pdfExporEmpDeclarationHindi").width();
             var HTML_Height = $("#pdfExporEmpDeclarationHindi").height();
@@ -4376,8 +4429,8 @@ $scope.PageLoadDest = function()
     });
     //////////////////////////////////////////////////////
     //////////EMPLOYEE STATING TAMIL/////////////////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpStatingTamil').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpStatingTamil').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpStatingTamil').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4392,13 +4445,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpStatingTamil").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4407,10 +4460,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4421,31 +4474,31 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-      $(function() {
-        $("#btnEmpStatingTamil").click(function() {
+    $(function () {
+        $("#btnEmpStatingTamil").click(function () {
 
-           
-           // var data = document.getElementById('pdfExporEmpStatingTamil');
+
+            // var data = document.getElementById('pdfExporEmpStatingTamil');
             var data = $("#pdfExporEmpStatingTamil").html();
 
-         
-    
+
+
             var printWindow = window.open('', '_blank');
             printWindow.document.open();
-            
+
             printWindow.document.write('<html><head><title>Employee Stating</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
         });
     });
     //////////////////////////////////////////////////////////////
     //////////////EMPLOYEE STATING HINDI///////////////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpStatingHindi').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpStatingHindi').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpStatingHindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4460,13 +4513,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpStatingHindi").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4475,10 +4528,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4489,19 +4542,19 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpStatingHindi").click(function() {
+    $(function () {
+        $("#btnEmpStatingHindi").click(function () {
 
-        
-            var data = $("#pdfExporEmpStatingHindi").html();        
-    
+
+            var data = $("#pdfExporEmpStatingHindi").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Employee Stating</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
@@ -4509,8 +4562,8 @@ $scope.PageLoadDest = function()
     });
     /////////////////////////////////////////////
     /////////EMPLOYEE AGREEMENT TAMIL////////////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpAgreementTamil').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpAgreementTamil').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpAgreementTamil').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4525,13 +4578,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpAgreementTamil").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4540,10 +4593,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4554,19 +4607,19 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-      $(function() {
-        $("#btnEmpAgreementTamil").click(function() {
+    $(function () {
+        $("#btnEmpAgreementTamil").click(function () {
 
-           
-            var data = $("#pdfExporEmpAgreementTamil").html();        
-    
+
+            var data = $("#pdfExporEmpAgreementTamil").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Employee Agreement</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
@@ -4574,8 +4627,8 @@ $scope.PageLoadDest = function()
     });
     //////////////////////////////////////////////////////
     ////////////EMPLOYEE AGREEMENT HINDI /////////////////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpAgreementHindi').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpAgreementHindi').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpAgreementHindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4590,13 +4643,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpAgreementHindi").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4605,10 +4658,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4619,22 +4672,22 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpAgreementHindi").click(function() {
+    $(function () {
+        $("#btnEmpAgreementHindi").click(function () {
 
             var HTML_Width = $("#pdfExporEmpAgreementHindi").width();
             var HTML_Height = $("#pdfExporEmpAgreementHindi").height();
-  
 
-            var data = $("#pdfExporEmpAgreementHindi").html();        
-    
+
+            var data = $("#pdfExporEmpAgreementHindi").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Employee Agreement</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
@@ -4642,8 +4695,8 @@ $scope.PageLoadDest = function()
     });
     ///////////////////////////
     //////////////////////EMPLOYEE TRAINING TAMIL ///////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpTrainingTamil').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpTrainingTamil').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpTrainingTamil').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4658,13 +4711,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpTrainingTamil").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4673,10 +4726,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4687,8 +4740,8 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpTrainingTamil").click(function() {
+    $(function () {
+        $("#btnEmpTrainingTamil").click(function () {
 
             var HTML_Width = $("#pdfExporEmpTrainigTamil").width();
             var HTML_Height = $("#pdfExporEmpTrainigTamil").height();
@@ -4738,8 +4791,8 @@ $scope.PageLoadDest = function()
     //////////////////////////////////////
     ////////////////////////////EMPLOYEE TRAINING HINDI ///////////////////////////
 
-    $(document).ready(function(e) {
-        $('#fileButtonEmpTrainingHindi').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpTrainingHindi').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpTrainingHindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4754,13 +4807,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpTrainingHindi").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4769,10 +4822,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4783,8 +4836,8 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpTrainingHindi").click(function() {
+    $(function () {
+        $("#btnEmpTrainingHindi").click(function () {
 
             var HTML_Width = $("#pdfExporEmpTrainigHindi").width();
             var HTML_Height = $("#pdfExporEmpTrainigHindi").height();
@@ -4834,8 +4887,8 @@ $scope.PageLoadDest = function()
     ///////////////////////////////////////////////
     /////////////////Employee Service Tamil/////////
 
-    $(document).ready(function(e) {
-        $('#fileButtonEmpServiceTamil').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpServiceTamil').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpServiceTamil').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4850,13 +4903,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpServiceTamil").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4865,10 +4918,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4879,8 +4932,8 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpServiceTamil").click(function() {
+    $(function () {
+        $("#btnEmpServiceTamil").click(function () {
 
             var HTML_Width = $("#pdfExportEmpServiceTamil").width();
             var HTML_Height = $("#pdfExportEmpServiceTamil").height();
@@ -4929,8 +4982,8 @@ $scope.PageLoadDest = function()
     });
     ///////////////////////////////////////////////
     ////////////EMPLOYEE SERVICE HINDI /////////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpServiceHindi').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpServiceHindi').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpServiceHindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -4945,13 +4998,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpServiceHindi").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4960,10 +5013,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -4974,8 +5027,8 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpServiceHindi").click(function() {
+    $(function () {
+        $("#btnEmpServiceHindi").click(function () {
 
             var HTML_Width = $("#pdfExportEmpServiceHindi").width();
             var HTML_Height = $("#pdfExportEmpServiceHindi").height();
@@ -5024,8 +5077,8 @@ $scope.PageLoadDest = function()
     });
     //////////////////////////////
     //////////EMP FORM 2 REVISED TAMIL //////////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpForm2RevisedTamil').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpForm2RevisedTamil').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpForm2RevisedTamil').files.length;
             for (var x = 0; x < ins; x++) {
@@ -5040,13 +5093,13 @@ $scope.PageLoadDest = function()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpForm2RevisedTamil").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5055,10 +5108,10 @@ $scope.PageLoadDest = function()
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5069,30 +5122,30 @@ $scope.PageLoadDest = function()
         });
     });
     /////////////////////////////////////
-        $(function() {
-        $("#btnEmpForm2RevisedTamil").click(function() {
-;
-          //  var data = document.getElementById('pdfExportEmpForm2RevisedTamil').html();
-var data = $("#pdfExportEmpForm2RevisedTamil").html();
-      
-    
+    $(function () {
+        $("#btnEmpForm2RevisedTamil").click(function () {
+            ;
+            //  var data = document.getElementById('pdfExportEmpForm2RevisedTamil').html();
+            var data = $("#pdfExportEmpForm2RevisedTamil").html();
+
+
             var printWindow = window.open('', '_blank');
             printWindow.document.open();
-            
+
             printWindow.document.write('<html><head><title>FORM-2 Revised</title></head><body>');
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
-           
+
 
         });
     });
     /////////////////////////////////////////////
     ////////////////////EMP FORM2 REVISED HINDI ////////////
-    $(document).ready(function(e) {
-        $('#fileButtonEmpForm2RevisedHindi').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonEmpForm2RevisedHindi').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpForm2RevisedHindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -5107,13 +5160,13 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpForm2RevisedHindi").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5122,10 +5175,10 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5136,19 +5189,19 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
         });
     });
     /////////////////////////////////////
-   $(function() {
-        $("#btnEmpForm2RevisedHindi").click(function() {
+    $(function () {
+        $("#btnEmpForm2RevisedHindi").click(function () {
 
-           
-            var data = $("#pdfExportEmpForm2RevisedHindi").html();        
-    
+
+            var data = $("#pdfExportEmpForm2RevisedHindi").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>FORM-2 Revised</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
@@ -5171,8 +5224,8 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
     });
 
     ///////////////////////////////////////////
-    $(document).ready(function(e) {
-        $('#fileButtonBackgrounverification').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonBackgrounverification').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputBackgroundVerification').files.length;
             for (var x = 0; x < ins; x++) {
@@ -5187,13 +5240,13 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputBackgroundVerification").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5202,10 +5255,10 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5216,23 +5269,22 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
         });
     });
     /////////////////////////////////////////////////////////////////
-    $scope.PageLoadBACKPENDING = function()
-    {
-    $http({
-        method: "POST",
-        url: "Employee.php",
-        data: { 'Method': 'BACKPENDING' },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    $scope.PageLoadBACKPENDING = function () {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Method': 'BACKPENDING' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-    }).then(function successCallback(response) {
+        }).then(function successCallback(response) {
 
 
-        $scope.GetBackgroundEmployeeList = response.data;
-       
-    });
-}
+            $scope.GetBackgroundEmployeeList = response.data;
+
+        });
+    }
     ////////////////////////////////////
-    $scope.ResetNomineeFamily = function() {
+    $scope.ResetNomineeFamily = function () {
         $scope.CheckingSession();
         $scope.NomineeName = "";
         $scope.NomineeRelationship = "";
@@ -5248,57 +5300,57 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
 
 
     ////////////////////////////////
-    $scope.FetchEmpNominee = function(Employeeid, NomineeSno) {
-            $scope.Employeeid = Employeeid;
-            $scope.NomineeSno = NomineeSno;
-            $http({
-                method: "POST",
-                url: "NomineeEmployee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'NomineeSno': $scope.NomineeSno,
-                    'Method': "FetchEmpNominee"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
+    $scope.FetchEmpNominee = function (Employeeid, NomineeSno) {
+        $scope.Employeeid = Employeeid;
+        $scope.NomineeSno = NomineeSno;
+        $http({
+            method: "POST",
+            url: "NomineeEmployee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'NomineeSno': $scope.NomineeSno,
+                'Method': "FetchEmpNominee"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                // alert(response.data.NomineeDateOfBirth);
+            // alert(response.data.NomineeDateOfBirth);
 
-                $scope.NomineeName = response.data.NomineeName;
-                $scope.NomineeRelationship = response.data.NomineeRelationship;
-                $scope.NomineeDateOfBirth = response.data.NomineeDateOfBirth;
-                $scope.Guardianname = response.data.Guardianname;
-                $scope.RelationshipContactno = response.data.RelationshipContactno;
-                $scope.PercentageofShare = response.data.PercentageofShare;
-                $scope.NomineeAddress = response.data.NomineeAddress;
-                $scope.NomineeAge = response.data.NomineeAge;
-            });
-        }
+            $scope.NomineeName = response.data.NomineeName;
+            $scope.NomineeRelationship = response.data.NomineeRelationship;
+            $scope.NomineeDateOfBirth = response.data.NomineeDateOfBirth;
+            $scope.Guardianname = response.data.Guardianname;
+            $scope.RelationshipContactno = response.data.RelationshipContactno;
+            $scope.PercentageofShare = response.data.PercentageofShare;
+            $scope.NomineeAddress = response.data.NomineeAddress;
+            $scope.NomineeAge = response.data.NomineeAge;
+        });
+    }
 
 
-        $scope.FetchEmpNominee2 = function(Employeeid) {
-            $scope.Employeeid = Employeeid;
-           // $scope.NomineeSno = NomineeSno;
-            $http({
-                method: "POST",
-                url: "NomineeEmployee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                  
-                    'Method': "FetchEmpNominee2"
-                },
-                headers: { 'Content_Type': 'application/json' }
-            }).then(function successCallback(response) {
+    $scope.FetchEmpNominee2 = function (Employeeid) {
+        $scope.Employeeid = Employeeid;
+        // $scope.NomineeSno = NomineeSno;
+        $http({
+            method: "POST",
+            url: "NomineeEmployee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
 
-                // alert(response.data.NomineeName);
+                'Method': "FetchEmpNominee2"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.NomineeName2 = response.data.NomineeName;
-                $scope.NomineeRelationship2 = response.data.NomineeRelationship;
-                
-            });
-        }
-        /////////////////////////////
-    $scope.Update_NomineeFamily = function() {
+            // alert(response.data.NomineeName);
+
+            $scope.NomineeName2 = response.data.NomineeName;
+            $scope.NomineeRelationship2 = response.data.NomineeRelationship;
+
+        });
+    }
+    /////////////////////////////
+    $scope.Update_NomineeFamily = function () {
         $scope.CheckingSession();
         $http({
             method: "post",
@@ -5331,27 +5383,27 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
 
 
     ////////////////////////////////
-    $scope.FetchNomineenextno = function() {
-            //  $scope.CheckingSession();
-            //alert($scope.Employeeid);
-            $http({
+    $scope.FetchNomineenextno = function () {
+        //  $scope.CheckingSession();
+        //alert($scope.Employeeid);
+        $http({
 
 
 
-                method: "POST",
-                url: "NomineeEmployee.php",
-                data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPNOMINEENEXT' },
-                headers: { 'Content-Type': 'application/json' }
+            method: "POST",
+            url: "NomineeEmployee.php",
+            data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPNOMINEENEXT' },
+            headers: { 'Content-Type': 'application/json' }
 
-            }).then(function successCallback(response) {
-                //alert(response.data);
+        }).then(function successCallback(response) {
+            //alert(response.data);
 
-                $scope.NomineeSno = response.data.Sno;
+            $scope.NomineeSno = response.data.Sno;
 
-            });
-        }
-        ///////////////////////////////////////
-    $scope.DisplayEmpNominee = function() {
+        });
+    }
+    ///////////////////////////////////////
+    $scope.DisplayEmpNominee = function () {
 
 
 
@@ -5374,29 +5426,29 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
     ////////////////////////
 
     //////////////////////////////////////////
-    $scope.DeleteNominee = function() {
-           // $scope.CheckingSession();
-            $http({
-                method: "POST",
-                url: "NomineeEmployee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'NomineeSno': $scope.NomineeSno,
-                    'Method': 'NomineeDelete'
+    $scope.DeleteNominee = function () {
+        // $scope.CheckingSession();
+        $http({
+            method: "POST",
+            url: "NomineeEmployee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'NomineeSno': $scope.NomineeSno,
+                'Method': 'NomineeDelete'
 
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
 
 
 
-                $scope.TempMessage = response.data.Message;
-                $scope.TempSave();
-                $scope.ResetNomineeFamily();
-            });
-        }
-        ///////////////////////
-    $scope.GetNomineeage = function() {
+            $scope.TempMessage = response.data.Message;
+            $scope.TempSave();
+            $scope.ResetNomineeFamily();
+        });
+    }
+    ///////////////////////
+    $scope.GetNomineeage = function () {
         $http({
 
 
@@ -5426,8 +5478,8 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
     };
 
     ///////////////////////////////
-    $(function() {
-        $("#btnEmpNDA").click(function() {
+    $(function () {
+        $("#btnEmpNDA").click(function () {
 
             var HTML_Width = $("#pdfExportNDAEnglish").width();
             var HTML_Height = $("#pdfExportNDAEnglish").height();
@@ -5477,8 +5529,8 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
 
     ////////////////////////////////////////////////////////////
     //////////EMPDETAILSHINDI////////////////////
-    $(document).ready(function(e) {
-        $('#fileButtonNDA').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonNDA').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputNDA').files.length;
             for (var x = 0; x < ins; x++) {
@@ -5493,13 +5545,13 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputNDA").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5508,10 +5560,10 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5523,8 +5575,8 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
     });
     /////////////////////////////
     ///////////Employee Gratuity///////////////
-    $(document).ready(function(e) {
-        $('#fileButtonGratuity').on('click', function() {
+    $(document).ready(function (e) {
+        $('#fileButtonGratuity').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputGratuity').files.length;
             for (var x = 0; x < ins; x++) {
@@ -5539,13 +5591,13 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputGratuity").value = '';
 
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5554,10 +5606,10 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
                     $scope.FetchSIPLDocument($scope.Employeeid);
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -5568,8 +5620,8 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
         });
     });
     /////////////////////////////////////
-    $(function() {
-        $("#btnEmpGratuity").click(function() {
+    $(function () {
+        $("#btnEmpGratuity").click(function () {
 
             var HTML_Width = $("#pdfExportGratuity").width();
             var HTML_Height = $("#pdfExportGratuity").height();
@@ -5618,391 +5670,367 @@ var data = $("#pdfExportEmpForm2RevisedTamil").html();
     });
 
     //////////////////////////////////////
-    $(function() {
-        $("#download").click(function() {
+    $(function () {
+        $("#download").click(function () {
 
             frontidcard();
 
         });
     });
+
+    $(function () {
+        $("#download4").click(function () {
+            frontidcard4();
+        });
+    });
     /////////////////////
-    
-//     function frontidcard()
-//     {
 
-//         var Empid = $('#Employeeid').val();
-//         // var divWidth = 204; // Desired width of the exported image
-//         // var divHeight = 325;
+    //     function frontidcard()
+    //     {
 
-//         var screenWidth = $(window).width();
-//         var screenHeight = $(window).height();
+    //         var Empid = $('#Employeeid').val();
+    //         // var divWidth = 204; // Desired width of the exported image
+    //         // var divHeight = 325;
 
-//     var canvas = document.createElement("canvas");
-//     // canvas.width = divWidth;
-//     // canvas.height = divHeight;
-//        canvas.width = screenWidth/2;
-//      canvas.height = screenHeight/2;
-    
-//      var ctx = canvas.getContext('2d');
-//      canvas.width = screenWidth ;
-//      canvas.height = screenHeight ;
- 
-//      // Draw the content inside the canvas (e.g., an image)
-//      // Replace the following line with your own drawing logic.
-   
-//      ctx.fillRect(0, 0, canvas.width, canvas.height);
-//   //  ctx.scale(3);
-//     html2canvas($("#Empfront")[0], {
-//       canvas: canvas,
-//       useCORS: true, // Enable if the div contains an image from a different domain
-//     }).then(function(canvas) {
-//      // var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-//      var dataURL = canvas.toDataURL();
-//       var link = document.createElement("a");
-//       link.download = Empid+ "_Empfront.jpeg";;
-//       link.href = dataURL;
-//       link.click();
-//       backidcard();
-//     });
-        
-//     }
+    //         var screenWidth = $(window).width();
+    //         var screenHeight = $(window).height();
 
-//     function backidcard()
-//     {
+    //     var canvas = document.createElement("canvas");
+    //     // canvas.width = divWidth;
+    //     // canvas.height = divHeight;
+    //        canvas.width = screenWidth/2;
+    //      canvas.height = screenHeight/2;
 
-    
-     
-      
-   
+    //      var ctx = canvas.getContext('2d');
+    //      canvas.width = screenWidth ;
+    //      canvas.height = screenHeight ;
 
+    //      // Draw the content inside the canvas (e.g., an image)
+    //      // Replace the following line with your own drawing logic.
 
+    //      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //   //  ctx.scale(3);
+    //     html2canvas($("#Empfront")[0], {
+    //       canvas: canvas,
+    //       useCORS: true, // Enable if the div contains an image from a different domain
+    //     }).then(function(canvas) {
+    //      // var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    //      var dataURL = canvas.toDataURL();
+    //       var link = document.createElement("a");
+    //       link.download = Empid+ "_Empfront.jpeg";;
+    //       link.href = dataURL;
+    //       link.click();
+    //       backidcard();
+    //     });
 
+    //     }
 
-//         var Empid = $('#Employeeid').val();
-
-//         // var divWidth = 204; // Desired width of the exported image
-//         // var divHeight = 325;
-//         var screenWidth = $(window).width();
-//         var screenHeight = $(window).height();
-    
-    
-//         var canvas = document.createElement("canvas");
-//         // canvas.width = divWidth;
-//         // canvas.height = divHeight;
-//         canvas.width = screenWidth;
-//      canvas.height = screenHeight;
-//      var ctx = canvas.getContext('2d');
-//      canvas.width = screenWidth ;
-//      canvas.height = screenHeight ;
- 
-//      ctx.fillRect(0, 0, canvas.width, canvas.height);
-//         html2canvas($("#Empback")[0], {
-//           canvas: canvas,
-//           useCORS: true, // Enable if the div contains an image from a different domain
-//         }).then(function(canvas) {
-//         //   var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-//         var dataURL = canvas.toDataURL();
-//           var link = document.createElement("a");
-//           link.download = Empid+ "_Empback.jpeg";;
-//           link.href = dataURL;
-//           link.click();
-        
-//         });
-//         //  var element = $("#Empfront"); // global variable
-//         //   html2canvas(document.getElementById("Empback"), { allowTaint: true, scale: 2, useCORS: true, logging: true,width:204,height:325 }).then(function (canvas) {                   
-//         //     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-//         //     var anchorTag = document.createElement("a");
-              
-//         //        document.body.appendChild(anchorTag);
-//         //     //   document.getElementById("previewImg").appendChild(canvas);
-//         //        anchorTag.download =Empid+ "_Empback.jpeg";
-//         //        anchorTag.href = image;
-//         //        anchorTag.target = '_blank';
-//         //        anchorTag.click();
-//         //    });
-//     }
-
-
-function frontidcard()
-{
-
-    var Empid = $('#Employeeid').val();
-    var divWidth =  $(window).width();; // Desired width of the exported image
-    var divHeight =  $(window).height();;
-
-
-
-html2canvas($("#Empfront")[0], {
- scale:2,
-  useCORS: true, // Enable if the div contains an image from a different domain
-}).then(function(canvas) {
-  var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-  var link = document.createElement("a");
-  link.download = Empid+ "_Empfront.jpeg";;
-  link.href = image;
-  link.click();
-  backidcard();
-});
-    // //  var element = $("#Empfront"); // global variable
-    //   html2canvas(document.getElementById("Empfront"), {allowTaint: true, scale: 2, useCORS: true, logging: true,width:width,height: height}).then(function (canvas) {  
-    //     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");                 
-    //       var anchorTag = document.createElement("a");
-    //        document.body.appendChild(anchorTag);
-    //     //   document.getElementById("previewImg").appendChild(canvas);
-    //        anchorTag.download =Empid+ "_Empfront.jpeg";
-    //        anchorTag.href = image;
-    //        anchorTag.target = '_blank';
-    //        anchorTag.click();
-    //        backidcard();
-    //    });
-}
-
-function backidcard()
-{
-
-
- 
-  
+    //     function backidcard()
+    //     {
 
 
 
 
 
-    var Empid = $('#Employeeid').val();
-
-    var divWidth =  $(window).width();; // Desired width of the exported image
-    var divHeight =  $(window).height();;
 
 
 
-    // var canvas = document.createElement("canvas");
-    // canvas.width = divWidth;
-    // canvas.height = divHeight;
-    
-    // var ctx = canvas.getContext("2d");
-    // ctx.scale(divWidth / $("#Empback").outerWidth(), divHeight / $("#Empback").outerHeight());
-    
-    html2canvas($("#Empback")[0], {
-        scale:2,
-        useCORS: true, 
-    // Enable if the div contains an image from a different domain
-    }).then(function(canvas) {
-      var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      var link = document.createElement("a");
-      link.download = Empid+ "_Empback.jpeg";;
-      link.href = image;
-      link.click();
-    
-    });
-    //  var element = $("#Empfront"); // global variable
-    //   html2canvas(document.getElementById("Empback"), { allowTaint: true, scale: 2, useCORS: true, logging: true,width:204,height:325 }).then(function (canvas) {                   
-    //     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-    //     var anchorTag = document.createElement("a");
-          
-    //        document.body.appendChild(anchorTag);
-    //     //   document.getElementById("previewImg").appendChild(canvas);
-    //        anchorTag.download =Empid+ "_Empback.jpeg";
-    //        anchorTag.href = image;
-    //        anchorTag.target = '_blank';
-    //        anchorTag.click();
-    //    });
-}
+
+    //         var Empid = $('#Employeeid').val();
+
+    //         // var divWidth = 204; // Desired width of the exported image
+    //         // var divHeight = 325;
+    //         var screenWidth = $(window).width();
+    //         var screenHeight = $(window).height();
+
+
+    //         var canvas = document.createElement("canvas");
+    //         // canvas.width = divWidth;
+    //         // canvas.height = divHeight;
+    //         canvas.width = screenWidth;
+    //      canvas.height = screenHeight;
+    //      var ctx = canvas.getContext('2d');
+    //      canvas.width = screenWidth ;
+    //      canvas.height = screenHeight ;
+
+    //      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //         html2canvas($("#Empback")[0], {
+    //           canvas: canvas,
+    //           useCORS: true, // Enable if the div contains an image from a different domain
+    //         }).then(function(canvas) {
+    //         //   var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    //         var dataURL = canvas.toDataURL();
+    //           var link = document.createElement("a");
+    //           link.download = Empid+ "_Empback.jpeg";;
+    //           link.href = dataURL;
+    //           link.click();
+
+    //         });
+    //         //  var element = $("#Empfront"); // global variable
+    //         //   html2canvas(document.getElementById("Empback"), { allowTaint: true, scale: 2, useCORS: true, logging: true,width:204,height:325 }).then(function (canvas) {                   
+    //         //     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    //         //     var anchorTag = document.createElement("a");
+
+    //         //        document.body.appendChild(anchorTag);
+    //         //     //   document.getElementById("previewImg").appendChild(canvas);
+    //         //        anchorTag.download =Empid+ "_Empback.jpeg";
+    //         //        anchorTag.href = image;
+    //         //        anchorTag.target = '_blank';
+    //         //        anchorTag.click();
+    //         //    });
+    //     }
+
+
+    function frontidcard() {
+
+        var Empid = $('#Employeeid').val();
+        var divWidth = $(window).width();; // Desired width of the exported image
+        var divHeight = $(window).height();;
+
+
+
+        html2canvas($("#Empfront")[0], {
+            scale: 2,
+            useCORS: true, // Enable if the div contains an image from a different domain
+        }).then(function (canvas) {
+            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var link = document.createElement("a");
+            link.download = Empid + "_Empfront.jpg";;
+            link.href = image;
+            link.click();
+            backidcard();
+        });
+        // //  var element = $("#Empfront"); // global variable
+        //   html2canvas(document.getElementById("Empfront"), {allowTaint: true, scale: 2, useCORS: true, logging: true,width:width,height: height}).then(function (canvas) {  
+        //     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");                 
+        //       var anchorTag = document.createElement("a");
+        //        document.body.appendChild(anchorTag);
+        //     //   document.getElementById("previewImg").appendChild(canvas);
+        //        anchorTag.download =Empid+ "_Empfront.jpeg";
+        //        anchorTag.href = image;
+        //        anchorTag.target = '_blank';
+        //        anchorTag.click();
+        //        backidcard();
+        //    });
+    }
+
+    function backidcard() {
+
+        var Empid = $('#Employeeid').val();
+
+        var divWidth = $(window).width();; // Desired width of the exported image
+        var divHeight = $(window).height();;
+
+        html2canvas($("#Empback")[0], {
+            scale: 2,
+            useCORS: true,
+            // Enable if the div contains an image from a different domain
+        }).then(function (canvas) {
+            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var link = document.createElement("a");
+            link.download = Empid + "_Empback.jpg";;
+            link.href = image;
+            link.click();
+
+        });
+
+    }
     /////////////////////////////////////////////
-    $(function() {
-        $("#btnEmpAssessment").click(function() {
+    $(function () {
+        $("#btnEmpAssessment").click(function () {
 
-           
-            var data = $("#pdfExportPerformanceAssessment").html();        
-    
+
+            var data = $("#pdfExportPerformanceAssessment").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Performance Assesment</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
         });
     });
     ////////////////////////////////////////////////////////
-    $(function() {
-        $("#btnEmpAssessment").click(function() {
+    $(function () {
+        $("#btnEmpAssessment").click(function () {
 
-           
-            var data = $("#pdfExportPerformanceAssessment").html();        
-    
+
+            var data = $("#pdfExportPerformanceAssessment").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Performance Assesment</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
         });
     });
     ////////////////////////////////////////////////////////
-    $(function() {
-        $("#btnAppointmentordertamil").click(function() {
+    $(function () {
+        $("#btnAppointmentordertamil").click(function () {
 
-           
-            var data = $("#pdfExportAppointmentorder").html();        
-    
+
+            var data = $("#pdfExportAppointmentorder").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>AppointmentOrderTamil</title></head><body>');
- // Add the CSS file
+            // Add the CSS file
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
         });
     });
-    $(function() {
-        $("#btnAppointmentorderhindi").click(function() {
+    $(function () {
+        $("#btnAppointmentorderhindi").click(function () {
 
-           
-            var data = $("#pdfExportAppointmentorderHindi").html();        
-    
+
+            var data = $("#pdfExportAppointmentorderHindi").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>AppointmentOrderHindi</title></head><body>');
 
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
         });
     });
-    $(function() {
-        $("#btnConfirmationordertamil").click(function() {
+    $(function () {
+        $("#btnConfirmationordertamil").click(function () {
 
-           
-            var data = $("#pdfExportConfirmationorder").html();        
-    
+
+            var data = $("#pdfExportConfirmationorder").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Confirmationordertamil</title></head><body>');
 
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
         });
     });
 
-    $(function() {
-        $("#btnConfirmationorderHindi").click(function() {
+    $(function () {
+        $("#btnConfirmationorderHindi").click(function () {
 
-           
-            var data = $("#pdfExportConfirmationorderHindi").html();        
-    
+
+            var data = $("#pdfExportConfirmationorderHindi").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Confirmationorderhindi</title></head><body>');
 
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
         });
     });
 
-    $(function() {
-        $("#btnInterviewdetailstamil").click(function() {
+    $(function () {
+        $("#btnInterviewdetailstamil").click(function () {
 
-           
-            var data = $("#pdfExportInterviewdetailtamil").html();        
-    
+
+            var data = $("#pdfExportInterviewdetailtamil").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Interviewdetailstamil</title></head><body>');
 
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
         });
     });
- $(function() {
-        $("#btnInterviewdetailshindi").click(function() {
+    $(function () {
+        $("#btnInterviewdetailshindi").click(function () {
 
-           
-            var data = $("#pdfExportInterviewdetailhindi").html();        
-    
+
+            var data = $("#pdfExportInterviewdetailhindi").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Interviewdetailshindi</title></head><body>');
 
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
         });
     });
-     $(function() {
-        $("#btnEmployeecontract").click(function() {
+    $(function () {
+        $("#btnEmployeecontract").click(function () {
 
-           
-            var data = $("#pdfExportEmployeeContract").html();        
-    
+
+            var data = $("#pdfExportEmployeeContract").html();
+
             var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
+            printWindow.document.open();
             printWindow.document.write('<html><head><title>Employeecontract</title></head><body>');
 
             printWindow.document.write(data);
             printWindow.document.write('</body></html>');
-            
+
             printWindow.document.close();
             printWindow.print();
 
         });
     });
     //////////////////////////////////////
-    $scope.GetMailunique = function(Emailid) {
+    $scope.GetMailunique = function (Emailid) {
 
-            $scope.Emailid = Emailid;
-            $http({
-                method: "POST",
-                url: "Employee.php",
-                data: {
+        $scope.Emailid = Emailid;
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
 
-                    'Emailid': $scope.Emailid,
+                'Emailid': $scope.Emailid,
 
-                    'Method': 'Mailunique'
-                },
+                'Method': 'Mailunique'
+            },
 
-                headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' }
 
-            }).then(function successCallback(response) {
-                //alert($scope.selectedValue);
-
-
-                $scope.TempMessage = response.data.Message;
+        }).then(function successCallback(response) {
+            //alert($scope.selectedValue);
 
 
+            $scope.TempMessage = response.data.Message;
 
-                $scope.TempSave();
-            });
-        }
-        ////////////////////
-    $scope.GetContactnounique = function(Contactno) {
+
+
+            $scope.TempSave();
+        });
+    }
+    ////////////////////
+    $scope.GetContactnounique = function (Contactno) {
         $scope.Contactno = Contactno;
         $http({
             method: "POST",
@@ -6030,7 +6058,7 @@ function backidcard()
     };
     ///////////////////////////
 
-    $scope.Emailverification01 = function() {
+    $scope.Emailverification01 = function () {
         $scope.CheckingSession();
         $scope.Message = true;
         $scope.Message = "Please Wait Email Sending...";
@@ -6054,7 +6082,7 @@ function backidcard()
 
         }).then(function successCallback(response) {
 
-            $timeout(function() { $scope.Message = ""; }, 3000);
+            $timeout(function () { $scope.Message = ""; }, 3000);
             $scope.TempMessage = response.data.Message;
 
             $scope.TempSave();
@@ -6063,9 +6091,8 @@ function backidcard()
 
 
 
-    $scope.CheckingSession = function()
-    {
-   
+    $scope.CheckingSession = function () {
+
         $http({
 
 
@@ -6073,17 +6100,17 @@ function backidcard()
             method: "POST",
             url: "../Sessionhandling/SessionChecking.php",
             data: {
-               'PageSession' :$scope.PageSession,
-               
+                'PageSession': $scope.PageSession,
+
 
                 'Method': 'CurrentSession'
             },
             headers: { 'Content-Type': 'application/json' },
-         
+
 
         }).then(function successCallback(response) {
 
-          
+
             $scope.SessionMessage = response.data.Message;
             $scope.Sessionurl = response.data.Url;
 
@@ -6092,11 +6119,10 @@ function backidcard()
     }
 
 
-    $scope.SessionSavedMessage = function()
-    {
+    $scope.SessionSavedMessage = function () {
         if ($scope.SessionMessage == "SessionNo") {
-          //  alert("Session Expired! Please Login Again...");
-           
+            //  alert("Session Expired! Please Login Again...");
+
             window.location.replace($scope.Sessionurl);
             return;
         }
@@ -6104,122 +6130,122 @@ function backidcard()
     /////////////////////////////////
 
 
-        ///////////////////////////////
+    ///////////////////////////////
 
-    $scope.EditrightsNextno = function() {
-            $scope.EditingReason = "";
-            $http({
-
-
-
-                method: "POST",
-                url: "EditirightsforApproval.php",
-                data: { 'Employeeid': $scope.Employeeid, 'Method': 'CANEDITRIGHTSNEXTNO' },
-                headers: { 'Content-Type': 'application/json' }
-
-            }).then(function successCallback(response) {
-
-
-                $scope.EditingRightSno = response.data.Sno;
-
-            });
-        }
-        ////////////////////////////////
-    $scope.UpdateEditingReason = function() {
-            $scope.AdminMessage = true;
-            $scope.AdminMessage = "Please Wait the request will be send for approval.........";
-            $http({
-                method: "post",
-                url: "EditirightsforApproval.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'EditingReason': $scope.EditingReason,
-                    'EditingRightSno': $scope.EditingRightSno,
+    $scope.EditrightsNextno = function () {
+        $scope.EditingReason = "";
+        $http({
 
 
 
+            method: "POST",
+            url: "EditirightsforApproval.php",
+            data: { 'Employeeid': $scope.Employeeid, 'Method': 'CANEDITRIGHTSNEXTNO' },
+            headers: { 'Content-Type': 'application/json' }
 
-                    'Method': 'EditingReasonUpdate'
+        }).then(function successCallback(response) {
 
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
 
-                $scope.AdminMessage = false;
+            $scope.EditingRightSno = response.data.Sno;
 
-                $scope.RightsMessage = response.data.Message;
-                $scope.EmailrightsMessage();
-            });
-        }
-        ////////////////////////////
+        });
+    }
+    ////////////////////////////////
+    $scope.UpdateEditingReason = function () {
+        $scope.AdminMessage = true;
+        $scope.AdminMessage = "Please Wait the request will be send for approval.........";
+        $http({
+            method: "post",
+            url: "EditirightsforApproval.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'EditingReason': $scope.EditingReason,
+                'EditingRightSno': $scope.EditingRightSno,
 
-    $scope.EmailrightsMessage = function() {
+
+
+
+                'Method': 'EditingReasonUpdate'
+
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
+
+            $scope.AdminMessage = false;
+
+            $scope.RightsMessage = response.data.Message;
+            $scope.EmailrightsMessage();
+        });
+    }
+    ////////////////////////////
+
+    $scope.EmailrightsMessage = function () {
         if ($scope.RightsMessage == "Request Update") {
             $scope.AdminMessage = true;
             $scope.AdminMessage = "Request Sent Successfully .........";
-            $timeout(function() { $scope.AdminMessage = ""; }, 3000);
+            $timeout(function () { $scope.AdminMessage = ""; }, 3000);
         }
         if ($scope.RightsMessage == "EREASON") {
             $scope.AdminMessage = true;
             $scope.AdminMessage = "Please Enter Editing Reason .........";
-            $timeout(function() { $scope.AdminMessage = ""; }, 3000);
+            $timeout(function () { $scope.AdminMessage = ""; }, 3000);
         }
     }
 
-    $scope.ResetLoginInfo = function() {
-            $scope.EditingUserid = "";
-            $scope.EditingPassword = "";
-        }
-        //////////////////////
-    $scope.UserLogin = function() {
+    $scope.ResetLoginInfo = function () {
+        $scope.EditingUserid = "";
+        $scope.EditingPassword = "";
+    }
+    //////////////////////
+    $scope.UserLogin = function () {
 
-            $http({
-                method: "post",
-                url: "EditirightsforApproval.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'EditingUserid': $scope.EditingUserid,
-                    'EditingPassword': $scope.EditingPassword,
-                    'Method': 'LoginUpdate'
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
-                $scope.LoginMessage = response.data.Message;
-                $scope.LogMessageSave();
+        $http({
+            method: "post",
+            url: "EditirightsforApproval.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'EditingUserid': $scope.EditingUserid,
+                'EditingPassword': $scope.EditingPassword,
+                'Method': 'LoginUpdate'
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
+            $scope.LoginMessage = response.data.Message;
+            $scope.LogMessageSave();
 
-            });
-        }
-        ///////////////////////////
-    $scope.LogMessageSave = function() {
+        });
+    }
+    ///////////////////////////
+    $scope.LogMessageSave = function () {
 
         if ($scope.LoginMessage == "USERID") {
             $scope.LogMessage = true;
             $scope.LogMessage = "Please Enter UserDetail";
-            $timeout(function() { $scope.LogMessage = ""; }, 3000);
+            $timeout(function () { $scope.LogMessage = ""; }, 3000);
         }
         if ($scope.LoginMessage == "USERPASSWORD") {
             $scope.LogMessage = true;
             $scope.LogMessage = "Please Enter Password";
-            $timeout(function() { $scope.LogMessage = ""; }, 3000);
+            $timeout(function () { $scope.LogMessage = ""; }, 3000);
         }
         if ($scope.LoginMessage == "LOGINSUCCESS") {
             $scope.LogMessage = true;
             $scope.LogMessage = "Login Successfully";
             $('#ModalLogin').modal('hide');
             $('#myCarousel').carousel(1);
-            $timeout(function() { $scope.LogMessage = ""; }, 3000);
+            $timeout(function () { $scope.LogMessage = ""; }, 3000);
         }
         if ($scope.LoginMessage == "LOGINFAIL") {
             $scope.LogMessage = true;
             $scope.LogMessage = "Username and Password Not Exists";
-            $timeout(function() { $scope.LogMessage = ""; }, 3000);
+            $timeout(function () { $scope.LogMessage = ""; }, 3000);
         }
 
 
     }
 
 
-    $scope.UserLoginDestroy = function() {
+    $scope.UserLoginDestroy = function () {
 
         $http({
             method: "post",
@@ -6238,28 +6264,28 @@ function backidcard()
     }
 
 
-    $scope.Propertyitemnextno = function() {
-            //  $scope.CheckingSession();
-            //alert($scope.Employeeid);
-            $http({
+    $scope.Propertyitemnextno = function () {
+        //  $scope.CheckingSession();
+        //alert($scope.Employeeid);
+        $http({
 
 
 
-                method: "POST",
-                url: "Propertychecklist.php",
-                data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPPROPERTYNEXT' },
-                headers: { 'Content-Type': 'application/json' }
+            method: "POST",
+            url: "Propertychecklist.php",
+            data: { 'Employeeid': $scope.Employeeid, 'Method': 'EMPPROPERTYNEXT' },
+            headers: { 'Content-Type': 'application/json' }
 
-            }).then(function successCallback(response) {
-                //alert(response.data);
+        }).then(function successCallback(response) {
+            //alert(response.data);
 
-                $scope.CheckitemSno = response.data.Sno;
-                $scope.Distributeddate = response.data.Distributeddate;
+            $scope.CheckitemSno = response.data.Sno;
+            $scope.Distributeddate = response.data.Distributeddate;
 
-            });
-        }
-        /////////////////////////////////////////
-    $scope.Resetpropertychecklist = function() {
+        });
+    }
+    /////////////////////////////////////////
+    $scope.Resetpropertychecklist = function () {
         $scope.Qtyitem = 0;
         $scope.Particulars = "";
         $scope.Assetcategoryid = "";
@@ -6274,9 +6300,9 @@ function backidcard()
         $("#AddAsset tbody").empty();
         selectedAssetListIds = [];
 
-        }
-        ////////////////////
-    $scope.DisplayPropertyChecklist = function() {
+    }
+    ////////////////////
+    $scope.DisplayPropertyChecklist = function () {
 
 
 
@@ -6297,33 +6323,38 @@ function backidcard()
 
     };
     //////////////////////////
-    $scope.FetchPropertyChecklist = function(Employeeid, Sno) {
-            $scope.Employeeid = Employeeid;
-            $scope.CheckitemSno = Sno;
+    $scope.FetchPropertyChecklist = function (Employeeid, Sno) {
+        $scope.Employeeid = Employeeid;
+        $scope.CheckitemSno = Sno;
 
-            $http({
+        $http({
 
-                method: "post",
-                url: "Propertychecklist.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'CheckitemSno': $scope.CheckitemSno,
-                    'Method': 'FetchProperty'
-                },
-                headers: { 'Content-Type': 'application/json' }
-            }).then(function successCallback(response) {
+            method: "post",
+            url: "Propertychecklist.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'CheckitemSno': $scope.CheckitemSno,
+                'Method': 'FetchProperty'
+            },
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function successCallback(response) {
 
-                $scope.Propertychecklistitemimage = response.data.Propertychecklistitemimage;
-                $scope.Distributeddate = response.data.Distributeddate;
-                $scope.Qtyitem = response.data.Qtyitem;
-                $scope.Particulars = response.data.Particulars;
+            $scope.Propertychecklistitemimage = response.data.Propertychecklistitemimage;
+            $scope.Distributeddate = response.data.Distributeddate;
+            $scope.Qtyitem = response.data.Qtyitem;
+            $scope.Particulars = response.data.Particulars;
+            $scope.Assetcategoryid = response.data.Assetcategoryid;
+            $scope.GetAssetListnew();
+            $scope.Assetlistid = response.data.Assetlistid;
 
-            });
-        }
-        ////////////////////////
-    $(document).ready(function(e) {
-       // $scope.CheckingSession();
-        $('#fileButtonPropertychecklistimage').on('click', function() {
+            $scope.GetAssetname();
+
+        });
+    }
+    ////////////////////////
+    $(document).ready(function (e) {
+        // $scope.CheckingSession();
+        $('#fileButtonPropertychecklistimage').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('Propertychecklistitemimage').files.length;
             for (var x = 0; x < ins; x++) {
@@ -6344,13 +6375,13 @@ function backidcard()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("Propertychecklistitemimage").value = '';
                     $scope.DisplayPropertyChecklist();
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -6358,10 +6389,10 @@ function backidcard()
                     }, 3000);
 
                 },
-                error: function(response) {
+                error: function (response) {
                     alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -6373,34 +6404,37 @@ function backidcard()
     });
     ////////////////////////////
 
-    $scope.Update_Property = function() {
-           $scope.CheckingSession();
-            $http({
-                method: "post",
-                url: "Propertychecklist.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-                    'CheckitemSno': $scope.CheckitemSno,
-                    'Particulars': $scope.Particulars,
-                    'Qtyitem': $scope.Qtyitem,
-                    'Distributeddate': $scope.Distributeddate,
+    $scope.Update_Property = function () {
+        $scope.CheckingSession();
+        $http({
+            method: "post",
+            url: "Propertychecklist.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'CheckitemSno': $scope.CheckitemSno,
+                'Particulars': $scope.Particulars,
+                'Qtyitem': $scope.Qtyitem,
+                'Qtyitem': $scope.Qtyitem,
+                'Assetlistid': $scope.Assetlistid,
+                'Assetcategoryid': $scope.Assetcategoryid,
+                'Distributeddate': $scope.Distributeddate,
 
 
-                    'Method': 'Propertyupdate'
+                'Method': 'Propertyupdate'
 
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
-                $scope.DisplayPropertyChecklist();
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
+            $scope.DisplayPropertyChecklist();
 
-                $scope.TempMessage = response.data.Message;
-                $scope.TempSave();
-                $scope.UserLoginDestroy();
-            });
+            $scope.TempMessage = response.data.Message;
+            $scope.TempSave();
+            $scope.UserLoginDestroy();
+        });
 
-        }
-        ////////////////////////////
-    $scope.DeleteProperty = function() {
+    }
+    ////////////////////////////
+    $scope.DeleteProperty = function () {
         //$scope.CheckingSession();
         $http({
 
@@ -6431,75 +6465,75 @@ function backidcard()
     };
 
 
-    $scope.SuperUserMail = function() {
+    $scope.SuperUserMail = function () {
 
-            $http({
-                method: "post",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
+        $http({
+            method: "post",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
 
-                    'Method': 'SuperUserMail'
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
-
-
-            });
-        }
-        ////////////////////////
-    $scope.SuperUserAddressMail = function() {
-
-            $http({
-                method: "post",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-
-                    'Method': 'SuperUserAddressMail'
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
+                'Method': 'SuperUserMail'
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
 
 
-            });
-        }
-        ///////////////////////
-    $scope.SuperUserBankAccountsMail = function() {
+        });
+    }
+    ////////////////////////
+    $scope.SuperUserAddressMail = function () {
 
-            $http({
-                method: "post",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
+        $http({
+            method: "post",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
 
-                    'Method': 'SuperUserBankAccountsMail'
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
-
-
-            });
-        }
-        ///////////////////////////
-    $scope.SuperUserEmpRefrenceMail = function() {
-
-            $http({
-                method: "post",
-                url: "Employee.php",
-                data: {
-                    'Employeeid': $scope.Employeeid,
-
-                    'Method': 'SuperUserEmpRefrenceMail'
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
+                'Method': 'SuperUserAddressMail'
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
 
 
-            });
-        }
-        ///////////////////////
-    $scope.GetNominationsharepercentage = function(Employeeid, PercentageofShare) {
+        });
+    }
+    ///////////////////////
+    $scope.SuperUserBankAccountsMail = function () {
+
+        $http({
+            method: "post",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+
+                'Method': 'SuperUserBankAccountsMail'
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
+
+
+        });
+    }
+    ///////////////////////////
+    $scope.SuperUserEmpRefrenceMail = function () {
+
+        $http({
+            method: "post",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+
+                'Method': 'SuperUserEmpRefrenceMail'
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
+
+
+        });
+    }
+    ///////////////////////
+    $scope.GetNominationsharepercentage = function (Employeeid, PercentageofShare) {
         $scope.PercentageofShare = PercentageofShare;
         $scope.Employeeid = Employeeid;
 
@@ -6526,7 +6560,7 @@ function backidcard()
     }
 
 
-    $scope.GetEmergencyContact = function() {
+    $scope.GetEmergencyContact = function () {
 
         $http({
             method: "post",
@@ -6546,23 +6580,23 @@ function backidcard()
 
     ////////////////////
 
-    $scope.Authorizationcheck = function() {
-            $http({
-                method: "post",
-                url: "Employee.php",
-                data: {
+    $scope.Authorizationcheck = function () {
+        $http({
+            method: "post",
+            url: "Employee.php",
+            data: {
 
 
-                    'Method': 'ADMINAUTHORIZATION'
-                },
-                headers: { 'Content-Type': 'application-json' }
-            }).then(function successCallback(response) {
-                $scope.Authorizedno = response.data.Authorizedno;
+                'Method': 'ADMINAUTHORIZATION'
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
+            $scope.Authorizedno = response.data.Authorizedno;
 
 
-            });
-        }
-        /////////////////////////////////////
+        });
+    }
+    /////////////////////////////////////
 
     $http({
         method: "post",
@@ -6610,7 +6644,9 @@ function backidcard()
         $scope.ClientnameTamil = response.data.ClientnameTamil;
         $scope.ClientnameHindi = response.data.ClientnameHindi;
         $scope.ClientLogo = response.data.ClientLogo;
-         $scope.Place = response.data.Place; 
+        $scope.Place = response.data.Place;
+        $scope.Clientid = response.data.Clientid;
+        $scope.Busroute = response.data.Busroute;
 
     });
     ////////////////////////////////
@@ -6627,115 +6663,116 @@ function backidcard()
         $scope.Getcat3EmployeeList = response.data;
     });
     //////////////////////////////
- $(function() {
-      
-   
-        $("#btnEmpReport").click(function() {
+    $(function () {
+
+
+        $("#btnEmpReport").click(function () {
 
             $scope.CheckingSession();
             $scope.FetchEmployee($scope.Employeeid);
             $scope.FetchEmpNominee2($scope.Employeeid);
             $scope.DisplayEmpFamily();
             $scope.DisplayEmpNominee();
-            setTimeout(function() {
-            var Employeedetails = $("#pdfExportempdetailtamil").html();     
-            var Interviewdetails = $("#pdfExportInterviewdetailtamil").html();   
-            var AppointmentOrder = $("#pdfExportAppointmentorder").html();   
-            var Employeecontract = $("#pdfExportEmployeeContract").html(); 
-            var EmployeeStating = $("#pdfExporEmpStatingTamil").html();   
-            var Empformno34 = $("#pdfExporform34ltamil").html();   
-            var Empserviceimprovement = $("#pdfExportEmpServiceTamil").html();  
-            var Emptraining = $("#pdfExporEmpTrainigTamil").html();   
-            var Empform2 = $("#pdfExportEmpForm2RevisedTamil").html();   
-            var EmpGratuity = $("#pdfExportGratuity").html();  
-            var EmpConfirmation = $("#pdfExportConfirmationorder").html();   
-            var EmpNDA=$("#pdfExporEmpAgreementTamil").html();
-               
-     var EmpAttention = $("#pdfExporEmpAttentiontamil").html();
-            var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
-            printWindow.document.write('<html><head><title>Employee Report(Tamil)</title></head><body>');
-          
-            printWindow.document.write('<style>.row {display: flex;}.col-lg-6 {flex: 1;}table.doc-table {border-collapse: collapse;margin: 20px 0;}table.doc-table td,.table.doc-table th {border: 1px solid #dddddd;text-align: left;padding: 8px;}.candidate-photo {display: inline-block;height: 140px;width: 140px;padding: 5px;text-align: center;position: absolute; right: 4.8%;border: 1px solid #888888;}@media print {.page-break { page-break-before: always; }.row {  display: block; /* Change display to block for printing */  page-break-inside: avoid; /* Avoid page break inside the row */   }  .col-lg-6 {  width: 50%; /* Adjust column width for printing */    float: left; /* Float the columns for printing */    }  img {  max-width: 100%; /* Ensure images fit within the print layout */    }table.doc-table {border-collapse: collapse;margin: 20px 0;}table.doc-table td,.table.doc-table th {border: 1px solid #dddddd;text-align: left;padding: 8px;}.candidate-photo {display: inline-block;height: 140px;width: 140px;padding: 5px;text-align: center;position: absolute; right: 4.8%;border: 1px solid #888888;}}</style>');
-         
-            var divIds = [Employeedetails, Interviewdetails, AppointmentOrder,Employeecontract,EmpAttention,EmployeeStating,Empformno34,Empserviceimprovement,Emptraining,Empform2,EmpGratuity,EmpConfirmation,EmpNDA];
+            setTimeout(function () {
+                var Employeedetails = $("#pdfExportempdetailtamil").html();
+                var Interviewdetails = $("#pdfExportInterviewdetailtamil").html();
+                var AppointmentOrder = $("#pdfExportAppointmentorder").html();
+                var Employeecontract = $("#pdfExportEmployeeContract").html();
+                var EmployeeStating = $("#pdfExporEmpStatingTamil").html();
+                var Empformno34 = $("#pdfExporform34ltamil").html();
+                var Empserviceimprovement = $("#pdfExportEmpServiceTamil").html();
+                var Emptraining = $("#pdfExporEmpTrainigTamil").html();
+                var Empform2 = $("#pdfExportEmpForm2RevisedTamil").html();
+                var EmpGratuity = $("#pdfExportGratuity").html();
+                var EmpConfirmation = $("#pdfExportConfirmationorder").html();
+                var EmpNDA = $("#pdfExporEmpAgreementTamil").html();
+                var EmpAttention = $("#pdfExporEmpAttentiontamil").html();
+                var printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write('<html><head><title>Employee Report(Tamil)</title></head><body>');
 
-            // Loop through the div IDs and add them to separate pages
-            for (var i = 0; i < divIds.length; i++) {
-         
-              var divContent = divIds[i];
-             
-              printWindow.document.write('<div class="page-break">' + divContent + '</div>');
+                printWindow.document.write('<style></style>');
 
-            }
-    
+                // printWindow.document.write('<style>.row {display: flex;}.col-lg-6 {flex: 1;}table.doc-table {border-collapse: collapse;margin: 20px 0;}table.doc-table td,.table.doc-table th {border: 1px solid #dddddd;text-align: left;padding: 8px;}.candidate-photo {display: inline-block;height: 140px;width: 140px;padding: 5px;text-align: center;position: absolute; right: 4.8%;border: 1px solid #888888;}@media print {.page-break { page-break-before: always; }.row {  display: block; /* Change display to block for printing */  page-break-inside: avoid; /* Avoid page break inside the row */   }  .col-lg-6 {  width: 50%; /* Adjust column width for printing */    float: left; /* Float the columns for printing */    }  img {  max-width: 100%; /* Ensure images fit within the print layout */    }table.doc-table {border-collapse: collapse;margin: 20px 0;}table.doc-table td,.table.doc-table th {border: 1px solid #dddddd;text-align: left;padding: 8px;}.candidate-photo {display: inline-block;height: 140px;width: 140px;padding: 5px;text-align: center;position: absolute; right: 4.8%;border: 1px solid #888888;}}</style>');
 
-            printWindow.document.write('</body></html>');
-            
-            printWindow.document.close();
-            printWindow.print();
-        },1000);
+                var divIds = [Employeedetails, Interviewdetails, AppointmentOrder, Employeecontract, EmpAttention, EmployeeStating, Empformno34, Empserviceimprovement, Emptraining, Empform2, EmpGratuity, EmpConfirmation, EmpNDA];
+
+                // Loop through the div IDs and add them to separate pages
+                for (var i = 0; i < divIds.length; i++) {
+
+                    var divContent = divIds[i];
+
+                    printWindow.document.write('<div class="page-break" style="page-break-before: always !important;">' + divContent + '</div>');
+
+                }
+
+
+                printWindow.document.write('</body></html>');
+
+                printWindow.document.close();
+                printWindow.print();
+            }, 1000);
 
         });
     });
     //////////////////////////////////////
-    $(function() {
- 
+    $(function () {
 
-        $("#btnEmpReportHindi").click(function() {
+
+        $("#btnEmpReportHindi").click(function () {
 
             $scope.CheckingSession();
-      
+
             $scope.FetchEmployee($scope.Employeeid);
             $scope.FetchEmpNominee2($scope.Employeeid);
             $scope.DisplayEmpFamily();
             $scope.DisplayEmpNominee();
-            setTimeout(function() {
-            var Employeedetails = $("#pdfExportempdetailhindi").html();     
-            var Interviewdetails = $("#pdfExportInterviewdetailhindi").html();   
-            var AppointmentOrder = $("#pdfExportAppointmentorderHindi").html();   
-            var Employeecontract = $("#pdfExportEmployeeContract").html(); 
-            var EmployeeStating = $("#pdfExporEmpStatingHindi").html();   
-            var Empformno34 = $("#pdfExporform34hindi").html();   
-            var Empserviceimprovement = $("#pdfExportEmpServiceHindi").html();  
-            var Emptraining = $("#pdfExporEmpTrainigHindi").html();   
-            var Empform2 = $("#pdfExportEmpForm2RevisedHindi").html();   
-            var EmpGratuity = $("#pdfExportGratuity").html();  
-            var EmpConfirmation = $("#pdfExportConfirmationorderHindi").html();   
-            var EmpNDA=$("#pdfExporEmpAgreementHindi").html();
-               var EmpAttention = $("#pdfExporEmpAttentionhindi").html();
+            setTimeout(function () {
+                var Employeedetails = $("#pdfExportempdetailhindi").html();
+                var Interviewdetails = $("#pdfExportInterviewdetailhindi").html();
+                var AppointmentOrder = $("#pdfExportAppointmentorderHindi").html();
+                var Employeecontract = $("#pdfExportEmployeeContract").html();
+                var EmployeeStating = $("#pdfExporEmpStatingHindi").html();
+                var Empformno34 = $("#pdfExporform34hindi").html();
+                var Empserviceimprovement = $("#pdfExportEmpServiceHindi").html();
+                var Emptraining = $("#pdfExporEmpTrainigHindi").html();
+                var Empform2 = $("#pdfExportEmpForm2RevisedHindi").html();
+                var EmpGratuity = $("#pdfExportGratuity").html();
+                var EmpConfirmation = $("#pdfExportConfirmationorderHindi").html();
+                var EmpNDA = $("#pdfExporEmpAgreementHindi").html();
+                var EmpAttention = $("#pdfExporEmpAttentionhindi").html();
 
-            var printWindow = window.open('', '_blank');
-            printWindow.document.open();            
-            printWindow.document.write('<html><head><title>Employee Report(Hindi)</title></head><body>');
-            printWindow.document.write('<style>.row {display: flex;}.col-lg-6 {flex: 1;}table.doc-table {border-collapse: collapse;margin: 20px 0;}table.doc-table td,.table.doc-table th {border: 1px solid #dddddd;text-align: left;padding: 8px;}.candidate-photo {display: inline-block;height: 140px;width: 140px;padding: 5px;text-align: center;position: absolute; right: 4.8%;border: 1px solid #888888;}@media print {.page-break { page-break-before: always; }.row {  display: block; /* Change display to block for printing */  page-break-inside: avoid; /* Avoid page break inside the row */   }  .col-lg-6 {  width: 50%; /* Adjust column width for printing */    float: left; /* Float the columns for printing */    }  img {  max-width: 100%; /* Ensure images fit within the print layout */    }}</style>');
+                var printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write('<html><head><title>Employee Report(Hindi)</title></head><body>');
+
+                printWindow.document.write('<style></style>');  
+
+                var divIds = [Employeedetails, Interviewdetails, AppointmentOrder, Employeecontract, EmpAttention, EmployeeStating, Empformno34, Empserviceimprovement, Emptraining, Empform2, EmpGratuity, EmpConfirmation, EmpNDA];
+
+                // Loop through the div IDs and add them to separate pages
+                for (var i = 0; i < divIds.length; i++) {
+                    var divId = divIds[i];
+                    var divContent = divIds[i];
+
+                    printWindow.document.write('<div class="page-break" style="page-break-before: always !important;">' + divContent + '</div>');
+                }
 
 
-            var divIds = [Employeedetails, Interviewdetails, AppointmentOrder,Employeecontract,EmpAttention,EmployeeStating,Empformno34,Empserviceimprovement,Emptraining,Empform2,EmpGratuity,EmpConfirmation,EmpNDA];
+                printWindow.document.write('</body></html>');
 
-            // Loop through the div IDs and add them to separate pages
-            for (var i = 0; i < divIds.length; i++) {
-              var divId = divIds[i];
-              var divContent = divIds[i];
-      
-              printWindow.document.write('<div class="page-break">' + divContent + '</div>');
-            }
-    
-
-            printWindow.document.write('</body></html>');
-            
-            printWindow.document.close();
-            printWindow.print();
-        },1000);
+                printWindow.document.close();
+                printWindow.print();
+            }, 1000);
 
         });
     });
 
     /////////////////////////
-      ////////////////////////////
-    $(document).ready(function(e) {
+    ////////////////////////////
+    $(document).ready(function (e) {
         $scope.CheckingSession();
-        $('#fileButtonEmpReporttamil').on('click', function() {
+        $('#fileButtonEmpReporttamil').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpReporttamil').files.length;
             for (var x = 0; x < ins; x++) {
@@ -6750,25 +6787,25 @@ function backidcard()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpReporttamil").value = '';
                     $scope.FetchTamilhindidocument();
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
                         $scope.Message = "";
                     }, 3000);
-                   
+
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -6778,7 +6815,7 @@ function backidcard()
             });
         });
 
-        $('#fileButtonEmpReporthindi').on('click', function() {
+        $('#fileButtonEmpReporthindi').on('click', function () {
             var form_data = new FormData();
             var ins = document.getElementById('fileInputEmpReporthindi').files.length;
             for (var x = 0; x < ins; x++) {
@@ -6793,25 +6830,25 @@ function backidcard()
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function(response) {
+                success: function (response) {
 
                     alert(response);
                     document.getElementById("fileInputEmpReporthindi").value = '';
                     $scope.FetchTamilhindidocument();
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
                         $scope.Message = "";
                     }, 3000);
-                   
+
                     // display success response from the PHP script
                 },
-                error: function(response) {
+                error: function (response) {
                     // alert(response);
                     $('#msg1').html(response);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#msg1')
                             .empty().append("");
 
@@ -6823,24 +6860,24 @@ function backidcard()
     });
 
     ///////////
-    $scope.FetchTamilhindidocument = function()
-    {
-  
+    $scope.FetchTamilhindidocument = function () {
+
 
         $http({
-            method:"POST",
-            url:"Employee.php",
-            data:{'Employeeid':$scope.Employeeid,'Method':'fetchTamilHindi'},
-            headers:{'Content-Type' :'application-json'}})
-            .then(function successCallback(response){
+            method: "POST",
+            url: "Employee.php",
+            data: { 'Employeeid': $scope.Employeeid, 'Method': 'fetchTamilHindi' },
+            headers: { 'Content-Type': 'application-json' }
+        })
+            .then(function successCallback(response) {
 
-            $scope.Empformstamilpath = response.data.Empformstamilpath;
-            $scope.Empformshindipath = response.data.Empformshindipath;
-        
-        });
+                $scope.Empformstamilpath = response.data.Empformstamilpath;
+                $scope.Empformshindipath = response.data.Empformshindipath;
+
+            });
     }
     /////////////////////////////////////////////
-    $scope.GetAssetCategory = function() {
+    $scope.GetAssetCategory = function () {
         $http({
             method: 'post',
             url: "Propertychecklist.php",
@@ -6853,7 +6890,7 @@ function backidcard()
     }
 
 
-    $scope.GetAssetListnew = function() {
+    $scope.GetAssetListnew = function () {
 
 
         $http({
@@ -6872,7 +6909,7 @@ function backidcard()
     }
 
 
-    $scope.GetAssetname = function() {
+    $scope.GetAssetname = function () {
         $http({
             method: 'post',
             url: "Propertychecklist.php",
@@ -6886,7 +6923,7 @@ function backidcard()
 
     }
 
-    $scope.SendAssetPropert = function(Employeeid, Sno) {
+    $scope.SendAssetPropert = function (Employeeid, Sno) {
         $scope.Employeeid = Employeeid;
         $scope.CheckitemSno = Sno;
         $scope.FetchPropertyChecklist(Employeeid, Sno);
@@ -6902,13 +6939,13 @@ function backidcard()
     // Function to toggle selection of an item
 
 
-    $scope.GetAssetReturn = function() {
+    $scope.GetAssetReturn = function () {
         $scope.CheckingSession();
         $scope.getAllSelected();
         if ($scope.selectedItems.length === 0) {
             $scope.Message = true;
             $scope.Message = "Please Select Asset Item";
-            $timeout(function() { $scope.Message = ""; }, 3000);
+            $timeout(function () { $scope.Message = ""; }, 3000);
         } else {
 
             $http({
@@ -6917,15 +6954,15 @@ function backidcard()
                 data: { 'Employeeid': $scope.Employeeid, 'Listedno': $scope.selectedItems, 'Method': 'AssetReturn' },
                 headers: { 'Content-Type': 'application/json' }
             }).then(function successCallback(response) {
-           
+
                 response = response.data;
                 console.log(response);
-               $scope.Itemsnodetail= response.Itemsnodetail;
+                $scope.Itemsnodetail = response.Itemsnodetail;
 
-               $scope.GetAssetAllocatePrintAuto($scope.Itemsnodetail);
-             //  alert($scope.Itemsnodetail);
-           
-           
+                $scope.GetAssetAllocatePrintAuto($scope.Itemsnodetail, "Employee Asset Return");
+                //  alert($scope.Itemsnodetail);
+
+
                 $scope.GetReturnDetails();
                 $scope.DisplayPropertyChecklist();
                 $scope.DisplayAssetLog();
@@ -6938,13 +6975,13 @@ function backidcard()
 
 
 
-    $scope.GetAssetReallocation = function() {
+    $scope.GetAssetReallocation = function () {
         $scope.CheckingSession();
         $scope.getreturnAllSelected();
         if ($scope.returnselectedItems.length === 0) {
             $scope.Message = true;
             $scope.Message = "Please Select Asset Item";
-            $timeout(function() { $scope.Message = ""; }, 3000);
+            $timeout(function () { $scope.Message = ""; }, 3000);
         } else {
 
             $http({
@@ -6956,8 +6993,8 @@ function backidcard()
 
                 response = response.data;
                 console.log(response);
-               $scope.Itemsnodetail= response.Itemsnodetail;
-                $scope.GetAssetReturnPrintAuto($scope.Itemsnodetail);
+                $scope.Itemsnodetail = response.Itemsnodetail;
+                $scope.GetAssetReturnPrintAuto($scope.Itemsnodetail, "Employee Asset Reallocation");
                 $scope.DisplayPropertyChecklist();
                 $scope.GetReturnDetails();
                 $scope.DisplayAssetLog();
@@ -6968,7 +7005,7 @@ function backidcard()
     }
 
 
-    $scope.GetReturnDetails = function() {
+    $scope.GetReturnDetails = function () {
         $http({
             method: 'post',
             url: "Propertychecklist.php",
@@ -6980,23 +7017,23 @@ function backidcard()
 
         });
     }
-    $scope.folder ={};
+    $scope.folder = {};
     $scope.returnfolder = {};
     $scope.currentPageReturn = 1;
     $scope.pageSizeReturn = 10;
-    $scope.getAllSelected = function() {
+    $scope.getAllSelected = function () {
         $scope.selectedItems = [];
-        angular.forEach($scope.folder, function(key,value) {
+        angular.forEach($scope.folder, function (key, value) {
             $scope.selectedItems.push(value);
         });
     }
 
-    $scope.getreturnAllSelected = function() {
+    $scope.getreturnAllSelected = function () {
 
         $scope.returnselectedItems = [];
 
 
-        angular.forEach($scope.returnfolder, function(key, value) {
+        angular.forEach($scope.returnfolder, function (key, value) {
             if (key)
                 $scope.returnselectedItems.push(value)
         });
@@ -7004,69 +7041,71 @@ function backidcard()
     $scope.currentPageprintasset = 1;
     $scope.pageSizeprintasset = 10;
     ///////////////
-    $scope.GetAssetAllocatePrint = function() {
+    $scope.GetAssetAllocatePrint = function () {
         $scope.CheckingSession();
-            $scope.getAllSelected();
-            $scope.EmpAssetTittle = "Employee Asset Allocation";
-            $scope.Assetmode = "Allocate";
-            $scope.Titlename = $scope.Employeeid + "-" + "Allocate";
-            if ($scope.selectedItems.length === 0) {
+        $scope.getAllSelected();
+        $scope.EmpAssetTittle = "Employee Asset Allocation";
+        $scope.Assetmode = "Allocate";
+        $scope.Titlename = $scope.Employeeid + "-" + "Allocate";
+        if ($scope.selectedItems.length === 0) {
 
-                $scope.Message = true;
-                $scope.Message = "Please Select Asset Item";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-            } else {
+            $scope.Message = true;
+            $scope.Message = "Please Select Asset Item";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+        } else {
 
-                $http({
-                    method: 'post',
-                    url: "Propertychecklist.php",
-                    data: { 
+            $http({
+                method: 'post',
+                url: "Propertychecklist.php",
+                data: {
                     'Employeeid': $scope.Employeeid,
-                     'Listedno': $scope.selectedItems,
-                    'Testno':1, 'Method': 'AssetPrint' },
-                    headers: { 'Content-Type': 'application/json' }
-                }).then(function successCallback(response) {
+                    'Listedno': $scope.selectedItems,
+                    'Testno': 1, 'Method': 'AssetPrint'
+                },
+                headers: { 'Content-Type': 'application/json' }
+            }).then(function successCallback(response) {
 
-                    $scope.GetPropertyPageAssetList = response.data.mytbl;
-                    $('#ModalCenter1AssetPrint').modal('show');
-                });
-            }
+                $scope.GetPropertyPageAssetList = response.data.mytbl;
+                $('#ModalCenter1AssetPrint').modal('show');
+            });
         }
-        /////////////////////////////
-    $scope.GetAssetReturnPrint = function() {
-            $scope.getreturnAllSelected();
-            $scope.EmpAssetTittle = "Employee Asset Return";
-            $scope.Titlename = $scope.Employeeid + "-" + "Return";
-            $scope.Assetmode = "Allocate";
-            if ($scope.returnselectedItems.length === 0) {
-                $scope.Message = true;
-                $scope.Message = "Please Select Asset Item";
-                $timeout(function() { $scope.Message = ""; }, 3000);
-            } else {
+    }
+    /////////////////////////////
+    $scope.GetAssetReturnPrint = function () {
+        $scope.getreturnAllSelected();
+        $scope.EmpAssetTittle = "Employee Asset Return";
+        $scope.Titlename = $scope.Employeeid + "-" + "Return";
+        $scope.Assetmode = "Allocate";
+        if ($scope.returnselectedItems.length === 0) {
+            $scope.Message = true;
+            $scope.Message = "Please Select Asset Item";
+            $timeout(function () { $scope.Message = ""; }, 3000);
+        } else {
 
-                $http({
-                    method: 'post',
-                    url: "Propertychecklist.php",
-                    data: {
-                         'Employeeid': $scope.Employeeid,
-                     'Listedno': $scope.returnselectedItems, 
-                     'Testno':1,
-                     'Method': 'ReturnAssetPrint' },
-                    headers: { 'Content-Type': 'application/json' }
-                }).then(function successCallback(response) {
-                    $scope.GetPropertyPageAssetList = response.data.mytbl;
-                    $('#ModalCenter1AssetPrint').modal('show');
-                });
-            }
+            $http({
+                method: 'post',
+                url: "Propertychecklist.php",
+                data: {
+                    'Employeeid': $scope.Employeeid,
+                    'Listedno': $scope.returnselectedItems,
+                    'Testno': 1,
+                    'Method': 'ReturnAssetPrint'
+                },
+                headers: { 'Content-Type': 'application/json' }
+            }).then(function successCallback(response) {
+                $scope.GetPropertyPageAssetList = response.data.mytbl;
+                $('#ModalCenter1AssetPrint').modal('show');
+            });
         }
-        //////////////////////////////////////
+    }
+    //////////////////////////////////////
 
-    $(function() {
-        $("#btnassetprint").click(function() {
+    $(function () {
+        $("#btnassetprint").click(function () {
 
             var HTML_Width = $("#pdfExportAssetprint").width();
             var HTML_Height = $("#pdfExportAssetprint").height();
-         
+
             var filename = $scope.Titlename;
             var data = document.getElementById('pdfExportAssetprint');
             html2canvas(data, { allowTaint: true, scale: 3, useCORS: true, logging: true, }).then(canvas => {
@@ -7125,7 +7164,7 @@ function backidcard()
     });
     ///////////////////////////////
     $('#myDiv').hide();
-    $('body').on('submit', "#Assuploaddocform", function(e) {
+    $('body').on('submit', "#Assuploaddocform", function (e) {
         $scope.CheckingSession();
         e.preventDefault();
 
@@ -7134,7 +7173,7 @@ function backidcard()
 
             $('#myDiv').show();
             $('#msgtst').text("Please Choose the file");
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#msgtst').empty().append("");
                 $('#myDiv').hide();
                 // $scope.Messagenew = false;
@@ -7160,7 +7199,7 @@ function backidcard()
             processData: false,
             data: form_data,
             type: 'post',
-            success: function(res) {
+            success: function (res) {
                 // alert(res.status);
                 $('#myDiv').show();
                 if (res.status == 'success') {
@@ -7193,17 +7232,17 @@ function backidcard()
 
 
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#msg1').empty().append("");
                     $('#myDiv').hide();
                     // $scope.Messagenew = false;
                 }, 3000);
 
             },
-            error: function(response) {
+            error: function (response) {
                 $('#myDiv').show();
                 $('#msg1').text("Error in processing.........");
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#msg1').empty().append("");
                     $('#myDiv').hide();
                     // $scope.Messagenew = false;
@@ -7213,7 +7252,7 @@ function backidcard()
         });
     });
     /////////////////////////////////////////
-    $scope.Assetupload = function(Mode) {
+    $scope.Assetupload = function (Mode) {
         var Assettype = Mode;
         if (Mode == 'A') {
             $scope.Assetuploadtitle = "Asset Allocation Document Upload";
@@ -7228,7 +7267,7 @@ function backidcard()
         $('#ModalCenterAssetUpload').modal('show');
     }
 
-    $scope.DisplayAssetLog = function() {
+    $scope.DisplayAssetLog = function () {
 
 
 
@@ -7249,28 +7288,28 @@ function backidcard()
 
     };
     ///////////////////////
-    $scope.GetAssetDoc = function(Assetdocumentpath) {
-            $scope.Assetdocumentpath = Assetdocumentpath;
-            $('#ModalCenterAssetDocumentView').modal('show');
+    $scope.GetAssetDoc = function (Assetdocumentpath) {
+        $scope.Assetdocumentpath = Assetdocumentpath;
+        $('#ModalCenterAssetDocumentView').modal('show');
 
-        }
-        //////////////
+    }
+    //////////////
 
-    $scope.getAllocateStyle = function() {
+    $scope.getAllocateStyle = function () {
         return {
             color: 'Darkgreen',
             border: '1px solid green'
         };
     };
 
-    $scope.getStyle = function() {
+    $scope.getStyle = function () {
         return {
             color: 'red',
             border: '1px solid red'
         };
     };
 
-    $scope.getAllocateStyleP = function() {
+    $scope.getAllocateStyleP = function () {
         return {
             color: 'Darkgreen',
             fontSize: '13px'
@@ -7279,7 +7318,7 @@ function backidcard()
         };
     };
 
-    $scope.getStyleP = function() {
+    $scope.getStyleP = function () {
         return {
             color: 'red',
             fontSize: '13px'
@@ -7305,7 +7344,7 @@ function backidcard()
 
 
 
-    $("body").on("click", ".addassetdetails", function() {
+    $("body").on("click", ".addassetdetails", function () {
         // var aliasDetRow = aliasDet.clone();
         // var tb = $(this).parents("#AddAsset").find("tbody");
 
@@ -7351,7 +7390,7 @@ function backidcard()
             tb.find("tr.bRow").eq(clickedIndex).after(aliasDetRow);
 
             // Update sno values for all rows
-            tb.find("tr.bRow").each(function(index, row) {
+            tb.find("tr.bRow").each(function (index, row) {
                 $(row).find(".sno").text(index + 1);
             });
         } else {
@@ -7365,7 +7404,7 @@ function backidcard()
     function genSno(row) {
         var tbl = row.parent('tbody').parent('table').attr('id')
         row.remove()
-        $('#' + tbl).find('tbody').find('tr').each(function(index, el) {
+        $('#' + tbl).find('tbody').find('tr').each(function (index, el) {
             $(el).find(".sno").text(index + 1)
         });
         if ($('#' + tbl).find('tbody').find('tr').length == 0) {
@@ -7373,7 +7412,7 @@ function backidcard()
         }
     }
 
-    $('body').on("click", ".removeasset", function() {
+    $('body').on("click", ".removeasset", function () {
         var row = $(this).parents('tr');
         var aid = row.find(".sno").val();
         var assetListId = row.find(".assetList").val();
@@ -7395,11 +7434,11 @@ function backidcard()
             url: "Getassetcategory.php",
             type: "POST",
             data: { Asset: '1' },
-            success: function(data) {
+            success: function (data) {
 
                 assetCategorySelect.html(data);
                 assetCategorySelect.val("")
-                    // assetCategorySelect.trigger("change");
+                // assetCategorySelect.trigger("change");
             }
         });
     }
@@ -7410,7 +7449,7 @@ function backidcard()
             type: "POST",
             data: { Asset: '2', assetCategoryId: assetCategoryId },
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
 
 
 
@@ -7418,19 +7457,19 @@ function backidcard()
 
 
                 assetListSelect.empty(); // Clear previous options
-                $.each(data, function(index, asset) {
+                $.each(data, function (index, asset) {
                     if (selectedAssetListIds.indexOf(asset.Assetlistid) === -1) {
                         assetListSelect.append("<option value='" + asset.Assetlistid + "'>" + asset.Assetname + "</option>");
                     }
                 });
 
                 assetListSelect.val("")
-                    // assetListSelect.trigger("change");
+                // assetListSelect.trigger("change");
             }
         });
     }
     /////////////////////
-    $("body").on("change", ".assetCategory", function() {
+    $("body").on("change", ".assetCategory", function () {
 
 
         var assetListSelect = $(this).closest("tr").find(".assetList");
@@ -7449,7 +7488,7 @@ function backidcard()
     //       });
     //   });
     ///////////////////////////////
-    $("body").on("change", ".assetList", function() {
+    $("body").on("change", ".assetList", function () {
         var assetCodeInput = $(this).closest("tr").find(".assetCode");
         var assetCategoryId = $(this).closest("tr").find(".assetCategory").val();
         var assetListId = $(this).val();
@@ -7471,7 +7510,7 @@ function backidcard()
                 assetListId: assetListId
             },
 
-            success: function(data) {
+            success: function (data) {
 
                 // Display the first asset code (you can adjust this based on your requirement)
                 data = data.trim();
@@ -7481,7 +7520,7 @@ function backidcard()
         });
     }
     ////////////////////////////////////
-    $("body").on("submit", "#AssetAllocation", function(e) {
+    $("body").on("submit", "#AssetAllocation", function (e) {
         $scope.CheckingSession();
         e.preventDefault();
         var Empid = $scope.Employeeid;
@@ -7495,7 +7534,7 @@ function backidcard()
             cache: false,
             contentType: false,
             processData: false,
-            success: function(res) {
+            success: function (res) {
                 $scope.DisplayPropertyChecklist();
                 $scope.GetReturnDetails();
                 $scope.DisplayAssetLog();
@@ -7506,7 +7545,7 @@ function backidcard()
                     $("#AssetAllocation")[0].reset();
                     $("#AddAsset tbody").empty();
                     var listedno = res.ListedNo;
-                    $scope.GetAssetAllocatePrintAuto(listedno);
+                    $scope.GetAssetAllocatePrintAuto(listedno, "Employee Asset Allocation");
                 } else {
                     alert(res.msg)
                 }
@@ -7517,7 +7556,7 @@ function backidcard()
     $scope.currentPageAssetlist = 1;
     $scope.pageSizeAssetlist = 10;
 
-    $scope.GetAssetListlogdetails = function(Asselistid) {
+    $scope.GetAssetListlogdetails = function (Asselistid) {
         $scope.Asselistid = Asselistid;
         $scope.CheckingSession();
         $http({
@@ -7543,18 +7582,19 @@ function backidcard()
 
 
 
-    $scope.GetAssetAllocatePrintAuto = function(Listedno) {
- 
+    $scope.GetAssetAllocatePrintAuto = function (Listedno, Title) {
+
         $scope.testttt = Listedno;
-  
-        $scope.EmpAssetTittle = "Employee Asset Allocation";
+        $scope.EmpAssetTittle = Title;
+
+        //  $scope.EmpAssetTittle = "Employee Asset Allocation";
         $scope.Assetmode = "Allocate";
         $scope.Titlename = $scope.Employeeid + "-" + "Allocate";
         if ($scope.testttt.length === 0) {
 
             $scope.Message = true;
             $scope.Message = "Please Select Asset Item";
-            $timeout(function() { $scope.Message = ""; }, 3000);
+            $timeout(function () { $scope.Message = ""; }, 3000);
         } else {
 
             $http({
@@ -7563,7 +7603,7 @@ function backidcard()
                 data: {
                     'Employeeid': $scope.Employeeid,
                     'Listedno': $scope.testttt,
-                    'Testno':0,
+                    'Testno': 0,
                     'Method': 'AssetPrint'
                 },
                 headers: { 'Content-Type': 'application/json' }
@@ -7578,28 +7618,244 @@ function backidcard()
 
     //////////////////////
 
-    $scope.GetAssetReturnPrintAuto = function(Listedno) {
-      
+    $scope.GetAssetReturnPrintAuto = function (Listedno, Title) {
+
         $scope.testttt = Listedno;
-        $scope.EmpAssetTittle = "Employee Asset Return";
+        $scope.EmpAssetTittle = Title;
         $scope.Titlename = $scope.Employeeid + "-" + "Return";
         $scope.Assetmode = "Allocate";
 
 
-            $http({
-                method: 'post',
-                url: "Propertychecklist.php",
-                data: {
-                     'Employeeid': $scope.Employeeid,
-                 'Listedno': $scope.testttt, 
-                 'Testno':0,
-                 'Method': 'ReturnAssetPrint' },
-                headers: { 'Content-Type': 'application/json' }
-            }).then(function successCallback(response) {
-                $scope.GetPropertyPageAssetList = response.data.mytbl;
-                $('#ModalCenter1AssetPrint').modal('show');
-            });
-        
+        $http({
+            method: 'post',
+            url: "Propertychecklist.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'Listedno': $scope.testttt,
+                'Testno': 0,
+                'Method': 'ReturnAssetPrint'
+            },
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function successCallback(response) {
+            $scope.GetPropertyPageAssetList = response.data.mytbl;
+            $('#ModalCenter1AssetPrint').modal('show');
+        });
+
     }
     ///////////////////////////
+    $scope.CopyTempAddress = function () {
+
+
+
+
+        $scope.PermanentAddress = $scope.CurrentAddress;
+        $scope.PermanentCountry = $scope.CurrentCountry;
+        $scope.GetPerstate();
+        $scope.PermanentState = $scope.CurrentState;
+        $scope.GetPerCity();
+        $scope.PermanentCity = $scope.CurrentCity;
+        $scope.PermanentPincode = $scope.CurrentPincode;
+
+    }
+    $scope.GetAuthorization = function () {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+
+                'Method': "FETCHAUTHORIZATION"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
+            $scope.Authorizedno = response.data.Authorization;
+            // alert(response.data.Authorization);
+            $scope.Showmenu($scope.Authorizedno);
+        });
+
+    }
+
+    $scope.Showmenu = function (Authorizedno) {
+        $scope.Authorizedno = Authorizedno;
+
+        if ($scope.Authorizedno == 13) {
+
+            $scope.userviewrole = 0;
+            $scope.fnpropertychecklistinfo();
+        }
+        else {
+            $scope.userviewrole = 1;
+        }
+    }
+    //////////////////////////////////////////
+    $http({
+        method: "POST",
+        url: "../HRM22/job.php",
+        data: { 'Method': 'Maritalstatus' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+        $scope.GetMaritalstatusList = response.data;
+    });
+    //////////////////////////////
+    $scope.GETESSLCODE = function () {
+
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Old_Empid': $scope.Old_Empid,
+                'Method': 'EsslUnique'
+            },
+
+            headers: { 'Content-Type': 'application/json' }
+
+        }).then(function successCallback(response) {
+            //alert($scope.selectedValue);
+
+            $scope.TempMessage = response.data.Message;
+
+
+
+            $scope.TempSave();
+        });
+
+    };
+    $http({
+        method: "POST",
+        url: "../HRM09/Candidate.php",
+        data: { 'Method': 'EDUCATIONMODE' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+
+
+        $scope.GetEducationModeList = response.data;
+
+    });
+    $http({
+        method: "POST",
+        url: "../HRM09/Candidate.php",
+        data: { 'Method': 'SPECIALIZATION' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+
+
+        $scope.GetSpecializationList = response.data;
+
+    });
+
+
+
+    /////////////////////////////////////// DK EDit
+    $scope.getperformanceassement = function () {
+        $http({
+            method: "POST",
+            url: "Employee.php",
+            data: {
+                'Employeeid': $scope.Employeeid,
+                'EmpDepartment': $scope.EmpDepartment,
+                'Method': "LEAVECOUNT"
+            },
+            headers: { 'Content_Type': 'application/json' }
+        }).then(function successCallback(response) {
+
+            //$scope.test = response.data.test;
+            $scope.TotalWorkingdays = response.data.TotalWorkingdays;
+            $scope.TotalTakenEL = response.data.TotalTakenEL;
+            $scope.TotalLOPdays = response.data.TotalLOPdays;
+            $scope.current_year = response.data.current_year;
+            $scope.previous_year = response.data.previous_year;
+            $scope.ReportToEmpName = response.data.ReportToEmpName;
+          //  alert($scope.ReportToEmpName);
+        });
+    }
+    ////////////////////////////////
+
+
+
+    ///////////////////////////////
+    $http({
+        method: "POST",
+        url: "../HRM09/Candidate.php",
+        data: { 'Method': 'BLOODGROUP' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+    }).then(function successCallback(response) {
+        $scope.GetBloodGroupList = response.data;
+    });
+    /////////////////////////
+    $scope.GetIFSCexists = function () {
+
+        $scope.CheckingSession();
+        $http({
+            method: "post",
+            url: "Employee.php",
+            data: {
+
+
+                'IFSCcode': $scope.IFSCcode,
+
+
+
+                'Method': 'BANKIFSC'
+
+            },
+            headers: { 'Content-Type': 'application-json' }
+        }).then(function successCallback(response) {
+
+            $scope.TempMessage = response.data.Message;
+            $scope.TempSave();
+
+        });
+
+    }
+    /////////////////
+    function frontidcard4() {
+
+        var Empid = $('#Employeeid').val();
+        var divWidth = $(window).width();; // Desired width of the exported image
+        var divHeight = $(window).height();;
+
+
+        html2canvas($("#Empfront4")[0], {
+            scale: 2,
+            useCORS: true, // Enable if the div contains an image from a different domain
+        }).then(function (canvas) {
+            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var link = document.createElement("a");
+            link.download = Empid + "_Empfront.jpg";;
+            link.href = image;
+            link.click();
+            backidcard4();
+        });
+
+    }
+
+    function backidcard4() {
+
+
+        var Empid = $('#Employeeid').val();
+
+        var divWidth = $(window).width();; // Desired width of the exported image
+        var divHeight = $(window).height();;
+
+
+
+
+        html2canvas($("#Empback4")[0], {
+            scale: 2,
+            useCORS: true,
+            // Enable if the div contains an image from a different domain
+        }).then(function (canvas) {
+            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var link = document.createElement("a");
+            link.download = Empid + "_Empback.jpg";;
+            link.href = image;
+            link.click();
+
+        });
+
+    }
+
 });

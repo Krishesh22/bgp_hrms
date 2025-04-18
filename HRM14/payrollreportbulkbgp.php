@@ -5,91 +5,57 @@
    ?>
 <!DOCTYPE html moznomarginboxes mozdisallowselectionprint>
 <html lang="en">
-
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
-    table {
-        max-width: 85%;
-        position: relative;
-        margin-left: 5rem;
-
-    }
-
-    .table-bordered td {
-        border: 1px solid #dee2e6;
-        padding: 0.35rem;
-        vertical-align: middle;
-    }
-
-    .table-bordered th {
-        border: 1px solid #dee2e6;
-        padding: 0.35rem;
-        vertical-align: middle;
-    }
-
-    .card-container {
-        width: 20%;
-        height: 16%;
-        margin: 0 auto;
-        /* background-color: #f2f2f2; 
-                 border: 1px solid #ddd; */
-    }
-
-    .title {
-        text-align: center;
-
-    }
-
-
-    .list {
-        text-align: right;
-    }
-
-    .myAlign {
-        text-align: left;
-        padding-left: 60%;
-    }
-
-    /* .moneys{
-                text-align: left;
-                padding-left:100px;
-                } */
-    /* .card{
-                background: white;
-                margin-bottom: 2rem;
-                margin-left:5rem;
-                height:35%;
-                width: 90%;
-                padding-top:40px;
-                border: 1px solid #ddd;
-                border-radius:0px
-                } */
-    .letter {
-        font-family: Sans-serif;
-        font-size: 13px;
-    }
-
-    .sign {
-        text-align: left;
-        padding-left: 10%;
-    }
-
-    @media print {
-        @page {
-            margin: 0;
+        body {
+            size: A5;
         }
 
-        #printbtn {
-            display: none;
-            ;
+        table {
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+        }
+        table.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+        .table-bordered td,
+        .table-bordered th {
+            border: 1px solid black;
+            padding: 0.35rem;
+            vertical-align: middle;
+            font-size: 12px;
         }
 
-    }
+        .letter {
+            font-family: Sans-serif;
+            font-size: 13px;
+        }
+
+        /* Add more styles as needed */
+
+        @media print {
+            @page {
+                margin: 0;
+                size: A5 landscape;
+                background-color: #ffffff !important;
+            }
+
+            #printbtn {
+                display: none;
+            }
+        }
     </style>
 </head>
+   
 <?php
       if ($_POST) {
       
@@ -100,7 +66,7 @@
           $fdaymonth = $year . '-' . $nmonth . '-01';
           $ldaymonth = date("Y-m-d", strtotime("+1 month", strtotime($fdaymonth)));
       
-      }
+     
      
       $month = $_POST['month'];
       $nmonth = date('m', strtotime($month));
@@ -118,16 +84,32 @@
         WHERE 
                e.Clientid = '$Clientid' 
               AND p.Type_Of_Posistion IN ($Category) 
-              AND DATE(p.Date_Of_Joing) <= '$ldaymonth' 
-              AND e.Workeddays > 0.5
+              AND DATE(p.Date_Of_Joing) <= '$ldaymonth'             
               and e.SalMonth  = '$month'
                and e.Salyear = '$year'
-        ORDER BY e.Employeeid";
+                ORDER BY e.Employeeid";
 
       
       $retval = mysqli_query($conn, $query);
       
-      
+      }
+
+      if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_SESSION['Employeeid']) &&isset($_SESSION['Category']) )
+{
+
+    $month = $_SESSION['Payrollmonth'];
+    $nmonth = date('m', strtotime($month));
+    $year = $_SESSION['Payrollyear'];
+    $type_name = $_SESSION['Category'];
+    $fdaymonth = $year . '-' . $nmonth . '-01';
+    $ldaymonth = date("Y-m-d", strtotime("+1 month", strtotime($fdaymonth)));
+    $Employeeid =$_SESSION['Employeeid'];
+    $category = $_SESSION['Category'];
+     
+      $query = "SELECT * FROM indsys1017employeemaster where  EmpActive IN('Active','Deactive') AND (DATE(Leftdate) >'$fdaymonth'   OR Leftdate IS NULL) AND Clientid='$Clientid' AND Type_Of_Posistion ='$category' AND DATE(Date_Of_Joing) <='$ldaymonth' AND Employeeid='$Employeeid'  ORDER BY Employeeid";
+      $retval = mysqli_query($conn, $query);
+}
+
       function convertNumber($num = false)
 {
     $num = str_replace(array(',', ''), '' , trim($num));
@@ -192,8 +174,7 @@
                 // $emp_id=$row['Employeeid'];
                 $emp_id[] = $row;
                 $date_of_joining = $row['Date_Of_Joing'];
-                $UANno = $row['UANno'];
-                $ESIno = $row['ESIno'];
+
                
                 $allow_ot = $row['Allow_OT'];
                 $Category =$row['Type_Of_Posistion'];
@@ -214,6 +195,10 @@
                     $Panno = $rows['Panno'];
                     $Gross_Salary = $rows['Gross_Salary'];
                     $Day_allowance = $rows['Day_allowance'];
+                    $UANno = $rows['UANno'];
+                    $ESIno = $rows['ESIno'];
+                    $Old_Empid = $rows['Old_Empid'];
+                    $Gross_Salary= $Gross_Salary-  $Day_allowance;
 
                    }
                  }
@@ -268,7 +253,7 @@
                         $DailyAllowanance = $row['DailyAllowanance'];
                         $TDS = $row['TDS'];
                         $OT_HRS = $row['OT_HRS'];
-                        $OT_Wages = $row['OT_Wages'];
+                        $OT_Wages = $row['OT_Wages'];                      
                         $Performanceallowance = $row['Performanceallowance'];
                         $TakenEL = $row['TakenEL'];
                         $SalMonth=$row['SalMonth'];
@@ -283,7 +268,9 @@
                         $LWF = $row['LWF'];
                         $EarnedConveyence = $row['EarnedConveyence'];
                         $TotalAbsentdays = $row['TotalAbsentdays'];
-            
+                        $NetSalary =$NetWages+$Performanceallowance;
+                        $EarnedNetwages=$EarnedWages+$Performanceallowance;
+                        $Totalrate = $TotalSal-$Performanceallowance;
                         // $result[] = $row;
                         
             
@@ -292,45 +279,37 @@
                 }
                
                 ?>
-        <div class="letter">
-            <table class="mt-4 table table-bordered letter" style="bottom:0px">
+                <div class="row">
+       <div class="col-lg-2"></div>
+       <div class="col-lg-8">
+            <table class="mt-4 table table-bordered center" style="bottom:0px">
                 <tbody>
-                    <tr>
-                        <td colspan="10">
-
-                            <div class="row">
-                                <div class="col-xl-4 col-lg-4 col-md-4 nopadding">
-                                    <p><b>Code/C.No / कोड/सी.नहीं : </b> <?php echo  $emp_id  ?></p>
-
-                                    <p><strong>Name / नाम :</strong><?php echo $Fullname  ?></p><strong></strong>
-                                    <p><strong>Father's Name / पिता का नाम
-                                            :</strong><?php echo $FatherGuardianSpouseName  ?></p>
-                                    <p><strong>Desig / पद :</strong><?php echo $Designation  ?></p>
-                                    <p><strong>Dept. / विभाग :</strong><?php echo $Department  ?></p>
-                                    <p><strong>DOJ / शामिल होने की तिथि :</strong><?php echo  $Date_Of_Joing  ?></p>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4">
-                                    <center><b>BRITANNIA LABELS INDIA PVT LTD</b><br />PLOT NO-1750,SECTOR-38,HSIIDC RAI
-                                        SONIPAT HARYANA-131028<br /></center>
-                                    <br />
-                                    <center><b><u>Form X</b></u><br />(Rule 26)<br /><br />PAYSLIP FOR THE MONTH
-                                        OF<br />
-                                    </center>
-                                    <div class="card-container">
-                                        <b class="title"><?php echo  $SalMonth." - ".$Salyear; ?></b>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4">
-                                    <p><strong>Bank Name / बैंक का नाम :</strong><?php echo $Bankname  ?></p>
-                                    <p><strong>A/c No / खाता संख्या :</strong><?php echo $Accountno  ?></p>
-                                    <p><strong>PF No / भविष्य निधि संख्या :</strong><?php echo  $PF  ?></p>
-                                    <p><strong>ESI No / कर्मचारी राज्य बीमा संख्या :</strong><?php echo  $ESI  ?> </p>
-                                    <p><strong>PAN / स्थायी खाता संख्या :</strong><?php echo  $Panno   ?></p>
-                                </div>
-                            </div>
-
-                        </td>
-                    <tr>
+                <tr>
+             <td colspan=3>
+             <p><b>Code/C.No / कोड/सी.नहीं : </b> <?php echo  "$emp_id-$Old_Empid"  ?></p>
+                <p><strong>Name / नाम :</strong><?php echo $Fullname  ?></p><strong></strong>
+                <p><strong>Father's Name / पिता का नाम :</strong><?php echo $FatherGuardianSpouseName  ?></p>
+                <p><strong>Desig / पद :</strong><?php echo $Designation  ?></p>
+                <p><strong>Dept. / विभाग :</strong><?php echo $Department  ?></p>
+                <p><strong>DOJ / शामिल होने की तिथि :</strong><?php echo  $Date_Of_Joing  ?></p>
+                     </td>
+                    <td colspan="4">
+                    <center><b>BRITANNIA LABELS INDIA PVT LTD</b><br />PLOT NO-1705,SECTOR-38,HSIIDC RAI
+                    SONIPAT HARYANA-131029<br /></center>
+                    <br />
+                 <center><b><u>Form X</b></u><br />(Rule 26)<br /><br />PAYSLIP FOR THE MONTH OF<br /></center>
+               
+                    <center><b ><?php echo  $SalMonth." - ".$Salyear; ?></b></center>
+              
+                 </td>
+                 <td colspan="3">
+                 <p><strong>Bank Name / बैंक का नाम :</strong><?php echo $Bankname  ?></p>
+                <p><strong>A/c No / खाता संख्या :</strong><?php echo $Accountno  ?></p>
+                <p><strong>PF No / भविष्य निधि संख्या :</strong><?php echo  $UANno  ?></p>
+                <p><strong>ESI No / कर्मचारी राज्य बीमा संख्या :</strong><?php echo  $ESIno  ?> </p>
+                <p><strong>PAN / स्थायी खाता संख्या :</strong><?php echo  $Panno   ?></p>
+                </td>    
+                  </tr>
                     <tr class="title-head">
                         <th colspan="2">Attn.details</th>
 
@@ -338,10 +317,7 @@
                         <th colspan="2">Earnings /आय वेतन</th>
                         <th>Arrears / बकाया</th>
                         <th colspan="2">Deductions / कटौती</th>
-                        <th rowspan="9">Net Salary/<br>
-                            शुद्ध वेतन
-                            <p style="padding-top:30px;text-align:center"><?php echo   $NetWages ?></p>
-                        </th>
+                 
                     </tr>
                     <tr>
                         <td>Present/ वर्तमान</td>
@@ -406,7 +382,7 @@
 
                         <td>Daily Allowance </td>
                         <td style="text-align:right; "><?php echo $Day_allowance ?></td>
-                        <td style="text-align:right; " colspan="2"><?php echo $DailyAllowanance ?></td>
+                        <td style="text-align:right; " colspan="2"><?php echo  $DailyAllowanance ?></td>
                         <td></td>
                         <td>TDS / स्रोत पर कर कटौती
 
@@ -418,13 +394,13 @@
                         <td>SL / बीमारी के लिए अवकाश</td>
                         <td style="text-align:right; "><?php echo   $Totalsickleave ?></td>
 
+                        <td>Permance allowance</td>
                         <td></td>
-                        <td></td>
-                        <td colspan="2"></td>
+                        <td style="text-align:right; " colspan="2"><?php echo $Performanceallowance ?></td>
                         <td ></td>
-                        <td ></td>
+                        <td >LOP (Hrs-<?php echo $Lophrs?>) / वेतन वेतन की हानि </td>
                       
-                        <td></td>
+                        <td style="text-align:right; "><?php echo $Lopwages ?></td>
                     </tr>
                     <tr>
                         <td>AB</td>
@@ -435,6 +411,23 @@
                        
                         <td colspan="2"></td>
                         <td></td>
+                          
+                        <td></td>
+                    <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>OT HRS</td>
+                        <td style="text-align: right;"><?php echo $OT_HRS?></td>
+
+                        <td>OT Wages</td>
+                        <td style="text-align: right;">0</td>
+                       
+                        <td colspan="2" style="text-align: right;"><?php echo $OT_Wages?></td>
+                       
+                        <td></td>
+                          
+                        <td></td>
                     <td></td>
                     </tr>
 
@@ -443,9 +436,10 @@
                         <td style="text-align: right;"><strong><?php echo $Totaldays ?></strong></td>
 
                         <td> Total Rate / कुल दर</td>
-                        <td style="text-align: right;"><strong><?php echo $EarnedWages ?></strong></td>
+                        <td style="text-align: right;"> <strong> <?php echo $Totalrate ?></strong></td>
+                  
                         <td> Gross / कुल</td>
-                        <td style="text-align: right;"> <strong> <?php echo $Gross_Salary ?></strong></td>
+                        <td style="text-align: right;"><strong><?php echo $EarnedNetwages ?></strong></td>
                         <td style="text-align: right;"><strong>0.00</strong></td>
                         <td> Deductions / कटौती</td>
                         <td style="text-align: right;"><strong><?php echo $TotalDeduction ?></strong></td>
@@ -453,25 +447,27 @@
 
 
                     <tr>
-                        <td colspan="10"><strong>Rs.<?php echo convertNumber($NetWages);  ?>Only</strong>
+                        <td><b>Net Salary/  शुद्ध वेतन</b></td>
+                        <td  style="text-align: right;"><b><?php echo $NetSalary ?></b></td>
+                        <td colspan="8" style="text-align: right;"><strong>Rs.<?php echo convertNumber($NetSalary);  ?>Only</strong>
                         </td>
                     </tr>
 
                 </tbody>
             </table>
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-6">
-
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 sign">
-                    This is computer generated payslip it does not require signature
-                </div>
-            </div>
+                 <div class="row">
+                     <div class="col-xl-7 col-lg-7 col-md-7"></div>
+                     <div class="col-xl-5 col-lg-5 col-md-5 " style="font-size: 11px;">
+                             This is computer-generated payslip, it does not require a signature
+                        </div>
+                 </div>
         </div>
 
 
 
         <p style="page-break-after: always;"></p>
+                </div>
+    </div>
         <?php
             }
             

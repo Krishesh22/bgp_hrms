@@ -154,10 +154,7 @@ include '../session.php';
                                                                     ng-click="SendEdit(e.Holidaydate,e.Holidaydetail);"
                                                                     src="<?php echo "$domain"; ?>/assets/icons/edit.png">
 
-                                                                <img height="15" data-toggle="modal"
-                                                                    data-target="#ModalCenter1"
-                                                                    ng-click="SendEdit(e.Holidaydate,e.Holidaydetail);"
-                                                                    src="<?php echo "$domain"; ?>/assets/icons/delete.png">
+                                                               
                                                             </center>
 
                                                         </div>

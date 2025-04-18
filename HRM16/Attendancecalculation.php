@@ -1,318 +1,539 @@
 <?php
-function Calculateouttimefetch($conn, $Clientid, $Employeeid, $Attendencedate, $AttenStatus, $Intime, $Outtime, $Permissionyesorno, $Manualattendence, $Regsisterattendence, $OTIntime, $OTOuttime, $ActualIntime, $ActualOuttime, $user_id, $ActualOTIntime, $ActualOTOuttime) {
-    try {
+error_reporting(0);
+function Calculateouttimefetch($conn, $Clientid, $Employeeid, $Attendencedate, $AttenStatus, $Intime, $Outtime, $Permissionyesorno, $Manualattendence, $Regsisterattendence, $OTIntime, $OTOuttime, $ActualIntime, $ActualOuttime, $user_id, $ActualOTIntime, $ActualOTOuttime)
+{
+
+    try
+    {
         $Lmtdm = date("Y-m-d H:i:s");
         $Workingdays = 0;
         $calculatedworkinghrs = 0;
         $Missmatchedintime = 0;
         $Missmatchedouttime = 0;
-        $Missmatchedotintime = 0;
-        $Missmatchedotouttime = 0;
-        $missmatchedrecordfound = "No";
         $WorkingHours = 0;
-        $OT_HRS = 0;
-        $Lophrs = 0;
         $Editedattenstatus = "";
+
         $fetchstatus = "Select * from indsys1030dailyattenstatus where AttenStatus='$AttenStatus' ";
         $fetchstatusresult = mysqli_query($conn, $fetchstatus);
-        while ($row = mysqli_fetch_array($fetchstatusresult)) {
+        while ($row = mysqli_fetch_array($fetchstatusresult))
+        {
             $Attentypestatus = $row["Attentypestatus"];
         }
+
         //OT Alterations/////////////////////////////
         $GetOT = "SELECT * FROM indsys1030empdailyattendancedetail where Clientid ='$Clientid' and Employeeid = '$Employeeid' and Attendencedate='$Attendencedate'";
         $result_OT = $conn->query($GetOT);
-        if (mysqli_num_rows($result_OT) > 0) {
-            while ($rownew = mysqli_fetch_array($result_OT)) {
+
+        if (mysqli_num_rows($result_OT) > 0)
+        {
+            while ($rownew = mysqli_fetch_array($result_OT))
+            {
+
                 $Breakhours = $rownew["Breakhours"];
                 $Editedattenstatus = $rownew["Editedattenstatus"];
             }
         }
-        if (empty($Breakhours)) {
+        if (empty($Breakhours))
+        {
             $Breakhours = 0;
         }
+
         $breakMIn = 0;
-        $logempbreakhrs = "SELECT * FROM indsys1030empdailybreaktimedetail WHERE   Employeeid='$Employeeid' and Attendencedate='$Attendencedate' and Clientid='$Clientid' ORDER BY Employeeid ASC";
+
+        $logempbreakhrs = "SELECT * FROM indsys1030empdailybreaktimedetail WHERE   Employeeid='$Employeeid' and Attendencedate='$Attendencedate' ORDER BY Employeeid ASC";
+
         $logempbreakhrsexe = mysqli_query($conn, $logempbreakhrs);
-        while ($row = mysqli_fetch_array($logempbreakhrsexe)) {
+        while ($row = mysqli_fetch_array($logempbreakhrsexe))
+        {
             $BreakIntime = $row["Intimewithdate"];
             $BreakOuttime = $row["Outtimewithdate"];
-            $breakMIn+= getIntervalMinutes($BreakOuttime, $BreakIntime);
+
+            $breakMIn += getIntervalMinutes($BreakOuttime, $BreakIntime);
         }
+
         $logemp = "SELECT * FROM indsys1017employeemaster WHERE  EmpActive='Active' And Employeeid='$Employeeid' AND Clientid='$Clientid'  ";
+
         $logempall = mysqli_query($conn, $logemp);
-        while ($row = mysqli_fetch_array($logempall)) {
+        while ($row = mysqli_fetch_array($logempall))
+        {
             $Allow_OT = $row["Allow_OT"];
             $Category = $row["Type_Of_Posistion"];
             $Department = $row["Department"];
+
         }
-        if ($Attentypestatus == "P") {
+
+        if ($Attentypestatus == "P")
+        {
             $Intimecheck = "00:00:00";
             $OuttimeCheck = "00:00:00";
-            $OTIntimecheck = "00:00:00";
-            $OTOuttimecheck = "00:00:00";
+
             /////////Calculate Working hours and Working days
-            if ($Intime != "00:00:00") {
+            if ($Intime != "00:00:00")
+            {
                 $Missmatchedintime = 1;
-                 if ($Category == "Category 3" && $Department !="CANTEEN")  {
+                if ($Category == "Category 3" && $Department != "CANTEEN")
+                {
                     $st_Intime = strtotime($Intime);
                     $cur_time = strtotime('08:25:00');
-                    if ($st_Intime <= $cur_time) {
+                    if ($st_Intime <= $cur_time)
+                    {
                         $randminutes = rand(25, 40);
+
                         $str_Intimetime = $Intime;
+
                         $str_Intimetime = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $str_Intimetime);
-                        sscanf($str_Intimetime, "%d:%d:%d", $hours, $minutes, $seconds);
-                        if (strlen($seconds) == 1) {
-                            $seconds = "0$seconds";
-                        }
+
+                        $seconds = str_pad(rand(0, 59) , 2, '0', STR_PAD_LEFT);
                         $Intime = "08:$randminutes:$seconds";
                     }
                 }
             }
-            if ($Outtime != "00:00:00") {
+            if ($Outtime != "00:00:00")
+            {
                 $Missmatchedouttime = 1;
-                if ($Category == "Category 3") {
-                    $time_in_24_hour_formatout = date("H:i:s", strtotime($Outtime));
+                if ($Category == "Category 3")
+                {
                     $Outimebw1 = "17:40:00";
                     $Outimebw2 = "18:00:00 ";
                     $st_Outtime = strtotime($Outimebw1);
                     $st_endtime = strtotime($Outimebw2);
+
                     $Empouttime = strtotime($Outtime);
-                    if ($Empouttime >= $st_Outtime && $Empouttime <= $st_endtime) {
+
+                    if ($Empouttime >= $st_Outtime && $Empouttime <= $st_endtime)
+                    {
                         $str_Outtime = $Outtime;
                         $randminutes = rand(30, 40);
                         $str_Outtime = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $str_Outtime);
+
                         sscanf($str_Outtime, "%d:%d:%d", $hours, $minutes, $seconds);
-                        if (strlen($seconds) == 1) {
+                        if (strlen($seconds) == 1)
+                        {
                             $seconds = "0$seconds";
                         }
+
                         $Outtime = "17:$randminutes:$seconds";
                     }
                 }
             }
-            if ($Missmatchedintime == 1 && $Missmatchedouttime == 1) {
-                if ($Category == "Category 3" && $Department !="CANTEEN")  {
+            if ($Missmatchedintime == 1 && $Missmatchedouttime == 1)
+            {
+
+                if ($Category == "Category 3" && $Department != "CANTEEN")
+                {
                     $st_Intime = strtotime($Intime);
                     $cur_time = strtotime('08:25:00');
-                    if ($st_Intime <= $cur_time) {
+                    if ($st_Intime <= $cur_time)
+                    {
                         $randminutes = rand(25, 40);
                         $str_Intimetime = $Intime;
                         $str_Intimetime = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $str_Intimetime);
-                        sscanf($str_Intimetime, "%d:%d:%d", $hours, $minutes, $seconds);
-                        if (strlen($seconds) == 1) {
-                            $seconds = "0$seconds";
-                        }
+                        $seconds = str_pad(rand(0, 59) , 2, '0', STR_PAD_LEFT);
                         $Intime = "08:$randminutes:$seconds";
                     }
                     $Outimebw1 = "17:40:00";
                     $Outimebw2 = "18:00:00 ";
                     $st_Outtime = strtotime($Outimebw1);
                     $st_endtime = strtotime($Outimebw2);
+
                     $Empouttime = strtotime($Outtime);
-                    if ($Empouttime >= $st_Outtime && $Empouttime <= $st_endtime) {
+
+                    if ($Empouttime >= $st_Outtime && $Empouttime <= $st_endtime)
+
+                    {
                         $str_Outtime = $Outtime;
                         $randminutes = rand(30, 40);
                         $str_Outtime = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $str_Outtime);
-                        sscanf($str_Outtime, "%d:%d:%d", $hours, $minutes, $seconds);
-                        if (strlen($seconds) == 1) {
-                            $seconds = "0$seconds";
-                        }
+                        $seconds = str_pad(rand(0, 59) , 2, '0', STR_PAD_LEFT);
+
                         $Outtime = "17:$randminutes:$seconds";
                     }
                 }
+
                 $Intimecheck = strtotime($Intime);
                 $OuttimeCheck = strtotime($Outtime);
                 $missmatchedrecordfound = "No";
+
                 $WorkingHours = $OuttimeCheck - $Intimecheck;
                 $WorkingHours = gmdate("H:i:s", $WorkingHours);
-                $Checkworkinghrs = substr(str_replace(":", ".", $WorkingHours), 0, 5);
-                if ($Editedattenstatus != "Yes") {
-                    $attendencehr = $Checkworkinghrs - 1;
-                    if ($attendencehr < 6) {
+
+                $Checkworkinghrs = substr(str_replace(":", ".", $WorkingHours) , 0, 5);
+
+                if ($Editedattenstatus != "Yes")
+                {
+                    $attendencehr = $Checkworkinghrs;
+                    if ($Checkworkinghrs > 1)
+                    {
+                        $attendencehr = $Checkworkinghrs - 1;
+                    }
+
+                    if ($attendencehr < 6)
+                    {
+
                         $AttenStatus = "HD";
                         $Attentypestatus = "P";
-                    } else {
+                    }
+                    else
+                    {
                         $AttenStatus = "P";
                         $Attentypestatus = "P";
                     }
                 }
+
             }
-            if ($Missmatchedintime == 0 && $Missmatchedouttime == 1) {
-                $missmatchedrecordfound = "Yes";
+            if ($Missmatchedintime == 0 && $Missmatchedouttime == 1)
+            {
+             
                 $calculatedworkinghrs = 0;
             }
-            if ($Missmatchedintime == 1 && $Missmatchedouttime == 0) {
-                $missmatchedrecordfound = "Yes";
+            if ($Missmatchedintime == 1 && $Missmatchedouttime == 0)
+            {
+              
                 $calculatedworkinghrs = 0;
             }
+
             $WorkingHours = $OuttimeCheck - $Intimecheck;
             $WorkingHours = gmdate("H:i:s", $WorkingHours);
-            if ($breakMIn == 0) {
-            } else {
+
+            if ($breakMIn == 0)
+            {
+
+            }
+            else
+            {
                 $workingMin = 0;
                 $workingMinLOP = 0;
                 $time_in_24_hour_format = date("H:i:s", strtotime($Intime));
-                $time_in_24_hour_format = substr(str_replace(":", ".", $time_in_24_hour_format), 0, 5);
+                $time_in_24_hour_format = substr(str_replace(":", ".", $time_in_24_hour_format) , 0, 5);
                 $Inhr = floor($time_in_24_hour_format);
                 $Inminute = substr($time_in_24_hour_format, -2);
                 $IntimeChk = "$Inhr.$Inminute";
                 $secondShiftTime = "20";
-                if ($IntimeChk <= $secondShiftTime) {
+                if ($IntimeChk <= $secondShiftTime)
+                {
                     $IntimewithDate = "$Attendencedate $Intime";
                     $OuttimeWithDate = "$Attendencedate $Outtime";
                     $workingMin = getIntervalMinutes($IntimewithDate, $OuttimeWithDate);
-                } else {
+
+                }
+                else
+                {
                     $AddOUTTime = date("Y-m-d", strtotime($Attendencedate . " + 1 days"));
                     $IntimewithDate = "$Attendencedate $Intime";
                     $OuttimeWithDate = "$AddOUTTime $Outtime";
                     $workingMin = getIntervalMinutes($IntimewithDate, $OuttimeWithDate);
+
                 }
+
                 $actualWorkMIn = $workingMin - $breakMIn;
+
                 $actualWorkHrs = getHoursAndMins($actualWorkMIn);
-                $Checkworkinghrs = substr(str_replace(":", ".", $actualWorkHrs), 0, 5);
+
+                $Checkworkinghrs = substr(str_replace(":", ".", $actualWorkHrs) , 0, 5);
             }
-            $Workinghrs = $Checkworkinghrs - 1;
-            $OT_HRS = "0.00";
-            if ($Outtime == "00:00:00") {
+
+            $Workinghrs = $Checkworkinghrs;
+
+            if ($Checkworkinghrs > 5)
+            {
+                $Workinghrs = $Checkworkinghrs - 1;
+            }
+
+            if ($Outtime == "00:00:00")
+            {
                 $calculatedworkinghrs = 0;
                 $Workinghrs = 0;
             }
-            // return $Lophrs;
-            /////////// Half Day check
-            //////////// Calculate OThours and identifying missmatched record
+
             $Workingdays = 1;
         }
-        if ($Attentypestatus == "L") {
-            $Workinghrs = "0.00";
-            $Workingdays = "0.00";
-            $OT_HRS = "0.00";
-            $missmatchedrecordfound = "No";
-            $Lophrs = "0.00";
-            $Workingdays = 0;
-        }
-        if ($Attentypestatus == "A") {
-            $Workinghrs = "0.00";
-            $Workingdays = "0.00";
-            $OT_HRS = "0.00";
-            $missmatchedrecordfound = "No";
-            $Lophrs = "0.00";
-            $Workingdays = 0;
-        }
-        $resultExists = "Update indsys1030empdailyattendancedetail set 
- 
 
- 
-   Workinghours ='$Workinghrs',
-   AttenStatus='$AttenStatus',
-   Intime ='$Intime',
-  Outtime='$Outtime',
-  Attentypestatus='$Attentypestatus', 
-  OTIntime ='$OTIntime',
-  OTOuttime='$OTOuttime',
-  Regsisterattendence ='$Regsisterattendence',
-  Allowotyesorno='$Allow_OT',
-  Mismatchedattendence ='$missmatchedrecordfound',
-  Workingdays ='$Workingdays',
-  Actualworkinghours='$calculatedworkinghrs',
-  ActualIntime ='$ActualIntime',
-  ActualOuttime='$ActualOuttime',
-  Userid='$user_id',
-  Addormodifydatetime='$Lmtdm',
-  Manualattendence='$Manualattendence'
-  
- 
-     WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";
+        if ($Attentypestatus == "L")
+        {
+            $Workinghrs = "0.00";
+            $Workingdays = "0.00";
+
+            $Workingdays = 0;
+        }
+        if ($Attentypestatus == "A")
+        {
+            $Workinghrs = "0.00";
+            $Workingdays = "0.00";
+            $Workingdays = 0;
+        }
+
+        if ($Workinghrs < 0)
+        {
+            $Workinghrs = "0.00";
+        }
+
+        $resultExists = "Update indsys1030empdailyattendancedetail set  
+             Workinghours ='$Workinghrs',
+             AttenStatus='$AttenStatus',
+             Intime ='$Intime',
+             Outtime='$Outtime',
+             Attentypestatus='$Attentypestatus', 
+             OTIntime ='$OTIntime',
+             OTOuttime='$OTOuttime',
+             Regsisterattendence ='$Regsisterattendence',
+             Allowotyesorno='$Allow_OT',
+             Workingdays ='$Workingdays',
+             Actualworkinghours='$calculatedworkinghrs',
+             ActualIntime ='$ActualIntime',
+             ActualOuttime='$ActualOuttime',
+             Userid='$user_id',
+             Addormodifydatetime='$Lmtdm',
+             Manualattendence='$Manualattendence' 
+            WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";
+
         $resultExists01 = $conn->query($resultExists);
-        if ($resultExists01 === true) {
+
+        if ($resultExists01 === true)
+        {
+            UpdateMissmateched($conn, $Clientid, $Employeeid, $Attendencedate, $Intime, $Outtime, $OTIntime, $OTOuttime);
+            EmpinandOut($conn, $Clientid, $Employeeid, $Attendencedate, $Intime, $Outtime);
             ActualAuditLopCalculation($conn, $Clientid, $Employeeid, $Attendencedate);
-            if ($Category == "Category 3") {
+            if ($Category == "Category 3")
+            {
                 ActualAuditOTCalculation($conn, $Clientid, $Employeeid, $Attendencedate);
             }
             CalculateActualInandOut($conn, $Clientid, $Employeeid, $Attendencedate, $AttenStatus, $ActualIntime, $ActualOuttime, $ActualOTIntime, $ActualOTOuttime);
+
             $Message = "Success";
-        } else {
+        }
+        else
+        {
             $Message = "Fail";
         }
         return $Message;
-        //$Message ="Exists";
-        //return $Outtime;
-        
+
     }
-    catch(Exception $E) {
+    catch(Exception $E)
+    {
         echo $E;
     }
 }
-function ActualAuditLopCalculation($conn, $Clientid, $Employeeid, $Attendencedate) {
-    try {
-        $GetOT = "SELECT * FROM indsys1030empdailyattendancedetail where Clientid ='$Clientid' and Employeeid = '$Employeeid' and Attendencedate='$Attendencedate'";
-        $result_OT = $conn->query($GetOT);
-        if (mysqli_num_rows($result_OT) > 0) {
-            while ($rownew = mysqli_fetch_array($result_OT)) {
-                $Intime = $rownew['Intime'];
-                $Outtime = $rownew['Outtime'];
-                $AttenStatus = $rownew['AttenStatus'];
-                $Attentypestatus = $rownew['Attentypestatus'];
+function UpdateMissmateched($conn, $Clientid, $Employeeid, $Attendencedate, $Intime, $Outtime, $OTIntime, $OTOuttime)
+{
+    $Mismatchedattendence = 'No';
+    if ($Intime == '00:00:00' && $Outtime == '00:00:00' && $OTIntime == '00:00:00' && $OTOuttime == '00:00:00') {
+        $Mismatchedattendence = 'No';
+    }
+    // Check if the employee is present (Scenario 2)
+    else {
+        // Check if Intime and Outtime are both set
+        if ($Intime != '00:00:00' && $Outtime != '00:00:00') {
+            // Check if OTIntime and OTOuttime are either both set or both are '00:00:00'
+            if (($OTIntime != '00:00:00' && $OTOuttime != '00:00:00') || ($OTIntime == '00:00:00' && $OTOuttime == '00:00:00')) {
+                $Mismatchedattendence = 'No';
+            } else {
+                $Mismatchedattendence = 'Yes';
             }
+        } else {
+            $Mismatchedattendence = 'Yes';
         }
-        if ($Attentypestatus == "P") {
-            if ($Intime != "00:00:00") {
-                $Missmatchedintime = 1;
-            }
-            if ($Outtime != "00:00:00") {
-                $Missmatchedouttime = 1;
-            }
-            if ($Missmatchedintime == 1 && $Missmatchedouttime == 1) {
-                $time_in_24_hour_format = date("H:i:s", strtotime($Intime));
-                $time_in_24_hour_format = substr(str_replace(":", ".", $time_in_24_hour_format), 0, 5);
-                $Inhr = floor($time_in_24_hour_format);
-                $Inminute = substr($time_in_24_hour_format, -2);
-                $IntimeChk = "$Inhr.$Inminute";
-                $secondShiftTime = "20";
-                if ($IntimeChk <= $secondShiftTime) {
-                    $IntimewithDate = "$Attendencedate $Intime";
-                    $OuttimeWithDate = "$Attendencedate $Outtime";
-                    $workingMinLOP = getIntervalMinutes($IntimewithDate, $OuttimeWithDate) - 60;
-                    $lopMin = 480 - $workingMinLOP;
-                    if ($AttenStatus == "HD") {
-                        $lopMin = 240 - $workingMinLOP;
-                    }
-                    $Lophrs = getHoursAndMins($lopMin);
-                    $Lophrs = substr(str_replace(":", ".", $Lophrs), 0, 5);
-                } else {
-                    $AddOUTTime = date('Y-m-d', strtotime($Attendencedate . ' + 1 days'));
-                    $IntimewithDate = "$Attendencedate $Intime";
-                    $OuttimeWithDate = "$AddOUTTime $Outtime";
-                    $workingMinLOP = getIntervalMinutes($IntimewithDate, $OuttimeWithDate) - 60;
-                    $lopMin = 480 - $workingMinLOP;
-                    if ($AttenStatus == "HD") {
-                        $lopMin = 240 - $workingMinLOP;
-                    }
-                    $Lophrs = getHoursAndMins($lopMin);
-                    $Lophrs = substr(str_replace(":", ".", $Lophrs), 0, 5);
-                }
-            }
-            if (empty($Lophrs)) {
-                $Lophrs = "0.00";
-            }
-            if ($Outtime == "00:00:00") {
-                $Lophrs = "0.00";
-            }
-            $Lateintime1 = "08:30:00";
-            $Lateintime2 = "09:30:00";
-            $LTIntime1 = strtotime($Lateintime1);
-            $LTIntime2 = strtotime($Lateintime2);
-            $Lopgracetime = "0.10";
-            $EmpintimeLT = strtotime($Intime);
-              if ($EmpintimeLT >= $LTIntime1 && $EmpintimeLT <= $LTIntime2)
+    }
+    $resultExists = "Update indsys1030empdailyattendancedetail set   
+    Mismatchedattendence ='$Mismatchedattendence' 
+WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";
+    $resultExists01 = $conn->query($resultExists);
+    if ($resultExists01 === true)
+    {
+        $Message = "Success";
+    }
+    else
+    {
+        $Message = "Fail";
+    }
 
-     {
-        if($Lophrs >=$Lopgracetime)
-        {
-            $Loptest = $lopMin-10;
-           // $Lophrs=   number_format((float) $Loptest, 2, ".", "");
+}
+
+
+function EmpinandOut($conn, $Clientid, $Employeeid, $Attendencedate, $Intime, $Outtime)
+{
+    $empbreakhrs = 'No';
+    $sql = "SELECT * FROM indsys1063empbreaktimemaster 
+    WHERE Clientid='$Clientid'";
+    $result = $conn->query($sql);
+
+  
+if ($result->num_rows > 0) {
+    // Replace with the actual employee's Intime and Outtime values
+
+
+    // Iterate through break time intervals
+    while ($row = $result->fetch_assoc()) {
+        $Breakintime = $row['Breakintime'];
+        $Breakouttime = $row['Breakouttime'];
+
+        // Check if either Intime or Outtime falls within the break hours
+        if (
+            (strtotime($Intime) >= strtotime($Breakintime) && strtotime($Intime) <= strtotime($Breakouttime)) ||
+            (strtotime($Outtime) >= strtotime($Breakintime) && strtotime($Outtime) <= strtotime($Breakouttime))
+        ) {
+            $empbreakhrs = 'Yes'; // Set to 'Yes' if the employee punched during the break time
+            break; // Exit the loop early since we found a match
+        }
+    }
+}
+    $resultExists = "Update indsys1030empdailyattendancedetail set   
+    Empbreakpunchfound ='$empbreakhrs' 
+WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";
+    $resultExists01 = $conn->query($resultExists);
+    if ($resultExists01 === true)
+    {
+        $Message = "Success";
+    }
+    else
+    {
+        $Message = "Fail";
+    }
+}
+function ActualAuditLopCalculation($conn,$Clientid,$Employeeid,$Attendencedate)
+{
+try
+{
+    $GetOT = "SELECT * FROM indsys1030empdailyattendancedetail where Clientid ='$Clientid' and Employeeid = '$Employeeid' and Attendencedate='$Attendencedate'";
+    $result_OT = $conn->query($GetOT);
+  echo "cursorin $Employeeid<br/>";
+    if (mysqli_num_rows($result_OT) > 0) {
+        while ($rownew = mysqli_fetch_array($result_OT)) {
+      
+        $Intime = $rownew['Intime'];
+         $Outtime=$rownew['Outtime'];
+         $AttenStatus = $rownew['AttenStatus'];          
+        $Attentypestatus = $rownew['Attentypestatus'];
+        }
+    }
+    if($Attentypestatus=="P")
+    {
+        if ($Intime != "00:00:00") {
+            $Missmatchedintime = 1;
           
+        }
+        if ($Outtime != "00:00:00") {
+            $Missmatchedouttime = 1;
+         
+        }
+        if ($Missmatchedintime == 1 && $Missmatchedouttime == 1) {
+
+
+            $time_in_24_hour_format  = date("H:i:s", strtotime($Intime));
+            $time_in_24_hour_format = substr(str_replace(":", ".", $time_in_24_hour_format), 0, 5);
+            $Inhr = floor($time_in_24_hour_format);
+           $Inminute = substr($time_in_24_hour_format, -2);
+            $IntimeChk = "$Inhr.$Inminute";
+           
+            $secondShiftTime = "20";
+            $breakMIn = 0;
+
+            $logempbreakhrs = "SELECT * FROM indsys1030empdailybreaktimedetail WHERE   Employeeid='$Employeeid' and Attendencedate='$Attendencedate' ORDER BY Employeeid ASC";
+    
+            $logempbreakhrsexe = mysqli_query($conn, $logempbreakhrs);
+            while ($row = mysqli_fetch_array($logempbreakhrsexe)) {
+                $BreakIntime = $row["Intimewithdate"];
+                $BreakOuttime = $row["Outtimewithdate"];
+    
+                $breakMIn += getIntervalMinutes($BreakOuttime, $BreakIntime);
+            }
+           
+            if($IntimeChk<=$secondShiftTime )
+            {
+            
+
+                
+                $IntimewithDate = "$Attendencedate $Intime";
+                $OuttimeWithDate = "$Attendencedate $Outtime";
+                $workingMinLOP = getIntervalMinutes($IntimewithDate, $OuttimeWithDate) ;
+                $HDworkingMin= getIntervalMinutes($IntimewithDate, $OuttimeWithDate) ;
+                if($workingMinLOP >60)
+                {
+                    $workingMinLOP = $workingMinLOP-60;
+                }
+
+                $actualWorkMIn = $workingMinLOP - $breakMIn;
+                $lopMin = 480 - $actualWorkMIn;
+              if ($AttenStatus == "HD" || $AttenStatus == "P/CL2" || $AttenStatus == "P/SL2" || $AttenStatus == "CL1/P" || $AttenStatus == "SL1/P")
+                {
+                    $actualw = $HDworkingMin-$breakMIn; 
+                    echo "Working MIN HD$actualw<br/>";
+                    $lopMin = 240 - $actualw;
+                    echo "LOP MIN HD$lopMin<br/>";
+                }
+    
+                $Lophrs = getHoursAndMins($lopMin);
+    
+                $Lophrs = substr(str_replace(":", ".", $Lophrs), 0, 5);
+              
+            }
+            else
+            {
+                $shiftStartTime="20:00:00";
+                $intimeObj = DateTime::createFromFormat('H:i:s', $Intime);
+                $outtimeObj = DateTime::createFromFormat('H:i:s', $Outtime);
+                $shiftStartObj = DateTime::createFromFormat('H:i:s', $shiftStartTime);
+                $rangeEndObj = DateTime::createFromFormat('H:i:s', '23:59:00');
+                if ($outtimeObj <= $rangeEndObj && $outtimeObj >= $shiftStartObj) 
+                {
+                    $AddOUTTime=$Attendencedate;
+                }
+                else {                
+                    $AddOUTTime = date('Y-m-d', strtotime($Attendencedate. ' + 1 days'));
+                }
+
+               
+                $IntimewithDate = "$Attendencedate $Intime";
+                $OuttimeWithDate = "$AddOUTTime $Outtime";
+               
+                $workingMinLOP = getIntervalMinutes($IntimewithDate, $OuttimeWithDate) ;
+                $HDworkingMin= getIntervalMinutes($IntimewithDate, $OuttimeWithDate) ;
+                if($workingMinLOP >60)
+                {
+                    $workingMinLOP = $workingMinLOP-60;
+                }
+              
+                $actualWorkMIn = $workingMinLOP - $breakMIn;
+                $lopMin = 480 - $actualWorkMIn;
+                if ($AttenStatus == "HD" || $AttenStatus == "P/CL2" || $AttenStatus == "P/SL2" || $AttenStatus == "CL1/P" || $AttenStatus == "SL1/P")
+                {
+                    $actualw = $HDworkingMin-$breakMIn; 
+                   // echo "Working MIN HD$actualw<br/>";
+                    $lopMin = 240 - $actualw;
+                   // echo "LOP MIN HD$lopMin<br/>";
+                    
+                }
+    
+                $Lophrs = getHoursAndMins($lopMin);
+                //echo "LOP hrs$Lophrs<br/>";
+    
+                $Lophrs = substr(str_replace(":", ".", $Lophrs), 0, 5);
+            }       
+          
+
+        }
+
+        if (empty($Lophrs)) {
+            $Lophrs = "0.00";
+        }
+
+        if ($Outtime == "00:00:00") {
+            $Lophrs = "0.00";
+        }
+
+        $Lateintime1="08:30:00";
+        $Lateintime2="09:30:00";
+
+
+        $LTIntime1    =   strtotime($Lateintime1);
+        $LTIntime2   =   strtotime($Lateintime2);
+        $Lopgracetime = "0.10";
+        $EmpintimeLT = strtotime($Intime);
+
+     if($Lophrs >=$Lopgracetime)
+        {
+             $Loptest = $lopMin-10;
             $Lophrs = getHoursAndMins($Loptest);
-           // echo "$Lophrs -numberformat<br/>";
-            //echo "If $Loptest<br>";
+            $Lophrs = substr(str_replace(":", ".", $Lophrs), 0, 5);
         }
         else
         {
@@ -320,14 +541,12 @@ function ActualAuditLopCalculation($conn, $Clientid, $Employeeid, $Attendencedat
             
         }
 
-     }
-     $Lophrs = substr(str_replace(":", ".", $Lophrs), 0, 5);
-     if (empty($Lophrs)) {
-        $Lophrs = "0.00";
+   
+         
+    if (empty($Lophrs)) {
+    $Lophrs = "0.00";
     }
         $Lophrs=  number_format((float) $Lophrs, 2);
-       
-       // echo "$Lophrs -finalformat<br/>";
 
     }
     else
@@ -335,123 +554,281 @@ function ActualAuditLopCalculation($conn, $Clientid, $Employeeid, $Attendencedat
        $Lophrs="0.00";
     }
 
-        
-        $resultExists = "Update indsys1030empdailyattendancedetail set   
+
+
+    $resultExists = "Update indsys1030empdailyattendancedetail set   
 Lophrs ='$Lophrs' 
-WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";;
-        $resultExists01 = $conn->query($resultExists);
-        if ($resultExists01 === true) {
-            $Message = "Success";
-        } else {
-            $Message = "Fail";
-        }
+WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";
+;
+$resultExists01 = $conn->query($resultExists);
+
+
+    if ($resultExists01 === true) {
+        $Message = "Success";
+    } else {
+        $Message = "Fail";
     }
-    catch(Exception $e) {
-    }
+
 }
-function ActualAuditOTCalculation($conn, $Clientid, $Employeeid, $Attendencedate) {
-    try {
-        $GetOT = "SELECT * FROM indsys1030empdailyattendancedetail where Clientid ='$Clientid' and Employeeid = '$Employeeid' and Attendencedate='$Attendencedate'";
-        $result_OT = $conn->query($GetOT);
-        if (mysqli_num_rows($result_OT) > 0) {
-            while ($rownew = mysqli_fetch_array($result_OT)) {
-                $OTIntime = $rownew['OTIntime'];
-                $OTOuttime = $rownew['OTOuttime'];
-                $Attentypestatus = $rownew['Attentypestatus'];
+catch(Exception $e)
+{
+
+}
+}
+// function ActualAuditOTCalculation($conn, $Clientid, $Employeeid, $Attendencedate)
+// {
+//     try
+//     {
+//         $GetOT = "SELECT * FROM indsys1030empdailyattendancedetail where Clientid ='$Clientid' and Employeeid = '$Employeeid' and Attendencedate='$Attendencedate'";
+//         $result_OT = $conn->query($GetOT);
+
+//         if (mysqli_num_rows($result_OT) > 0)
+//         {
+//             while ($rownew = mysqli_fetch_array($result_OT))
+//             {
+//                 $OTIntime = $rownew['OTIntime'];
+//                 $OTOuttime = $rownew['OTOuttime'];
+//                 $Attentypestatus = $rownew['Attentypestatus'];
+//             }
+//         }
+
+//         $logemp = "SELECT * FROM indsys1017employeemaster WHERE  EmpActive='Active' And Employeeid='$Employeeid' AND Clientid='$Clientid'  ";
+
+//         $logempall = mysqli_query($conn, $logemp);
+//         while ($row = mysqli_fetch_array($logempall))
+//         {
+//             $Allow_OT = $row["Allow_OT"];
+
+//         }
+//         if ($Attentypestatus == "P")
+//         {
+//             $ActualOt_HRS = "0.00";
+//             $OT_HRS2 = "0.00";
+
+//             if ($Allow_OT == "Yes")
+//             {
+//                 if ($OTIntime != "00:00:00")
+//                 {
+//                     $Missmatchedotintime = 1;
+//                 }
+//                 if ($OTOuttime != "00:00:00")
+//                 {
+//                     $Missmatchedotouttime = 1;
+//                 }
+//                 if ($Missmatchedotintime == 1 && $Missmatchedotouttime == 1)
+//                 {
+//                     $IntimewithOT = "$Attendencedate $OTIntime";
+//                     $OuttimeWithOT = "$Attendencedate $OTOuttime";
+//                     $WorkingOTHours = getIntervalMinutes($IntimewithOT, $OuttimeWithOT);
+//                     $OT_HRS = getHoursAndMins($WorkingOTHours);
+
+//                     $OT_HRS = substr(str_replace(":", ".", $OT_HRS) , 0, 5);
+
+//                     if (empty($OT_HRS))
+//                     {
+//                         $OT_HRS = "0.00";
+//                     }
+
+//                     if ($OTOuttime == "00:00:00")
+//                     {
+//                         $OT_HRS = "0.00";
+//                     }
+//                     $ActualOt_HRS = $OT_HRS;
+//                     $OT_HRS2 = $OT_HRS;
+
+//                 }
+//                 if ($Missmatchedotintime == 0 && $Missmatchedotouttime == 1)
+//                 {
+//                     $ActualOt_HRS = "0.00";
+//                     $OT_HRS2 = "0.00";
+
+//                 }
+//                 if ($Missmatchedotintime == 1 && $Missmatchedotouttime == 0)
+//                 {
+//                     $ActualOt_HRS = "0.00";
+//                     $OT_HRS2 = "0.00";
+
+//                 }
+
+//             }
+
+//         }
+//         else
+//         {
+//             $ActualOt_HRS = "0.00";
+//             $OT_HRS2 = "0.00";
+//         }
+
+//         $resultExists = "Update indsys1030empdailyattendancedetail set   
+//     OT_HRS ='$OT_HRS2',  
+//     ActualOt_HRS ='$ActualOt_HRS'
+// WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";;
+//         $resultExists01 = $conn->query($resultExists);
+
+//         if ($resultExists01 === true)
+//         {
+//             $Message = "Success";
+//         }
+//         else
+//         {
+//             $Message = "Fail";
+//         }
+
+//     }
+//     catch(Exception $e)
+//     {
+
+//     }
+// }
+function ActualAuditOTCalculation($conn,$Clientid,$Employeeid,$Attendencedate)
+{
+try
+{
+    $GetOT = "SELECT * FROM indsys1030empdailyattendancedetail where Clientid ='$Clientid' and Employeeid = '$Employeeid' and Attendencedate='$Attendencedate'";
+    $result_OT = $conn->query($GetOT);
+
+    if (mysqli_num_rows($result_OT) > 0) {
+        while ($rownew = mysqli_fetch_array($result_OT)) {
+      
+   
+         $OTIntime = $rownew['OTIntime'];
+         $OTOuttime=$rownew['OTOuttime'];
+
+            $Attentypestatus = $rownew['Attentypestatus'];
+        }
+    }
+
+
+    $logemp = "SELECT * FROM indsys1017employeemaster WHERE  EmpActive='Active' And Employeeid='$Employeeid' AND Clientid='$Clientid'  ";
+
+    $logempall = mysqli_query($conn, $logemp);
+    while ($row = mysqli_fetch_array($logempall)) {
+        $Allow_OT = $row["Allow_OT"];
+        $Category = $row["Type_Of_Posistion"];
+    }
+    if($Attentypestatus=="P")
+    {
+        $ActualOt_HRS ="0.00";
+         $OT_HRS2 ="0.00";
+        
+        if ($Allow_OT == "Yes") {
+            if ($OTIntime != "00:00:00") {
+                $Missmatchedotintime = 1;
             }
-        }
-        $logemp = "SELECT * FROM indsys1017employeemaster WHERE  EmpActive='Active' And Employeeid='$Employeeid' AND Clientid='$Clientid'  ";
-        $logempall = mysqli_query($conn, $logemp);
-        while ($row = mysqli_fetch_array($logempall)) {
-            $Allow_OT = $row["Allow_OT"];
-            $Category = $row["Type_Of_Posistion"];
-        }
-        if ($Attentypestatus == "P") {
-            $ActualOt_HRS = "0.00";
-            $OT_HRS2 = "0.00";
-            if ($Allow_OT == "Yes") {
-                if ($OTIntime != "00:00:00") {
-                    $Missmatchedotintime = 1;
-                }
-                if ($OTOuttime != "00:00:00") {
-                    $Missmatchedotouttime = 1;
-                }
-                if ($Missmatchedotintime == 1 && $Missmatchedotouttime == 1) {
-                    $OTIntimecheck = strtotime($OTIntime);
-                    $OTOuttimecheck = strtotime($OTOuttime);
-                    $OT_HRS01 = "0.00";
-                    $IntimewithOT = "$Attendencedate $OTIntime";
-                    $OuttimeWithOT = "$Attendencedate $OTOuttime";
-                    $WorkingOTHours = getIntervalMinutes($IntimewithOT, $OuttimeWithOT);
-                    $OT_HRS = getHoursAndMins($WorkingOTHours);
-                    $OT_HRS = substr(str_replace(":", ".", $OT_HRS), 0, 5);
-                    // $OT_HRS = $OT_HRS + $OT_HRS01;
-                    if (empty($OT_HRS)) {
-                        $OT_HRS = "0.00";
-                    }
-                    if ($OTOuttime == "00:00:00") {
-                        $OT_HRS = "0.00";
-                    }
-                    $ActualOt_HRS = $OT_HRS;
-                    $OT_HRS = number_format((float)$OT_HRS, 2, ".", "");
-                    $ot_hours = floor($OT_HRS);
-                    $ot_hours_minutes = substr($OT_HRS, -2);
-                    $gettime = "";
-                    $ot_hours_final = $ot_hours;
-                    $GetNextno = "SELECT * FROM indsys1032timecheck where Timeno ='$ot_hours_minutes'  ";
-                    $result_Nextno = $conn->query($GetNextno);
-                    if (mysqli_num_rows($result_Nextno) > 0) {
-                        while ($row = mysqli_fetch_array($result_Nextno)) {
-                            $gettime = $row["Timevalue"];
-                            $ot_hours_minutes = $gettime;
-                            $ot_hours_final = $ot_hours;
-                        }
-                    }
-                    $GetNextnonew = "SELECT * FROM indsys1032timemaster where Timemasterno ='$ot_hours_minutes'  ";
-                    $result_Nextnonew = $conn->query($GetNextnonew);
-                    if (mysqli_num_rows($result_Nextnonew) > 0) {
-                        while ($row = mysqli_fetch_array($result_Nextnonew)) {
-                            $gettimenew = $row["Timevalue"];
-                            $ot_hours_minutes = "$gettimenew";
-                            $ot_hours_final = 1 + $ot_hours;
-                            //$ot_hours_final = $ot_hours;
-                            
-                        }
-                    }
-                    $OT_HRS2 = "$ot_hours_final.$ot_hours_minutes";
-                    $missmatchedrecordfound = "No";
-                }
-                if ($Missmatchedotintime == 0 && $Missmatchedotouttime == 1) {
-                    $ActualOt_HRS = "0.00";
-                    $OT_HRS2 = "0.00";
-                    $missmatchedrecordfound = "Yes";
-                }
-                if ($Missmatchedotintime == 1 && $Missmatchedotouttime == 0) {
-                    $ActualOt_HRS = "0.00";
-                    $OT_HRS2 = "0.00";
-                    $missmatchedrecordfound = "Yes";
-                }
+            if ($OTOuttime != "00:00:00") {
+                $Missmatchedotouttime = 1;
             }
-        } else {
-            $ActualOt_HRS = "0.00";
-            $OT_HRS2 = "0.00";
+            if ($Missmatchedotintime == 1 && $Missmatchedotouttime == 1) {
+          
+                 $IntimewithOT = "$Attendencedate $OTIntime";
+                        $OuttimeWithOT = "$Attendencedate $OTOuttime";
+                        $WorkingOTHours = getIntervalMinutes($IntimewithOT, $OuttimeWithOT);
+                        
+            
+                        $OT_HRS = getHoursAndMins($WorkingOTHours);
+                   
+            
+                        $OT_HRS = substr(str_replace(":", ".", $OT_HRS), 0, 5);
+                // $OT_HRS = $OT_HRS + $OT_HRS01;
+
+
+                if (empty($OT_HRS)) {
+                    $OT_HRS = "0.00";
+                }
+    
+                if ($OTOuttime == "00:00:00") {
+                    $OT_HRS = "0.00";
+                }
+                $ActualOt_HRS = $OT_HRS;
+
+                $OT_HRS = number_format((float) $OT_HRS, 2, ".", "");
+        
+                $ot_hours = floor($OT_HRS);
+                $ot_hours_minutes = substr($OT_HRS, -2);
+        
+                $gettime = "";
+                $ot_hours_final = $ot_hours;
+        
+                $GetNextno = "SELECT * FROM indsys1032timecheck where Timeno ='$ot_hours_minutes'  ";
+        
+                $result_Nextno = $conn->query($GetNextno);
+                if (mysqli_num_rows($result_Nextno) > 0) {
+                    while ($row = mysqli_fetch_array($result_Nextno)) {
+                        $gettime = $row["Timevalue"];
+                        $ot_hours_minutes = $gettime;
+                        $ot_hours_final = $ot_hours;
+                    }
+                }
+        
+                $GetNextnonew = "SELECT * FROM indsys1032timemaster where Timemasterno ='$ot_hours_minutes'  ";
+        
+                $result_Nextnonew = $conn->query($GetNextnonew);
+                if (mysqli_num_rows($result_Nextnonew) > 0) {
+                    while ($row = mysqli_fetch_array($result_Nextnonew)) {
+                        $gettimenew = $row["Timevalue"];
+                        $ot_hours_minutes = "$gettimenew";
+        
+                        $ot_hours_final = 1 + $ot_hours;
+                        //$ot_hours_final = $ot_hours;
+                    }
+                }
+        
+              
+        
+                $OT_HRS2 = "$ot_hours_final.$ot_hours_minutes";
+          
+            }
+            if ($Missmatchedotintime == 0 && $Missmatchedotouttime == 1) {
+                $ActualOt_HRS ="0.00";
+                $OT_HRS2 ="0.00";
+         
+            }
+            if ($Missmatchedotintime == 1 && $Missmatchedotouttime == 0) {
+                 $ActualOt_HRS ="0.00";
+                $OT_HRS2 ="0.00";
+           
+            }
+
+          
         }
-        $resultExists = "Update indsys1030empdailyattendancedetail set   
+       
+       
+     
+
+    
+
+    }
+    else
+    {
+        $ActualOt_HRS ="0.00";
+        $OT_HRS2 ="0.00";
+    }
+
+
+    $resultExists = "Update indsys1030empdailyattendancedetail set   
     OT_HRS ='$OT_HRS2',
-    Mismatchedattendence ='$missmatchedrecordfound',
+
     ActualOt_HRS ='$ActualOt_HRS'
-WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";;
-        $resultExists01 = $conn->query($resultExists);
-        if ($resultExists01 === true) {
-            $Message = "Success";
-        } else {
-            $Message = "Fail";
-        }
+WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";
+;
+$resultExists01 = $conn->query($resultExists);
+
+
+    if ($resultExists01 === true) {
+        $Message = "Success";
+    } else {
+        $Message = "Fail";
     }
-    catch(Exception $e) {
-    }
+
 }
+catch(Exception $e)
+{
+
+}
+}
+
 function getHoursAndMins($time, $format = "%02d:%02d") {
+    
     if ($time < 1) {
         return;
     }
@@ -498,22 +875,7 @@ function CalculateActualInandOut($conn, $Clientid, $Employeeid, $Attendencedate,
                 $Editedattenstatus = $rownew["Editedattenstatus"];
             }
         }
-        // if($ActualIntime=="00:00:00")
-        // {
-        //     $ActualIntime = $Intime;
-        // }
-        // if($ActualOuttime=="00:00:00")
-        // {
-        //     $ActualOuttime = $Outtime;
-        // }
-        // if($ActualOTIntime=="00:00:00")
-        // {
-        //     $ActualOTIntime = $OTIntimeold;
-        // }
-        // if($ActualOTOuttime=="00:00:00")
-        // {
-        //     $ActualOTOuttime = $OTOuttimeold;
-        // }
+    
         $breakMIn = 0;
         $logemp = "SELECT * FROM indsys1017employeemaster WHERE  EmpActive='Active' And Employeeid='$Employeeid' AND Clientid='$Clientid'  ";
         $logempall = mysqli_query($conn, $logemp);
@@ -602,7 +964,7 @@ function CalculateActualInandOut($conn, $Clientid, $Employeeid, $Attendencedate,
                 if ($Missmatchedotintime == 1 && $Missmatchedotouttime == 0) {
                     $missmatchedrecordfound = "Yes";
                 }
-                $OT_HRS01 = "0.00";
+           
                 $IntimewithOT = "$Attendencedate $ActualOTIntime";
                 $OuttimeWithOT = "$Attendencedate $ActualOTOuttime";
                 $WorkingOTHours = getIntervalMinutes($IntimewithOT, $OuttimeWithOT);
@@ -688,19 +1050,15 @@ function CalculateouttimefetchBGP($conn, $Clientid, $Employeeid, $Attendencedate
         $Workingdays = 0;
         $calculatedworkinghrs = 0;
         $Missmatchedintime = 0;
-        $Missmatchedouttime = 0;
-        $Missmatchedotintime = 0;
-        $Missmatchedotouttime = 0;
-        $missmatchedrecordfound = "No";
+        $Missmatchedouttime = 0;      
         $WorkingHours = 0;
-        $OT_HRS = 0;
-        $Lophrs = 0;
+       
         $Editedattenstatus = "";
         $fetchstatus = "SELECT * FROM indsys1035attenstatusmaster where AttenStatus='$AttenStatus' ";
         $fetchstatusresult = mysqli_query($conn, $fetchstatus);
         while ($row = mysqli_fetch_array($fetchstatusresult)) {
             $Attentypestatus = $row["Attentypestatus"];
-            $Attenstatusvalid = $row["Attenstatusvalid"];
+          
             $EmpAttendaysloss = $row['EmpAttendaysloss'];
         }
         //OT Alterations/////////////////////////////
@@ -710,7 +1068,7 @@ function CalculateouttimefetchBGP($conn, $Clientid, $Employeeid, $Attendencedate
             while ($rownew = mysqli_fetch_array($result_OT)) {
                 $Breakhours = $rownew["Breakhours"];
                 $Editedattenstatus = $rownew["Editedattenstatus"];
-                $Earlierstatus = $rownew["AttenStatus"];
+                
             }
         }
         if (empty($Breakhours)) {
@@ -734,8 +1092,6 @@ function CalculateouttimefetchBGP($conn, $Clientid, $Employeeid, $Attendencedate
         if ($Attentypestatus == "P") {
             $Intimecheck = "00:00:00";
             $OuttimeCheck = "00:00:00";
-            $OTIntimecheck = "00:00:00";
-            $OTOuttimecheck = "00:00:00";
             /////////Calculate Working hours and Working days
             if ($Intime != "00:00:00") {
                 $Missmatchedintime = 1;
@@ -746,12 +1102,15 @@ function CalculateouttimefetchBGP($conn, $Clientid, $Employeeid, $Attendencedate
             if ($Missmatchedintime == 1 && $Missmatchedouttime == 1) {
                 $Intimecheck = strtotime($Intime);
                 $OuttimeCheck = strtotime($Outtime);
-                $missmatchedrecordfound = "No";
-                $WorkingHours = $OuttimeCheck - $Intimecheck;
+                 $WorkingHours = $OuttimeCheck - $Intimecheck;
                 $WorkingHours = gmdate("H:i:s", $WorkingHours);
                 $Checkworkinghrs = substr(str_replace(":", ".", $WorkingHours), 0, 5);
                 if ($Editedattenstatus != "Yes") {
-                    $attendencehr = $Checkworkinghrs - 1;
+                    $attendencehr = $Checkworkinghrs;
+                    if ($Checkworkinghrs > 1)
+                    {
+                        $attendencehr = $Checkworkinghrs - 1;
+                    }
                     if ($attendencehr < 6) {
                         $AttenStatus = "HD";
                         $Attentypestatus = "P";
@@ -762,12 +1121,10 @@ function CalculateouttimefetchBGP($conn, $Clientid, $Employeeid, $Attendencedate
                 }
             }
             if ($Missmatchedintime == 0 && $Missmatchedouttime == 1) {
-                $missmatchedrecordfound = "Yes";
-                $calculatedworkinghrs = 0;
+                 $calculatedworkinghrs = 0;
             }
             if ($Missmatchedintime == 1 && $Missmatchedouttime == 0) {
-                $missmatchedrecordfound = "Yes";
-                $calculatedworkinghrs = 0;
+                 $calculatedworkinghrs = 0;
             }
             $WorkingHours = $OuttimeCheck - $Intimecheck;
             $WorkingHours = gmdate("H:i:s", $WorkingHours);
@@ -795,8 +1152,14 @@ function CalculateouttimefetchBGP($conn, $Clientid, $Employeeid, $Attendencedate
                 $actualWorkHrs = getHoursAndMins($actualWorkMIn);
                 $Checkworkinghrs = substr(str_replace(":", ".", $actualWorkHrs), 0, 5);
             }
-            $Workinghrs = $Checkworkinghrs - 1;
-            $OT_HRS = "0.00";
+      
+            $Workinghrs = $Checkworkinghrs;
+
+            if ($Checkworkinghrs > 5)
+            {
+                $Workinghrs = $Checkworkinghrs - 1;
+            }
+        
             if ($Outtime == "00:00:00") {
                 $calculatedworkinghrs = 0;
                 $Workinghrs = 0;
@@ -809,17 +1172,12 @@ function CalculateouttimefetchBGP($conn, $Clientid, $Employeeid, $Attendencedate
         if ($Attentypestatus == "L") {
             $Workinghrs = "0.00";
             $Workingdays = "0.00";
-            $OT_HRS = "0.00";
-            $missmatchedrecordfound = "No";
-            $Lophrs = "0.00";
+          
             $Workingdays = 0;
         }
         if ($Attentypestatus == "A") {
             $Workinghrs = "0.00";
             $Workingdays = "0.00";
-            $OT_HRS = "0.00";
-            $missmatchedrecordfound = "No";
-            $Lophrs = "0.00";
             $Workingdays = 0;
         }
         if (empty($EmpAttendaysloss)) {
@@ -838,7 +1196,7 @@ function CalculateouttimefetchBGP($conn, $Clientid, $Employeeid, $Attendencedate
   OTOuttime='$OTOuttime',
   Regsisterattendence ='$Regsisterattendence',
   Allowotyesorno='$Allow_OT',
-  Mismatchedattendence ='$missmatchedrecordfound',
+
   Workingdays ='$Workingdays',
   Actualworkinghours='$calculatedworkinghrs',
   ActualIntime ='$ActualIntime',
@@ -849,10 +1207,13 @@ function CalculateouttimefetchBGP($conn, $Clientid, $Employeeid, $Attendencedate
   Manualattendence='$Manualattendence' WHERE  Employeeid='$Employeeid' and Attendencedate='$Attendencedate' AND Clientid='$Clientid'  ";
         $resultExists01 = $conn->query($resultExists);
         if ($resultExists01 === true) {
-            if ($Allow_LOP == 'Yes') {
+            UpdateMissmateched($conn, $Clientid, $Employeeid, $Attendencedate, $Intime, $Outtime, $OTIntime, $OTOuttime);
+            EmpinandOut($conn, $Clientid, $Employeeid, $Attendencedate, $Intime, $Outtime);
+          
                 ActualAuditLopCalculation($conn, $Clientid, $Employeeid, $Attendencedate);
-            }
+           
             if ($Allow_OT == "Yes") {
+              
                 ActualAuditOTCalculation($conn, $Clientid, $Employeeid, $Attendencedate);
             }
             CalculateActualInandOut($conn, $Clientid, $Employeeid, $Attendencedate, $AttenStatus, $ActualIntime, $ActualOuttime, $ActualOTIntime, $ActualOTOuttime);
@@ -897,7 +1258,7 @@ function CalculateCLSL($conn, $Clientid, $Employeeid, $AttenStatus, $Attendenced
                 return "STATUSOPEN";
             }
         }
-        $GetCurrentYearLeaveclosestatus = "SELECT * FROM indsys1030empmonthleavetakenmastersummary where Clientid ='$Clientid' and Employeeid='$Employeeid' and AttendenceYear=='$Attendanceyear' And AttendenceMonth=='$Attendancemonth'  and Leavestatus='Close' LIMIT 1";
+        $GetCurrentYearLeaveclosestatus = "SELECT * FROM indsys1030empmonthleavetakenmastersummary where Clientid ='$Clientid'  and AttendenceYear='$Attendanceyear' And AttendenceMonth='$Attendancemonth'  and Leavestatus='Close' LIMIT 1";
         //printf($GetCurrentYearLeave);
         $result_Leaveclosestatus = $conn->query($GetCurrentYearLeaveclosestatus);
         if (mysqli_num_rows($result_Leaveclosestatus) > 0) {
@@ -925,6 +1286,7 @@ function CalculateCLSL($conn, $Clientid, $Employeeid, $AttenStatus, $Attendenced
                 $Title = $rowEmployee['Title'];
                 $Firstname = $rowEmployee['Firstname'];
                 $Lastname = $rowEmployee['Lastname'];
+                $ESI_Yesandno = $rowEmployee["ESI_Yesandno"];
             }
         }
         $logempmonthyearsummary = "SELECT * FROM indsys1030empyearleavetakensummary WHERE Clientid='$Clientid' AND Employeeid='$Employeeid'  AND AttendenceYear='$Attendanceyear'";
@@ -943,6 +1305,7 @@ function CalculateCLSL($conn, $Clientid, $Employeeid, $AttenStatus, $Attendenced
         }
         $TotalCausalLeave = $BalanceCausalLeave;
         $TotalSickLeave = $BalanceSickLeave;
+     
         $Sick2ndpart = 0;
         $Sickfull = 0;
         $Sick1stpart = 0;
@@ -1006,13 +1369,23 @@ function CalculateCLSL($conn, $Clientid, $Employeeid, $AttenStatus, $Attendenced
             while ($row = mysqli_fetch_array($logempall)) {
                 $TotalCausalLeave = $row['TotalCausalLeave'];
                 $TotalSickLeave = $row['TotalSickLeave'];
+                if ($ESI_Yesandno == "Yes") 
+                {
+                    $TotalSickLeave = 0;
+                    $BalanceSickLeave=0;
+                }
                 $RemainingCL = $TotalCausalLeave - $TakenCausal;
                 $RemainingSL = $TotalSickLeave - $TakenSickLeave;
-                $UpdateQuery = "UPDATE indsys1030empmonthleavetakensummary SET TotalCausalLeave='$TotalCausalLeave',TakenCausalLeave='$TakenCausal',BalanceCausalLeave='$RemainingCL',TotalSickLeave='$TotalSickLeave',TakenSickLeave='$TakenSickLeave',BalanceSickLeave='$RemainingSL' where Clientid='$Clientid' AND AttendenceMonth='$Attendancemonth' AND Employeeid='$Employeeid' AND AttendenceYear='$Attendanceyear'";
+                $UpdateQuery = "UPDATE indsys1030empmonthleavetakensummary SET TakenCausalLeave='$TakenCausal',BalanceCausalLeave='$RemainingCL',TakenSickLeave='$TakenSickLeave',BalanceSickLeave='$RemainingSL' where Clientid='$Clientid' AND AttendenceMonth='$Attendancemonth' AND Employeeid='$Employeeid' AND AttendenceYear='$Attendanceyear'";
                 $Updatesummary = mysqli_query($conn, $UpdateQuery);
                // UpdateYearSummary($conn, $Employeeid, $user_id, $Attendencedate, $Clientid);
             }
         } else {
+            if ($ESI_Yesandno == "Yes") 
+            {
+                $TotalSickLeave = 0;
+                $BalanceSickLeave=0;
+            }
             $RemainingCL = $TotalCausalLeave - $TakenCausal;
             $RemainingSL = $TotalSickLeave - $TakenSickLeave;
             $LeaveSave = "INSERT IGNORE INTO indsys1030empmonthleavetakensummary(Clientid,Employeeid,AttendenceMonth,AttendenceYear,Title,Firstname,lastname,Userid,Addormodifydatetime,TotalCausalLeave,TakenCausalLeave,BalanceCausalLeave,TotalSickLeave,TakenSickLeave,BalanceSickLeave)
@@ -1096,7 +1469,7 @@ function UpdateYearSummary($conn, $Employeeid, $user_id, $Attendencedate, $Clien
         $BalanceCL = $CausalleaveEligibility - $TakenCausal;
         $BalanceSL = $SickleaveEligibility - $TakenSickLeave;
         $Updatemaster = "UPDATE indsys1030empyearleavetakensummary set UsedCasualleave='$TakenCausal',BalanceCausalLeave='$BalanceCL',
-UsedSickLeave='$TakenSickLeave',BalanceSickLeave='$BalanceSL' where Clientid='$Clientid' AND Employeeid='$Employeeid'";
+         UsedSickLeave='$TakenSickLeave',BalanceSickLeave='$BalanceSL' where Clientid='$Clientid' AND Employeeid='$Employeeid'";
         $Updatemasterquery = mysqli_query($conn, $Updatemaster);
     }
     catch(Exception $e) {

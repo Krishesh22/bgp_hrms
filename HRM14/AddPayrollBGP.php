@@ -136,7 +136,7 @@
                                         </div>
 
                                         <div class="float-right mt-2" style="margin-right: 15px;">
-                                            <button class="btn btn-sm btn-success " ng-click="Selectallemp();"
+                                            <button class="btn btn-sm btn-success " ng-click="Selectallemp();" ng-if="Status=='Open'"
                                                 ng-disabled="btnEmployee">
                                                 Get Payroll</button>
 
@@ -146,10 +146,10 @@
                                                                         data-toggle="modal"
                                                                         data-target="#ModalEmployee" ng-disabled="btnEmployee" >Select
                                                                         Employee</button> -->
-                                            <button class="btn btn-sm btn-brand" data-toggle="modal"
+                                            <button class="btn btn-sm btn-brand" data-toggle="modal" ng-if="Status=='Open'"
                                                 data-target="#ModalPayrollClose" ng-disabled="btnEmployee">Close
                                                 Payroll</button>
-                                            <a class="btn btn-warning btn-sm" href="ExportExcel.php"
+                                            <a class="btn btn-warning btn-sm" href="ExportExcelBGP.php"
                                                 ng-click="GETREPORT()"><i class="fa fa-download"></i>
                                                 Download</a>
 
@@ -338,10 +338,14 @@
 
                                                         </tr>
 
-                                                        <tr dir-paginate="e in GetPayrollList |filter:searchPayroll|itemsPerPage:10 | orderBy: 'Employeeid' track by $index "
+                                                        <!-- <tr dir-paginate="e in GetPayrollList |filter:searchPayroll|itemsPerPage:10 | orderBy: 'Employeeid' track by $index "
                                                             pagination-id="PayrollGridAdmin"
                                                             current-page="currentPagePayroll01"
-                                                            ng-class="{'rowcolorClose':e.PackageHoldstatus=='Hold'}">
+                                                            ng-class="{'rowcolorClose':e.PackageHoldstatus=='Hold'}"> -->
+                                                            <tr dir-paginate="e in GetPayrollList |filter:searchPayroll|itemsPerPage:10 | orderBy: 'Employeeid' track by $index "
+                                                            pagination-id="PayrollGridAdmin"
+                                                            current-page="currentPagePayroll01"
+                                                           >
 
 
                                                             <td style="width: 50px;" class="sticky-col first-col">

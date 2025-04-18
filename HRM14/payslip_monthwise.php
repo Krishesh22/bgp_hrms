@@ -4,18 +4,52 @@
  
    $Clientid =$_SESSION["Clientid"];
    $Address1 = "";
-   $Address2 ="";
-   if($Clientid==2)
-   {
-    $Address1 ="'LABEL ARCADE' 476/1B1A, Jothi Nagar,";
-    $Address2 =" K CHETTIPALAYAM,TIRUPPUR-641605, INDIA";
+   $Address2="";
+   $City="";
+   $Zipcode="";
+   $Country="";
+   $FullAddress="";
 
+   $GetChapter = "SELECT * FROM indsys1001clientmaster where Clientid ='$Clientid'  ORDER BY Clientid";
+   $result_Chapter = $conn->query($GetChapter);
+   if (mysqli_num_rows($result_Chapter) > 0) {
+       while ($row = mysqli_fetch_array($result_Chapter)) {
+           $Clientname = $row['Clientname'];
+           $Location = $row['Location'];
+           $Phoneno = $row['Phoneno'];
+           $Emailid = $row['Emailid'];
+           $GSTN = $row['GSTN'];
+           $Tin = $row['Tin'];
+           $Emailpassword = $row['Emailpassword'];
+           $Regnno = $row['Regnno'];
+           $Panno = $row['Panno'];
+           $Address1 = $row['AddressLine1'];
+           $Address2 = $row['AddressLine2'];
+           $AddressLine3 = $row['AddressLine3'];
+           $Country = $row['Country'];
+           $City = $row['City'];
+           $Zipcode = $row['Zipcode'];
+           $Website = $row['Website'];
+           $ClientnameTamil = $row['ClientnameTamil'];
+           $ClientnameHindi = $row['ClientnameHindi'];
+           $ClientLogo = $row['ClientLogo'];
+           $Place = $row['Place'];
+           $Busroute = $row['Busroute'];
+           $FullAddress = "$Address2, $City- $Zipcode, $Country.";
+       }
    }
-   else
-   {
-    $Address1 ="No:471/3,Ramegoundempalaiyam,";
-    $Address2 =" Peruntholuvu Village,Tirupur-641665, India. TPR-22066";
-   }
+//    $Address2 ="";
+//    if($Clientid==2)
+//    {
+//     $Address1 ="'LABEL ARCADE' 476/1B1A, Jothi Nagar,";
+//     $Address2 =" K CHETTIPALAYAM,TIRUPPUR-641605, INDIA";
+
+//    }
+//    else
+//    {
+//     $Address1 ="No:471/3,Ramegoundempalaiyam,";
+//     $Address2 =" Peruntholuvu Village,Tirupur-641665, India. TPR-22066";
+//    }
    ?>
 <!DOCTYPE html moznomarginboxes mozdisallowselectionprint>
 <html lang="en">
@@ -260,8 +294,15 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
                         $TakenEL = $row['TakenEL'];
                           $Dormitory=$row['Dormitory'];
                         $Transport=$row['Transport'];
+                        $Holiday_pay=$row['Holiday_pay'];
+                        $Holiday_pf=$row['Holiday_pf'];
+                        $Holiday_esi=$row['Holiday_esi'];
+                        $Holiday_deduction=$row['Holiday_deduction'];
+                        $Holiday_net=$row['Holiday_net'];
+                     
 
                         $TotalWagesCal = $BasicDA+$HRA+$Otherallowance_Con_SA;
+                        $TotalDeduction_HolidayDeduction = $TotalDeduction+$Holiday_deduction;
 
                         // $result[] = $row;
 
@@ -320,7 +361,7 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
                       }
                     }
                 $Paidleave = $Nationalholidays + $CL;
-                $TotNetWages = $NetWages + $Performanceallowance;
+                $TotNetWages = $NetWages + $Performanceallowance+$Holiday_net;
             ?>
         <div style="padding:10px" class="payslip-data">
 
@@ -332,7 +373,7 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
                                 <?php echo $Address1?>
 
                                 <br />
-                                <?php echo $Address2?>
+                                <?php echo $FullAddress?>
                             </center>
                         </td>
                     </tr>
@@ -431,8 +472,8 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
                         <td>LOP / சம்பள இழப்பு / वेतन का
                             नुकसान </td>
                         <td class="textright"><?php echo $LOP ?></td>
-                        <td></td>
-                        <td></td>
+                        <td>National Holiday Wages/ தேசிய விடுமுறை ஊதியம்/ राष्ट्रीय अवकाश वेतन</td>
+                        <td class="textright"><?php echo $Holiday_pay ?></td>
                         <td>PF / பிஎஃப் / भविष्य निधि </td>
                         <td class="textright"><?php echo $PF ?></td>
                     </tr>
@@ -442,8 +483,8 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
 
                             समयोपरि घंटे </td>
                         <td class="textright"><?php echo $OT_HRS ?></td>
-                        <td></td>
-                        <td></td>
+                        <td>National Holiday PF / தேசிய விடுமுறை பிஎஃப் / राष्ट्रीय अवकाश पी.एफ.</td>
+                        <td class="textright"><?php echo $Holiday_pf ?></td>
                         <td>ESI / இ.எஸ்.ஐ. / कर्मचारियों का
                             राज्य बीमा </td>
                         <td class="textright"><?php echo $ESI ?></td>
@@ -452,8 +493,8 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
                     <tr>
                         <td>LOP Hrs/ ஊதிய நேர இழப்பு / वेतन घंटों का नुकसान </td>
                         <td class="textright"><?php echo $Lophrs ?></td>
-                        <td></td>
-                        <td></td>
+                        <td> National Holiday ESI / தேசிய விடுமுறை இ.எஸ்.ஐ. / राष्ट्रीय अवकाश ईएसआई</td>
+                        <td class="textright"><?php echo $Holiday_esi ?></td>
                         <td>LOP Wages/ ஊதிய இழப்பு
                             / वेतन मजदूरी का नुकसान </td>
                         <td class="textright"><?php echo $Lopwages ?></td>
@@ -465,8 +506,9 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
 
                             राष्ट्रीय अवकाश </td>
                         <td class="textright"><?php echo $Nationalholidays ?> </td>
-                        <td rowspan="2"></td>
-                        <td rowspan="2"></td>
+                        <td>National Holiday Deduction / தேசிய விடுமுறை பிடித்தம் / राष्ट्रीय अवकाश कटौती</td>
+                        <td class="textright"><?php echo $Holiday_deduction ?></td>
+                       
                         <td>Salary Advance / சம்பள முன்பணம்
                             / अग्रिम वेतन
                         </td>
@@ -479,6 +521,8 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
 
                            </td>
                         <td class="textright"><?php echo $Leavedays ?></td>
+                        <td>National Holiday Net Wages / தேசிய விடுமுறை நிகர ஊதியம் / राष्ट्रीय अवकाश शुद्ध मजदूरी</td>
+                        <td class="textright"><?php echo $Holiday_net ?></td>
                         <td>Food & Other Deduction / பிடித்தம் /
                             कटौती </td>
                         <td class="textright"><?php echo $FoodDeduction ?>
@@ -491,8 +535,9 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
                             दिन </td>
                         <td class="textright"><?php echo $Totaldays ?></td>
                     
-                        <td></td>
-                        <td></td>
+                        <td>Total Deduction / மொத்த
+                                பிடித்தம் / कटौती</td>
+                        <td class="textright"><?php echo $TotalDeduction_HolidayDeduction ?></td>
                         <td>TDS/ டிடிஎஸ்/ टीडीएस </td>
                         <td class="textright"><?php echo $TDS ?></td>
                     </tr>
@@ -500,8 +545,8 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
                     <td>UAN NO</td>
                         <td><?php echo $UANno ?></td>
                       
-                        <td></td>
-                        <td></td>
+                        <td>Earned Net Wages / ஈட்டிய நிகர ஊதியம் / अर्जित शुद्ध मजदूरी</td>
+                        <td class="textright"><?php echo $NetWages ?></td>
                         <td>Dormitory / தங்குமிடம் /
                             छात्रावास</td>
                         <td class="textright"><?php echo $Dormitory ?>
@@ -513,8 +558,8 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
                     <td>ESIC NO </td>
                         <td><?php echo $ESIno ?></td>
                        
-                        <td></td>
-                        <td></td>
+                        <td>Performance allowance/ஊக்க தொகை/ प्रदर्शन भत्ता </td>
+                        <td class="textright"><?php echo $Performanceallowance ?></td>
                         <td>Transport/போக்குவரத்து/ परिवहन </td>
                         <td class="textright"><?php echo $Transport ?></td>
                     </tr>
@@ -523,42 +568,31 @@ if (isset($_SESSION['Payrollmonth'])&&isset($_SESSION['Payrollyear']) &&isset($_
                         <td class="textright"><?php echo $Balanceleave?></td>
                         <td></td>
                         <td></td>
-                        <td><b>Total Deduction / மொத்த
-                                பிடித்தம் / कटौती</b></td>
+                        <td>Earned Deduction /சம்பாதித்த விலக்கு / अर्जित कटौती</td>
                         <td class="textright"><?php echo $TotalDeduction ?></td>
                     </tr>
+
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Performance allowance/ஊக்க தொகை/ प्रदर्शन भत्ता </td>
-                        <td class="textright"><?php echo $Performanceallowance ?></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <td colspan="2">Employee Signature/பணியாளர் கையொப்பம்
+                            /
+                            कर्मचारी हस्ताक्षर
+                        </td>
+                        <td colspan="2"></td>
+                        
                         <td><b>Net Wages நிகர ஊதியம் / नेट
                                 सैलरी</b> </td>
-                        <td class="textright"><?php echo $TotNetWages ?></td>
+                        <td class="textright"><b><?php echo $TotNetWages ?></b></td>
                     </tr>
-                    <tr>
-                        <td>Authorised Signature /
-                            மேலாளர்
-
-                            கையொப்பம் / कर्मचारी हस्ताक्षर
-                        </td>
-                        <td></td>
-                        <td colspan="2">Employee Signature /
-                            பணியாளர் கையொப்பம்
-                            /
-                            कर्मचारी हस्ताक्षर </td>
-                        <td colspan="2"></td>
-                    </tr>
+                   
+                   
                 </tbody>
             </table>
+            <div class="row">
+                     
+                       <div class="col-xl-12 col-lg-12 col-md-12 textright"  style="font-size: 12px;">
+                             This is computer-generated payslip, it does not require a signature
+                        </div>
+                 </div>
             <p style="page-break-after: always;"></p>
         </div>
         <?php

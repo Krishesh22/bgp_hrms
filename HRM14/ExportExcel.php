@@ -41,7 +41,15 @@ $Payrollmonth=$_SESSION['Payrollmonth'];
 $gettime = time();
 // $Downloadtime = time();
 $gettime = "payroll_$Payrollmonth-$Payrollyear.xls";
-
+$Location="";
+if($Clientid==2)
+{
+  $Location="Corporate";
+}
+else
+{
+  $Location="Warehouse";
+}
 
 header('Content-Type: application/vnd.ms-excel');
 header("Content-Disposition: attachment; filename=".$gettime."");
@@ -59,55 +67,58 @@ $excel->getActiveSheet();
   // ->setCellValue('A2',"Wages For Monthly Paid ('.$Category.') For the Month Of '.$Payrollmonth.'-'.$Payrollyear.'");
 
 //merge heading
-$excel->getActiveSheet()->mergeCells("A1:AH1");
+$excel->getActiveSheet()->mergeCells("A1:AJ1");
+$excel->getActiveSheet()->mergeCells("A2:AJ2");
+$excel->getActiveSheet()->mergeCells("A3:AJ3");
+
 
 // set font style
 $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(18);
 $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(13);
 
 $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
-$excel->getActiveSheet()->getStyle( 'A3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'B3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'C3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'D3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'E3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'F3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'G3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'H3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'I3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'J3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'K3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'L3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'M3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'N3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'O3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'P3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'Q3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'R3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'S3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'T3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'U3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'V3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'W3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'X3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'Y3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'Z3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AA3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AB3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AC3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AD3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AE3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AF3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AG3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AH3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AI3')->getFont()->setBold( true );
-$excel->getActiveSheet()->getStyle( 'AJ3')->getFont()->setBold( true );
-
+$excel->getActiveSheet()->getStyle( 'A4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'B4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'C4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'D4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'E4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'F4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'G4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'H4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'I4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'J4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'K4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'L4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'M4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'N4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'O4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'P4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'Q4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'R4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'S4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'T4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'U4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'V4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'W4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'X4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'Y4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'Z4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AA4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AB4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AC4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AD4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AE4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AF4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AG4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AH4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AI4')->getFont()->setBold( true );
+$excel->getActiveSheet()->getStyle( 'AJ4')->getFont()->setBold( true );
 
 
 // set cell alignment
 $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
+$excel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
 
 
 
@@ -149,56 +160,58 @@ $excel->getActiveSheet()->getStyle('AJ')->getAlignment()->setWrapText(true);
 
 
 //$active->fromArray($header, NULL, 'A1');  
-$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
-$active->setCellValue('A2',"Wages For Monthly Paid (".$Category.") For the Month Of ".$Payrollmonth."-".$Payrollyear);
-$active->setCellValue('A3','EMPLOYEE ID');
-$active->setCellValue('B3','EMPLOYEE NAME');
-$active->setCellValue('C3','DEPARTMENT');
-$active->setCellValue('D3','DESIGNATION');
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD  ($Location)");
+$active->setCellValue('A2',"Factories Act 1948 And TAMILNADU FACTORIES RULES 1950 (FORM NO 12 & 25) [Prescribed Under Rule 80 & 103]
+Register of Adult Workers Men/Women Attendance Report for the Month of ".$Payrollmonth."-".$Payrollyear);
+$active->setCellValue('A3',"Wages For Monthly Paid (".$Category.") For the Month Of ".$Payrollmonth."-".$Payrollyear);
+$active->setCellValue('A4','EMPLOYEE ID');
+$active->setCellValue('B4','EMPLOYEE NAME');
+$active->setCellValue('C4','DEPARTMENT');
+$active->setCellValue('D4','DESIGNATION');
 
-$active->setCellValue('E3','WORKING DAYS');
-$active->setCellValue('F3','WORKED DAYS');
-$active->setCellValue('G3','NH');
-$active->setCellValue('H3','LEAVEDAYS');
-$active->setCellValue('I3','LEAVETAKEN');
-$active->setCellValue('J3','BALANCELEAVE');
+$active->setCellValue('E4','WORKING DAYS');
+$active->setCellValue('F4','WORKED DAYS');
+$active->setCellValue('G4','NH');
+$active->setCellValue('H4','LEAVEDAYS');
+$active->setCellValue('I4','LEAVETAKEN');
+$active->setCellValue('J4','BALANCELEAVE');
 
 
-$active->setCellValue('K3','LOP');
+$active->setCellValue('K4','LOP');
 
-$active->setCellValue('L3','TOTAL');
+$active->setCellValue('L4','TOTAL');
 
-$active->setCellValue('M3','BASIC+DA');
+$active->setCellValue('M4','BASIC+DA');
 
-$active->setCellValue('N3','HRA');
-$active->setCellValue('O3','OTHER_ALLOWANCE');
+$active->setCellValue('N4','HRA');
+$active->setCellValue('O4','OTHER_ALLOWANCE');
 
-$active->setCellValue('P3','TOTAL');
+$active->setCellValue('P4','TOTAL');
 
-$active->setCellValue('Q3','EARNED BASIC');
+$active->setCellValue('Q4','EARNED BASIC');
 
-$active->setCellValue('R3','EARNED HRA');
+$active->setCellValue('R4','EARNED HRA');
 
-$active->setCellValue('S3','EARNED OTHERALLOWANCE');
-$active->setCellValue('T3','EARNED DAILYALLOWANCE');
+$active->setCellValue('S4','EARNED OTHERALLOWANCE');
+$active->setCellValue('T4','EARNED DAILYALLOWANCE');
 
-$active->setCellValue('U3','OT_HRS');
-$active->setCellValue('V3','OT_WAGES');
+$active->setCellValue('U4','OT_HRS');
+$active->setCellValue('V4','OT_WAGES');
 
-$active->setCellValue('W3','EARNED WAGES');
-$active->setCellValue('X3','PF');
-$active->setCellValue('Y3','ESI');
-$active->setCellValue('Z3','LOP HRS');
-$active->setCellValue('AA3','LOP WAGES');
-$active->setCellValue('AB3','ADVANCE');
-$active->setCellValue('AC3','FOOD');
-$active->setCellValue('AD3','TDS');
-$active->setCellValue('AE3','DORMITORY');
-$active->setCellValue('AF3','TRANSPORT');
-$active->setCellValue('AG3','TOTAL DEDUCTION');
-$active->setCellValue('AH3','NET');
-$active->setCellValue('AI3','PERFORMANCE ALLOWANCE');
-$active->setCellValue('AJ3','TOTAL');
+$active->setCellValue('W4','EARNED WAGES');
+$active->setCellValue('X4','PF');
+$active->setCellValue('Y4','ESI');
+$active->setCellValue('Z4','LOP HRS');
+$active->setCellValue('AA4','LOP WAGES');
+$active->setCellValue('AB4','ADVANCE');
+$active->setCellValue('AC4','FOOD');
+$active->setCellValue('AD4','TDS');
+$active->setCellValue('AE4','DORMITORY');
+$active->setCellValue('AF4','TRANSPORT');
+$active->setCellValue('AG4','TOTAL DEDUCTION');
+$active->setCellValue('AH4','NET');
+$active->setCellValue('AI4','PERFORMANCE ALLOWANCE');
+$active->setCellValue('AJ4','TOTAL');
 // $active->setCellValue('AH3','TOTAL');
 
 
@@ -209,7 +222,7 @@ $grandTotal = 0;
 $GetState = "SELECT * FROM indsys1026employeepayrolltempmasterdetail where SalMonth='$Payrollmonth' and Salyear='$Payrollyear' AND Category='$Category' AND Clientid='$Clientid' AND NetWages!=0  ORDER BY Employeeid";
 
   $result_Region = $conn->query($GetState);
-  $currentContenRow=4;
+  $currentContenRow=5;
   if(mysqli_num_rows($result_Region) > 0) { 
   while($rows = mysqli_fetch_array($result_Region)) {  
 

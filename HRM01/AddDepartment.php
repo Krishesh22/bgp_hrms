@@ -28,7 +28,7 @@ include '../session.php';
                
                     
                      
-                        <div class="row">
+                        <div class="row mt-2">
 
                             <div class="col-md-5">
                             <h5 class="text-green">Department List</h5>

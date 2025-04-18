@@ -1497,7 +1497,7 @@ app.controller('HRMEXITAPIController', function($scope, $http, $timeout, $filter
 
                 if ($scope.Category == "Category 3") {
                     $('#ModalAdminMail').modal('show');
-                    $scope.SendMAILADMIN_Approve();
+                   // $scope.SendMAILADMIN_Approve();
 
                 } else {
                     $scope.SendMAILGM_Approve();
@@ -1552,7 +1552,7 @@ app.controller('HRMEXITAPIController', function($scope, $http, $timeout, $filter
 
 
                 $scope.TempSave();
-                $scope.SendMAILADMIN_Approve();
+             //   $scope.SendMAILADMIN_Approve();
 
 
 

@@ -36,89 +36,81 @@ include '../session.php';
         <?php include '../Sidebarin.php'?>
         <div class="dashboard-wrapper" ng-App="MyApp" ng-controller="HRM61Controller">
             <div class="container-fluid dashboard-content">
-                <div class="row">
+            <h5 class="text-green">Asset Lists</h5>
+            <hr/>
 
-                    <div class="col-md-3">
-                        <h5 class="text-green">Asset Lists</h5>
+            <div class="row">
+                <div class="col-md-9">
+                        <div class="row">
+                            <div class="form-group col-lg-3">
+                                <label class="col-form-label">Category<span class="required">*</span></label>
+                                <select ng-model="Assetcategoryid" class="form-control " ng-change="GetAssetshortcode()">
+                                    <option ng-repeat="s in GetCategoryList " value="{{s.Assetcategoryid}}">
+                                        {{s.Assetcategory}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="col-form-label">Category Code</label>
+                                <input type="text" class="form-control" placeholder="Enter Asset Code" ng-model="Shortcode"
+                                    autocomplete="off" readonly>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="col-form-label">Asset Code<span class="required">*</span></label>
+                                <input type="text" class="form-control" placeholder="Enter Asset Code" ng-model="Assetcode"
+                                    autocomplete="off">
+                            </div>
+
+                            <div class="form-group col-lg-3">
+                                <label class="col-form-label">Asset Name<span class="required">*</span></label>
+                                <input type="text" class="form-control" placeholder="Enter Asset Name" ng-model="Assetname"
+                                    autocomplete="off">
+                            </div>
+                        </div>
                     </div>
-
-
-
-                </div>
-                <div class="row">
-                    <div class="form-group col-lg-3">
-                        <label class="col-form-label">Category<span class="required">*</span></label>
-                        <select ng-model="Assetcategoryid" class="form-control " ng-change="GetAssetshortcode()">
-
-                            <option ng-repeat="s in GetCategoryList " value="{{s.Assetcategoryid}}">
-                                {{s.Assetcategory}}</option>
-                        </select>
+                    <div class="col-md-3 text-right">
+                        <div class="" style="margin-top:20px">
+                        <button class="btn btn-sm btn-success" ng-click="SaveAssetLists();" ng-show="btnsave">Save <i
+                        class="fa fa-plus"></i></button>
+                        <button class="btn btn-sm  btn-success" ng-click="UpdateAssetLists();" ng-show="btnupdate">Update <i
+                        class="fa fa-plus"></i></button>
+                        <button class="btn btn-sm btn-danger" ng-click="Reset();">Clear <i
+                        class="fa fa-times"></i></button>
+                        <button class="btn btn-sm btn-warning" ng-click="GetAssetbarcodeprint();">Print <i
+                        class="fa fa-print"></i></button>
+                        </div>
                     </div>
-                    <div class="form-group col-lg-3">
-                        <label class="col-form-label">Category Code</label>
-                        <input type="text" class="form-control" placeholder="Enter Asset Code" ng-model="Shortcode"
-                            autocomplete="off" readonly>
-                    </div>
-                    <div class="form-group col-lg-3">
-                        <label class="col-form-label">Asset Code<span class="required">*</span></label>
-                        <input type="text" class="form-control" placeholder="Enter Asset Code" ng-model="Assetcode"
-                            autocomplete="off">
-                    </div>
-
-                    <div class="form-group col-lg-3">
-                        <label class="col-form-label">Asset Name<span class="required">*</span></label>
-                        <input type="text" class="form-control" placeholder="Enter Asset Name" ng-model="Assetname"
-                            autocomplete="off">
-                    </div>
-
-
-                </div>
-
-                <div class="row">
                     <div class="col-md-12">
-                        <div class="alert alert-success" role="alert" ng-show="Message">
+                    <div class="alert alert-success" role="alert" ng-show="Message">
                             {{Message}}
                         </div>
-                        <div class="text-right mt-2 mb-2">
-                            <button class="btn btn-sm btn-success" ng-click="SaveAssetLists();" ng-show="btnsave">Save <i
-                                    class="fa fa-plus"></i></button>
-
-                            <button class="btn btn-sm  btn-success" ng-click="UpdateAssetLists();" ng-show="btnupdate">Update <i
-                                    class="fa fa-plus"></i></button>
-                            <button class="btn btn-sm btn-danger" ng-click="Reset();">Clear <i
-                                    class="fa fa-times"></i></button>
-                            <button class="btn btn-sm btn-warning" ng-click="GetAssetbarcodeprint();">Print <i
-                                    class="fa fa-print"></i></button>
-                            
                         </div>
-                    </div>
-                </div>
-
-
+            </div>
+             
+           
                 <div class="row">
 
                     <div class="col-md-12">
 
-                        <hr />
+                     
                         <table class="table table-bordered  table-sm info-table">
                             <thead>
                                 <tr class="bg-green text-white">
-                                    <th scope="col">#</th>
-                                    <th scope="col">S.no</th>
+                                    <th scope="col" class="text-center">#</th>
+                                    <th  class="text-center" scope="col">S.No</th>
                                     <th scope="col">Asset Code</th>
                                     <th scope="col">Asset Name</th>
                                     <th scope="col">Asset Category</th>
-                                    <th>Status</th>
-                                    <th>Allocated</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Allocated</th>
 
-                                    <th>Action</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
 
                             <tr>
                                 <td colspan="3">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search Assetcode"
+                                        <input type="text" class="form-control" placeholder="Search Asset Code"
                                             ng-model="searchAsset.Assetcode">
                                         <div class="input-group-append"><span class="input-group-text"><i
                                                     class="fa fa-search"></i></span></div>
@@ -145,7 +137,7 @@ include '../session.php';
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search Asset Category"
+                                        <input type="text" class="form-control" placeholder="Search Status"
                                             ng-model="searchAsset.Activestatus">
                                         <div class="input-group-append"><span class="input-group-text"><i
                                                     class="fa fa-search"></i></span></div>
@@ -154,7 +146,7 @@ include '../session.php';
                                 </td>
                                 <td colspan="2">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search Asset Category"
+                                        <input type="text" class="form-control" placeholder="Search Allocated"
                                             ng-model="searchAsset.AssignedCount">
                                         <div class="input-group-append"><span class="input-group-text"><i
                                                     class="fa fa-search"></i></span></div>
@@ -172,18 +164,18 @@ include '../session.php';
                                     current-page="currentPageState" pagination-id="StateGrid">
 
                                     <td style="width: 50px;">
-
+                                            <div class="text-center">
                                         <input type="checkbox" ng-model="Listfolder[e.Assetlistid]" value={{e.Assetlistid}} />
-
+                                        </div>
                                     </td>
-                                    <td style="width: 50px;">
+                                    <td style="width: 50px;"  class="text-center">
                                         {{$index+1 + (currentPageState - 1) * pageSizeState}}
                                     </td>
                                     <td>{{e.Assetshortcode}}</td>
                                     <td>{{e.Assetname}}</td>
                                     <td>{{e.Assetcategory}}</td>
-                                    <td>{{e.Activestatus}}</td>
-                                    <td>{{e.AssignedCount}}</td>
+                                    <td style="width: 100px;" class="text-center">{{e.Activestatus}}</td>
+                                    <td style="width: 100px;" class="text-center">{{e.AssignedCount}}</td>
                                     <!-- <td>{{e.Assetshortcode}}</td> -->
                                     <td>
 
@@ -218,7 +210,7 @@ include '../session.php';
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="pagination">
+                        <div class="pagination float-right my-1">
                             <dir-pagination-controls pagination-id="StateGrid" max-size="3" direction-links="true"
                                 boundary-links="true">
                             </dir-pagination-controls>

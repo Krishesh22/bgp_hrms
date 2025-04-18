@@ -1,10 +1,27 @@
 <?php
 session_start();
-
 error_reporting(E_ALL);
-
 $error ="";
 include 'config.php';
+$user_id = $_SESSION["Userid"];
+
+if (!isset($_SESSION['Userid']))
+ {
+
+
+   
+  }
+else
+{
+header( "refresh:0;url=dashboard.php" );
+return;
+}
+
+?>
+
+
+<?php
+
 
 $LocationList="";
 $LocationQry = "SELECT * FROM indsys1001clientmaster";

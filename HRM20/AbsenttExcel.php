@@ -84,7 +84,7 @@ $excel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
 
 
 $active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
-$active->setCellValue('A2',"PresentDetails For $Attendencedate");
+$active->setCellValue('A2',"Absent Details For $Attendencedate");
 $active->setCellValue('A3','S.No');
 $active->setCellValue('B3','ID');
 $active->setCellValue('C3','NAME');
@@ -110,10 +110,13 @@ $Sno = 0;
    
    
     $Sno++;
+    $First = $row['Firstname'];
+    $last = $row['lastname'];
+    $name = "$First $last";
 
      $active->setCellValue('A'.$currentContenRow,$Sno);
     $active->setCellValue('B'.$currentContenRow,$row['Employeeid']);
-    $active->setCellValue('C'.$currentContenRow,$row['Firstname']);
+    $active->setCellValue('C'.$currentContenRow,$name);
     $active->setCellValue('D'.$currentContenRow,$row['AttenStatus']);
     $active->setCellValue('E'.$currentContenRow,$row['Intime']);
     $active->setCellValue('F'.$currentContenRow,$row['Outtime']);

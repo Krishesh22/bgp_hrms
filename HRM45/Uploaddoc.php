@@ -191,18 +191,27 @@ if (isset($_FILES['files']) && !empty($_FILES['files'])) {
                 }
                 $gettime = time();
                 $uniquesavename = "$Documentno-$Sno-$img";
-                move_uploaded_file($_FILES["files"]["tmp_name"][$i], $directory . $uniquesavename);
-                $Logofilepath = $directory . $uniquesavename;
-                $Documentsave = "INSERT IGNORE INTO indsys1054documentmasterdetails(Clientid,Documentno,Sno,Userid,Addormodifydatetime,Documentfilepath,Documentfilename,Documentfilesize,Documenttype)
-                VALUES('$Clientid','$Documentno','$Sno','$user_id','$date','$Logofilepath','$uniquesavename','$file_size','$file_type')";
-                $savedocument = mysqli_query($conn, $Documentsave);
-                if ($savedocument === TRUE) {
-                } else {
-                }
+                $uploadFilePath = $directory . $uniquesavename;
+                
+                if (move_uploaded_file($_FILES["files"]["tmp_name"][$i], $uploadFilePath)) {
+                   
+                    $Documentsave = "INSERT IGNORE INTO indsys1054documentmasterdetails(Clientid,Documentno,Sno,Userid,Addormodifydatetime,Documentfilepath,Documentfilename,Documentfilesize,Documenttype)
+                    VALUES('$Clientid','$Documentno','$Sno','$user_id','$date','$uploadFilePath','$uniquesavename','$file_size','$file_type')";
+                    $savedocument = mysqli_query($conn, $Documentsave);
+                    if ($savedocument === TRUE) {
+                        echo 'File Uploaded Successfully....';
+                    } else {
+                        echo 'File Uploaded Error....';
+                    }
+                } 
+                else
+                {
+                    echo 'File Uploaded Error....';
+                } 
             }
         }
     }
-    echo 'File Uploaded Successfully....';
+   
 } else {
     echo 'Please choose at least one file';
 }

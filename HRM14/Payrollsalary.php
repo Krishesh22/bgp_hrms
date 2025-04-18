@@ -1,5 +1,6 @@
 <?php
-function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $SalMonth, $Salyear, $Workeddays, $Leavedays, $Salary_Advance, $FoodDeduction, $TDS, $Category, $Workingdays, $Nationalholiday, $CL, $BasicDA, $HRA, $Otherallowance_Con_SA, $OT_HRS, $DailyAllowanance, $Performanceallowance,$Dormitory,$Transport) {
+function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $SalMonth, $Salyear, $Workeddays, $Leavedays, $Salary_Advance, $FoodDeduction, $TDS, $Category, $Workingdays, $Nationalholiday, $CL, $BasicDA, $HRA, $Otherallowance_Con_SA, $OT_HRS, $DailyAllowanance, $Performanceallowance, $Dormitory, $Transport)
+{
     try {
         $EarnedBasics = 0;
         $EarnedHRA = 0;
@@ -44,14 +45,12 @@ function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Sa
         if (empty($TDS)) {
             $TDS = 0;
         }
-        if(empty($Dormitory))
-        {
-            $Dormitory=0;
+        if (empty($Dormitory)) {
+            $Dormitory = 0;
         }
 
-        if(empty($Transport))
-        {
-            $Transport=0;
+        if (empty($Transport)) {
+            $Transport = 0;
         }
         $GetChapter = "SELECT * FROM indsys1025pfandesilimitmaster where Clientid ='$Clientid' ";
         $result_Chapter = $conn->query($GetChapter);
@@ -72,6 +71,7 @@ function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Sa
             while ($row = mysqli_fetch_array($result_Chapter)) {
                 $Lophrs = $row['Lophrs'];
                 $ActualOt_HRSNew = $row['ActualOTHRS'];
+                $NH_Sunday=$row['Holiday_count'];
             }
         }
         $month_num = date("m", strtotime($SalMonth));
@@ -86,9 +86,7 @@ function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Sa
         while ($rownewtest = mysqli_fetch_array($resultLOP)) {
             $Lophrs = $rownewtest['LOPHRSNEW'];
             $Lophrs = getHoursAndMins($Lophrs);
-            $Lophrs = substr(str_replace(':', '.', $Lophrs), 0, 5);
-            //echo "$Employeeid- $Lophrs<br/>";
-            
+            $Lophrs = substr(str_replace(':', '.', $Lophrs), 0, 5);;
         }
         if (empty($Lophrs)) {
             $Lophrs = 0;
@@ -102,18 +100,17 @@ function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Sa
                 $PFnew = $row['PF'];
                 $ESI_Yesandno = $row['ESI_Yesandno'];
                 $Dailyallowancelimit = $row['Day_allowance'];
-                $ESIOverlimit =$row['ESIOverlimit'];
-                if ($Performanceallowance == 0) {
-                    $Performanceallowance = $row['Performance_allowance'];
-                }
+                $ESIOverlimit = $row['ESIOverlimit'];
+
+                $Performanceallowance = $row['Performance_allowance'];
+
                 $date_of_joining = $row['Date_Of_Joing'];
             }
         }
         $Totaldays = $Workeddays + $Nationalholiday;
         $Leavedays = ($Workingdays - $Totaldays);
         $TakenEL = 0;
-        $BalanceEL = 0;
-        // $Leavedays = ($Workingdays - $Workeddays);
+        $BalanceEL = 0;        
         if ($Workeddays == 0) {
             $Lop = $Leavedays;
             $TakenEL = 0;
@@ -121,7 +118,6 @@ function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Sa
         } else {
             $Lop = Max(($Leavedays - $CL), 0);
         }
-        //$Lop=Max(($Leavedays-$CL),0);
         if ($Workeddays == 0) {
             $Totaldays = 0;
         } else {
@@ -138,10 +134,21 @@ function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Sa
             $TakenEL = 0;
             $BalanceEL = $CL;
         }
-        //echo("test $Workeddays+$Nationalholiday");
-        //Totalsalary=Basics+HRA+DA
+    
         $Total_Salary = $BasicDA + $HRA + $Otherallowance_Con_SA + $Performanceallowance;
         $Total_Salary2 = $BasicDA + $HRA + $Otherallowance_Con_SA;
+        $BasicDA_Day=$BasicDA/26;
+        $HRA_Day=$HRA/26;
+        $Otherallowance_Con_SA_day=$Otherallowance_Con_SA/26;
+        $Wages_perday=$Total_Salary2/26;
+        $NH_pf =0;
+        $NH_esi=0;
+        $NH_deduction=0;
+        $NH_net=0;
+        
+        $Total_per_day=$BasicDA_Day+$HRA_Day+$Otherallowance_Con_SA_day;
+      
+        $NH_pay=round($Wages_perday)*$NH_Sunday;
         $date = date("Y-m-d H:i:s");
         $date1 = new DateTime($date_of_joining);
         $date2 = new DateTime($monthoflastday);
@@ -151,101 +158,91 @@ function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Sa
         $later = new DateTime($monthoflastday);
         $abs_diff = $later->diff($earlier)->format("%a");
         $abs_diff = $abs_diff + 1;
-        if ($dateofjoingdays <= $abs_diff) {
-            //echo "$Employeeid<br/>";
+        if ($dateofjoingdays <= $abs_diff) {         
             if ($monthof1stday == $date_of_joining) {
-                $EarnedBasics = $BasicDA - (($BasicDA / 26) * $Lop);
-                //EarnedHRA = HRA-(HRA/Workingdays)*Lossofpay
-                $EarnedHRA = $HRA - ($HRA / 26) * $Lop;
-                //EarnedOA = OA-(OA/Workingdays)*Lossofpay
+                $EarnedBasics = $BasicDA - (($BasicDA / 26) * $Lop);              
+                $EarnedHRA = $HRA - ($HRA / 26) * $Lop;               
                 $EarnedOtherallowance = $Otherallowance_Con_SA - ($Otherallowance_Con_SA / 26) * $Lop;
             } else {
-                $EarnedBasics = ($BasicDA / 26) * $Totaldays;
-                //EarnedHRA = HRA-(HRA/Workingdays)*Lossofpay
-                $EarnedHRA = ($HRA / 26) * $Totaldays;
-                //EarnedOA = OA-(OA/Workingdays)*Lossofpay
+                $EarnedBasics = ($BasicDA / 26) * $Totaldays;              
+                $EarnedHRA = ($HRA / 26) * $Totaldays;                
                 $EarnedOtherallowance = ($Otherallowance_Con_SA / 26) * $Totaldays;
             }
         } else {
-            $EarnedBasics = $BasicDA - (($BasicDA / 26) * $Lop);
-            //EarnedHRA = HRA-(HRA/Workingdays)*Lossofpay
-            $EarnedHRA = $HRA - ($HRA / 26) * $Lop;
-            //EarnedOA = OA-(OA/Workingdays)*Lossofpay
+            $EarnedBasics = $BasicDA - (($BasicDA / 26) * $Lop);           
+            $EarnedHRA = $HRA - ($HRA / 26) * $Lop;           
             $EarnedOtherallowance = $Otherallowance_Con_SA - ($Otherallowance_Con_SA / 26) * $Lop;
         }
-        //Earnedbasics=Basicda-(Basicda/workingdays)*Lossofpay
         if ($Category == "Category 2") {
             $DailyAllowanance = $Dailyallowancelimit * $Workeddays;
         }
-        ////////////////OT_wages = (Totalsalary/Workingdays/8*2*OThours)
-        $OT_Wages = ($Total_Salary2 / 26 / 8 * 2 * $OT_HRS);
+        list($integerPart, $fractionalPart) = explode(".", $OT_HRS);
+        $hours = $integerPart;
+        $minutes = $fractionalPart;
+        $totalMinutes = ($hours * 60) + $minutes;
+        $OT_Wages = ($Total_Salary2 / 26 / 8 / 60 * 2 * $totalMinutes);
         $ActualOTWages = 0;
-        $Actualnet = 0;
-        //Earnedwaged = roundup(Earnedbasics+Earnedhra+EarnedOA+EarnedOTwages,0)
+        $Actualnet = 0;       
         $Earned_Wages = (round($EarnedBasics) + round($EarnedHRA) + round($EarnedOtherallowance) + round($OT_Wages) + round($DailyAllowanance));
-        // $Earned_Wages=roundup($Earned_Wages);
         $Earned_Wages = round($Earned_Wages, 0);
         $pfpercentage = ($PFemployeepercentage / 100);
         $esipercentage = ($ESIemployeepercentage / 100);
         if ($PF_Yesandno == 'Yes' && $PF_Fixed == "Yes") {
-            /////////////////PF=(EarnedBasic+EarnedOtherallowance)*12%
-            /// $PF =$PFnew;
             if ($Lop == 0) {
                 $PF = $PFnew;
                 $LOPPF = $PF;
+                $NH_pf=0;
             } else {
                 $PF = round((round($EarnedBasics) + round($EarnedOtherallowance)) * $pfpercentage);
                 $PF = round($PF, 0);
                 $LOPPF = $PF;
+                $NH_pf=round((round($BasicDA_Day)*$NH_Sunday + round($Otherallowance_Con_SA_day)*$NH_Sunday)*$pfpercentage);
+                $NH_pf = round($NH_pf, 0);
             }
             if ($LOPPF > $PFnew) {
                 $PF = $PFnew;
             }
         } elseif ($PF_Yesandno == 'Yes' && $PF_Fixed == 'No') {
-            // $PF =($Basic+$Other_Allowance)*$pfpercentage;
-            // $PF=round($PF,0);
+           
             $PF = round((round($EarnedBasics) + round($EarnedOtherallowance)) * $pfpercentage);
             $PF = round($PF, 0);
+            $NH_pf=round((round($BasicDA_Day)*$NH_Sunday + round($Otherallowance_Con_SA_day)*$NH_Sunday)*$pfpercentage);
+            $NH_pf = round($NH_pf, 0);
             //echo "test $PF $EarnedBasics $EarnedOtherallowance $pfpercentage";
-            
+
         } elseif ($PF_Yesandno == 'Yes' && $PF_Fixed == '') {
             $PF = round((round($EarnedBasics) + round($EarnedOtherallowance)) * $pfpercentage);
             $PF = round($PF, 0);
-            //echo "test $PF $EarnedBasics $EarnedOtherallowance $pfpercentage";
-            
+            $NH_pf=round((round($BasicDA_Day)*$NH_Sunday + round($Otherallowance_Con_SA_day)*$NH_Sunday)*$pfpercentage);
+            $NH_pf = round($NH_pf, 0);
+         
         } elseif ($PF_Yesandno == 'No') {
             $PF = 0;
         }
-      if($ESI_Yesandno =='Yes')
-{
-  /////////ESI =Roundup(Earnedwages*0.75%,0)
-  
-// $Esi =round( (round($Earned_Wages)*$esipercentage));
-$ESI=0;
+        if ($ESI_Yesandno == 'Yes') {
+             $ESI = 0;
 
-$Earnegwagesperformance = $Earned_Wages+$Performanceallowance;
-if($ESIOverlimit=="Yes")
-{
-  $Esi = ($Earnegwagesperformance)*$esipercentage;
-$ESI=ceil($Esi);
+            $Earnegwagesperformance = $Earned_Wages + $Performanceallowance;
+            if ($ESIOverlimit == "Yes") {
+                $Esi = ($Earnegwagesperformance) * $esipercentage;
+                $ESI = ceil($Esi);
+                $NH_esi=($Wages_perday*$NH_Sunday)*$esipercentage;
+                $NH_esi=ceil($NH_esi);
 
-}
-else
-{
-if($Earnegwagesperformance<=21000)
-{
-$Esi = ($Earnegwagesperformance)*$esipercentage;
-$ESI=ceil($Esi);
-}
-}
+            } else {
+                if ($Earnegwagesperformance <= 21000) {
+                    $Esi = ($Earnegwagesperformance) * $esipercentage;
+                    $ESI = ceil($Esi);
+                    $NH_esi=($Wages_perday*$NH_Sunday)*$esipercentage;
+                    $NH_esi=ceil($NH_esi);
+                }
+            }
 
 
-// $ESI = round($ESI,0);
-}
-else
-{
-  $ESI=0;
-}
+            // $ESI = round($ESI,0);
+        } else {
+            $ESI = 0;
+        }
 
         if ($Category == "Category 3") {
             $Lophrscal = $Lophrs;
@@ -262,6 +259,8 @@ else
             $ActualOTWages = 0;
             $ActualOt_HRSNew = 0;
         }
+        $NH_deduction=round($NH_esi+$NH_pf);
+        $NH_net=round($NH_pay-$NH_deduction);
         if ($Workeddays == 0) {
             $Lopwages = 0;
             $Lophrs = 0;
@@ -270,74 +269,82 @@ else
             $PF = 0;
             $Total_Salary = 0;
             $TakenEL = 0;
-            $BalanceEL = 0;
-            //Earnedbasics=Basicda-(Basicda/workingdays)*Lossofpay
-            $EarnedBasics = 0;
-            //EarnedHRA = HRA-(HRA/Workingdays)*Lossofpay
-            $EarnedHRA = 0;
-            //EarnedOA = OA-(OA/Workingdays)*Lossofpay
+            $BalanceEL = 0;           
+            $EarnedBasics = 0;           
+            $EarnedHRA = 0; 
             $EarnedOtherallowance = 0;
             $OT_Wages = 0;
             $ActualOTWages = 0;
-            $Actualnet = 0;
-            //Earnedwaged = roundup(Earnedbasics+Earnedhra+EarnedOA+EarnedOTwages,0)
+            $Actualnet = 0;            
             $Earned_Wages = 0;
             $Performanceallowance = 0;
+            $NH_pf =0;
+            $NH_esi=0;
+            $NH_deduction=0;
+            $NH_net=0;
+            $NH_pay=0;
+
         }
+ 
         /////////Totaldeduction=PF+ESI+Advance+Deduction+TDS
-        $Totaldeduction = round($Salary_Advance) + round($FoodDeduction) + round($PF) + round($ESI) + round($TDS) + round($Lopwages)+round($Dormitory)+round($Transport);
+        $Totaldeduction = round($Salary_Advance) + round($FoodDeduction) + round($PF) + round($ESI) + round($TDS) + round($Lopwages) + round($Dormitory) + round($Transport);
         ////NetWages= Earnedwages-Totaldeduction
         $Net_Salary = $Earned_Wages - $Totaldeduction;
         $Actualnet = ($Earned_Wages + $ActualOTWages) - $Totaldeduction;
         $resultExists = "Update indsys1026employeepayrolltempmasterdetail set 
-Leavedays ='$Leavedays',
-Nationalholidays = '$Nationalholiday',
-LOP ='$Lop',
-Totaldays='$Totaldays',
-TotalSal ='$Total_Salary',
-EarnedBasic='$EarnedBasics',
-EarnedHRA ='$EarnedHRA',
-EarnedOtherallowance_Con_SA ='$EarnedOtherallowance',
-EarnedWages='$Earned_Wages',
-PF ='$PF',
-ESI='$ESI',
-Salary_Advance ='$Salary_Advance',
-FoodDeduction ='$FoodDeduction',
-TotalDeduction='$Totaldeduction',
-NetWages ='$Net_Salary',
-DailyAllowanance='$DailyAllowanance',
-TDS='$TDS',
-OT_HRS ='$OT_HRS',
-OT_Wages='$OT_Wages',
-TakenEL ='$TakenEL',
-BalanceEL='$BalanceEL',
-Workeddays='$Workeddays',
-Performanceallowance='$Performanceallowance',
-Workingdays='$Workingdays',
-Addormodifydatetime ='$date',
-Lophrs='$Lophrs',
-Lopwages='$Lopwages',
-ActualOTHRS='$ActualOt_HRSNew',
-ActualOTWages='$ActualOTWages',
-Actualnet='$Actualnet',
-Dormitory='$Dormitory',
-Transport='$Transport',
-
-Userid ='$user_id'
-   WHERE Employeeid = '$Employeeid' and SalMonth = '$SalMonth' and  Salyear = '$Salyear' AND Clientid ='$Clientid' ";
+        Leavedays ='$Leavedays',
+        Nationalholidays = '$Nationalholiday',
+        LOP ='$Lop',
+        Totaldays='$Totaldays',
+        TotalSal ='$Total_Salary',
+        EarnedBasic='$EarnedBasics',
+        EarnedHRA ='$EarnedHRA',
+        EarnedOtherallowance_Con_SA ='$EarnedOtherallowance',
+        EarnedWages='$Earned_Wages',
+        PF ='$PF',
+        ESI='$ESI',
+        Salary_Advance ='$Salary_Advance',
+        FoodDeduction ='$FoodDeduction',
+        TotalDeduction='$Totaldeduction',
+        NetWages ='$Net_Salary',
+        DailyAllowanance='$DailyAllowanance',
+        TDS='$TDS',
+        OT_HRS ='$OT_HRS',
+        OT_Wages='$OT_Wages',
+        TakenEL ='$TakenEL',
+        BalanceEL='$BalanceEL',
+        Workeddays='$Workeddays',
+        Performanceallowance='$Performanceallowance',
+        Workingdays='$Workingdays',
+        Addormodifydatetime ='$date',
+        Lophrs='$Lophrs',
+        Lopwages='$Lopwages',
+        ActualOTHRS='$ActualOt_HRSNew',
+        ActualOTWages='$ActualOTWages',
+        Actualnet='$Actualnet',
+        Dormitory='$Dormitory',
+        Transport='$Transport',      
+        Holiday_pay='$NH_pay',
+        Holiday_pf='$NH_pf',
+        Holiday_esi='$NH_esi',
+        Holiday_deduction='$NH_deduction',
+        Holiday_net='$NH_net',
+        Userid ='$user_id'
+        WHERE Employeeid = '$Employeeid' and SalMonth = '$SalMonth' and  Salyear = '$Salyear' AND Clientid ='$Clientid' ";
         $resultExists01 = $conn->query($resultExists);
         if ($resultExists01 === TRUE) {
-            LoadLeave($conn, $Clientid, $SalMonth, $Salyear,$Employeeid,$CL,$TakenEL,$BalanceEL) ;
+            LoadLeave($conn, $Clientid, $SalMonth, $Salyear, $Employeeid, $CL, $TakenEL, $BalanceEL);
             return "Success";
         } else {
+          
             return "Fail";
         }
         $Message = "Exists";
-    }
-    catch(Exception $e) {
+    } catch (Exception $e) {
     }
 }
-function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employeeid, $SalMonth, $Salyear, $Workeddays, $Leavedays, $Salary_Advance, $FoodDeduction, $TDS, $Category, $Workingdays, $Nationalholiday, $CL, $BasicDA, $HRA, $Otherallowance_Con_SA, $OT_HRS, $DailyAllowanance, $Performanceallowance, $CountAbsent, $Weekoff, $CountSL, $CountCL, $MonthDays, $TA,$Dormitory,$Transport) {
+function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employeeid, $SalMonth, $Salyear, $Workeddays, $Leavedays, $Salary_Advance, $FoodDeduction, $TDS, $Category, $Workingdays, $Nationalholiday, $CL, $BasicDA, $HRA, $Otherallowance_Con_SA, $OT_HRS, $DailyAllowanance, $Performanceallowance, $CountAbsent, $Weekoff, $CountSL, $CountCL, $MonthDays, $TA, $Dormitory, $Transport)
+{
     try {
         $EarnedBasics = 0;
         $EarnedHRA = 0;
@@ -352,7 +359,7 @@ function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employe
         $Leavedays = 0;
         $Earned_Wages = 0;
         $Lophrs = $Lop = 0;
-        
+
 
 
         if (empty($Workeddays)) {
@@ -385,36 +392,29 @@ function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employe
         if (empty($TDS)) {
             $TDS = 0;
         }
-        if(empty($CountAbsent))
-        {
-          $CountAbsent=0;
+        if (empty($CountAbsent)) {
+            $CountAbsent = 0;
         }
-        if(empty($Weekoff))
-        {
-          $Weekoff=0;
+        if (empty($Weekoff)) {
+            $Weekoff = 0;
         }
-        if(empty($CountSL))
-        {
-          $CountSL=0;
+        if (empty($CountSL)) {
+            $CountSL = 0;
         }
-        if(empty($CountCL))
-        {
-          $CountCL=0;
+        if (empty($CountCL)) {
+            $CountCL = 0;
         }
-        if(empty($TotalDays))
-        {
-          $TotalDays=0;
+        if (empty($TotalDays)) {
+            $TotalDays = 0;
         }
 
-        if(empty($Dormitory))
-        {
-            $Dormitory=0;
+        if (empty($Dormitory)) {
+            $Dormitory = 0;
         }
-        if(empty($Transport))
-        {
-            $Transport=0;
+        if (empty($Transport)) {
+            $Transport = 0;
         }
-    
+
         $GetChapter = "SELECT * FROM indsys1025pfandesilimitmaster where Clientid ='$Clientid' ";
         $result_Chapter = $conn->query($GetChapter);
         if (mysqli_num_rows($result_Chapter) > 0) {
@@ -450,7 +450,7 @@ function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employe
             $Lophrs = getHoursAndMins($Lophrs);
             $Lophrs = substr(str_replace(':', '.', $Lophrs), 0, 5);
             //echo "$Employeeid- $Lophrs<br/>";
-            
+
         }
         if (empty($Lophrs)) {
             $Lophrs = 0;
@@ -464,14 +464,15 @@ function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employe
                 $PFnew = $row['PF'];
                 $ESI_Yesandno = $row['ESI_Yesandno'];
                 $Dailyallowancelimit = $row['Day_allowance'];
-                    $ESIOverlimit =$row['ESIOverlimit'];
-                if ($Performanceallowance == 0) {
-                    $Performanceallowance = $row['Performance_allowance'];
-                }
+                $ESIOverlimit = $row['ESIOverlimit'];
+
+                $Performanceallowance = $row['Performance_allowance'];
+
                 $date_of_joining = $row['Date_Of_Joing'];
+                $DayallowanceincludedESI = $row['DayallowanceincludedESI'];
             }
         }
-        $Totalpayrolldays = $Workeddays+$CountCL+$CountSL+$Nationalholiday+$Weekoff;
+        $Totalpayrolldays = $Workeddays + $CountCL + $CountSL + $Nationalholiday + $Weekoff;
 
         $Totaldays =   $Totalpayrolldays;
 
@@ -479,12 +480,13 @@ function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employe
         $TakenEL = 0;
         $BalanceEL = 0;
         // $Leavedays = ($Workingdays - $Workeddays);
- 
-            $Lop = $Leavedays;
-            $TakenEL = 0;
-            $BalanceEL = 0;
-          
-        $Total_Salary = $BasicDA + $HRA + $Otherallowance_Con_SA + $Performanceallowance+$TA;
+
+        $Lop = $Leavedays;
+        $TakenEL = 0;
+        $BalanceEL = 0;
+
+        $Total_Salary = $BasicDA + $HRA + $Otherallowance_Con_SA + $Performanceallowance + $TA;
+        $Total_SalaryBGP = $BasicDA + $HRA + $Otherallowance_Con_SA + $Performanceallowance + $TA;
         $Total_Salary2 = $BasicDA + $HRA + $Otherallowance_Con_SA;
         $date = date("Y-m-d H:i:s");
         $date1 = new DateTime($date_of_joining);
@@ -524,24 +526,26 @@ function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employe
         //     $EarnedOtherallowance = $Otherallowance_Con_SA - ($Otherallowance_Con_SA / 26) * $Lop;
         // }
         //Earnedbasics=Basicda-(Basicda/workingdays)*Lossofpay
-        if ($Category == "Category 2") {
-            $DailyAllowanance = $Dailyallowancelimit * $Workeddays;
-        }
+
+        $DailyAllowanance = $Dailyallowancelimit * $Workeddays;
+
         ////////////////OT_wages = (Totalsalary/Workingdays/8*2*OThours)
-        $OT_Wages = ($Total_Salary2 / 26 / 8 * 2 * $OT_HRS);
+
+        list($integerPart, $fractionalPart) = explode(".", $OT_HRS);
+        $hours = $integerPart;
+        $minutes = $fractionalPart;
+        $totalMinutes = ($hours * 60) + $minutes;
+        $OT_Wages = ($Total_Salary2 / 26 / 8 / 60 * 2 * $totalMinutes);
         $ActualOTWages = 0;
         $Actualnet = 0;
 
-        if($TA ==0)
-{
-    $EarnedConveyence = 0;
-}
-else
-{
-    $EarnedConveyence=round(($TA/$MonthDays)*$Lop);
-}
+        if ($TA == 0) {
+            $EarnedConveyence = 0;
+        } else {
+            $EarnedConveyence = round(($TA / $MonthDays) * $Lop);
+        }
         //Earnedwaged = roundup(Earnedbasics+Earnedhra+EarnedOA+EarnedOTwages,0)
-        $Earned_Wages = (round($EarnedBasics) + round($EarnedHRA) + round($EarnedOtherallowance) + round($OT_Wages) + round($DailyAllowanance)+round($EarnedConveyence));
+        $Earned_Wages = (round($EarnedBasics) + round($EarnedHRA) + round($EarnedOtherallowance) + round($OT_Wages) + round($DailyAllowanance) + round($EarnedConveyence));
         // $Earned_Wages=roundup($Earned_Wages);
         $Earned_Wages = round($Earned_Wages, 0);
         $pfpercentage = ($PFemployeepercentage / 100);
@@ -566,45 +570,40 @@ else
             $PF = round((round($EarnedBasics) + round($EarnedOtherallowance)) * $pfpercentage);
             $PF = round($PF, 0);
             //echo "test $PF $EarnedBasics $EarnedOtherallowance $pfpercentage";
-            
+
         } elseif ($PF_Yesandno == 'Yes' && $PF_Fixed == '') {
             $PF = round((round($EarnedBasics) + round($EarnedOtherallowance)) * $pfpercentage);
             $PF = round($PF, 0);
             //echo "test $PF $EarnedBasics $EarnedOtherallowance $pfpercentage";
-            
+
         } elseif ($PF_Yesandno == 'No') {
             $PF = 0;
         }
-     if($ESI_Yesandno =='Yes')
-{
-  /////////ESI =Roundup(Earnedwages*0.75%,0)
-  
-// $Esi =round( (round($Earned_Wages)*$esipercentage));
-$ESI=0;
+        if ($ESI_Yesandno == 'Yes') {
 
-$Earnegwagesperformance = $Earned_Wages+$Performanceallowance;
-if($ESIOverlimit=="Yes")
-{
-  $Esi = ($Earnegwagesperformance)*$esipercentage;
-$ESI=ceil($Esi);
+            $ESI = 0;
 
-}
-else
-{
-if($Earnegwagesperformance<=21000)
-{
-$Esi = ($Earnegwagesperformance)*$esipercentage;
-$ESI=ceil($Esi);
-}
-}
+            $Earnegwagesperformance = $Earned_Wages + $Performanceallowance;
+            if ($DayallowanceincludedESI == 'No') {
+                $Earnegwagesperformance = $Earnegwagesperformance - $DailyAllowanance;
+            }
+            if ($ESIOverlimit == "Yes") {
+                $Esi = ($Earnegwagesperformance) * $esipercentage;
+                $ESI = ceil($Esi);
+            } else {
+                if ($Earnegwagesperformance <= 21000) {
+                    $Esi = ($Earnegwagesperformance) * $esipercentage;
+                    $ESI = ceil($Esi);
+                }
+            }
 
 
-// $ESI = round($ESI,0);
-}
-else
-{
-  $ESI=0;
-}
+            // $ESI = round($ESI,0);
+        } else {
+            $ESI = 0;
+        }
+
+
 
         if ($Category == "Category 3") {
             $Lophrscal = $Lophrs;
@@ -612,7 +611,7 @@ else
             $Lopminutes = substr($Lophrscal, -2);
             $Lophrsresult = $Lophrsconverted * 60;
             $lopdeduction = $Lophrsresult + $Lopminutes;
-            $Lopwages = ($Total_Salary2 / 26 / 8 / 60) * $lopdeduction;
+            $Lopwages = ($Total_Salary2 / $MonthDays / 8 / 60) * $lopdeduction;
             $Lopwages = round($Lopwages);
             $ActualOTWages = round(($Total_Salary2 / 26 / 8 * 2 * $ActualOt_HRSNew));
         } else {
@@ -643,30 +642,29 @@ else
             $Earned_Wages = 0;
             $Performanceallowance = 0;
         }
-        $LWF = $Earned_Wages*(0.2/100);
+        $LWF = round(($Earned_Wages +$Performanceallowance) * (0.2 / 100));
 
-  if($LWF>25)
-  {
-    $LWF = 25;
-  }
+        if ($LWF > 34) {
+            $LWF = 34;
+        }
 
-  if(empty($LWF))
-  {
-    $LWF=0;
-  }
+        if (empty($LWF)) {
+            $LWF = 0;
+        }
+        ///Lop wages dont want to deducted request from madhaven sir on FEB 27-2025
+        $Lopwages = 0;
 
-  
         /////////Totaldeduction=PF+ESI+Advance+Deduction+TDS
-$Totaldeduction = round($Salary_Advance) + round($FoodDeduction) + round($PF) + round($ESI) + round($TDS) + round($Lopwages)+round($LWF)+round($Dormitory)+round($Transport);
+        $Totaldeduction = round($Salary_Advance) + round($FoodDeduction) + round($PF) + round($ESI) + round($TDS) + round($Lopwages) + round($LWF) + round($Dormitory) + round($Transport);
         ////NetWages= Earnedwages-Totaldeduction
-$Net_Salary = $Earned_Wages - $Totaldeduction;
-$Actualnet = ($Earned_Wages + $ActualOTWages) - $Totaldeduction;
-$resultExists = "Update indsys1026employeepayrolltempmasterdetail set 
+        $Net_Salary = $Earned_Wages - $Totaldeduction;
+        $Actualnet = ($Earned_Wages + $ActualOTWages) - $Totaldeduction;
+        $resultExists = "Update indsys1026employeepayrolltempmasterdetail set 
 Leavedays ='$Leavedays',
 Nationalholidays = '$Nationalholiday',
 LOP ='$Lop',
 Totaldays='$Totaldays',
-TotalSal ='$Total_Salary',
+TotalSal ='$Total_SalaryBGP',
 EarnedBasic='$EarnedBasics',
 EarnedHRA ='$EarnedHRA',
 EarnedOtherallowance_Con_SA ='$EarnedOtherallowance',
@@ -702,16 +700,15 @@ Userid ='$user_id'
         if ($resultExists01 === TRUE) {
             return "Success";
         } else {
-           
+
             return "Fail";
-          
         }
         $Message = "Exists";
-    }
-    catch(Exception $e) {
+    } catch (Exception $e) {
     }
 }
-function roundup($float, $dec = 2) {
+function roundup($float, $dec = 2)
+{
     if ($dec == 0) {
         if ($float < 0) {
             return floor($float);
@@ -728,22 +725,28 @@ function roundup($float, $dec = 2) {
     }
 }
 
-function LoadLeave($conn, $Clientid, $Payrollmonth, $Payrollyear,$Employeeid,$CL,$TakenCL,$BalanceCL) 
+function LoadLeave($conn, $Clientid, $Payrollmonth, $Payrollyear, $Employeeid, $CL, $TakenCL, $BalanceCL)
 {
     $Currentyear = $Payrollyear;
     $Previousyear = $Currentyear - 1;
     $month_num = date("m", strtotime($Payrollmonth));
-   
-    if ($month_num > 10) {
+    $Payrollyear = $Currentyear;
+    if ($month_num >= 10) {
         $Currentyear = date("Y");
+        $currmonth = date("m");
+        if ($currmonth == 01) {
+            $Currentyear = $Currentyear - 1;
+        }
         $Currentyear = $Currentyear + 1;
         $Previousyear = $Currentyear - 1;
-        $Payrollyear = $Currentyear;
     }
     $Fromdate = date("01-$month_num-$Payrollyear");
     $Todate = date("t-$month_num-$Payrollyear", strtotime($Fromdate));
-    $monthof1stday = date("$Payrollyear-$month_num-01");
-    $monthoflastday = date("$Payrollyear-$month_num-t", strtotime($Fromdate));
+    $d = date('Y-m-d', strtotime("$Payrollyear-$month_num-01"));
+    $monthof1stday = date('Y-m-01', strtotime($d));
+    $monthoflastday = date('Y-m-t', strtotime($d));
+    // $monthof1stday = date("$Payrollyear-$month_num-01");
+    // $monthoflastday = date("$Payrollyear-$month_num-t", strtotime($Fromdate));
     $logemp = "SELECT * FROM indsys1017employeemaster WHERE Clientid='$Clientid' and EmpActive='Active' and Employeeid='$Employeeid'  ORDER BY Employeeid ASC";
     $logempall = mysqli_query($conn, $logemp);
     while ($rowEmployee = mysqli_fetch_array($logempall)) {
@@ -762,122 +765,118 @@ function LoadLeave($conn, $Clientid, $Payrollmonth, $Payrollyear,$Employeeid,$CL
             $Previousyearleave = $rowEmptransaction["Previousyear"];
             $Transactionmonthadded = $rowEmptransaction["Transactionmonthadded"];
         }
-        $newjoinee = "No";
-        $currentDate = date("Y-m-d");
-        $joinDate = date("Y-m-d", strtotime($date_of_joining));
-        $diffMonths = (date("Y", strtotime($Todate)) - date("Y", strtotime($joinDate))) * 12;
-        $diffMonths+= date("m", strtotime($Todate)) - date("m", strtotime($joinDate));
-        $Calculatedmonths =12;
-      
-            $newjoinee = "Yes";
-            $date1 = new DateTime($date_of_joining);
-            /////////For payroll check the given month///////////
-            $date2 = new DateTime($monthoflastday);
-            $dateofjoingdays = $date2->diff($date1)->format("%a");
-            $dateofjoingdays = $dateofjoingdays + 1;
-            $earlier = new DateTime($monthof1stday);
-            $later = new DateTime($monthoflastday);
-            $abs_diff = $later->diff($earlier)->format("%a");
-            $abs_diff = $abs_diff + 1;
-            if ($dateofjoingdays <= $abs_diff) {
-                if ($monthof1stday == $date_of_joining) {
-                    $Calculatedmonths = 12 - $Transactionmonthadded;
-                } else {
-                    $trans = $Transactionmonthadded - 1;
-                    $Calculatedmonths = 11 - $Transactionmonthadded;
-                }
-            } 
-          
-            $TotalLeaves = 1.5 * $Calculatedmonths;
+        // $newjoinee = "No";
+        // $currentDate = date("Y-m-d");
+        // $joinDate = date("Y-m-d", strtotime($date_of_joining));
+        // $diffMonths = (date("Y", strtotime($Todate)) - date("Y", strtotime($joinDate))) * 12;
+        // $diffMonths+= date("m", strtotime($Todate)) - date("m", strtotime($joinDate));
+        $Calculatedmonths = 12;
 
-            $Transactiondate="$Payrollyear-$month_num-01";
-            SaveMonthLeave($conn, $Clientid, $Employeeid, $month_num,$Payrollyear, $CL,$TakenCL,$Transactiondate);
-
-            SaveLeaveMaster($conn, $Clientid, $Employeeid, $Currentyear, $Previousyear, $TotalLeaves,$month_num);
-
-            getTransactionmonthleavebalance($conn, $Clientid, $Employeeid, $Currentyear, $Previousyear, $month_num, $Payrollyear);
-    }
-    }
-    function SaveLeaveMaster($conn, $Clientid, $Employeeid, $Currentyear, $Previousyear, $TotalLeave,$month_num) {
-        try {
-            $TotalLeaveeligable = $TotalLeave;
-            $BalanceLeave = 0;
-            $Takenleave = 0;
-            $Fromdate = "$Previousyear-10-01";
-            $Todate = "$Currentyear-$month_num-01";
-            $UpdateSum = "SELECT SUM(TakenLeave) as TakenLeave FROM indsys1035employeetransactionmonthleave WHERE Employeeid= '$Employeeid' AND Transactionmonthdate >='$Fromdate' AND Transactionmonthdate<='$Todate' ";
-            $Takenleaveexecute = mysqli_query($conn, $UpdateSum);
-            while ($rowOD = mysqli_fetch_array($Takenleaveexecute)) {
-                $Takenleave = $rowOD['TakenLeave'];
-
-                // $Workeddays=roundup($Workeddays);
-                // $Workeddays=round($Workeddays,0);
-                
-            }
-            $BalanceLeave = $TotalLeaveeligable - $Takenleave;
-            $resultExists = "SELECT * FROM indsys1035employeetransactionyearleave WHERE Employeeid = '$Employeeid' AND Clientid ='$Clientid' AND Fromtransactionyear ='$Previousyear' AND Totransactionyear='$Currentyear' LIMIT 1";
-            $resultExists01 = $conn->query($resultExists);
-            if ($rowleavemas = mysqli_fetch_row($resultExists01)) {
-                // $TotalLeaveeligable = $rowleavemas['TotalLeaveeligable'];
-                // $BalanceLeave = $TotalLeaveeligable - $Takenleave;
-
-                // $UpdateQuery="UPDATE indsys1035employeetransactionyearleave SET TotalLeaveeligable='$TotalLeaveeligable'
-                // WHERE Employeeid = '$Employeeid' AND Clientid ='$Clientid' AND Fromtransactionyear ='$Previousyear' AND Totransactionyear='$Currentyear'";
-
-                // $updatequeryexcute=mysqli_query($conn,$UpdateQuery);
-                $Message = "Exists";
+        // $newjoinee = "Yes";
+        $date1 = new DateTime($date_of_joining);
+        /////////For payroll check the given month///////////
+        $date2 = new DateTime($monthoflastday);
+        $dateofjoingdays = $date2->diff($date1)->format("%a");
+        $dateofjoingdays = $dateofjoingdays + 1;
+        $earlier = new DateTime($monthof1stday);
+        $later = new DateTime($monthoflastday);
+        $abs_diff = $later->diff($earlier)->format("%a");
+        $abs_diff = $abs_diff + 1;
+        if ($dateofjoingdays <= $abs_diff) {
+            if ($monthof1stday == $date_of_joining) {
+                $Calculatedmonths = 12 - $Transactionmonthadded;
             } else {
-                $SaveEmployee = "INSERT INTO indsys1035employeetransactionyearleave(Clientid,Employeeid,Fromtransactionyear,Totransactionyear,TotalLeaveeligable,TakenLeave,BalanceLeave)
-    VALUES('$Clientid','$Employeeid','$Previousyear','$Currentyear','$TotalLeave','$Takenleave','$BalanceLeave')";
-                $Saved = mysqli_query($conn, $SaveEmployee);
-                if ($Saved === true) {
-                } else {
-                    echo "$SaveEmployee<br>;";
-                }
+
+                $Calculatedmonths = 11 - $Transactionmonthadded;
             }
         }
-        catch(Exception $e) {
-        }
+
+        $TotalLeaves = 1.5 * $Calculatedmonths;
+
+        $Transactiondate = "$Payrollyear-$month_num-01";
+        SaveMonthLeave($conn, $Clientid, $Employeeid, $month_num, $Payrollyear, $CL, $TakenCL, $Transactiondate);
+        SaveLeaveMaster($conn, $Clientid, $Employeeid, $Currentyear, $Previousyear, $TotalLeaves, $month_num);
+        getTransactionmonthleavebalance($conn, $Clientid, $Employeeid, $Currentyear, $Previousyear, $month_num, $Payrollyear);
     }
-    function SaveMonthLeave($conn, $Clientid, $Employeeid, $Transactionmonthno, $Transactionyear, $CL, $TakenCL,  $Transactiondate) {
-        try {
-            
-            $BalanceCL = $CL - $TakenCL;
+}
+function SaveLeaveMaster($conn, $Clientid, $Employeeid, $Currentyear, $Previousyear, $TotalLeave, $month_num)
+{
+    try {
+        $TotalLeaveeligable = $TotalLeave;
+        $BalanceLeave = 0;
+        $Takenleave = 0;
+        $Fromdate = "$Previousyear-10-01";
+        $Todate = "$Currentyear-$month_num-01";
+        $UpdateSum = "SELECT SUM(TakenLeave) as TakenLeave FROM indsys1035employeetransactionmonthleave WHERE Employeeid= '$Employeeid' AND Transactionmonthdate >='$Fromdate' AND Transactionmonthdate<='$Todate' ";
+        $Takenleaveexecute = mysqli_query($conn, $UpdateSum);
+        while ($rowOD = mysqli_fetch_array($Takenleaveexecute)) {
+            $Takenleave = $rowOD['TakenLeave'];
+
+            // $Workeddays=roundup($Workeddays);
+            // $Workeddays=round($Workeddays,0);
+
+        }
+        $BalanceLeave = $TotalLeaveeligable - $Takenleave;
+        $resultExists = "SELECT * FROM indsys1035employeetransactionyearleave WHERE Employeeid = '$Employeeid' AND Clientid ='$Clientid' AND Fromtransactionyear ='$Previousyear' AND Totransactionyear='$Currentyear' LIMIT 1";
+        $resultExists01 = $conn->query($resultExists);
+        if ($rowleavemas = mysqli_fetch_row($resultExists01)) {
+            // $TotalLeaveeligable = $rowleavemas['TotalLeaveeligable'];
+            // $BalanceLeave = $TotalLeaveeligable - $Takenleave;
+
+            // $UpdateQuery="UPDATE indsys1035employeetransactionyearleave SET TotalLeaveeligable='$TotalLeaveeligable'
+            // WHERE Employeeid = '$Employeeid' AND Clientid ='$Clientid' AND Fromtransactionyear ='$Previousyear' AND Totransactionyear='$Currentyear'";
+
+            //  $updatequeryexcute=mysqli_query($conn,$UpdateQuery);
+            $Message = "Exists";
+        } else {
+            $SaveEmployee = "INSERT INTO indsys1035employeetransactionyearleave(Clientid,Employeeid,Fromtransactionyear,Totransactionyear,TotalLeaveeligable,TakenLeave,BalanceLeave)
+    VALUES('$Clientid','$Employeeid','$Previousyear','$Currentyear','$TotalLeave','$Takenleave','$BalanceLeave')";
+            $Saved = mysqli_query($conn, $SaveEmployee);
+            if ($Saved === true) {
+            } else {
+                echo "$SaveEmployee<br>;";
+            }
+        }
+    } catch (Exception $e) {
+    }
+}
+function SaveMonthLeave($conn, $Clientid, $Employeeid, $Transactionmonthno, $Transactionyear, $CL, $TakenCL,  $Transactiondate)
+{
+    try {
+
+        $BalanceCL = $CL - $TakenCL;
 
 
-            $resultExists = "SELECT * FROM indsys1035employeetransactionmonthleave WHERE Employeeid = '$Employeeid' AND Clientid ='$Clientid' AND Transactionmonthno ='$Transactionmonthno' AND Transactionyear='$Transactionyear' LIMIT 1";
-            $resultExists01 = $conn->query($resultExists);
-            if (mysqli_fetch_row($resultExists01)) {
-                $UpdateLeave="UPDATE indsys1035employeetransactionmonthleave
+        $resultExists = "SELECT * FROM indsys1035employeetransactionmonthleave WHERE Employeeid = '$Employeeid' AND Clientid ='$Clientid' AND Transactionmonthno ='$Transactionmonthno' AND Transactionyear='$Transactionyear' LIMIT 1";
+        $resultExists01 = $conn->query($resultExists);
+        if (mysqli_fetch_row($resultExists01)) {
+            $UpdateLeave = "UPDATE indsys1035employeetransactionmonthleave
                  SET TotalLeaveeligable='$CL',
                  TakenLeave='$TakenCL',
                  BalanceLeave='$BalanceCL'
                  WHERE Employeeid = '$Employeeid' AND Clientid ='$Clientid' AND Transactionmonthno ='$Transactionmonthno' AND Transactionyear='$Transactionyear'";
-                 $executeupdateLeave = mysqli_query($conn,$UpdateLeave);
-                 if($executeupdateLeave===TRUE)
-                 {
-
-                 }
-            } else {
-                $SaveEmployee = "INSERT INTO indsys1035employeetransactionmonthleave(Clientid,Employeeid,Transactionmonthno,Transactionyear,TotalLeaveeligable,TakenLeave,BalanceLeave,Transactionmonthdate)
+            $executeupdateLeave = mysqli_query($conn, $UpdateLeave);
+            if ($executeupdateLeave === TRUE) {
+            }
+        } else {
+            $SaveEmployee = "INSERT INTO indsys1035employeetransactionmonthleave(Clientid,Employeeid,Transactionmonthno,Transactionyear,TotalLeaveeligable,TakenLeave,BalanceLeave,Transactionmonthdate)
     VALUES('$Clientid','$Employeeid','$Transactionmonthno','$Transactionyear','$CL','$TakenCL','$BalanceCL','$Transactiondate')";
-                $Saved = mysqli_query($conn, $SaveEmployee);
-                if ($Saved === true) {
-                    // echo "$SaveEmployee<br>;";
-                    
-                } else {
-                    echo "$SaveEmployee<br>;";
-                }
+            $Saved = mysqli_query($conn, $SaveEmployee);
+            if ($Saved === true) {
+                // echo "$SaveEmployee<br>;";
+
+            } else {
+                echo "$SaveEmployee<br>;";
             }
         }
-        catch(Exception $e) {
-        }
+    } catch (Exception $e) {
     }
+}
 
 
 
-    function getTransactionmonthleavebalance($conn, $Clientid, $Employeeid, $Currentyear, $Previousyear, $Transactionmonthno, $Transactionyear)
- {
+function getTransactionmonthleavebalance($conn, $Clientid, $Employeeid, $Currentyear, $Previousyear, $Transactionmonthno, $Transactionyear)
+{
     try {
         $Fromdate = "$Previousyear-10-01";
         $Todate = "$Currentyear-$Transactionmonthno-01";
@@ -896,11 +895,7 @@ function LoadLeave($conn, $Clientid, $Payrollmonth, $Payrollyear,$Employeeid,$CL
                 Currentmonthbalance='$BalanceLeave'
                  WHERE Employeeid = '$Employeeid' AND Clientid ='$Clientid' AND Transactionmonthno ='$Transactionmonthno' AND Transactionyear='$Transactionyear'";
         $executeupdateLeave = mysqli_query($conn, $UpdateLeave);
-     
-    }
-    catch(Exception $e) {
-      return $e;
+    } catch (Exception $e) {
+        return $e;
     }
 }
-
-?>

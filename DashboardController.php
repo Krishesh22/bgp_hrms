@@ -41,16 +41,93 @@ $Cat3Present= 0;
 $Cat3Absent= 0;
 $Cat3Leave= 0;
 $Cat3Employee= 0;
+
+  $Cat1onrollmale = 0;
+           $Cat1onrollfemale = 0;
+           $Cat1onrolltotal = 0;
+           $Cat1onrollmalepresent = 0;
+           $Cat1onrollfemalepresent = 0;
+           $Cat1onrollpresent = 0;
+           $Cat1onrollmaleabsent = 0;
+           $Cat1onrollfemaleabsent =0;
+           $Cat1onrollabsent =0;
+           $Cat1onrollmaleleave =0;
+           $Cat1onrollfemaleleave =0;
+           $Cat1onrollleave =0;
+           $Cat2onrollmale = 0;
+           $Cat2onrollfemale = 0;
+           $Cat2onrolltotal = 0;
+           $Cat2onrollmalepresent = 0;
+           $Cat2onrollfemalepresent = 0;
+           $Cat2onrollpresent = 0;
+           $Cat2onrollmaleabsent = 0;
+           $Cat2onrollfemaleabsent = 0;
+           $Cat2onrollabsent = 0;
+           $Cat2onrollmaleleave = 0;
+           $Cat2onrollfemaleleave = 0;
+           $Cat2onrollleave = 0;
+           $Cat3onrollmale = 0;
+           $Cat3onrollfemale = 0;
+           $Cat3onrolltotal = 0;
+           $Cat3onrollmalepresent =0;
+           $Cat3onrollfemalepresent = 0;
+           $Cat3onrollpresent = 0;
+           $Cat3onrollmaleabsent = 0;
+           $Cat3onrollfemaleabsent = 0;
+           $Cat3onrollabsent = 0;
+           $Cat3onrollmaleleave = 0;
+           $Cat3onrollfemaleleave = 0;
+           $Cat3onrollleave = 0;
+           $Cat1migrantmale =0;
+           $Cat1migrantfemale = 0;
+           $Cat1migranttotal = 0;
+           $Cat1migrantmalepresent = 0;
+           $Cat1migrantfemalepresent = 0;
+           $Cat1migrantpresent = 0;
+           $Cat1migrantmaleabsent = 0;
+           $Cat1migrantfemaleabsent = 0;
+           $Cat1migrantabsent = 0;
+           $Cat1migrantmaleleave = 0;
+           $Cat1migrantfemaleleave  = 0;
+           $Cat1migrantleave = 0;
+           $Cat2migrantmale = 0;
+           $Cat2migrantfemale = 0;
+           $Cat2migranttotal = 0;
+           $Cat2migrantmalepresent = 0;
+           $Cat2migrantfemalepresent = 0;
+           $Cat2migrantpresent=0;
+           $Cat2migrantmaleabsent = 0;
+           $Cat2migrantfemaleabsent =0;
+           $Cat2migrantabsent = 0;
+           $Cat2migrantmaleleave = 0;
+           $Cat2migrantfemaleleave = 0;
+           $Cat2migrantleave = 0;
+           $Cat3migrantmale = 0;
+           $Cat3migrantfemale = 0;
+           $Cat3migranttotal =0;
+           $Cat3migrantmalepresent = 0;
+           $Cat3migrantfemalepresent = 0;
+           $Cat3migrantpresent = 0;
+           $Cat3migrantmaleabsent = 0;
+           $Cat3migrantfemaleabsent = 0;
+           $Cat3migrantabsent = 0;
+           $Cat3migrantmaleleave = 0;
+           $Cat3migrantfemaleleave =0;
+           $Cat3migrantleave =0;
         $AttendanceDate = $form_data['AttendanceDate'];
         $_SESSION['ATTDATE']=$AttendanceDate;
 $GetAttendance = "SELECT * FROM indsys1029empdailyattendancemaster WHERE Attendencedate ='$AttendanceDate' AND Clientid='$Clientid'";
 $result_Region = $conn->query($GetAttendance);
 if(mysqli_num_rows($result_Region) > 0) { 
     while($row = mysqli_fetch_array($result_Region)) {  
-        $NoofPresent = $row['NoofPresent'];  
-        $NoofAbsents = $row['NoofAbsents'];
-        $Noofleave = $row['Noofleave'];
-        $NoofEmployee = $row['NoofEmployee'];    
+        // $NoofPresent = $row['NoofPresent'];  
+        // $NoofAbsents = $row['NoofAbsents'];
+        // $Noofleave = $row['Noofleave'];
+        // $NoofEmployee = $row['NoofEmployee'];  
+          $NoofPresent = GeneralCount($conn,$Clientid,'P',$AttendanceDate);
+        $NoofAbsents =  GeneralCount($conn,$Clientid,'A',$AttendanceDate);
+        $Noofleave =  GeneralCount($conn,$Clientid,'L',$AttendanceDate);
+        $NoofEmployee =GeneralEmpCount($conn,$Clientid,$AttendanceDate);   
         $Cat1Present=CategorywisePresentCount($conn,$Clientid,'Category 1','P',$AttendanceDate);
 $Cat1Absent=CategorywisePresentCount($conn,$Clientid,'Category 1','A',$AttendanceDate);
 $Cat1Leave=CategorywisePresentCount($conn,$Clientid,'Category 1','L',$AttendanceDate);
@@ -63,6 +140,87 @@ $Cat3Present=CategorywisePresentCount($conn,$Clientid,'Category 3','P',$Attendan
 $Cat3Absent=CategorywisePresentCount($conn,$Clientid,'Category 3','A',$AttendanceDate);
 $Cat3Leave=CategorywisePresentCount($conn,$Clientid,'Category 3','L',$AttendanceDate);
 $Cat3Employee=CategorywiseEmpCount($conn,$Clientid,'Category 3',$AttendanceDate);
+    $Onroll="TAMIL NADU";
+        $Cat1onrollmale = Categorygender($conn,$Clientid,'Category 1','',$AttendanceDate,'Male',$Onroll,'genderTotal','Local');
+        $Cat1onrollfemale =Categorygender($conn,$Clientid,'Category 1','',$AttendanceDate,'Female',$Onroll,'genderTotal','Local');
+        $Cat1onrolltotal = Categorygender($conn,$Clientid,'Category 1','',$AttendanceDate,'',$Onroll,'empTotal','Local');
+        $Cat1onrollmalepresent = Categorygender($conn,$Clientid,'Category 1','P',$AttendanceDate,'Male',$Onroll,'','Local');
+        $Cat1onrollfemalepresent =Categorygender($conn,$Clientid,'Category 1','P',$AttendanceDate,'Female',$Onroll,'','Local');
+        $Cat1onrollpresent = Categorygender($conn,$Clientid,'Category 1','P',$AttendanceDate,'',$Onroll,'attenTotal','Local');
+        $Cat1onrollmaleabsent =Categorygender($conn,$Clientid,'Category 1','A',$AttendanceDate,'Male',$Onroll,'','Local');
+        $Cat1onrollfemaleabsent =Categorygender($conn,$Clientid,'Category 1','A',$AttendanceDate,'Female',$Onroll,'','Local');
+        $Cat1onrollabsent =Categorygender($conn,$Clientid,'Category 1','A',$AttendanceDate,'',$Onroll,'attenTotal','Local');
+        $Cat1onrollmaleleave =Categorygender($conn,$Clientid,'Category 1','L',$AttendanceDate,'Male',$Onroll,'','Local');
+        $Cat1onrollfemaleleave =Categorygender($conn,$Clientid,'Category 1','L',$AttendanceDate,'Female',$Onroll,'','Local');
+        $Cat1onrollleave =Categorygender($conn,$Clientid,'Category 1','L',$AttendanceDate,'',$Onroll,'attenTotal','Local');
+        //////////////////////Cat2 Local Strength////////////////////////
+        $Cat2onrollmale = Categorygender($conn,$Clientid,'Category 2','',$AttendanceDate,'Male',$Onroll,'genderTotal','Local');
+        $Cat2onrollfemale = Categorygender($conn,$Clientid,'Category 2','',$AttendanceDate,'Female',$Onroll,'genderTotal','Local');
+        $Cat2onrolltotal = Categorygender($conn,$Clientid,'Category 2','',$AttendanceDate,'',$Onroll,'empTotal','Local');
+        $Cat2onrollmalepresent = Categorygender($conn,$Clientid,'Category 2','P',$AttendanceDate,'Male',$Onroll,'','Local');
+        $Cat2onrollfemalepresent = Categorygender($conn,$Clientid,'Category 2','P',$AttendanceDate,'Female',$Onroll,'','Local');
+        $Cat2onrollpresent = Categorygender($conn,$Clientid,'Category 2','P',$AttendanceDate,'',$Onroll,'attenTotal','Local');
+        $Cat2onrollmaleabsent =Categorygender($conn,$Clientid,'Category 2','A',$AttendanceDate,'Male',$Onroll,'','Local');
+        $Cat2onrollfemaleabsent = Categorygender($conn,$Clientid,'Category 2','A',$AttendanceDate,'Female',$Onroll,'','Local');
+        $Cat2onrollabsent = Categorygender($conn,$Clientid,'Category 2','A',$AttendanceDate,'',$Onroll,'attenTotal','Local');
+        $Cat2onrollmaleleave = Categorygender($conn,$Clientid,'Category 2','L',$AttendanceDate,'Male',$Onroll,'','Local');
+        $Cat2onrollfemaleleave = Categorygender($conn,$Clientid,'Category 2','L',$AttendanceDate,'Female',$Onroll,'','Local');
+        $Cat2onrollleave = Categorygender($conn,$Clientid,'Category 2','L',$AttendanceDate,'',$Onroll,'attenTotal','Local');
+        ///////////////////Cat3 Local Strength/////////////////////////////////////
+        $Cat3onrollmale = Categorygender($conn,$Clientid,'Category 3','',$AttendanceDate,'Male',$Onroll,'genderTotal','Local');
+        $Cat3onrollfemale = Categorygender($conn,$Clientid,'Category 3','',$AttendanceDate,'Female',$Onroll,'genderTotal','Local');
+        $Cat3onrolltotal = Categorygender($conn,$Clientid,'Category 3','',$AttendanceDate,'',$Onroll,'empTotal','Local');
+        $Cat3onrollmalepresent =Categorygender($conn,$Clientid,'Category 3','P',$AttendanceDate,'Male',$Onroll,'','Local');
+        $Cat3onrollfemalepresent = Categorygender($conn,$Clientid,'Category 3','P',$AttendanceDate,'Female',$Onroll,'','Local');
+        $Cat3onrollpresent =  Categorygender($conn,$Clientid,'Category 3','P',$AttendanceDate,'',$Onroll,'attenTotal','Local');
+        $Cat3onrollmaleabsent = Categorygender($conn,$Clientid,'Category 3','A',$AttendanceDate,'Male',$Onroll,'','Local');
+        $Cat3onrollfemaleabsent = Categorygender($conn,$Clientid,'Category 3','A',$AttendanceDate,'Female',$Onroll,'','Local');
+        $Cat3onrollabsent = Categorygender($conn,$Clientid,'Category 3','A',$AttendanceDate,'',$Onroll,'attenTotal','Local');
+        $Cat3onrollmaleleave =  Categorygender($conn,$Clientid,'Category 3','L',$AttendanceDate,'Male',$Onroll,'','Local');
+        $Cat3onrollfemaleleave = Categorygender($conn,$Clientid,'Category 3','L',$AttendanceDate,'Female',$Onroll,'','Local');
+        $Cat3onrollleave = Categorygender($conn,$Clientid,'Category 3','L',$AttendanceDate,'',$Onroll,'attenTotal','Local');
+        /////////////////////////////Cat 1 Migrant Strength//////////////////////
+        $Cat1migrantmale =Categorygender($conn,$Clientid,'Category 1','',$AttendanceDate,'Male',$Onroll,'genderTotal','');
+        $Cat1migrantfemale =  Categorygender($conn,$Clientid,'Category 1','',$AttendanceDate,'Female',$Onroll,'genderTotal','');
+        $Cat1migranttotal = Categorygender($conn,$Clientid,'Category 1','',$AttendanceDate,'',$Onroll,'empTotal','');
+        $Cat1migrantmalepresent = Categorygender($conn,$Clientid,'Category 1','P',$AttendanceDate,'Male',$Onroll,'','');
+        $Cat1migrantfemalepresent = Categorygender($conn,$Clientid,'Category 1','P',$AttendanceDate,'Female',$Onroll,'','');
+        $Cat1migrantpresent = Categorygender($conn,$Clientid,'Category 1','P',$AttendanceDate,'',$Onroll,'attenTotal','');
+        $Cat1migrantmaleabsent =  Categorygender($conn,$Clientid,'Category 1','A',$AttendanceDate,'Male',$Onroll,'','');
+        $Cat1migrantfemaleabsent = Categorygender($conn,$Clientid,'Category 1','A',$AttendanceDate,'Female',$Onroll,'','');
+        $Cat1migrantabsent = Categorygender($conn,$Clientid,'Category 1','A',$AttendanceDate,'',$Onroll,'attenTotal','');
+        $Cat1migrantmaleleave = Categorygender($conn,$Clientid,'Category 1','L',$AttendanceDate,'Male',$Onroll,'','');
+        $Cat1migrantfemaleleave  = Categorygender($conn,$Clientid,'Category 1','L',$AttendanceDate,'Female',$Onroll,'','');
+        $Cat1migrantleave = Categorygender($conn,$Clientid,'Category 1','L',$AttendanceDate,'',$Onroll,'attenTotal','');
+        ///////////////////////////Cat 2 Migrant Strength////////////////////////////
+        $Cat2migrantmale = Categorygender($conn,$Clientid,'Category 2','',$AttendanceDate,'Male',$Onroll,'genderTotal','');
+        $Cat2migrantfemale = Categorygender($conn,$Clientid,'Category 2','',$AttendanceDate,'Female',$Onroll,'genderTotal','');
+        $Cat2migranttotal =Categorygender($conn,$Clientid,'Category 2','',$AttendanceDate,'',$Onroll,'empTotal','');
+        $Cat2migrantmalepresent = Categorygender($conn,$Clientid,'Category 2','P',$AttendanceDate,'Male',$Onroll,'','');
+        $Cat2migrantfemalepresent =  Categorygender($conn,$Clientid,'Category 2','P',$AttendanceDate,'Female',$Onroll,'','');
+        $Cat2migrantpresent=Categorygender($conn,$Clientid,'Category 2','P',$AttendanceDate,'',$Onroll,'attenTotal','');
+        $Cat2migrantmaleabsent = Categorygender($conn,$Clientid,'Category 2','A',$AttendanceDate,'Male',$Onroll,'','');
+        $Cat2migrantfemaleabsent =Categorygender($conn,$Clientid,'Category 2','A',$AttendanceDate,'Female',$Onroll,'','');
+        $Cat2migrantabsent = Categorygender($conn,$Clientid,'Category 2','A',$AttendanceDate,'',$Onroll,'attenTotal','');
+        $Cat2migrantmaleleave = Categorygender($conn,$Clientid,'Category 2','L',$AttendanceDate,'Male',$Onroll,'','');
+        $Cat2migrantfemaleleave = Categorygender($conn,$Clientid,'Category 2','L',$AttendanceDate,'Female',$Onroll,'','');
+        $Cat2migrantleave = Categorygender($conn,$Clientid,'Category 2','L',$AttendanceDate,'',$Onroll,'attenTotal','');
+        ///////////////////////////Cat 3 Migrant Strength///////////////////////////////////////////
+        $Cat3migrantmale =Categorygender($conn,$Clientid,'Category 3','',$AttendanceDate,'Male',$Onroll,'genderTotal','');
+        $Cat3migrantfemale = Categorygender($conn,$Clientid,'Category 3','',$AttendanceDate,'Female',$Onroll,'genderTotal','');
+        $Cat3migranttotal =Categorygender($conn,$Clientid,'Category 3','',$AttendanceDate,'',$Onroll,'empTotal','');
+        $Cat3migrantmalepresent = Categorygender($conn,$Clientid,'Category 3','P',$AttendanceDate,'Male',$Onroll,'','');
+        $Cat3migrantfemalepresent = Categorygender($conn,$Clientid,'Category 3','P',$AttendanceDate,'Female',$Onroll,'','');
+        $Cat3migrantpresent = Categorygender($conn,$Clientid,'Category 3','P',$AttendanceDate,'',$Onroll,'attenTotal','');
+        $Cat3migrantmaleabsent = Categorygender($conn,$Clientid,'Category 3','A',$AttendanceDate,'Male',$Onroll,'','');
+        $Cat3migrantfemaleabsent = Categorygender($conn,$Clientid,'Category 3','A',$AttendanceDate,'Female',$Onroll,'','');
+        $Cat3migrantabsent = Categorygender($conn,$Clientid,'Category 3','A',$AttendanceDate,'',$Onroll,'attenTotal','');
+        $Cat3migrantmaleleave = Categorygender($conn,$Clientid,'Category 3','L',$AttendanceDate,'Male',$Onroll,'','');
+        $Cat3migrantfemaleleave = Categorygender($conn,$Clientid,'Category 3','L',$AttendanceDate,'Female',$Onroll,'','');
+        $Cat3migrantleave = Categorygender($conn,$Clientid,'Category 3','L',$AttendanceDate,'',$Onroll,'attenTotal','');
+
+
+
     } 
     
 }
@@ -100,6 +258,80 @@ $Display=array('NoofPresent' =>$NoofPresent,
 'Cat3Absent' =>$Cat3Absent,
 'Cat3Leave' =>$Cat3Leave,
 'Cat3Employee' =>$Cat3Employee,
+'Cat1onrollmale' =>$Cat1onrollmale,
+'Cat1onrollfemale' =>$Cat1onrollfemale,
+'Cat1onrolltotal' =>$Cat1onrolltotal,
+'Cat1onrollmalepresent' =>$Cat1onrollmalepresent,
+'Cat1onrollfemalepresent' =>$Cat1onrollfemalepresent,
+'Cat1onrollpresent' =>$Cat1onrollpresent,
+'Cat1onrollmaleabsent' =>$Cat1onrollmaleabsent,
+'Cat1onrollfemaleabsent' =>$Cat1onrollfemaleabsent,
+'Cat1onrollabsent' =>$Cat1onrollabsent,
+'Cat1onrollmaleleave' =>$Cat1onrollmaleleave,
+'Cat1onrollfemaleleave' =>$Cat1onrollfemaleleave,
+'Cat1onrollleave' =>$Cat1onrollleave,
+'Cat2onrollmale' =>$Cat2onrollmale,
+'Cat2onrollfemale' =>$Cat2onrollfemale,
+'Cat2onrolltotal' =>$Cat2onrolltotal,
+'Cat2onrollmalepresent' =>$Cat2onrollmalepresent,
+'Cat2onrollfemalepresent' =>$Cat2onrollfemalepresent,
+'Cat2onrollpresent' =>$Cat2onrollpresent,
+'Cat2onrollmaleabsent' =>$Cat2onrollmaleabsent,
+'Cat2onrollfemaleabsent' =>$Cat2onrollfemaleabsent,
+'Cat2onrollabsent' =>$Cat2onrollabsent,
+'Cat2onrollmaleleave' =>$Cat2onrollmaleleave,
+'Cat2onrollfemaleleave' =>$Cat2onrollfemaleleave,
+'Cat2onrollleave' =>$Cat2onrollleave,
+'Cat3onrollmale' =>$Cat3onrollmale,
+'Cat3onrollfemale' =>$Cat3onrollfemale,
+'Cat3onrolltotal' =>$Cat3onrolltotal,
+'Cat3onrollmalepresent' =>$Cat3onrollmalepresent,
+'Cat3onrollfemalepresent' =>$Cat3onrollfemalepresent,
+'Cat3onrollpresent' =>$Cat3onrollpresent,
+'Cat3onrollmaleabsent' =>$Cat3onrollmaleabsent,
+'Cat3onrollfemaleabsent' =>$Cat3onrollfemaleabsent,
+'Cat3onrollabsent' =>$Cat3onrollabsent,
+'Cat3onrollmaleleave' =>$Cat3onrollmaleleave,
+'Cat3onrollfemaleleave' =>$Cat3onrollfemaleleave,
+'Cat3onrollleave' =>$Cat3onrollleave,
+'Cat1migrantmale' =>$Cat1migrantmale,
+'Cat1migrantfemale' =>$Cat1migrantfemale,
+'Cat1migranttotal' =>$Cat1migranttotal,
+'Cat1migrantmalepresent' =>$Cat1migrantmalepresent,
+'Cat1migrantfemalepresent' =>$Cat1migrantfemalepresent,
+'Cat1migrantpresent' =>$Cat1migrantpresent,
+'Cat1migrantmaleabsent' =>$Cat1migrantmaleabsent,
+'Cat1migrantfemaleabsent' =>$Cat1migrantfemaleabsent,
+'Cat1migrantabsent' =>$Cat1migrantabsent,
+'Cat1migrantmaleleave' =>$Cat1migrantmaleleave,
+'Cat1migrantfemaleleave' =>$Cat1migrantfemaleleave,
+'Cat1migrantleave' =>$Cat1migrantleave,
+'Cat2migrantmale' =>$Cat2migrantmale,
+'Cat2migrantfemale' =>$Cat2migrantfemale,
+'Cat2migranttotal' =>$Cat2migranttotal,
+'Cat2migrantmalepresent' =>$Cat2migrantmalepresent,
+'Cat2migrantfemalepresent' =>$Cat2migrantfemalepresent,
+'Cat2migrantpresent' =>$Cat2migrantpresent,
+'Cat2migrantmaleabsent' =>$Cat2migrantmaleabsent,
+'Cat2migrantfemaleabsent' =>$Cat2migrantfemaleabsent,
+'Cat2migrantabsent' =>$Cat2migrantabsent,
+'Cat2migrantmaleleave' =>$Cat2migrantmaleleave,
+'Cat2migrantfemaleleave' =>$Cat2migrantfemaleleave,
+'Cat2migrantleave' =>$Cat2migrantleave,
+'Cat3migrantmale' =>$Cat3migrantmale,
+'Cat3migrantfemale' =>$Cat3migrantfemale,
+'Cat3migranttotal' =>$Cat3migranttotal,
+'Cat3migrantmalepresent' =>$Cat3migrantmalepresent,
+'Cat3migrantfemalepresent' =>$Cat3migrantfemalepresent,
+'Cat3migrantpresent' =>$Cat3migrantpresent,
+'Cat3migrantmaleabsent' =>$Cat3migrantmaleabsent,
+'Cat3migrantfemaleabsent' =>$Cat3migrantfemaleabsent,
+'Cat3migrantabsent' =>$Cat3migrantabsent,
+'Cat3migrantmaleleave' =>$Cat3migrantmaleleave,
+'Cat3migrantfemaleleave' =>$Cat3migrantfemaleleave,
+'Cat3migrantleave' =>$Cat3migrantleave,
+
+
 
 );
 
@@ -111,7 +343,6 @@ catch(Exception $e)
 
 }
 
-
 }
 function CategorywisePresentCount($conn,$Clientid,$Category,$Attentypestatus,$AttendanceDate)
 {
@@ -120,6 +351,98 @@ try
 
   $Attencount = 0;
   $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance  WHERE Clientid='$Clientid' and Attendencedate='$AttendanceDate'  and Attentypestatus='$Attentypestatus' AND Type_Of_Posistion='$Category'  ORDER BY Employeeid ASC";
+  $NoofAbsent01 =mysqli_query($conn,$Absents);
+  $testAbsent = mysqli_fetch_assoc($NoofAbsent01);
+  $Attencount =$testAbsent['Presentabsentcount'];
+  return $Attencount;
+  
+}
+catch(Exception $e)
+{
+
+}
+}
+
+function GeneralCount($conn,$Clientid,$Attentypestatus,$AttendanceDate)
+{
+try
+{
+
+  $Attencount = 0;
+  $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance  WHERE Clientid='$Clientid' and Attendencedate='$AttendanceDate'  and Attentypestatus='$Attentypestatus'   ORDER BY Employeeid ASC";
+  $NoofAbsent01 =mysqli_query($conn,$Absents);
+  $testAbsent = mysqli_fetch_assoc($NoofAbsent01);
+  $Attencount =$testAbsent['Presentabsentcount'];
+  return $Attencount;
+  
+}
+catch(Exception $e)
+{
+
+}
+}
+
+function GeneralEmpCount($conn,$Clientid,$AttendanceDate)
+{
+try
+{
+
+  $Attencount = 0;
+  $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance  WHERE Clientid='$Clientid' and Attendencedate='$AttendanceDate'     ORDER BY Employeeid ASC";
+  $NoofAbsent01 =mysqli_query($conn,$Absents);
+  $testAbsent = mysqli_fetch_assoc($NoofAbsent01);
+  $Attencount =$testAbsent['Presentabsentcount'];
+  return $Attencount;
+  
+}
+catch(Exception $e)
+{
+
+}
+}
+
+
+function Categorygender($conn,$Clientid,$Category,$Attentypestatus,$AttendanceDate,$Gender,$Onroll,$Status,$Strength)
+{
+try
+{
+
+  $Attencount = 0;
+  if($Strength=="Local")
+  {
+  $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance emp JOIN indsys1018employeeaddressinformation address ON emp.Clientid = address.Clientid AND emp.Employeeid=address.Employeeid  WHERE emp.Clientid='$Clientid' and emp.Attendencedate='$AttendanceDate'  and emp.Attentypestatus='$Attentypestatus' AND emp.Type_Of_Posistion='$Category' AND emp.Gender='$Gender' AND address.Peremenantstate='$Onroll' ORDER BY emp.Employeeid ASC";
+
+  if($Status=="genderTotal")
+  {
+    $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance emp JOIN indsys1018employeeaddressinformation address ON emp.Clientid = address.Clientid AND emp.Employeeid=address.Employeeid  WHERE emp.Clientid='$Clientid' and emp.Attendencedate='$AttendanceDate'  AND emp.Type_Of_Posistion='$Category' AND address.Peremenantstate='$Onroll' AND emp.Gender='$Gender' ORDER BY emp.Employeeid ASC";
+  }
+  if($Status=="empTotal")
+  {
+    $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance emp JOIN indsys1018employeeaddressinformation address ON emp.Clientid = address.Clientid AND emp.Employeeid=address.Employeeid  WHERE emp.Clientid='$Clientid' and emp.Attendencedate='$AttendanceDate'  AND emp.Type_Of_Posistion='$Category'  AND address.Peremenantstate='$Onroll' ORDER BY emp.Employeeid ASC";
+  }
+  if($Status=="attenTotal")
+  {
+    $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance emp JOIN indsys1018employeeaddressinformation address ON emp.Clientid = address.Clientid AND emp.Employeeid=address.Employeeid  WHERE emp.Clientid='$Clientid' and emp.Attendencedate='$AttendanceDate'  and emp.Attentypestatus='$Attentypestatus' AND emp.Type_Of_Posistion='$Category'  AND address.Peremenantstate='$Onroll' ORDER BY emp.Employeeid ASC";
+  }
+ }
+else
+{
+  $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance emp JOIN indsys1018employeeaddressinformation address ON emp.Clientid = address.Clientid AND emp.Employeeid=address.Employeeid  WHERE emp.Clientid='$Clientid' and emp.Attendencedate='$AttendanceDate'  and emp.Attentypestatus='$Attentypestatus' AND emp.Type_Of_Posistion='$Category' AND emp.Gender='$Gender' AND address.Peremenantstate!='$Onroll' ORDER BY emp.Employeeid ASC";
+
+  if($Status=="genderTotal")
+  {
+    $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance emp JOIN indsys1018employeeaddressinformation address ON emp.Clientid = address.Clientid AND emp.Employeeid=address.Employeeid  WHERE emp.Clientid='$Clientid' and emp.Attendencedate='$AttendanceDate'  AND emp.Type_Of_Posistion='$Category' AND address.Peremenantstate!='$Onroll' AND emp.Gender='$Gender' ORDER BY emp.Employeeid ASC";
+  }
+  if($Status=="empTotal")
+  {
+    $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance emp JOIN indsys1018employeeaddressinformation address ON emp.Clientid = address.Clientid AND emp.Employeeid=address.Employeeid  WHERE emp.Clientid='$Clientid' and emp.Attendencedate='$AttendanceDate'  AND emp.Type_Of_Posistion='$Category'  AND address.Peremenantstate!='$Onroll' ORDER BY emp.Employeeid ASC";
+  }
+  if($Status=="attenTotal")
+  {
+    $Absents = "Select count(Attentypestatus) as Presentabsentcount from vwemployeedailyattendance emp JOIN indsys1018employeeaddressinformation address ON emp.Clientid = address.Clientid AND emp.Employeeid=address.Employeeid  WHERE emp.Clientid='$Clientid' and emp.Attendencedate='$AttendanceDate'  and emp.Attentypestatus='$Attentypestatus' AND emp.Type_Of_Posistion='$Category'  AND address.Peremenantstate!='$Onroll' ORDER BY emp.Employeeid ASC";
+  }
+}
+
   $NoofAbsent01 =mysqli_query($conn,$Absents);
   $testAbsent = mysqli_fetch_assoc($NoofAbsent01);
   $Attencount =$testAbsent['Presentabsentcount'];

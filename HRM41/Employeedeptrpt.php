@@ -69,7 +69,7 @@ $excel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
 $excel->getActiveSheet()->getStyle('A3:J3')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('ffff4d90');
-$active->setCellValue('A1',"BRITANNIA GARMENT PACKAGING");
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
 $active->setCellValue('A2',"Department wise Employee Details");
 $active->setCellValue('A3','Employeeid');
 $active->setCellValue('B3','Fullname');
@@ -110,7 +110,7 @@ $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(Alignmen
 $excel->getActiveSheet()->getStyle('A3:S3')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('ffff4d90');
-$active->setCellValue('A1',"BRITANNIA GARMENT PACKAGING");
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
 $active->setCellValue('A2',"Department wise Employee Personal Details");
 $active->setCellValue('A3','Employeeid');
 $active->setCellValue('B3','Fullname');
@@ -159,7 +159,7 @@ $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(Alignmen
 $excel->getActiveSheet()->getStyle('A3:S3')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('ffff4d90');
-$active->setCellValue('A1',"BRITANNIA GARMENT PACKAGING");
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
 $active->setCellValue('A2',"Department wise Employee Salary Details");
 $active->setCellValue('A3','Employeeid');
 $active->setCellValue('B3','Fullname');
@@ -207,7 +207,7 @@ $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(Alignmen
 $excel->getActiveSheet()->getStyle('A3:J3')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('ffff4d90');
-$active->setCellValue('A1',"BRITANNIA GARMENT PACKAGING");
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
 $active->setCellValue('A2',"Department wise Employee Bank Details");
 $active->setCellValue('A3','Employeeid');
 $active->setCellValue('B3','Fullname');
@@ -246,7 +246,7 @@ $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(Alignmen
 $excel->getActiveSheet()->getStyle('A3:O3')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('ffff4d90');
-$active->setCellValue('A1',"BRITANNIA GARMENT PACKAGING");
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
 $active->setCellValue('A2',"Department wise Employee Address Details");
 $active->setCellValue('A3','Employeeid');
 $active->setCellValue('B3','Fullname');
@@ -291,7 +291,7 @@ $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(Alignmen
 $excel->getActiveSheet()->getStyle('A3:K3')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('ffff4d90');
-$active->setCellValue('A1',"BRITANNIA GARMENT PACKAGING");
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
 $active->setCellValue('A2',"Department wise Employee Reference Details");
 $active->setCellValue('A3','Employeeid');
 $active->setCellValue('B3','Fullname');
@@ -331,7 +331,7 @@ $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(Alignmen
 $excel->getActiveSheet()->getStyle('A3:J3')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('ffff4d90');
-$active->setCellValue('A1',"BRITANNIA GARMENT PACKAGING");
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
 $active->setCellValue('A2',"Department wise Employee Family Details");
 $active->setCellValue('A3','Employeeid');
 $active->setCellValue('B3','Fullname');
@@ -372,7 +372,7 @@ $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(Alignmen
 $excel->getActiveSheet()->getStyle('A3:L3')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('ffff4d90');
-$active->setCellValue('A1',"BRITANNIA GARMENT PACKAGING");
+$active->setCellValue('A1',"BRITANNIA LABELS INDIA PVT LTD");
 $active->setCellValue('A2',"Department wise Employee Nominee Details");
 $active->setCellValue('A3','Employeeid');
 $active->setCellValue('B3','Fullname');
