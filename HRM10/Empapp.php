@@ -1,5 +1,6 @@
 <style>
 @media print {
+<<<<<<< HEAD
     .new-page {
         page-break-after: always !important;
     }
@@ -13,6 +14,19 @@
 </style>
 <div class="modal fade emp-modal" id="ModalCenter1EmpNominee" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+.new-page{
+page-break-after: always !important;
+}
+}
+@media print {
+.printBox{
+        page-break-after: always !important;
+    }
+    }
+</style>
+<div class="modal fade emp-modal" id="ModalCenter1EmpNominee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -30,16 +44,24 @@
 
             </div>
             <div class="modal-footer">
+<<<<<<< HEAD
                 <button class="btn btn-rounded btn-danger" ng-click="DeleteNominee();"
                     data-dismiss="modal">Delete</button>
+=======
+                <button class="btn btn-rounded btn-danger" ng-click="DeleteNominee();" data-dismiss="modal">Delete</button>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">Close</button>
 
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1Education" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1Education" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -57,16 +79,24 @@
 
             </div>
             <div class="modal-footer">
+<<<<<<< HEAD
                 <button class="btn btn-rounded btn-danger" ng-click="DeleteEducation();"
                     data-dismiss="modal">Delete</button>
+=======
+                <button class="btn btn-rounded btn-danger" ng-click="DeleteEducation();" data-dismiss="modal">Delete</button>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">Close</button>
 
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1Family" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1Family" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -84,16 +114,24 @@
 
             </div>
             <div class="modal-footer">
+<<<<<<< HEAD
                 <button class="btn btn-rounded btn-danger" ng-click="DeleteFamily();"
                     data-dismiss="modal">Delete</button>
+=======
+                <button class="btn btn-rounded btn-danger" ng-click="DeleteFamily();" data-dismiss="modal">Delete</button>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">Close</button>
 
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1Doc" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1Doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -118,8 +156,12 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1DocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1DocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -132,8 +174,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{DocumentView}}" ng-hide="DocumentView == null || DocumentView == '' "
                         ng-show="DocumentView != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{DocumentView}}" ng-hide="DocumentView == null || DocumentView == '' " ng-show="DocumentView != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -145,8 +191,12 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1Property" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1Property" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -164,16 +214,24 @@
 
             </div>
             <div class="modal-footer">
+<<<<<<< HEAD
                 <button class="btn btn-rounded btn-danger" ng-click="DeleteProperty();"
                     data-dismiss="modal">Delete</button>
+=======
+                <button class="btn btn-rounded btn-danger" ng-click="DeleteProperty();" data-dismiss="modal">Delete</button>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">Close</button>
 
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1PropertyView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1PropertyView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -186,9 +244,13 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Propertychecklistitemimage}}"
                         ng-hide="Propertychecklistitemimage == null || Propertychecklistitemimage == '' "
                         ng-show="Propertychecklistitemimage != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Propertychecklistitemimage}}" ng-hide="Propertychecklistitemimage == null || Propertychecklistitemimage == '' " ng-show="Propertychecklistitemimage != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -230,8 +292,12 @@
                         </div>
                     </div>
                 </div> -->
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EMPDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EMPDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -244,8 +310,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{EmpDocumentView}}" ng-hide="EmpDocumentView == null || EmpDocumentView == '' "
                         ng-show="EmpDocumentView != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{EmpDocumentView}}" ng-hide="EmpDocumentView == null || EmpDocumentView == '' " ng-show="EmpDocumentView != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -259,8 +329,12 @@
 </div>
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EMPBackgroundView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EMPBackgroundView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -273,9 +347,13 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{BackgroundVerificationpath}}"
                         ng-hide="BackgroundVerificationpath == null || BackgroundVerificationpath == '' "
                         ng-show="BackgroundVerificationpath != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{BackgroundVerificationpath}}" ng-hide="BackgroundVerificationpath == null || BackgroundVerificationpath == '' " ng-show="BackgroundVerificationpath != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -287,8 +365,12 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1Vaccination" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1Vaccination" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -306,16 +388,24 @@
 
             </div>
             <div class="modal-footer">
+<<<<<<< HEAD
                 <button class="btn btn-rounded btn-danger" ng-click="DeleteVaccination();"
                     data-dismiss="modal">Delete</button>
+=======
+                <button class="btn btn-rounded btn-danger" ng-click="DeleteVaccination();" data-dismiss="modal">Delete</button>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">Close</button>
 
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1Certificate" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1Certificate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -328,8 +418,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{VaccinationView}}" ng-hide="VaccinationView == null || VaccinationView == '' "
                         ng-show="VaccinationView != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{VaccinationView}}" ng-hide="VaccinationView == null || VaccinationView == '' " ng-show="VaccinationView != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -344,6 +438,7 @@
 
 
 <style type="text/css">
+<<<<<<< HEAD
 .font-12 {
     font-size: 11px !important;
 }
@@ -367,6 +462,32 @@ table.noborder th {
 
 <div class="modal fade emp-modal" id="ModalCenter1EmployeeDetailTamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+                                .font-12 {
+                                    font-size: 11px !important;
+                                }
+
+                                .w-100 {
+                                    width: 100%;
+                                }
+
+                                table.noborder {
+                                    border-collapse: collapse;
+                                    margin: 10px 0;
+                                }
+
+                                table.noborder td,
+                                table.noborder th {
+                                    border: 1px solid transparent;
+                                    text-align: left;
+                                    padding: 4px;
+                                }
+
+                               
+                            </style>
+
+<div class="modal fade emp-modal" id="ModalCenter1EmployeeDetailTamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -386,14 +507,22 @@ table.noborder th {
                                 <label class="col-form-label">Employee
                                     Details </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpDetailtamil" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpDetailtamil" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpDetailtamil" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmployeeDetailDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmployeeDetailDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -402,8 +531,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnempdetailtamil" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnempdetailtamil" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -411,7 +544,11 @@ table.noborder th {
 
 
                         <div class="card-body">
+<<<<<<< HEAD
 
+=======
+                       
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                             <div id="pdfExportempdetailtamil" class="pdf-tamil-download">
 
                                 <div class="pdf-sipl">
@@ -421,8 +558,12 @@ table.noborder th {
                                             <tbody>
                                                 <tr>
                                                     <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                         <img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                             width="auto" height="80" />
+=======
+                                                        <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
                                                     <td style="width:50%; text-align: right;">
                                                         <p><b>{{Clientname}}</b><br />
@@ -447,6 +588,7 @@ table.noborder th {
                                         </center>
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 10px 0 !important;
@@ -488,6 +630,48 @@ table.noborder th {
 
                                         <img ng-src="{{Imagepath}}" ng-hide="Imagepath == null || Imagepath == '' "
                                             ng-show="Imagepath != null " alt="Employee_image" class="candidate-photo">
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 10px 0 !important;
+                                                font-size: 12px;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #888888;
+                                                text-align: left;
+                                                padding: 8px !important;
+                                            }
+
+                                            .candidate-photo {
+                                                display: inline-block;
+                                                height: 140px;
+                                                width: 140px;
+                                                padding: 5px;
+                                                text-align: center;
+                                                position: absolute;
+                                                right: 4.8%;
+
+                                                border: 1px solid #888888;
+                                            }
+
+                                            @media print {
+                                                @page {
+                                                    margin: 10;
+                                                }
+
+                                                #btnempdetailtamil {
+                                                    display: none;
+                                                    ;
+                                                }
+
+                                            }
+                                        </style>
+
+
+                                        <img ng-src="{{Imagepath}}" ng-hide="Imagepath == null || Imagepath == '' " ng-show="Imagepath != null " alt="Employee_image" class="candidate-photo">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                         <table cellpadding="5" class="font-12">
                                             <tr>
@@ -598,8 +782,12 @@ table.noborder th {
                                                     </td>
                                                 </tr>
 
+<<<<<<< HEAD
                                                 <tr dir-paginate="e in GetFamilyList |filter:searchFamily|itemsPerPage:10 "
                                                     pagination-id="Familygrid" current-page="currentPageFamily">
+=======
+                                                <tr dir-paginate="e in GetFamilyList |filter:searchFamily|itemsPerPage:10 " pagination-id="Familygrid" current-page="currentPageFamily">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
 
 
@@ -635,8 +823,12 @@ table.noborder th {
                                             </tr>
 
 
+<<<<<<< HEAD
                                             <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:10 "
                                                 pagination-id="Nomineegrid">
+=======
+                                            <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:10 " pagination-id="Nomineegrid">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                                 <td>{{e.NomineeName}}
 
@@ -714,8 +906,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmployeeDetailDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmployeeDetailDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -728,9 +924,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{EmployeeDetailpathtamil}}"
                         ng-hide="EmployeeDetailpathtamil == null || EmployeeDetailpathtamil == '' "
                         ng-show="EmployeeDetailpathtamil != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{EmployeeDetailpathtamil}}" ng-hide="EmployeeDetailpathtamil == null || EmployeeDetailpathtamil == '' " ng-show="EmployeeDetailpathtamil != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -745,8 +945,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmployeeDetailHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmployeeDetailHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -766,15 +970,23 @@ table.noborder th {
                                 <label class="col-form-label">Employee
                                     Details </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpDetailhindi" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpDetailhindi" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpDetailhindi" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal"
                                             data-target="#ModalCenterEmployeeDetailHindiDocumnetView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmployeeDetailHindiDocumnetView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -783,8 +995,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnempdetailHindi" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnempdetailHindi" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -797,6 +1013,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
+<<<<<<< HEAD
                                         <table class="noborder w-100" style="width:100%">
                                             <tbody>
                                                 <tr>
@@ -873,6 +1090,79 @@ table.noborder th {
 
                                         <img ng-src="{{Imagepath}}" ng-hide="Imagepath == null || Imagepath == '' "
                                             ng-show="Imagepath != null " alt="Employee_image" class="candidate-photo">
+=======
+<table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+                                        <div class="text-center">
+                                            <h4 style="margin:0 0 5px 5px !important">Employee Details / कर्मचारी का विवरण</h4>
+                                        </div>
+
+                                        <style type="text/css">
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+                                            .top-0 {
+                                                margin-top: 0px !important;
+                                            }
+                                            .bottom-0 {
+                                                margin-bottom: 0px !important;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+
+                                            .candidate-photo {
+                                                display: inline-block;
+                                                height: 140px;
+                                                width: 140px;
+                                                padding: 5px;
+                                                text-align: center;
+                                                position: absolute;
+                                                right: 4.8%;
+
+                                                border: 1px solid #888888;
+                                            }
+
+                                            .font-80{
+                                                font-size:90% !important;
+                                            }
+
+                                            @media print {
+                                                @page {
+                                                    margin: 10;
+                                                }
+
+                                                #btnempdetailHindi {
+                                                    display: none;
+                                                    ;
+                                                }
+
+                                            }
+                                        </style>
+
+
+                                        <img ng-src="{{Imagepath}}" ng-hide="Imagepath == null || Imagepath == '' " ng-show="Imagepath != null " alt="Employee_image" class="candidate-photo">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
 
                                         <table style="margin-bottom:10px !important" cellpadding="3">
@@ -932,7 +1222,11 @@ table.noborder th {
                                                         {{CurrentState}}
                                                         <br>
                                                         {{CurrentCity}} - {{CurrentPincode}}
+<<<<<<< HEAD
 
+=======
+                                                        
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
                                                     <td>{{PermanentAddress}}
                                                         <br>
@@ -940,16 +1234,25 @@ table.noborder th {
                                                         <br>
                                                         {{PermanentState}}
                                                         <br>
+<<<<<<< HEAD
                                                         {{PermanentCity}} - {{PermanentPincode}}
 
+=======
+                                                        {{PermanentCity}} -  {{PermanentPincode}}
+                                                      
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
 
                                                 </tr>
                                             </tbody>
                                         </table>
 
+<<<<<<< HEAD
                                         <p style="margin-bottom:5px">INCASE OF EMERGENCY CONTACT / आपातकालीन संपर्क की
                                             वृद्धि</p>
+=======
+                                        <p style="margin-bottom:5px">INCASE OF EMERGENCY CONTACT / आपातकालीन संपर्क की वृद्धि</p>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                         <table class="doc-table font-80 top-0">
                                             <tbody>
@@ -964,8 +1267,12 @@ table.noborder th {
                                                     </td>
                                                 </tr>
 
+<<<<<<< HEAD
                                                 <tr dir-paginate="e in GetFamilyList |filter:searchFamily|itemsPerPage:10 "
                                                     pagination-id="Familygrid" current-page="currentPageFamily">
+=======
+                                                <tr dir-paginate="e in GetFamilyList |filter:searchFamily|itemsPerPage:10 " pagination-id="Familygrid" current-page="currentPageFamily">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
 
 
@@ -997,8 +1304,12 @@ table.noborder th {
                                                     RELATIONSHIP / संबंध<br /></td>
                                             </tr>
                                             <tbody>
+<<<<<<< HEAD
                                                 <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:10 "
                                                     pagination-id="Nomineegrid">
+=======
+                                                <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:10 " pagination-id="Nomineegrid">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                                     <td>{{e.NomineeName}}
 
@@ -1064,8 +1375,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmployeeDetailHindiDocumnetView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmployeeDetailHindiDocumnetView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1078,9 +1393,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{EmployeeDetailpathhindi}}"
                         ng-hide="EmployeeDetailpathhindi == null || EmployeeDetailpathhindi == '' "
                         ng-show="EmployeeDetailpathhindi != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{EmployeeDetailpathhindi}}" ng-hide="EmployeeDetailpathhindi == null || EmployeeDetailpathhindi == '' " ng-show="EmployeeDetailpathhindi != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -1095,8 +1414,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1FORM34Tamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1FORM34Tamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1116,14 +1439,22 @@ table.noborder th {
                                 <label class="col-form-label"> FORM-34
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputform34tamil" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputform34tamil" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonform34tamil" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterForm34TamilDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterForm34TamilDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -1132,8 +1463,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnform34tamil" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnform34tamil" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -1151,8 +1486,12 @@ table.noborder th {
                                             <tbody>
                                                 <tr>
                                                     <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                         <img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                             width="auto" height="80" />
+=======
+                                                        <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
                                                     <td style="width:50%; text-align: right;">
                                                         <p><b>{{Clientname}}</b><br />
@@ -1168,6 +1507,7 @@ table.noborder th {
 
                                         <hr />
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -1179,6 +1519,19 @@ table.noborder th {
                                             text-align: left;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <center>
@@ -1271,8 +1624,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterForm34TamilDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterForm34TamilDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1285,8 +1642,12 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Form34pathtamil}}" ng-hide="Form34pathtamil == null || Form34pathtamil == '' "
                         ng-show="Form34pathtamil != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Form34pathtamil}}" ng-hide="Form34pathtamil == null || Form34pathtamil == '' " ng-show="Form34pathtamil != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -1299,8 +1660,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1FORM34Hindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1FORM34Hindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1320,14 +1685,22 @@ table.noborder th {
                                 <label class="col-form-label"> FORM-34
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputform34hindi" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputform34hindi" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonform34hindi" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterForm34HindiDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterForm34HindiDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -1336,8 +1709,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnform34hindi" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnform34hindi" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -1350,6 +1727,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
+<<<<<<< HEAD
 
                                         <table class="noborder w-100" style="width:100%">
                                             <tbody>
@@ -1368,10 +1746,30 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                                      
+                                    <table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
 
                                         <hr />
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -1383,6 +1781,19 @@ table.noborder th {
                                             text-align: left;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <center>
@@ -1391,6 +1802,7 @@ table.noborder th {
                                         </center>
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -1402,6 +1814,19 @@ table.noborder th {
                                             text-align: left;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
 
@@ -1489,8 +1914,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterForm34HindiDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterForm34HindiDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1503,9 +1932,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Form34pathtamilhindi}}"
                         ng-hide="Form34pathtamilhindi == null || Form34pathtamilhindi == '' "
                         ng-show="Form34pathtamilhindi != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Form34pathtamilhindi}}" ng-hide="Form34pathtamilhindi == null || Form34pathtamilhindi == '' " ng-show="Form34pathtamilhindi != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -1520,8 +1953,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EMPAttentionTamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EMPAttentionTamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1541,14 +1978,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Attention
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpAttentiontamil" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpAttentiontamil" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpAttentiontamil" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEMPAttentionTamilDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEMPAttentionTamilDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -1557,8 +2002,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpAttentiontamil" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpAttentiontamil" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -1575,8 +2024,12 @@ table.noborder th {
                                             <tbody>
                                                 <tr>
                                                     <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                         <img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                             width="auto" height="80" />
+=======
+                                                        <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
                                                     <td style="width:50%; text-align: right;">
                                                         <p><b>{{Clientname}}</b><br />
@@ -1668,8 +2121,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEMPAttentionTamilDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEMPAttentionTamilDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1682,9 +2139,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Attentionoftheemployeepathtamil}}"
                         ng-hide="Attentionoftheemployeepathtamil == null || Attentionoftheemployeepathtamil == '' "
                         ng-show="Attentionoftheemployeepathtamil != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Attentionoftheemployeepathtamil}}" ng-hide="Attentionoftheemployeepathtamil == null || Attentionoftheemployeepathtamil == '' " ng-show="Attentionoftheemployeepathtamil != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -1699,8 +2160,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EMPAttentionHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EMPAttentionHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1720,14 +2185,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Attention
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpAttentionhindi" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpAttentionhindi" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpAttentionhindi" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEMPAttentionHindiDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEMPAttentionHindiDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -1736,8 +2209,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpAttentionhindi" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpAttentionhindi" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -1750,6 +2227,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
+<<<<<<< HEAD
                                         <table class="noborder w-100" style="width:100%">
                                             <tbody>
                                                 <tr>
@@ -1767,6 +2245,24 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                                    <table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                         <hr />
 
@@ -1846,8 +2342,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEMPAttentionHindiDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEMPAttentionHindiDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1860,9 +2360,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Attentionoftheemployeepathhindi}}"
                         ng-hide="Attentionoftheemployeepathhindi == null || Attentionoftheemployeepathhindi == '' "
                         ng-show="Attentionoftheemployeepathhindi != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Attentionoftheemployeepathhindi}}" ng-hide="Attentionoftheemployeepathhindi == null || Attentionoftheemployeepathhindi == '' " ng-show="Attentionoftheemployeepathhindi != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -1876,8 +2380,12 @@ table.noborder th {
 </div>
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpDeclarationTamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpDeclarationTamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -1897,15 +2405,23 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Declaration
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpDeclarationtamil" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpDeclarationtamil" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpDeclarationtamil" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal"
                                             data-target="#ModalCenterEmpDeclarationtamilDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpDeclarationtamilDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -1914,8 +2430,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpDeclarationTamil" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpDeclarationTamil" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -1929,8 +2449,12 @@ table.noborder th {
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
                                         <div class="row">
+<<<<<<< HEAD
                                             <div class="col-md-6"><img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                     width="auto" height="80" /></div>
+=======
+                                            <div class="col-md-6"><img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" /></div>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <div class="col-lg-6">
                                                 <p class="text-right"><b>{{Clientname}}</b><br />
                                                     {{ClientAddressLine1}}<br />{{ClientAddressLine2}},
@@ -1965,6 +2489,7 @@ table.noborder th {
 
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -1976,6 +2501,19 @@ table.noborder th {
                                             text-align: left;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <table class="doc-table">
@@ -2083,8 +2621,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpDeclarationtamilDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpDeclarationtamilDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -2097,9 +2639,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employeedeclarationpathtamil}}"
                         ng-hide="Employeedeclarationpathtamil == null || Employeedeclarationpathtamil == '' "
                         ng-show="Employeedeclarationpathtamil != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employeedeclarationpathtamil}}" ng-hide="Employeedeclarationpathtamil == null || Employeedeclarationpathtamil == '' " ng-show="Employeedeclarationpathtamil != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -2112,8 +2658,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpDeclarationHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpDeclarationHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -2133,15 +2683,23 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Declaration
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpDeclarationHindi" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpDeclarationHindi" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpDeclarationHindi" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal"
                                             data-target="#ModalCenterEmpDeclarationHindiDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpDeclarationHindiDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -2150,8 +2708,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpDeclarationHindi" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpDeclarationHindi" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -2165,8 +2727,12 @@ table.noborder th {
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
                                         <div class="row">
+<<<<<<< HEAD
                                             <div class="col-md-6"><img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                     width="auto" height="80" /></div>
+=======
+                                            <div class="col-md-6"><img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" /></div>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <div class="col-lg-6">
                                                 <p class="text-right"><b>{{Clientname}}</b><br />
                                                     {{ClientAddressLine1}}<br />{{ClientAddressLine2}},
@@ -2201,6 +2767,7 @@ table.noborder th {
 
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -2212,6 +2779,19 @@ table.noborder th {
                                             text-align: left;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <table class="doc-table">
@@ -2325,8 +2905,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpDeclarationHindiDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpDeclarationHindiDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -2339,9 +2923,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employeedeclarationpathhindi}}"
                         ng-hide="Employeedeclarationpathhindi == null || Employeedeclarationpathhindi == '' "
                         ng-show="Employeedeclarationpathhindi != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employeedeclarationpathhindi}}" ng-hide="Employeedeclarationpathhindi == null || Employeedeclarationpathhindi == '' " ng-show="Employeedeclarationpathhindi != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -2354,8 +2942,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpStatingTamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpStatingTamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -2375,14 +2967,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Stating
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpStatingTamil" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpStatingTamil" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpStatingTamil" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmpStatingTamilDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpStatingTamilDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -2391,8 +2991,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpStatingTamil" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpStatingTamil" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -2410,8 +3014,12 @@ table.noborder th {
                                             <tbody>
                                                 <tr>
                                                     <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                         <img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                             width="auto" height="80" />
+=======
+                                                        <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
                                                     <td style="width:50%; text-align: right;">
                                                         <p><b>{{Clientname}}</b><br />
@@ -2432,6 +3040,7 @@ table.noborder th {
 
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -2455,6 +3064,31 @@ table.noborder th {
                                             }
 
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+
+                                            @media print {
+                                                @page {
+                                                    margin: 10;
+                                                }
+
+                                                #btnEmpStatingTamil {
+                                                    display: none;
+                                                    ;
+                                                }
+
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <table class="doc-table">
@@ -2596,7 +3230,11 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+<<<<<<< HEAD
                                         <table class="doc-table" style="page-break-before: always !important;">
+=======
+                                        <table class="doc-table"  style="page-break-before: always !important;">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <tbody>
                                                 <tr>
                                                     <td> 9. If for an eight consecutive working days
@@ -2845,8 +3483,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpStatingTamilDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpStatingTamilDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -2859,9 +3501,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employeestatingpathtamil}}"
                         ng-hide="Employeestatingpathtamil == null || Employeestatingpathtamil == '' "
                         ng-show="Employeestatingpathtamil != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employeestatingpathtamil}}" ng-hide="Employeestatingpathtamil == null || Employeestatingpathtamil == '' " ng-show="Employeestatingpathtamil != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -2873,8 +3519,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpStatingHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpStatingHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -2894,14 +3544,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Stating
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpStatingHindi" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpStatingHindi" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpStatingHindi" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmpStatingHindiDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpStatingHindiDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -2910,8 +3568,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpStatingHindi" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpStatingHindi" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -2924,6 +3586,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
+<<<<<<< HEAD
                                         <table class="noborder w-100" style="width:100%">
                                             <tbody>
                                                 <tr>
@@ -2941,6 +3604,24 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                                    <table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
 
                                         <hr />
@@ -2952,6 +3633,7 @@ table.noborder th {
 
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -2975,6 +3657,31 @@ table.noborder th {
                                             }
 
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+
+                                            @media print {
+                                                @page {
+                                                    margin: 10;
+                                                }
+
+                                                #btnEmpStatingHindi {
+                                                    display: none;
+                                                    ;
+                                                }
+
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <table class="doc-table">
@@ -3099,6 +3806,7 @@ table.noborder th {
                                                         कंपनी नियमों में निहित प्रक्रियाओं के अनुसार
                                                         समाप्त किया जा सकता है।. </td>
                                                 </tr>
+<<<<<<< HEAD
                                             </tbody>
                                         </table>
 
@@ -3106,6 +3814,13 @@ table.noborder th {
                                         <table class="doc-table new-page">
                                             <tbody>
                                                 <tr>
+=======
+                                              </tbody></table>
+
+
+                                                <table class="doc-table new-page">
+                                            <tbody>  <tr>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     <td> 9. If for an eight consecutive working days
                                                         absent yourself without sanction of leave or
                                                         overstay than sanctioned leave for eight
@@ -3228,10 +3943,17 @@ table.noborder th {
                                                         साथ कर्तव्यों का पालन करना चाहिए।</td>
                                                 </tr>
 
+<<<<<<< HEAD
                                             </tbody>
                                         </table>
 
                                         <table class="doc-table new-page">
+=======
+                                                </tbody>
+                                                </table>
+
+                                                <table class="doc-table new-page">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <tbody>
                                                 <tr>
                                                     <td> 16d. This appointment / probation is made
@@ -3339,8 +4061,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpStatingHindiDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpStatingHindiDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -3353,9 +4079,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employeestatingpathhindi}}"
                         ng-hide="Employeestatingpathhindi == null || Employeestatingpathhindi == '' "
                         ng-show="Employeestatingpathhindi != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employeestatingpathhindi}}" ng-hide="Employeestatingpathhindi == null || Employeestatingpathhindi == '' " ng-show="Employeestatingpathhindi != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -3368,8 +4098,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpAgreementTamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpAgreementTamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -3389,14 +4123,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Agreement
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpAgreementTamil" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpAgreementTamil" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpAgreementTamil" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmpAgreementTamilDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpAgreementTamilDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -3405,8 +4147,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpAgreementTamil" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpAgreementTamil" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -3419,6 +4165,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <style>
+<<<<<<< HEAD
                                     @media print {
                                         @page {
                                             margin: 10;
@@ -3452,6 +4199,40 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                                        @media print {
+                                            @page {
+                                                margin: 10;
+                                            }
+
+                                            #btnEmpAgreementTamil {
+                                                display: none;
+                                                ;
+                                            }
+
+                                        }
+                                    </style>
+                                    <div class="pdf-header-sipl-modal">
+                                      
+                                    
+
+                                    <table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                         <hr />
 
@@ -3603,6 +4384,7 @@ table.noborder th {
                                             நிறைவேற்றுகின்றன</p>
 
 
+<<<<<<< HEAD
 
                                         <br /><br />
                                         <table class="noborder w-100" style="width:100%">
@@ -3633,6 +4415,37 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                                      
+                                            <br/><br/>
+                                                <table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%;">
+ஏற்றுக்கொள்வது/மற்றும்<br/>
+ஒப்புக்கொள்வது
+</td>
+<td style="width:50%; text-align: right;">
+ஒப்புக்கொள்வது<br/>பிரிட்டானியா லேபிள்ஸ்<br/>
+இந்தியா பிரைவேட் லிமிடெட்(கம்பெனி)
+</td></tr>
+</tbody>
+</table>
+<br/><br/><br/><br/>
+<table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<tr>
+<td style="width:50%;">
+பணியாளரின் பெயர் / கையொப்பம்
+</td>
+
+<td style="width:50%; text-align: right;">
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
 
                                     </div>
@@ -3669,8 +4482,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpAgreementTamilDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpAgreementTamilDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -3683,9 +4500,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employeeagreemantpathtamil}}"
                         ng-hide="Employeeagreemantpathtamil == null || Employeeagreemantpathtamil == '' "
                         ng-show="Employeeagreemantpathtamil != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employeeagreemantpathtamil}}" ng-hide="Employeeagreemantpathtamil == null || Employeeagreemantpathtamil == '' " ng-show="Employeeagreemantpathtamil != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -3699,8 +4520,12 @@ table.noborder th {
 </div>
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpAgreementHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpAgreementHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -3720,14 +4545,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Agreement
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpAgreementHindi" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpAgreementHindi" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpAgreementHindi" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmpAgreementHindiDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpAgreementHindiDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -3736,8 +4569,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpAgreementHindi" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpAgreementHindi" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -3750,6 +4587,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <style>
+<<<<<<< HEAD
                                     @media print {
                                         @page {
                                             margin: 10;
@@ -3781,6 +4619,38 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                                        @media print {
+                                            @page {
+                                                margin: 10;
+                                            }
+
+                                            #btnEmpAgreementHindi {
+                                                display: none;
+                                                ;
+                                            }
+
+                                        }
+                                    </style>
+                                    <div class="pdf-header-sipl-modal">
+                                      
+<table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         <hr />
 
                                         <center>
@@ -4005,8 +4875,12 @@ table.noborder th {
 
 
                                         <h3 style="margin-bottom: 5px;">2. RETURN OF PROPERTY</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">Upon termination of my employment, I will
                                             return to the
+=======
+                                        <p style="margin:0px !important">Upon termination of my employment, I will return to the
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             Company, retaining no
                                             copies or notes, all documents relating to the Company’s
                                             business including, but
@@ -4018,8 +4892,12 @@ table.noborder th {
                                         </p>
 
                                         <h3 style="margin-bottom: 5px;">संपत्ति का पुनर्गठन</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">अपने रोजगार को समाप्त करने पर, मैं कंपनी में
                                             वापस आऊंगा,
+=======
+                                        <p style="margin:0px !important">अपने रोजगार को समाप्त करने पर, मैं कंपनी में वापस आऊंगा,
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             कोई प्रतियां या नोट नहीं
                                             रखूंगा, कंपनी के व्यवसाय से संबंधित सभी दस्तावेज, लेकिन
                                             रिपोर्ट, सार, सूचियों,
@@ -4030,8 +4908,12 @@ table.noborder th {
                                             प्राप्त की गई हैं।</p>
 
                                         <h3 style="margin-bottom: 5px;">3. LEGAL AND EQUITABLE REMEDIES</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">I recognize that the Company may be irreparably
                                             damaged
+=======
+                                        <p  style="margin:0px !important">I recognize that the Company may be irreparably damaged
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             by any breach of this
                                             Agreement and that the Company shall be entitled to seek
                                             an injunction, specific
@@ -4041,8 +4923,12 @@ table.noborder th {
                                             including attorney’s fees
                                             and costs.</p>
                                         <h3 style="margin-bottom: 5px;">3. कानूनी और योग्य उपाय</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">मैं मानता हूं कि कंपनी इस समझौते के किसी भी
                                             उल्लंघन से
+=======
+                                        <p style="margin:0px !important">मैं मानता हूं कि कंपनी इस समझौते के किसी भी उल्लंघन से
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             अपूरणीय रूप से क्षतिग्रस्त
                                             हो सकती है और कंपनी इस तरह की प्रतियोगिता या प्रकटीकरण
                                             को रोकने के लिए
@@ -4054,8 +4940,12 @@ table.noborder th {
 
 
                                         <h3>4. SUCCESORS AND ASSIGNS</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">This Agreement will be binding upon my heirs,
                                             executors,
+=======
+                                        <p  style="margin:0px !important">This Agreement will be binding upon my heirs, executors,
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             administrators and other
                                             legal representatives and will be for the benefit of the
                                             Company, its
@@ -4063,8 +4953,12 @@ table.noborder th {
                                             rights, or delegate any
                                             of my obligations, under this Agreement.</p>
                                         <h3 style="margin-bottom: 5px;">4. उत्तराधिकारी</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">यह समझौता मेरे उत्तराधिकारियों, निष्पादकों,
                                             प्रशासकों और
+=======
+                                        <p style="margin:0px !important">यह समझौता मेरे उत्तराधिकारियों, निष्पादकों, प्रशासकों और
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             अन्य कानूनी प्रतिनिधियों
                                             के लिए बाध्यकारी होगा और कंपनी, इसके उत्तराधिकारियों और
                                             इसके कार्य के लाभ के लिए
@@ -4074,6 +4968,7 @@ table.noborder th {
 
 
                                         <h3 style="margin-bottom: 5px;">5. CONTINUING OBLIGATIONS</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">The obligations and rights described in this
                                             Agreement
                                             shall survive the
@@ -4081,12 +4976,23 @@ table.noborder th {
                                         <h3 style="margin-bottom: 5px;">5. संपर्क सामग्री</h3>
                                         <p style="margin:0px !important">इस समझौते में वर्णित दायित्वों और अधिकारों को
                                             कंपनी के
+=======
+                                        <p style="margin:0px !important">The obligations and rights described in this Agreement
+                                            shall survive the
+                                            termination of my employment with the Company.</p>
+                                        <h3 style="margin-bottom: 5px;">5. संपर्क सामग्री</h3>
+                                        <p  style="margin:0px !important">इस समझौते में वर्णित दायित्वों और अधिकारों को कंपनी के
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             साथ मेरे रोजगार की समाप्ति
                                             से बचाना होगा।</p>
 
                                         <h3 style="margin-bottom: 5px;">6. SEVERABILITY</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">Whenever possible, each provision of this
                                             Agreement will
+=======
+                                        <p style="margin:0px !important">Whenever possible, each provision of this Agreement will
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             be interpreted in such
                                             manner as to be effective and valid under applicable
                                             law, but if any provision
@@ -4102,8 +5008,12 @@ table.noborder th {
                                             unenforceable provisions had
                                             never been contained herein.</p>
                                         <h3 style="margin-bottom: 5px;">6. स्थिरता</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">जब भी संभव हो, इस समझौते के प्रत्येक प्रावधान
                                             की व्याख्या
+=======
+                                        <p style="margin:0px !important">जब भी संभव हो, इस समझौते के प्रत्येक प्रावधान की व्याख्या
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             इस प्रकार की जाएगी, जो
                                             लागू कानून के तहत प्रभावी और मान्य हो, लेकिन यदि इस
                                             समझौते के किसी भी प्रावधान
@@ -4121,6 +5031,7 @@ table.noborder th {
 
 
                                         <h3 style="margin-bottom: 5px;">7. GOVERNING LAW</h3>
+<<<<<<< HEAD
                                         <p style="margin:0px !important">This Agreement shall be governed by the laws of
                                             the state
                                             of Tamil Nadu without
@@ -4128,6 +5039,13 @@ table.noborder th {
                                         <h3 style="margin-bottom: 5px;">7. लौटना</h3>
                                         <p style="margin:0px !important">यह समझौता कानून के प्रावधानों के टकराव के बिना
                                             तमिलनाडु
+=======
+                                        <p style="margin:0px !important">This Agreement shall be governed by the laws of the state
+                                            of Tamil Nadu without
+                                            regard to its conflicts of law provisions. </p>
+                                        <h3  style="margin-bottom: 5px;">7. लौटना</h3>
+                                        <p style="margin:0px !important">यह समझौता कानून के प्रावधानों के टकराव के बिना तमिलनाडु
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             राज्य के कानूनों द्वारा
                                             शासित होगा।
                                             विटनेस में, नीचे दिए गए पक्ष इस समझौते को
@@ -4140,10 +5058,16 @@ table.noborder th {
                                             Agreement on
                                             ____________________.</p>
 
+<<<<<<< HEAD
                                         <br />
                                         <p style="text-align:left;">Accepted and Acknowledged<span
                                                 style="float:right;">BRITANNIA LABELS INDIA PVT
                                                 LTD</span></p> <br />
+=======
+                                        <br/>
+                                        <p style="text-align:left;">Accepted and Acknowledged<span style="float:right;">BRITANNIA LABELS INDIA PVT
+                                                LTD</span></p>   <br/>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         <p style="text-align:left;">Employee's
                                             name/signature<br />कर्मचारी का नाम /
                                             हस्ताक्षर हस्ताक्षरकर्ता<span style="float:right;">Signatory</span></p>
@@ -4182,8 +5106,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpAgreementHindiDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpAgreementHindiDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -4196,9 +5124,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employeeagreemantpathhindi}}"
                         ng-hide="Employeeagreemantpathhindi == null || Employeeagreemantpathhindi == '' "
                         ng-show="Employeeagreemantpathhindi != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employeeagreemantpathhindi}}" ng-hide="Employeeagreemantpathhindi == null || Employeeagreemantpathhindi == '' " ng-show="Employeeagreemantpathhindi != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -4212,8 +5144,12 @@ table.noborder th {
 </div>
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpTrainingTamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpTrainingTamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -4233,14 +5169,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Training
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpTrainingTamil" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpTrainingTamil" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpTrainingTamil" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmpTrainingTamilDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpTrainingTamilDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -4249,8 +5193,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpTrainingTamil" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpTrainingTamil" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -4267,8 +5215,12 @@ table.noborder th {
                                             <tbody>
                                                 <tr>
                                                     <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                         <img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                             width="auto" height="80" />
+=======
+                                                        <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
                                                     <td style="width:50%; text-align: right;">
                                                         <p><b>{{Clientname}}</b><br />
@@ -4297,6 +5249,7 @@ table.noborder th {
 
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -4308,6 +5261,19 @@ table.noborder th {
                                             text-align: left;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <table class="doc-table">
@@ -4430,8 +5396,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpTrainingTamilDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpTrainingTamilDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -4444,9 +5414,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employeetrainingpathtamil}}"
                         ng-hide="Employeetrainingpathtamil == null || Employeetrainingpathtamil == '' "
                         ng-show="Employeetrainingpathtamil != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employeetrainingpathtamil}}" ng-hide="Employeetrainingpathtamil == null || Employeetrainingpathtamil == '' " ng-show="Employeetrainingpathtamil != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -4460,8 +5434,12 @@ table.noborder th {
 </div>
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpTrainingHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpTrainingHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -4481,14 +5459,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Training
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpTrainingHindi" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpTrainingHindi" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpTrainingHindi" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmpTrainingHindiDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpTrainingHindiDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -4497,8 +5483,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpTrainingHindi" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpTrainingHindi" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -4511,6 +5501,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
+<<<<<<< HEAD
                                         <table class="noborder w-100" style="width:100%">
                                             <tbody>
                                                 <tr>
@@ -4528,6 +5519,24 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                                    <table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
 
                                         <hr />
@@ -4547,6 +5556,7 @@ table.noborder th {
                                         <p>DATE OF JOINING / काम पर दिन : {{Date_Of_Joing2}}</p>
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -4558,6 +5568,19 @@ table.noborder th {
                                             text-align: left;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
 
@@ -4703,8 +5726,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpTrainingHindiDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpTrainingHindiDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -4717,9 +5744,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employeetrainingpathhindi}}"
                         ng-hide="Employeetrainingpathhindi == null || Employeetrainingpathhindi == '' "
                         ng-show="Employeetrainingpathhindi != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employeetrainingpathhindi}}" ng-hide="Employeetrainingpathhindi == null || Employeetrainingpathhindi == '' " ng-show="Employeetrainingpathhindi != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -4732,8 +5763,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpServiceTamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpServiceTamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -4753,14 +5788,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Service Improvement Record
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpServiceTamil" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpServiceTamil" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpServiceTamil" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmpServiceTamilDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpServiceTamilDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -4769,8 +5812,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpServiceTamil" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpServiceTamil" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -4788,8 +5835,12 @@ table.noborder th {
                                             <tbody>
                                                 <tr>
                                                     <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                         <img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                             width="auto" height="80" />
+=======
+                                                        <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
                                                     <td style="width:50%; text-align: right;">
                                                         <p><b>{{Clientname}}</b><br />
@@ -4812,6 +5863,7 @@ table.noborder th {
 
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -4823,6 +5875,19 @@ table.noborder th {
                                             text-align: left;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <p>பெயர் : {{Title}}{{Firstname}} {{Lastname}}</p>
@@ -4931,8 +5996,12 @@ table.noborder th {
                                             </tbody>
                                         </table>
 
+<<<<<<< HEAD
                                         <p style="text-align:left;"><span style="float:right;">Authorized
                                                 Signature</span>
+=======
+                                        <p style="text-align:left;"><span style="float:right;">Authorized Signature</span>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </p>
                                     </div>
 
@@ -4968,8 +6037,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpServiceTamilDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpServiceTamilDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -4982,9 +6055,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Serviceimprovementpathrecordtamil}}"
                         ng-hide="Serviceimprovementpathrecordtamil == null || Serviceimprovementpathrecordtamil == '' "
                         ng-show="Serviceimprovementpathrecordtamil != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Serviceimprovementpathrecordtamil}}" ng-hide="Serviceimprovementpathrecordtamil == null || Serviceimprovementpathrecordtamil == '' " ng-show="Serviceimprovementpathrecordtamil != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -4997,8 +6074,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpServiceHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpServiceHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -5018,14 +6099,22 @@ table.noborder th {
                                 <label class="col-form-label"> Employee Service Improvement Record
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpServiceHindi" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpServiceHindi" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpServiceHindi" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmpServiceHindiDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpServiceHindiDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -5034,8 +6123,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpServiceHindi" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpServiceHindi" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -5048,6 +6141,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
+<<<<<<< HEAD
 
                                         <table class="noborder w-100" style="width:100%">
                                             <tbody>
@@ -5066,6 +6160,25 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                               
+<table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                         <hr />
 
@@ -5076,6 +6189,7 @@ table.noborder th {
 
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -5088,6 +6202,20 @@ table.noborder th {
                                             text-align: left;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                                width: 100%;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
 
@@ -5121,7 +6249,11 @@ table.noborder th {
                                                 <tr>
                                                     <td style="height: 50px;width:10px"></td>
                                                     <td></td>
+<<<<<<< HEAD
                                                     <td style="width:150px" ;></td>
+=======
+                                                    <td style="width:150px";></td>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     <td style="width:100px"></td>
                                                     <td style="width:150px"></td>
                                                 </tr>
@@ -5205,8 +6337,12 @@ table.noborder th {
                                             </tbody>
                                         </table>
 
+<<<<<<< HEAD
                                         <p style="text-align:left;"><span style="float:right;">Authorized
                                                 Signature</span>
+=======
+                                        <p style="text-align:left;"><span style="float:right;">Authorized Signature</span>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </p>
 
 
@@ -5244,8 +6380,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpServiceHindiDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpServiceHindiDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -5258,9 +6398,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Serviceimprovementpathrecordlhindi}}"
                         ng-hide="Serviceimprovementpathrecordlhindi == null || Serviceimprovementpathrecordlhindi == '' "
                         ng-show="Serviceimprovementpathrecordlhindi != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Serviceimprovementpathrecordlhindi}}" ng-hide="Serviceimprovementpathrecordlhindi == null || Serviceimprovementpathrecordlhindi == '' " ng-show="Serviceimprovementpathrecordlhindi != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -5274,8 +6418,12 @@ table.noborder th {
 </div>
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpForm2RevisedTamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpForm2RevisedTamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -5295,15 +6443,23 @@ table.noborder th {
                                 <label class="col-form-label"> Form-2 Revised
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpForm2RevisedTamil" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpForm2RevisedTamil" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpForm2RevisedTamil" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal"
                                             data-target="#ModalCenterEmpForm2RevisedTamilDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpForm2RevisedTamilDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -5312,8 +6468,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpForm2RevisedTamil" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpForm2RevisedTamil" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -5332,8 +6492,12 @@ table.noborder th {
                                             <tbody>
                                                 <tr>
                                                     <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                         <img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                             width="auto" height="80" />
+=======
+                                                        <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
                                                     <td style="width:50%; text-align: right;">
                                                         <p><b>{{Clientname}}</b><br />
@@ -5348,6 +6512,7 @@ table.noborder th {
                                         <hr />
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -5371,6 +6536,31 @@ table.noborder th {
                                             }
 
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+
+                                            @media print {
+                                                @page {
+                                                    margin: 10;
+                                                }
+
+                                                #btnEmpForm2RevisedTamil {
+                                                    display: none;
+                                                    ;
+                                                }
+
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <center>
@@ -5477,6 +6667,7 @@ table.noborder th {
                                         <p>என் இறப்புக்கு பின்னால் என் கணக்கில் உள்ள வைப்பு நிதித்
                                             தொகையைப் பெற்றிடக்
                                             கீழ்க்காணும் நபர்களை நியமிக்கிறேன்</p>
+<<<<<<< HEAD
                                         <p style="page-break-before: always !important;">Name & Address of the
                                             nominee/Nominee’s Nominee's
                                             relationship with the member Date of
@@ -5486,6 +6677,16 @@ table.noborder th {
                                             address of the guardian who
                                             may receive the amount during the minority of nominee</p>
 
+=======
+                                            <p style="page-break-before: always !important;">Name & Address of the nominee/Nominee’s Nominee's
+                                        relationship with the member Date of
+                                        Birth/ Age Total amount or Share of accumulations in
+                                        Provident Fund to be Paid to each
+                                        nominee If the Nominee is a minor, name and relationship &
+                                        address of the guardian who
+                                        may receive the amount during the minority of nominee</p>
+                                
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         <table class="doc-table" style="width:100%">
                                             <thead>
                                                 <tr>
@@ -5503,8 +6704,12 @@ table.noborder th {
                                                 </tr>
                                             </thead>
                                             <tbody>
+<<<<<<< HEAD
                                                 <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:10 "
                                                     pagination-id="Nomineegrid" current-page="currentPageNominee">
+=======
+                                                <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:10 " pagination-id="Nomineegrid" current-page="currentPageNominee">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     <td style="width: 50px;">
                                                         {{$index+1 + (currentPageNominee - 1) * pageSizeNominee}}
                                                     </td>
@@ -5533,7 +6738,11 @@ table.noborder th {
                                             upon me. /என்னுடைய தந்தை / தாய்
                                             என்னைச் சார்ந்தே இருக்கிறார்கள் என்றும் சான்று
                                             அளிக்கிறேன்.</p>
+<<<<<<< HEAD
                                         <br />
+=======
+                                            <br />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         <p><span style="float:right;">Signature or thumb impression<br />of
                                                 the subscriber<br />உறுப்பினரின்கையொப்பம் (அ)<br />இடது
                                                 கை பெருவிரல் ரேகை</span></p>
@@ -5559,6 +6768,7 @@ table.noborder th {
                                             உறுதிமொழி மற்றும் நியமனத்தில் கையொப்பம் / கைரேகை என்
                                             முன்னால் இட்டுள்ளார் என்பதற்கு இதுவே சான்று.
                                         </p>
+<<<<<<< HEAD
 
                                         <table class="noborder w-100" style="width:100%">
                                             <tbody>
@@ -5599,6 +6809,46 @@ table.noborder th {
 
 
 
+=======
+                                        
+                                        <table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%;">
+Place/இடம்:<br/>{{Place}}
+</td>
+<td style="width:50%; text-align: right;">
+Signature of the Employer or<br />authorised officers of the establishment/<br />
+                                                நிறுவன உரிமையாளரின்/<br />நிறுவனத்தின்
+                                                அதிகாரம் பெற்றவரின் கையொப்பம்
+                                                <br /> </br>
+                                                Designation/பதவி :
+                                                {{EmpDesignation}}
+</td>
+</tr>
+</tbody>
+</table>
+<br/><br/><br/><br/><br/>
+<table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+</td>
+<td style="width:50%; text-align: right;">
+<p><span style="float:right;">Name & Address of the factory /
+                                        </br>Establishment or Rubber Stamp there on / </span><br />
+                                            <span style="float:right;">தொழிலகத்தின் / நிறுவனத்தின்
+                                                பெயரும் , </br>முகவரியும் அல்லது முத்திரையும் </span>
+                                            <br />
+                                        </p>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+                                        
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                     </div>
 
@@ -5634,8 +6884,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpForm2RevisedTamilDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpForm2RevisedTamilDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -5648,9 +6902,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Form2revisedpathtamil}}"
                         ng-hide="Form2revisedpathtamil == null || Form2revisedpathtamil == '' "
                         ng-show="Form2revisedpathtamil != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Form2revisedpathtamil}}" ng-hide="Form2revisedpathtamil == null || Form2revisedpathtamil == '' " ng-show="Form2revisedpathtamil != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -5665,8 +6923,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpForm2RevisedHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpForm2RevisedHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -5686,15 +6948,23 @@ table.noborder th {
                                 <label class="col-form-label"> Form-2 Revised
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput"
                                         id="fileInputEmpForm2RevisedHindi" name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputEmpForm2RevisedHindi" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonEmpForm2RevisedHindi" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal"
                                             data-target="#ModalCenterEmpForm2RevisedHindiDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpForm2RevisedHindiDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -5703,8 +6973,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpForm2RevisedHindi" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpForm2RevisedHindi" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -5717,6 +6991,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
+<<<<<<< HEAD
 
 
 
@@ -5737,6 +7012,27 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                                      
+                                    
+                                    
+<table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
 
                                         <hr />
@@ -5746,6 +7042,7 @@ table.noborder th {
                                         </center>
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -5769,6 +7066,31 @@ table.noborder th {
                                             }
 
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #dddddd;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+
+                                            @media print {
+                                                @page {
+                                                    margin: 10;
+                                                }
+
+                                                #btnEmpForm2RevisedHindi {
+                                                    display: none;
+                                                    ;
+                                                }
+
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
                                         <p>N0MINATION AND DECLARATION FORM/ नामांकन और घोषणा प्रपत्र
@@ -5828,8 +7150,13 @@ table.noborder th {
                                                     <br>
                                                     {{PermanentState}}
                                                     <br>
+<<<<<<< HEAD
                                                     {{PermanentCity}} - {{PermanentPincode}}
 
+=======
+                                                    {{PermanentCity}} -  {{PermanentPincode}}
+                                                                                                   
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                 </td>
                                             </tr>
                                             <tr>
@@ -5841,7 +7168,11 @@ table.noborder th {
                                                     {{CurrentState}}
                                                     <br>
                                                     {{CurrentCity}} - {{CurrentPincode}}
+<<<<<<< HEAD
 
+=======
+                                                    
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                 </td>
                                             </tr>
                                         </table>
@@ -5900,8 +7231,12 @@ table.noborder th {
                                             </thead>
 
                                             <tbody>
+<<<<<<< HEAD
                                                 <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:10 "
                                                     pagination-id="Nomineegrid" current-page="currentPageNominee">
+=======
+                                                <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:10 " pagination-id="Nomineegrid" current-page="currentPageNominee">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     <td style="width: 50px;">
                                                         {{$index+1 + (currentPageNominee - 1) * pageSizeNominee}}
                                                     </td>
@@ -5969,9 +7304,15 @@ table.noborder th {
                                         <p> <span style="float:right;">Signature of the Employer or
                                                 authorised officers of the establishment/</span><br />
                                             <span style="float:right;">कंपनी के मालिक/कंपनी के प्राधिकार
+<<<<<<< HEAD
                                                 के हस्ताक्षर
                                                 <br />
                                                 Designation/பதவி :
+=======
+                                                के हस्ताक्षर 
+                                            <br />
+                                           Designation/பதவி :
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                 {{EmpDesignation}} </span>
                                         </p>
                                         <br />
@@ -6020,8 +7361,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpForm2RevisedHindiDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpForm2RevisedHindiDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -6034,9 +7379,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Form2revisedpathhindi}}"
                         ng-hide="Form2revisedpathhindi == null || Form2revisedpathhindi == '' "
                         ng-show="Form2revisedpathhindi != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Form2revisedpathhindi}}" ng-hide="Form2revisedpathhindi == null || Form2revisedpathhindi == '' " ng-show="Form2revisedpathhindi != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -6050,8 +7399,12 @@ table.noborder th {
 </div>
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterNDA" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterNDA" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -6071,14 +7424,22 @@ table.noborder th {
                                 <label class="col-form-label"> NDA
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput" id="fileInputNDA"
                                         name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputNDA" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonNDA" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterNDAEnglishDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterNDAEnglishDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -6087,8 +7448,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpNDA" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpNDA" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -6102,8 +7467,12 @@ table.noborder th {
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
                                         <div class="row">
+<<<<<<< HEAD
                                             <div class="col-md-6"><img class="mb-2" src="../assets/images/logo/logo.jpg"
                                                     width="auto" height="80" /></div>
+=======
+                                            <div class="col-md-6"><img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" /></div>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <div class="col-lg-6">
                                                 <p class="text-right"><b>{{Clientname}}</b><br />
                                                     {{ClientAddressLine1}}<br />{{ClientAddressLine2}},
@@ -6117,6 +7486,7 @@ table.noborder th {
                                         <hr />
 
                                         <style>
+<<<<<<< HEAD
                                         .btn-nda-down {
                                             position: absolute;
                                             top: 5px;
@@ -6158,6 +7528,49 @@ table.noborder th {
                                         .nda-ta-content p u {
                                             font-weight: bold;
                                         }
+=======
+                                            .btn-nda-down {
+                                                position: absolute;
+                                                top: 5px;
+                                                right: 15px;
+                                            }
+
+                                            p {
+                                                text-align: justify;
+                                            }
+
+                                            .div-table {
+                                                display: table;
+                                                width: 100%;
+                                            }
+
+                                            .div-table-row {
+                                                display: table-row;
+                                                width: 100%;
+                                                clear: both;
+                                            }
+
+                                            .div-table-col {
+                                                float: left;
+                                                /* fix for  buggy browsers */
+                                                width: 50%;
+                                                display: table-column;
+                                            }
+
+                                            h4 {
+                                                text-align: center;
+                                                font-weight: bold;
+                                            }
+
+                                            .nda-ta-content p,
+                                            .nda-ta-content ul li {
+                                                font-size: 15px;
+                                            }
+
+                                            .nda-ta-content p u {
+                                                font-weight: bold;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
 
@@ -6392,8 +7805,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterNDAEnglishDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterNDAEnglishDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -6406,9 +7823,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employee_NDA_Path}}"
                         ng-hide="Employee_NDA_Path == null || Employee_NDA_Path == '' "
                         ng-show="Employee_NDA_Path != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employee_NDA_Path}}" ng-hide="Employee_NDA_Path == null || Employee_NDA_Path == '' " ng-show="Employee_NDA_Path != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -6425,8 +7846,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterGRATUITY" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterGRATUITY" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -6446,14 +7871,22 @@ table.noborder th {
                                 <label class="col-form-label"> GRATUITY
                                 </label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <input type="file" class="form-control" ng-model="clearinput" id="fileInputGratuity"
                                         name=files[] accept="application/pdf">
+=======
+                                    <input type="file" class="form-control" ng-model="clearinput" id="fileInputGratuity" name=files[] accept="application/pdf">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <div class="input-group-append">
                                         <p id="fileButtonGratuity" class="input-group-text">
                                             <i class="fa fa-upload"></i>
                                         </p>
+<<<<<<< HEAD
                                         <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);"
                                             data-toggle="modal" data-target="#ModalCenterEmpGratuityDocumentView">
+=======
+                                        <p class="input-group-text" ng-click="FetchSIPLDocument(Employeeid);" data-toggle="modal" data-target="#ModalCenterEmpGratuityDocumentView">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             <i class="fa fa-file"></i>
                                         </p>
                                     </div>
@@ -6462,8 +7895,12 @@ table.noborder th {
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpGratuity" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpGratuity" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -6476,6 +7913,7 @@ table.noborder th {
 
                                 <div class="pdf-sipl">
                                     <div class="pdf-header-sipl-modal">
+<<<<<<< HEAD
                                         <table class="noborder w-100" style="width:100%">
                                             <tbody>
                                                 <tr>
@@ -6493,6 +7931,24 @@ table.noborder th {
                                                 </tr>
                                             </tbody>
                                         </table>
+=======
+                                    <table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                         <hr />
                                         <center>
@@ -6501,6 +7957,7 @@ table.noborder th {
 
 
                                         <style type="text/css">
+<<<<<<< HEAD
                                         table.doc-table {
                                             border-collapse: collapse;
                                             margin: 20px 0;
@@ -6526,6 +7983,33 @@ table.noborder th {
                                             text-align: center;
                                             padding: 8px;
                                         }
+=======
+                                            table.doc-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                            }
+
+                                            table.doc-table td,
+                                            table.doc-table th {
+                                                border: 1px solid #000000;
+                                                text-align: left;
+                                                padding: 8px;
+                                            }
+
+                                            table.bold-table {
+                                                border-collapse: collapse;
+                                                margin: 20px 0;
+                                                width: 100%;
+                                                font-weight: bold;
+                                            }
+
+                                            table.bold-table td,
+                                            table.bold-table th {
+                                                border: 1px solid #000000;
+                                                text-align: center;
+                                                padding: 8px;
+                                            }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                         </style>
 
 
@@ -6598,8 +8082,12 @@ table.noborder th {
                                                 </td>
                                             </tr>
                                             <tbody>
+<<<<<<< HEAD
                                                 <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:n "
                                                     pagination-id="Nomineegrid" current-page="currentPageNominee">
+=======
+                                                <tr dir-paginate="e in GetNomineeList |filter:searchFamily|itemsPerPage:n " pagination-id="Nomineegrid" current-page="currentPageNominee">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     <td style="width: 50px;">
                                                         {{$index+1 + (currentPageNominee - 1) * pageSizeNominee}}
                                                     </td>
@@ -6647,7 +8135,11 @@ table.noborder th {
                                                         {{PermanentState}}
                                                         <br>
                                                         {{PermanentCity}} - {{PermanentPincode}}
+<<<<<<< HEAD
 
+=======
+                                                       
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -6791,8 +8283,12 @@ table.noborder th {
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterNDAEnglishDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterNDAEnglishDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -6805,9 +8301,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Employee_NDA_Path}}"
                         ng-hide="Employee_NDA_Path == null || Employee_NDA_Path == '' "
                         ng-show="Employee_NDA_Path != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Employee_NDA_Path}}" ng-hide="Employee_NDA_Path == null || Employee_NDA_Path == '' " ng-show="Employee_NDA_Path != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -6825,8 +8325,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterEmpGratuityDocumentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterEmpGratuityDocumentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -6839,8 +8343,12 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{GratutityPath}}" ng-hide="GratutityPath == null || GratutityPath == '' "
                         ng-show="GratutityPath != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{GratutityPath}}" ng-hide="GratutityPath == null || GratutityPath == '' " ng-show="GratutityPath != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -6856,8 +8364,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenter1EmpFormAssessment" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenter1EmpFormAssessment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -6880,8 +8392,12 @@ table.noborder th {
                             <div class="form-group col-md-4 text-right">
                                 <label class="col-form-label">
                                 </label>
+<<<<<<< HEAD
                                 <a id="btnEmpAssessment" class="btn btn-info btn-sm btn-nda-down2"><i
                                         class="fa fa-download"></i>
+=======
+                                <a id="btnEmpAssessment" class="btn btn-info btn-sm btn-nda-down2"><i class="fa fa-download"></i>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     Download</a>
                             </div>
                         </div>
@@ -6894,6 +8410,7 @@ table.noborder th {
 
 
                                 <style>
+<<<<<<< HEAD
                                 .performance_modal {
                                     position: relative;
                                     color: #272727;
@@ -6985,6 +8502,99 @@ table.noborder th {
                                 .performance_modal .border-none td {
                                     border: none;
                                 }
+=======
+                                    .performance_modal {
+                                        position: relative;
+                                        color: #272727;
+                                        font-size: 11px;
+                                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                                    }
+
+                                    .performance_modal h2 {
+                                        font-size: 20px;
+                                    }
+
+                                    .performance_modal h3 {
+                                        font-size: 15px;
+                                    }
+
+                                    .performance_modal .logo_performance {
+                                        position: absolute;
+                                        left: 0;
+                                        top: -5px
+                                    }
+
+                                    .performance_modal .logo_performance img {
+                                        height: 80px;
+                                    }
+
+                                    .performance_modal .header-info {
+                                        text-align: center;
+                                    }
+
+                                    .performance_modal table {
+                                        width: 100%;
+                                    }
+
+                                    .performance_modal .mt-25 {
+                                        margin-top: 25px;
+                                    }
+
+                                    .performance_modal .mt-30 {
+                                        margin-top: 30px;
+                                    }
+
+                                    .performance_modal .mt-40 {
+                                        margin-top: 40px;
+                                    }
+
+                                    .performance_modal .mt-75 {
+                                        margin-top: 75px;
+                                    }
+
+                                    .performance_modal .mb-15 {
+                                        margin-bottom: 15px;
+                                    }
+
+                                    .performance_modal table,
+                                    .performance_modal th,
+                                    .performance_modal td {
+                                        padding: 5px;
+                                        border: 1px solid #888888;
+                                        border-collapse: collapse;
+                                        font-size: 14px;
+                                    }
+
+                                    .performance_modal .text-center {
+                                        text-align: center;
+                                    }
+
+                                    .performance_modal .text-right {
+                                        text-align: right;
+                                    }
+
+                                    .performance_modal .wn {
+                                        width: 40px;
+                                    }
+
+                                    .performance_modal .rh {
+                                        font-weight: bold;
+                                        text-align: center;
+                                    }
+
+                                    .performance_modal .w33 {
+                                        width: 33.33%;
+                                    }
+
+                                    .performance_modal .border-none {
+                                        border-collapse: collapse;
+                                        border: none;
+                                    }
+
+                                    .performance_modal .border-none td {
+                                        border: none;
+                                    }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                 </style>
 
                                 <div class="performance_modal">
@@ -7006,19 +8616,28 @@ table.noborder th {
                                                 <td>REPORTING TO: {{ReportToEmpName}}</td>
                                             </tr>
                                             <tr>
+<<<<<<< HEAD
                                                 <td colspan="2">PERIOD COVERED FOR ASSESSMENT: FROM
                                                     <b><u>01-APR-{{previous_year}}</u></b> To
                                                     <b><u>31-MAR-{{current_year}}</u></td>
+=======
+                                                <td colspan="2">PERIOD COVERED FOR ASSESSMENT: FROM <b><u>01-APR-{{previous_year}}</u></b> To <b><u>31-MAR-{{current_year}}</u></td>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             </tr>
                                         </tbody>
                                     </table>
                                     <table class="mt-25">
                                         <tbody>
                                             <tr>
+<<<<<<< HEAD
                                                 <td colspan="9" class="text-center"> (These competencies should be rated
                                                     by self & immediate
                                                     reviewer on the below mentioned scale) <br /> N – self Appraisal; N
                                                     + 1 – immediate Appraisal;
+=======
+                                                <td colspan="9" class="text-center"> (These competencies should be rated by self & immediate
+                                                    reviewer on the below mentioned scale) <br /> N – self Appraisal; N + 1 – immediate Appraisal;
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                 </td>
                                             </tr>
                                             <tr>
@@ -7225,8 +8844,12 @@ table.noborder th {
                                             </tr>
                                             <tr>
                                                 <td colspan="9" class=""> Score – Total Score
+<<<<<<< HEAD
                                                     (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) / 150
                                                     *100 = <br />
+=======
+                                                    (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) / 150 *100 = <br />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     <b>
                                                         <u>Note:</u>
                                                     </b> (Ratings on values prorated to maximum 100 marks)
@@ -7251,16 +8874,24 @@ table.noborder th {
                                     <table class="mt-25">
                                         <tbody>
                                             <tr>
+<<<<<<< HEAD
                                                 <td style="height: 141px;vertical-align: top;">LIST OUT MAJOR ACHIVEMENT
                                                     / CONTRIBUTION:</td>
+=======
+                                                <td style="height: 141px;vertical-align: top;">LIST OUT MAJOR ACHIVEMENT / CONTRIBUTION:</td>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             </tr>
                                         </tbody>
                                     </table>
                                     <table class="mt-25">
                                         <tbody>
                                             <tr>
+<<<<<<< HEAD
                                                 <td style="height: 141px;vertical-align: top;"> OBSERVATIONS /
                                                     RECOMMENDATIONS: <br />
+=======
+                                                <td style="height: 141px;vertical-align: top;"> OBSERVATIONS / RECOMMENDATIONS: <br />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                     <small>(To be filled in by the reporting manager )</small>
                                                 </td>
                                             </tr>
@@ -7269,8 +8900,12 @@ table.noborder th {
                                     <table class="mt-25">
                                         <tbody>
                                             <tr>
+<<<<<<< HEAD
                                                 <td>ATTENDANCE RECORD (From <b><u>01-APR-{{previous_year}}</u></b> To
                                                     <b><u>31-MAR-{{current_year}}</u>):</td>
+=======
+                                                <td>ATTENDANCE RECORD (From <b><u>01-APR-{{previous_year}}</u></b> To <b><u>31-MAR-{{current_year}}</u>):</td>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             </tr>
                                             <tr>
                                                 <td>
@@ -7289,8 +8924,12 @@ table.noborder th {
                                                 <td>General Manager</td>
                                             </tr>
                                             <tr>
+<<<<<<< HEAD
                                                 <td style="height: 120px;vertical-align: top;"> NAME: <br /> Remarks :
                                                 </td>
+=======
+                                                <td style="height: 120px;vertical-align: top;"> NAME: <br /> Remarks : </td>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                 <td style="vertical-align: top;"> NAME: <br /> Remarks : </td>
                                             </tr>
                                         </tbody>
@@ -7333,8 +8972,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
 <div class="modal fade" id="ModalEditingReason" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
+=======
+<div class="modal fade" id="ModalEditingReason" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-danger">
@@ -7357,8 +9000,12 @@ table.noborder th {
             </div>
             <div class="modal-footer">
                 <button class="btn  btn-success" ng-click="UpdateEditingReason();" data-dismiss="modal">Update</button>
+<<<<<<< HEAD
                 <button class="btn  btn-warning" data-dismiss="modal" data-toggle="modal"
                     data-target="#ModalLogin">Login</button>
+=======
+                <button class="btn  btn-warning" data-dismiss="modal" data-toggle="modal" data-target="#ModalLogin">Login</button>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 <button type="button" class="btn btn-rounded btn-dark" data-dismiss="modal">Close</button>
 
             </div>
@@ -7367,8 +9014,12 @@ table.noborder th {
 </div>
 
 
+<<<<<<< HEAD
 <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
+=======
+<div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-danger">
@@ -7406,8 +9057,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade" id="ModalCenter1AppointmentView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade" id="ModalCenter1AppointmentView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog application-modal modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -7423,14 +9078,19 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
                         <a id="btnAppointmentordertamil" class="btn btn-info btn-nda-down2 application-down-btn"><i
                                 class="fa fa-download"></i> Download</a>
+=======
+                        <a id="btnAppointmentordertamil" class="btn btn-info btn-nda-down2 application-down-btn"><i class="fa fa-download"></i> Download</a>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                         <div class="card-body">
 
                             <div id="pdfExportAppointmentorder">
 
                                 <div class="pdf-sipl">
                                     <style>
+<<<<<<< HEAD
                                     @media print {
                                         @page {
                                             margin: 10;
@@ -7442,6 +9102,19 @@ table.noborder th {
                                         }
 
                                     }
+=======
+                                        @media print {
+                                            @page {
+                                                margin: 10;
+                                            }
+
+                                            #btnAppointmentordertamil {
+                                                display: none;
+                                                ;
+                                            }
+
+                                        }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     </style>
 
 
@@ -7449,8 +9122,12 @@ table.noborder th {
                                         <tbody>
                                             <tr>
                                                 <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                     <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto"
                                                         height="80" />
+=======
+                                                    <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                 </td>
                                                 <td style="width:50%; text-align: right;">
                                                     <p><b>{{Clientname}}</b><br />
@@ -7569,8 +9246,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade" id="ModalCenter1AppointmentHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade" id="ModalCenter1AppointmentHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg application-modal" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -7586,14 +9267,19 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
                         <a id="btnAppointmentorderhindi" class="btn btn-info btn-nda-down2 application-down-btn"><i
                                 class="fa fa-download"></i> Download</a>
+=======
+                        <a id="btnAppointmentorderhindi" class="btn btn-info btn-nda-down2 application-down-btn"><i class="fa fa-download"></i> Download</a>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                         <div class="card-body">
 
                             <div id="pdfExportAppointmentorderHindi">
 
                                 <div class="pdf-sipl">
                                     <style>
+<<<<<<< HEAD
                                     @media print {
                                         @page {
                                             margin: 10;
@@ -7623,6 +9309,36 @@ table.noborder th {
                                             </tr>
                                         </tbody>
                                     </table>
+=======
+                                        @media print {
+                                            @page {
+                                                margin: 10;
+                                            }
+
+                                            #btnAppointmentorderhindi {
+                                                display: none;
+                                                ;
+                                            }
+
+                                        }
+                                    </style>
+                                    <table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <hr />
                                     <center>
                                         <h4>APPOINMENT ORDER / भुगतान के आदेश</h4>
@@ -7707,8 +9423,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade" id="ModalCenter1ConfirmationView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade" id="ModalCenter1ConfirmationView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg application-modal" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -7725,8 +9445,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
                         <a id="btnConfirmationordertamil" class="btn btn-info btn-nda-down2 application-down-btn"><i
                                 class="fa fa-download"></i> Download</a>
+=======
+                        <a id="btnConfirmationordertamil" class="btn btn-info btn-nda-down2 application-down-btn"><i class="fa fa-download"></i> Download</a>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                         <div class="card-body">
 
                             <div id="pdfExportConfirmationorder">
@@ -7734,6 +9458,7 @@ table.noborder th {
                                 <div class="pdf-sipl">
 
                                     <style>
+<<<<<<< HEAD
                                     @media print {
                                         @page {
                                             margin: 10;
@@ -7764,6 +9489,37 @@ table.noborder th {
                                             </tr>
                                         </tbody>
                                     </table>
+=======
+                                        @media print {
+                                            @page {
+                                                margin: 10;
+                                            }
+
+                                            #btnConfirmationordertamil {
+                                                display: none;
+                                                ;
+                                            }
+
+                                        }
+                                    </style>
+
+<table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                     <hr />
                                     <center>
@@ -7773,7 +9529,11 @@ table.noborder th {
                                     <p><span style="float:right;">DATE :
                                             {{Date_Of_Joing2}}</span></p>
                                     <p style="text-align:left;">To <br />பெறுதல்</p>
+<<<<<<< HEAD
 
+=======
+                                    
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{Title}}{{Firstname}}
                                         {{Lastname}}
                                     </p>
@@ -7814,8 +9574,12 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
                                     <p style="text-align:left;">உண்மைநகல் பெற்றுக்கொண்டேன்<span
                                             style="float:right;">நிர்வாகம் /அங்கீகாரம் பெற்ற
+=======
+                                    <p style="text-align:left;">உண்மைநகல் பெற்றுக்கொண்டேன்<span style="float:right;">நிர்வாகம் /அங்கீகாரம் பெற்ற
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                             அதிகாரி</span></p>
 
 
@@ -7846,8 +9610,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade" id="ModalCenter1ConfirmationViewHindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade" id="ModalCenter1ConfirmationViewHindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-lg application-modal" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -7864,14 +9632,19 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
                         <a id="btnConfirmationorderHindi" class="btn btn-info btn-nda-down2 application-down-btn"><i
                                 class="fa fa-download"></i> Download</a>
+=======
+                        <a id="btnConfirmationorderHindi" class="btn btn-info btn-nda-down2 application-down-btn"><i class="fa fa-download"></i> Download</a>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                         <div class="card-body">
 
                             <div id="pdfExportConfirmationorderHindi">
 
                                 <div class="pdf-sipl">
                                     <style>
+<<<<<<< HEAD
                                     @media print {
                                         @page {
                                             margin: 10;
@@ -7902,12 +9675,44 @@ table.noborder th {
                                             </tr>
                                         </tbody>
                                     </table>
+=======
+                                        @media print {
+                                            @page {
+                                                margin: 10;
+                                            }
+
+                                            #btnConfirmationorderHindi {
+                                                display: none;
+                                                ;
+                                            }
+
+                                        }
+                                    </style>
+                                 
+<table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     <hr />
                                     <center>
                                         <h4>CONFIRMATION ORDER</h4>
                                     </center>
 
                                     <style type="text/css">
+<<<<<<< HEAD
                                     table.doc-table {
                                         border-collapse: collapse;
                                         margin: 20px 0;
@@ -7919,6 +9724,19 @@ table.noborder th {
                                         text-align: left;
                                         padding: 8px;
                                     }
+=======
+                                        table.doc-table {
+                                            border-collapse: collapse;
+                                            margin: 20px 0;
+                                        }
+
+                                        table.doc-table td,
+                                        table.doc-table th {
+                                            border: 1px solid #dddddd;
+                                            text-align: left;
+                                            padding: 8px;
+                                        }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     </style>
 
 
@@ -7996,8 +9814,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade" id="ModalCenter1Employeeinterviewtamil" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade" id="ModalCenter1Employeeinterviewtamil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog application-modal modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -8013,14 +9835,19 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
                         <a id="btnInterviewdetailstamil" class="btn btn-info btn-nda-down2 application-down-btn"><i
                                 class="fa fa-download"></i> Download</a>
+=======
+                        <a id="btnInterviewdetailstamil" class="btn btn-info btn-nda-down2 application-down-btn"><i class="fa fa-download"></i> Download</a>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                         <div class="card-body">
 
                             <div id="pdfExportInterviewdetailtamil">
 
                                 <div class="pdf-sipl">
                                     <style>
+<<<<<<< HEAD
                                     @media print {
                                         @page {
                                             margin: 10;
@@ -8049,14 +9876,48 @@ table.noborder th {
                                         font-size: 12px;
                                         color: black;
                                     }
+=======
+                                        @media print {
+                                            @page {
+                                                margin: 10;
+                                            }
+
+                                            #btnInterviewdetailstamil {
+                                                display: none;
+                                                ;
+                                            }
+
+                                        }
+
+                                        table.doc-table {
+                                            border-collapse: collapse;
+                                            margin: 20px 0;
+                                        }
+
+                                        table.doc-table td,
+                                        table.doc-table th {
+                                            border: 1px solid #dddddd;
+                                            text-align: left;
+                                            padding: 8px;
+                                        }
+
+                                        table td.tick-cellnew {
+                                            font-size: 12px;
+                                            color: black;
+                                        }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     </style>
 
                                     <table class="noborder w-100" style="width:100%">
                                         <tbody>
                                             <tr>
                                                 <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                     <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto"
                                                         height="80" />
+=======
+                                                    <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                 </td>
                                                 <td style="width:50%; text-align: right;">
                                                     <p><b>{{Clientname}}</b><br />
@@ -8225,8 +10086,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade" id="ModalCenter1Employeeinterviewhindi" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade" id="ModalCenter1Employeeinterviewhindi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog application-modal modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -8242,14 +10107,19 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
                         <a id="btnInterviewdetailshindi" class="btn btn-info btn-nda-down2 application-down-btn"><i
                                 class="fa fa-download"></i> Download</a>
+=======
+                        <a id="btnInterviewdetailshindi" class="btn btn-info btn-nda-down2 application-down-btn"><i class="fa fa-download"></i> Download</a>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                         <div class="card-body">
 
                             <div id="pdfExportInterviewdetailhindi">
 
                                 <div class="pdf-sipl">
                                     <style>
+<<<<<<< HEAD
                                     @media print {
                                         @page {
                                             margin: 10;
@@ -8297,6 +10167,54 @@ table.noborder th {
                                             </tr>
                                         </tbody>
                                     </table>
+=======
+                                        @media print {
+                                            @page {
+                                                margin: 10;
+                                            }
+
+                                            #btnInterviewdetailshindi {
+                                                display: none;
+                                                ;
+                                            }
+
+                                        }
+
+                                        table.doc-table {
+                                            border-collapse: collapse;
+                                            margin: 20px 0;
+                                        }
+
+                                        table.doc-table td,
+                                        table.doc-table th {
+                                            border: 1px solid #dddddd;
+                                            text-align: left;
+                                            padding: 8px;
+                                        }
+
+                                        table td.tick-cellnew {
+                                            font-size: 12px;
+                                            color: black;
+                                        }
+                                    </style>
+
+<table class="noborder w-100" style="width:100%">
+<tbody>
+<tr>
+<td style="width:50%; text-align: left;">
+<img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+</td>
+<td style="width:50%; text-align: right;">
+<p><b>{{Clientname}}</b><br />
+{{ClientAddressLine1}}<br />{{ClientAddressLine2}},
+{{ClientAddressLine3}},<br />
+{{ClientCity}}-{{ClientZipcode}}.
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 
                                     <hr />
                                     <center>
@@ -8458,8 +10376,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade" id="ModalCenter1Employeecontract" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade" id="ModalCenter1Employeecontract" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog application-modal modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -8475,14 +10397,19 @@ table.noborder th {
 
 
 
+<<<<<<< HEAD
                         <a id="btnEmployeecontract" class="btn btn-info btn-nda-down2 application-down-btn"><i
                                 class="fa fa-download"></i> Download</a>
+=======
+                        <a id="btnEmployeecontract" class="btn btn-info btn-nda-down2 application-down-btn"><i class="fa fa-download"></i> Download</a>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                         <div class="card-body">
 
                             <div id="pdfExportEmployeeContract">
 
                                 <div class="pdf-sipl">
                                     <style>
+<<<<<<< HEAD
                                     @media print {
                                         @page {
                                             margin: 10;
@@ -8512,14 +10439,49 @@ table.noborder th {
                                         line-height: 1.3;
                                         text-align: center;
                                     }
+=======
+                                        @media print {
+                                            @page {
+                                                margin: 10;
+                                            }
+
+                                            #btnEmployeecontract {
+                                                display: none;
+                                                ;
+                                            }
+
+                                        }
+
+                                        .box {
+                                            width: 550px;
+                                            margin-right: auto;
+                                            margin-left: auto;
+                                        }
+
+                                        .box-data {
+                                            margin-top: 5px;
+                                            margin-left: 0px;
+                                            width: 550px;
+                                            border: 1px solid #888888;
+                                            display: inline-block;
+                                            padding: 40px;
+                                            font-size: 1.2rem;
+                                            line-height: 1.3;
+                                            text-align: center;
+                                        }
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                     </style>
 
                                     <table class="noborder w-100" style="width:100%">
                                         <tbody>
                                             <tr>
                                                 <td style="width:50%; text-align: left;">
+<<<<<<< HEAD
                                                     <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto"
                                                         height="80" />
+=======
+                                                    <img class="mb-2" src="../assets/images/logo/logo.jpg" width="auto" height="80" />
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                                                 </td>
                                                 <td style="width:50%; text-align: right;">
                                                     <p><b>{{Clientname}}</b><br />
@@ -8615,8 +10577,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterTamilEmpReportView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterTamilEmpReportView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -8629,9 +10595,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Empformstamilpath}}"
                         ng-hide="Empformstamilpath == null || Empformstamilpath == '' "
                         ng-show="Empformstamilpath != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Empformstamilpath}}" ng-hide="Empformstamilpath == null || Empformstamilpath == '' " ng-show="Empformstamilpath != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>
@@ -8643,8 +10613,12 @@ table.noborder th {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="modal fade emp-modal" id="ModalCenterHindiEmpReportView" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+=======
+<div class="modal fade emp-modal" id="ModalCenterHindiEmpReportView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header alert alert-info">
@@ -8657,9 +10631,13 @@ table.noborder th {
             </div>
             <div class="modal-body">
                 <div class="row">
+<<<<<<< HEAD
                     <iframe ng-src="{{Empformshindipath}}"
                         ng-hide="Empformshindipath == null || Empformshindipath == '' "
                         ng-show="Empformshindipath != null " style="height:400px;width:100%"></iframe>
+=======
+                    <iframe ng-src="{{Empformshindipath}}" ng-hide="Empformshindipath == null || Empformshindipath == '' " ng-show="Empformshindipath != null " style="height:400px;width:100%"></iframe>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 </div>
 
             </div>

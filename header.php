@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
 <div class="dashboard-header">
     <nav class="navbar navbar-expand-lg bg-white fixed-top">
         <a class="navbar-brand" href="index.php"><img src="<?php echo "$domain/assets/images/logo/menu-header-logo.png"; ?>" width="170" height="70" /></a>

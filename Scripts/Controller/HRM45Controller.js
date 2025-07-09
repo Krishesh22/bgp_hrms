@@ -666,7 +666,10 @@ $scope.VWGetFileList = function()
         }).then(function successCallback(response) {
         //////// alert(response.data);
         $scope.VWGetDocMasterFileList = response.data;
+<<<<<<< HEAD
         $scope.GetDocMasterFileList = response.data;
+=======
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     });
 }
 

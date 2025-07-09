@@ -467,7 +467,11 @@ $Clientid = $_SESSION["Clientid"];
     <!-- ============================================================== -->
     </div>
 
+<<<<<<< HEAD
     <?php include 'footerjsout.php' ?>
+=======
+    <?php include 'footerjs.php' ?>
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     <script src="Scripts/Controller/DASHBOARDController.js"></script>
 </body>
 </html>

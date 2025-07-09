@@ -196,7 +196,10 @@ function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Sa
                 $PF = round((round($EarnedBasics) + round($EarnedOtherallowance)) * $pfpercentage);
                 $PF = round($PF, 0);
                 $LOPPF = $PF;
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
                 $NH_pf=round((round($BasicDA_Day)*$NH_Sunday + round($Otherallowance_Con_SA_day)*$NH_Sunday)*$pfpercentage);
                 $NH_pf = round($NH_pf, 0);
             }
@@ -335,7 +338,10 @@ function CallEmppdatepayroll($conn, $Clientid, $user_id, $date, $Employeeid, $Sa
         $resultExists01 = $conn->query($resultExists);
         if ($resultExists01 === TRUE) {
             LoadLeave($conn, $Clientid, $SalMonth, $Salyear, $Employeeid, $CL, $TakenEL, $BalanceEL);
+<<<<<<< HEAD
             SaveCTCandBonus($conn, $Clientid, $SalMonth, $Salyear,$Employeeid);
+=======
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
             return "Success";
         } else {
           
@@ -662,6 +668,7 @@ function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employe
         $Net_Salary = $Earned_Wages - $Totaldeduction;
         $Actualnet = ($Earned_Wages + $ActualOTWages) - $Totaldeduction;
         $resultExists = "Update indsys1026employeepayrolltempmasterdetail set 
+<<<<<<< HEAD
         Leavedays ='$Leavedays',
         Nationalholidays = '$Nationalholiday',
         LOP ='$Lop',
@@ -697,6 +704,43 @@ function CallEmppdatepayrollBGPDELHI($conn, $Clientid, $user_id, $date, $Employe
         Dormitory='$Dormitory',
         Transport='$Transport',
         Userid ='$user_id'
+=======
+Leavedays ='$Leavedays',
+Nationalholidays = '$Nationalholiday',
+LOP ='$Lop',
+Totaldays='$Totaldays',
+TotalSal ='$Total_SalaryBGP',
+EarnedBasic='$EarnedBasics',
+EarnedHRA ='$EarnedHRA',
+EarnedOtherallowance_Con_SA ='$EarnedOtherallowance',
+EarnedWages='$Earned_Wages',
+PF ='$PF',
+ESI='$ESI',
+Salary_Advance ='$Salary_Advance',
+FoodDeduction ='$FoodDeduction',
+TotalDeduction='$Totaldeduction',
+NetWages ='$Net_Salary',
+DailyAllowanance='$DailyAllowanance',
+TDS='$TDS',
+OT_HRS ='$OT_HRS',
+OT_Wages='$OT_Wages',
+TakenEL ='$TakenEL',
+BalanceEL='$BalanceEL',
+Workeddays='$Workeddays',
+Performanceallowance='$Performanceallowance',
+Workingdays='$Workingdays',
+Addormodifydatetime ='$date',
+Lophrs='$Lophrs',
+Lopwages='$Lopwages',
+ActualOTHRS='$ActualOt_HRSNew',
+ActualOTWages='$ActualOTWages',
+Actualnet='$Actualnet',
+LWF='$LWF',
+EarnedConveyence='$EarnedConveyence',
+Dormitory='$Dormitory',
+Transport='$Transport',
+Userid ='$user_id'
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
    WHERE Employeeid = '$Employeeid' and SalMonth = '$SalMonth' and  Salyear = '$Salyear' AND Clientid ='$Clientid' ";
         $resultExists01 = $conn->query($resultExists);
         if ($resultExists01 === TRUE) {
@@ -749,7 +793,11 @@ function LoadLeave($conn, $Clientid, $Payrollmonth, $Payrollyear, $Employeeid, $
     $monthoflastday = date('Y-m-t', strtotime($d));
     // $monthof1stday = date("$Payrollyear-$month_num-01");
     // $monthoflastday = date("$Payrollyear-$month_num-t", strtotime($Fromdate));
+<<<<<<< HEAD
     $logemp = "SELECT * FROM indsys1017employeemaster WHERE Clientid='$Clientid'  and Employeeid='$Employeeid'  ORDER BY Employeeid ASC";
+=======
+    $logemp = "SELECT * FROM indsys1017employeemaster WHERE Clientid='$Clientid' and EmpActive='Active' and Employeeid='$Employeeid'  ORDER BY Employeeid ASC";
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
     $logempall = mysqli_query($conn, $logemp);
     while ($rowEmployee = mysqli_fetch_array($logempall)) {
         $Performanceallowance = 0;
@@ -901,6 +949,7 @@ function getTransactionmonthleavebalance($conn, $Clientid, $Employeeid, $Current
         return $e;
     }
 }
+<<<<<<< HEAD
 function getCumulativeTotal($conn, $Clientid, $Employeeid, $column, $startMonth, $endMonthName, $endYear, $fiscalStartYear)
 {
     $start = strtotime("01-$startMonth-$fiscalStartYear");
@@ -1110,3 +1159,5 @@ function SaveCTCandBonus($conn, $Clientid, $SalMonth, $SalYear,$Employeeid)
         }
     }
 }
+=======
+>>>>>>> 75c2f84afc1535619ee176c455dfb79e21fb65b2
