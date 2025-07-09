@@ -1,0 +1,99 @@
+{if !$g_email_font_family}{assign var=g_email_font_family value="Arial, Helvetica, sans-serif"}{/if}
+{if !$g_email_welcome_background}{assign var=g_email_welcome_background value="BFBFBF"}{/if}
+{if !$g_email_welcome_text}{assign var=g_email_welcome_text value="FFFFFF"}{/if}
+{if !$g_email_welcome_name}{assign var=g_email_welcome_name value="292929"}{/if}
+{if !$g_email_network_text}{assign var=g_email_network_text value="292929"}{/if}
+{if !$g_email_network_name}{assign var=g_email_network_name value="5A5A5A"}{/if}
+{if !$g_email_inst_text}{assign var=g_email_inst_text value="636363"}{/if}
+{if !$g_email_inst_bold}{assign var=g_email_inst_bold value="292929"}{/if}
+{capture name=li_1} style="font-family:{$g_email_font_family|escape};margin:0 0 10px 0;padding:0;color:#{$g_email_inst_text|escape};font-size:14px;"{/capture}
+
+{literal}
+<style>
+.list-counter {
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
+.list-counter > li {
+counter-increment: step-counter;
+}
+.list-counter > li::before {
+content: counter(step-counter);.
+margin-right: 5px;
+padding: 3px 8px;
+border-radius: 3px;
+background-color: #{/literal}{$g_email_welcome_background|escape}{literal};
+font-weight: bold;
+font-size: 0.8em;
+}
+</style>
+{/literal}
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#{$g_email_welcome_background|escape}">
+  <tr>
+    <td colspan="3" height="30">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="30">&nbsp;</td>
+    <td>
+      <p style="font-family:{$g_email_font_family|escape};font-weight:bold;font-size:27px;color:#{$g_email_welcome_text|escape};line-height:36px;padding:0;margin:0;">Welcome{if $u.visitor_name} <span style="color:#{$g_email_welcome_name|escape};">{$u.visitor_name|escape}</span>{/if}, your account has been created and is now ready to use.</p>
+    </td>
+    <td width="30">&nbsp;</td>
+  </tr>
+  <tr>
+      <td colspan="3" height="30">&nbsp;</td>
+  </tr>
+</table>
+
+<!-- Set custom width below for larger content -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+    <td height="25">&nbsp;</td>
+  </tr>
+  {if $site_ssid}<tr>
+    <td valign="top">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+        <tr>
+          <td valign="top" width="30"><img src="images/wifi_logo.gif" style="width: 30px;" aria-hidden="true" alt="" /></td>
+          <td valign="top">
+            <h3 style="font-family:{$g_email_font_family|escape};font-size:20px;line-height:25px;font-weight:bold;color:#{$g_email_network_text|escape};margin:0;padding:0;">
+Wi-Fi Network: <span style="color:#{$g_email_network_name|escape};">{$site_ssid|escape}</span>
+            </h3>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>{/if}
+  <tr>
+    <td height="22" valign="top">
+      <img src="images/hr_rule.gif" width="578" height="2" aria-hidden="true" alt="" />
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <h3 style="font-family:{$g_email_font_family|escape};font-size:20px;line-height:20px;font-weight:bold;color:#{$g_email_inst_bold|escape};margin:0 0 10px 0;padding:0;">
+Guest Account and Wi-Fi Instructions:
+      </h3>
+      <ol class="list-counter">
+{counter start=0 print=0}
+        <li{$smarty.capture.li_1}>Make sure your wireless adapter is set to dynamically obtain an IP address</li>
+        <li{$smarty.capture.li_1}>Connect to the wireless network: <span style="color:#{$g_email_inst_bold|escape};"><strong><em>{$site_ssid|escape}</em></strong></span></li>
+        {if $site_wpa_key}<li{$smarty.capture.li_1}>Use the encryption key: <b>{$site_wpa_key|escape}</b></li>{/if}
+        {if !$u.username_auth}<li{$smarty.capture.li_1}>Enter credentials:
+          <ul style="list-style-type:none;list-style-position:inside;margin:0;padding:3px 0 0 20px;">
+            <li style="font-family:{$g_email_font_family|escape};margin:0 0 3px 0;padding:0;color:#{$g_email_inst_text|escape};font-size:14px;">
+&ndash; <em>Username: <span style="color:#{$g_email_inst_bold|escape};"><strong>{$u.username|escape}</strong></span></em>
+            </li>
+            <li style="font-family:{$g_email_font_family|escape};margin:0 0 3px 0;padding:0;color:#{$g_email_inst_text|escape};font-size:14px;">
+&ndash; <em>Password: <span style="color:#{$g_email_inst_bold|escape};"><strong><em>{$u.password|escape}</em></strong></span></em>
+            </li>
+          </ul></li>
+        {else}{*Access-Code Login*}<li{$smarty.capture.li_1}>Enter access code: <span style="color:#{$g_email_inst_bold|escape};"><strong><em>{$u.username|escape}</em></strong></span></em></li>{/if}
+        {if $u.expire_time}<li{$smarty.capture.li_1}>Account expires: {$u.expire_time|date_format:"%A, %B %e, %Y %H:%M"|escape}</li>{/if}
+   <li{$smarty.capture.li_1}>Please <a target='_blank' href='https://connect.kmchhospitals.com/guest/guest_access_login.php?_browser=1'>Click Here </a>to access internet</li>
+
+</ol>
+    </td>
+  </tr>
+</table>

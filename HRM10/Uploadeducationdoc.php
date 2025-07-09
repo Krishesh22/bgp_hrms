@@ -1,0 +1,131 @@
+<?php
+include('../config.php');
+error_reporting(0);
+
+session_start();
+$user_id = $_SESSION["Userid"];
+$username = $_SESSION["Username"]; 
+$Clientid =$_SESSION["Clientid"];      
+$Employeeid =$_SESSION["Employeeid"] ;;
+$Message ='';
+date_default_timezone_set('Asia/Kolkata');
+$date = date("Y-m-d H:i:s" );
+$Sno = $_POST['EduNextno'];
+$Employeestudied = $_POST['Employeestudied'];
+$UniversityorSchool = $_POST['UniversityorSchool'];
+$GradeorPercentage = $_POST['GradeorPercentage'];
+$Passoutyear = $_POST['Passoutyear'];
+$EducationMode = $_POST['EducationMode'];
+$Specialization = $_POST['Specialization'];
+if($EducationMode=="? undefined:undefined ?")
+{
+    $EducationMode="";
+}
+if($Specialization=="? undefined:undefined ?")
+{
+    $Specialization="";
+}
+function createDirectoryIfNotExists($path) {
+    if (!is_dir($path)) {
+        if (!mkdir($path, 0777, true)) {
+            echo "Warning: Folder not created - $path<br>";
+            return false;
+        }
+    }
+    return true;
+}
+
+if (isset($_FILES['files']) && !empty($_FILES['files'])) {
+    $Folderid ="bgp-$Clientid";
+$directory4 = "../$Folderid/";
+$directory3 = "../$Folderid/EMPEDUCATIONDOCUMENTNEW/";
+$directory2 = "../$Folderid/EMPEDUCATIONDOCUMENTNEW/$Employeeid/";
+$directory = "../$Folderid/EMPEDUCATIONDOCUMENTNEW/$Employeeid/$Sno/";
+
+if (    createDirectoryIfNotExists($directory4) &&
+        createDirectoryIfNotExists($directory3) &&
+        createDirectoryIfNotExists($directory2) &&
+        createDirectoryIfNotExists($directory)
+    ) {
+        // Clear existing files in directory
+        
+    } else {
+        echo "Error: One or more folders could not be created.";
+        exit;
+    }
+
+    $no_files = count($_FILES["files"]['name']);
+    for ($i = 0; $i < $no_files; $i++) {
+        if ($_FILES["files"]["error"][$i] > 0) {
+            echo "Error: " . $_FILES["files"]["error"][$i] . "<br>";
+        } else {
+            if (file_exists($directory . $_FILES["files"]["name"][$i])) {
+                echo 'File already exists : '.$directory . $_FILES["files"]["name"][$i];
+            } else {
+                $img = $_FILES["files"]["name"][$i];
+                $uniquesavename=time().$img;
+                if(move_uploaded_file($_FILES["files"]["tmp_name"][$i], $directory.$uniquesavename))
+                {
+
+                $Logofilepath = $directory . $uniquesavename;
+                $resultExists = "SELECT * FROM indsys1020employeeeducationinformation WHERE Employeeid = '$Employeeid' AND Sno='$Sno' AND Clientid = '$Clientid'  LIMIT 1";
+                $resultExists01 = $conn->query($resultExists);
+
+                if (mysqli_fetch_row($resultExists01))
+                {
+
+                $resultExistsss = "Update indsys1020employeeeducationinformation set 
+                Studies ='$Employeestudied',   
+                Universityorschool='$UniversityorSchool',
+                Grade=' $GradeorPercentage',
+                Passoutyear='$Passoutyear',  
+                Educationdocument =   '$Logofilepath',   
+                Addormodifydatetime ='$date',
+                EducationMode='$EducationMode',
+                Specialization='$Specialization',
+                Userid ='$user_id'
+
+
+                WHERE Employeeid = '$Employeeid'  and Sno='$Sno'
+
+                AND Clientid ='$Clientid'  ";
+                $resultExists0New = $conn->query($resultExistsss);
+                $Message = "Exists";
+
+                }
+
+                else
+                {
+                $sqlsave = "INSERT IGNORE INTO indsys1020employeeeducationinformation (Clientid,Employeeid, Sno,Studies,Universityorschool,Grade,Userid,Addormodifydatetime,Passoutyear,Educationdocument,EducationMode,Specialization)
+                VALUES ('$Clientid','$Employeeid','$Sno','$Employeestudied','$UniversityorSchool','$GradeorPercentage','$user_id','$date','$Passoutyear','$Logofilepath','$EducationMode','$Specialization')";
+                $resultsave = mysqli_query($conn, $sqlsave);
+
+                $Message = "Exists";
+                }
+                //  $Message ="Exists";
+                echo 'File successfully uploaded : ' .$directory. $_FILES["files"]["name"][$i] . ' ';
+                }
+                else
+                {
+                    echo 'File not uploaded : '.$directory . $_FILES["files"]["name"][$i];
+                }
+            }
+        }
+    }
+} else {
+    echo 'Please choose at least one file';
+}
+
+
+
+   
+
+
+ 
+
+?>
+
+
+
+
+        

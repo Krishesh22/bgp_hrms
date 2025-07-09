@@ -1,0 +1,588 @@
+<?php include '../config.php' ?>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <?php include '../Headercssin.php' ?>
+    <title>Application Master</title>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+
+        <?php include '../headerin.php' ?>
+        <?php include '../Sidebarin.php' ?>
+        <div class="dashboard-wrapper" ng-App="MyApp" ng-controller="HRM22Controller">
+            <div class="container-fluid dashboard-content">
+               
+
+
+
+                                    <div id="myCarousel" class="carousel slide" data-interval="false">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="container-fluid dashboard-content">
+                                                    <div class="row">
+                                                        <div class="col-xl-12">
+
+
+
+                                                            <div class="card">
+                                                                <h5 class="card-header text-green">Application Details
+                                                                </h5>
+                                                                <div class="card-body">
+
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-bordered  table-sm ">
+                                                                            <thead>
+                                                                                <tr>
+
+                                                                                    <th>No</th>
+                                                                                    <th scope="col"
+                                                                                        style="width: 100px;">
+                                                                                        Application_ID</th>
+                                                                                    <th scope="col"
+                                                                                        style="width: 200px;">Name</th>
+                                                                                    <th scope="col"
+                                                                                        style="width: 90px;">Gender</th>
+                                                                                    <th scope="col">Contactno</th>
+                                                                                    <th scope="col">Category</th>
+                                                                                    <th scope="col">Qualification</th>
+                                                                                    <th scope="col">Status</th>
+                                                                                    <th scope="col">Mobile</th>
+                                                                                    <th scope="col">Email</th>
+
+                                                                                    <th scope="col">Action</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td colspan="2">
+                                                                                        <div class="input-group ">
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                ng-model="searchApplication.Applicationid">
+
+                                                                                        </div>
+
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="input-group ">
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                ng-model="searchApplication.Fullname">
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="input-group ">
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                ng-model="searchApplication.Gender">
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="input-group ">
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                ng-model="searchApplication.Contactno">
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="input-group ">
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                ng-model="searchApplication.Type_Of_Posistion">
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="input-group ">
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                ng-model="searchApplication.HighestQualification">
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td colspan="4">
+                                                                                        <div class="input-group ">
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                ng-model="searchApplication.Selectionstatus">
+
+                                                                                        </div>
+                                                                                    </td>
+
+
+
+
+
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr dir-paginate="e in GetApplicationList02 |filter:searchApplication|itemsPerPage:10 "
+                                                                                    pagination-id="Applicationgrid"
+                                                                                    current-page="currentPageApplication">
+
+
+
+
+                                                                                    <td style="width: 50px;">
+                                                                                        {{$index+1 + (currentPageApplication - 1) * pageSizeApplication}}
+                                                                                    </td>
+
+                                                                                    <td>{{e.Applicationid}}</td>
+                                                                                    <td>{{e.Title}} {{e.Fullname}}</td>
+                                                                                    <td>{{e.Gender}}</td>
+                                                                                    <td>{{e.Contactno}}</td>
+                                                                                    <td>{{e.Type_Of_Posistion}}</td>
+                                                                                    <td>{{e.HighestQualification}}</td>
+                                                                                    <td>{{e.Selectionstatus}}</td>
+                                                                                    <td ng-show="e.Smsverified=='Yes'">
+                                                                                        <img height="15"
+                                                                                            src="<?php echo "$domain"; ?>/assets/images/verified.png" />
+                                                                                    </td>
+                                                                                    <td ng-show="e.Smsverified!='Yes'">
+                                                                                        <img height="15"
+                                                                                            src="<?php echo "$domain"; ?>/assets/images/Notverified.png" />
+                                                                                    </td>
+                                                                                    <td
+                                                                                        ng-show="e.Emailverified=='Yes'">
+                                                                                        <img height="15"
+                                                                                            src="<?php echo "$domain"; ?>/assets/images/verified.png" />
+                                                                                    </td>
+                                                                                    <td
+                                                                                        ng-show="e.Emailverified!='Yes'">
+                                                                                        <img height="15"
+                                                                                            src="<?php echo "$domain"; ?>/assets/images/Notverified.png" />
+                                                                                    </td>
+
+                                                                                    <td>
+                                                                                        <div class="action-btn">
+                                                                                            <img height="15"
+                                                                                                ng-click="SendEdit(e.Applicationid);"
+                                                                                                src="<?php echo "$domain"; ?>/assets/icons/edit.png">
+
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+
+
+                                                                    </div>
+
+                                                                    <div class="float-right mt-2">
+                                                                        <div class="pagination">
+                                                                            <dir-pagination-controls
+                                                                                pagination-id="Applicationgrid"
+                                                                                max-size="3" direction-links="true"
+                                                                                boundary-links="true"
+                                                                                class="pagination">
+                                                                            </dir-pagination-controls>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- ============================================================== -->
+                                                            <!-- basic table  -->
+                                                            <!-- ============================================================== -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="container-fluid">
+                                                 
+                                                     
+
+
+                                                            <div class="card">
+
+                                                                <h5 class="card-header text-green">Application Update
+                                                                </h5>
+
+
+
+
+                                                                <div class="card-body">
+                                                                    <div class="form-group text-right">
+
+                                                                        <span>Mail</span>
+                                                                        <img ng-show="Emailverified!='Yes'" height="15"
+                                                                            src="<?php echo "$domain"; ?>/assets/images/Notverified.png" />
+
+                                                                        <img ng-show="Emailverified=='Yes'" height="15"
+                                                                            src="<?php echo "$domain"; ?>/assets/images/verified.png" />
+                                                                        <span>Mobile No</span>
+                                                                        <img ng-show="Smsverified!='Yes'" height="15"
+                                                                            src="<?php echo "$domain"; ?>/assets/images/Notverified.png" />
+                                                                        <img ng-show="Smsverified=='Yes'" height="15"
+                                                                            src="<?php echo "$domain"; ?>/assets/images/verified.png" />
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Application
+                                                                                ID</label>
+                                                                            <input type="text" class="form-control"
+                                                                                ng-model="Applicationid"
+                                                                                autocomplete="off" readonly>
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-9 mb-0">
+
+
+
+
+                                                                            <div class="row mb-0">
+
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label class="col-form-label">First
+                                                                                        Name</label>
+                                                                                    <div class="input-group "><span
+                                                                                            class="input-group-prepend">
+                                                                                            <select
+                                                                                                class="input-group-text surname-width"
+                                                                                                ng-model="Title">
+                                                                                                <option Value="Mr.">Mr.
+                                                                                                </option>
+                                                                                                <option value="Mrs.">
+                                                                                                    Mrs.</option>
+                                                                                                <option value="Miss.">
+                                                                                                    Miss.</option>
+                                                                                                <option value="Ms.">Ms.
+                                                                                                </option>
+                                                                                                <option value="Shri.">
+                                                                                                    Shri.</option>
+                                                                                            </select></span>
+                                                                                        <input type="text"
+                                                                                            placeholder="Firstname"
+                                                                                            class="form-control"
+                                                                                            ng-model="Firstname">
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label class="col-form-label">Last
+                                                                                        Name</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        ng-model="Lastname"
+                                                                                        autocomplete="off">
+
+                                                                                </div>
+
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label
+                                                                                        class="col-form-label">Status</label>
+                                                                                    <select class="form-control"
+                                                                                        ng-model="Selectionstatus">
+                                                                                        <option Value="Open">Open
+                                                                                        </option>
+
+                                                                                        <option value="Cancel">Cancel
+                                                                                        </option>
+                                                                                        </option>
+
+                                                                                    </select>
+
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Application
+                                                                                Date</label>
+                                                                            <input type="text" class="form-control"
+                                                                                ng-model="ApplicationDate"
+                                                                                onfocus="(this.type='date')"
+                                                                                onblur="(this.type='date')">
+
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Interview
+                                                                                schedule Date</label>
+                                                                            <input type="text" class="form-control"
+                                                                                ng-model="InterviewDate"
+                                                                                onfocus="(this.type='date')"
+                                                                                onblur="(this.type='date')">
+
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Interview
+                                                                                Timing</label>
+                                                                            <input class="form-control"
+                                                                                onfocus="(this.type='time')"
+                                                                                onblur="(this.type='time')"
+                                                                                ng-model="Interviewtime"
+                                                                                placeholder="HH:mm:ss" />
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Gender</label>
+                                                                            <select class="form-control"
+                                                                                ng-model="Gender">
+                                                                                <option Value="Male">Male</option>
+                                                                                <option value="Female">Female</option>
+                                                                                <option value="Other">Other</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label
+                                                                                class="col-form-label">Qualification</label>
+                                                                            <select ng-model="Qualification"
+                                                                                class="form-control">
+
+                                                                                <option
+                                                                                    ng-repeat="s in GetQualififcationList "
+                                                                                    value="{{s.Degree}}">
+                                                                                    {{s.Degree}}</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label
+                                                                                class="col-form-label">Married</label>
+                                                                            <select class="form-control"
+                                                                                ng-model="Married">
+                                                                                <option Value="Yes">Yes</option>
+                                                                                <option value="No">No</option>
+
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Mother Tongue
+                                                                            </label>
+                                                                            <select ng-model="Mothertongue"
+                                                                                class="form-control">
+
+                                                                                <option
+                                                                                    ng-repeat="s in GetLanguageList "
+                                                                                    value="{{s.Languages}}">
+                                                                                    {{s.Languages}}</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Contact
+                                                                                No</label>
+                                                                            <input type="text" class="form-control"
+                                                                                ng-model="Contactno" autocomplete="off"
+                                                                                onkeypress="return Validate(event);"
+                                                                                maxlength="10">
+
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label
+                                                                                class="col-form-label">Category</label>
+                                                                            <select class="form-control"
+                                                                                ng-model="Category">
+                                                                                <option value="Category 1">Category 1
+                                                                                </option>
+                                                                                <option value="Category 2">Category 2
+                                                                                </option>
+                                                                                <option value="Category 3">Category 3
+                                                                                </option>
+
+                                                                            </select>
+                                                                        </div>
+
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Position of
+                                                                                Applicant </label>
+                                                                            <select ng-model="Vaccancy"
+                                                                                class="form-control">
+
+                                                                                <option
+                                                                                    ng-repeat="s in GetVaccancyList "
+                                                                                    value="{{s.Vaccancy}}">
+                                                                                    {{s.Vaccancy}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label
+                                                                                class="col-form-label">Fresher</label>
+                                                                            <select class="form-control"
+                                                                                ng-model="Fresher"
+                                                                                ng-change="GetExpereience(Fresher)">
+                                                                                <option Value="Yes">Yes
+                                                                                </option>
+                                                                                <option value="No">No
+                                                                                </option>
+
+
+                                                                            </select>
+                                                                        </div>
+
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Expected
+                                                                                CTC</label>
+                                                                            <input type="text" class="form-control"
+                                                                                ng-model="ExpectedCTC"
+                                                                                autocomplete="off"
+                                                                                onkeypress="return Validate(event);">
+
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="col-form-label">Current
+                                                                                CTC</label>
+                                                                            <input type="text" class="form-control"
+                                                                                ng-model="PreviousCTC"
+                                                                                autocomplete="off"
+                                                                                onkeypress="return Validate(event);"
+                                                                                ng-disabled="btnPrevious">
+
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-9">
+                                                                            <label class="col-form-label">Email
+                                                                                ID</label>
+                                                                            <input type="email" class="form-control"
+                                                                                ng-model="Emailid" autocomplete="email"
+                                                                                ng-model-options='{ debounce: 1000 }'
+                                                                                ng-change="emailchecking(Emailid)">
+
+                                                                        </div>
+
+
+
+                                                                    </div>
+
+                                                                    <div class="alert alert-success" role="alert"
+                                                                        ng-show="Message">
+                                                                        {{Message}}
+                                                                    </div>
+
+                                                                    <div class="form-group text-right">
+                                                                        <button
+                                                                            class="btn btn-sm btn-rounded btn-success"
+                                                                            ng-click="UpdateApplication();"><i
+                                                                                class="fa fa-save"></i>
+                                                                            Update</button>
+
+                                                                        <button
+                                                                            class="btn btn-sm btn-rounded btn-warning"
+                                                                            ng-click="Sendemail();"><i
+                                                                                class="fa fa-envelope"></i>
+                                                                            Interview Mail</button>
+
+                                                                        <button
+                                                                            class="btn btn-sm btn-rounded btn-primary"><i
+                                                                                class="fa fa-mobile"></i>
+                                                                            Mobile-Verification</button>
+
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            data-toggle="modal"
+                                                                            data-target="#exampleModalCenter">
+                                                                            Launch demo modal
+                                                                        </button>
+
+                                                                        <button class="btn btn-sm btn-rounded btn-info"
+                                                                            ng-click="Emailverification01();"><i
+                                                                                class="fa fa-envelope"></i>
+                                                                            Email-Verification</button>
+                                                                        <button
+                                                                            class="btn btn-sm btn-rounded btn-danger"
+                                                                            ng-click="FetchApplication(Applicationid);"><i
+                                                                                class="fa fa-circle-notch"></i>
+                                                                            Refresh</button>
+                                                                        <button ng-show="btnMove"
+                                                                            class="btn btn-sm btn-rounded btn-info"
+                                                                            ng-click="MoveToCandidate();"><i
+                                                                                class="fa fa-save"></i>
+                                                                            Move To Candidate</button>
+
+                                                                        <button
+                                                                            class="btn btn-sm btn-rounded btn-warning"
+                                                                            data-target="#myCarousel"
+                                                                            data-slide-to="0"><i
+                                                                                class="fa  fa-arrow-left"></i>
+                                                                            Back</button>
+                                                                    </div>
+
+
+                                                                    <!--Mobile Modal -->
+                                                                   
+
+
+
+
+                                                                </div>
+
+                                                            </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="modal fade" id="exampleModalCenter"
+                                                                        tabindex="-1" role="dialog"
+                                                                        aria-labelledby="exampleModalCenterTitle"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered"
+                                                                            role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title"
+                                                                                        id="exampleModalLongTitle">Modal
+                                                                                        title</h5>
+                                                                                    <button type="button" class="close"
+                                                                                        data-dismiss="modal"
+                                                                                        aria-label="Close">
+                                                                                        <span
+                                                                                            aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    ...
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        class="btn btn-secondary"
+                                                                                        data-dismiss="modal">Close</button>
+                                                                                    <button type="button"
+                                                                                        class="btn btn-primary">Save
+                                                                                        changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+            </div>                                        
+        </div>               
+                                                 <?php include '../footerjs.php'?>
+
+                                                                <script src="../Scripts/Controller/HRM22Controller.js">
+                                                                </script>
+                                                                <script type="text/javascript">
+                                                                function Validate(event) {
+                                                                    var regex = new RegExp("^[0-9-/()]");
+                                                                    var key = String.fromCharCode(event.charCode ? event
+                                                                        .which : event.charCode);
+                                                                    if (!regex.test(key)) {
+                                                                        event.preventDefault();
+                                                                        return false;
+                                                                    }
+                                                                }
+                                                                </script>
+</body>
+
+</html>
